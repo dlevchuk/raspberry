@@ -8,6 +8,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+    - name: Print name 
+      run: echo "Hello $NAME. $BUILD. ${{secrets.REMOTE_PORT}}"
     - uses: actions/checkout@v2
     - name: rsync deployments
       uses: burnett01/rsync-deployments@5.2.1
@@ -20,5 +22,4 @@ jobs:
         remote_port: ${{secrets.REMOTE_PORT}}
         remote_key: ${{secrets.SSH_PRIVATE_KEY}}
       
-    - name: Print name 
-      run: echo "Hello $NAME. $BUILD. ${{secrets.REMOTE_PORT}}"
+
