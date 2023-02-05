@@ -10,7 +10,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: rsync deployments
-      run: echo "Hello $NAME. $BUILD. ${{secrets.REMOTE_PORT}}"
       uses: burnett01/rsync-deployments@5.2.1
       with:
         switches: -avzr --delete
@@ -20,3 +19,6 @@ jobs:
         remote_user: ${{secrets.REMOTE_USER}}
         remote_port: ${{secrets.REMOTE_PORT}}
         remote_key: ${{secrets.SSH_PRIVATE_KEY}}
+      
+    - name: Print name 
+      run: echo "Hello $NAME. $BUILD. ${{secrets.REMOTE_PORT}}"
