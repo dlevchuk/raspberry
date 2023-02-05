@@ -15,7 +15,7 @@ jobs:
         switches: -avzr --delete
         path: src/
         remote_path: /home/pi/scripts/
-        remote_host: example.com
+        remote_host: 78.26.173.177
         remote_user: pi
         remote_port: 7722
-        remote_key: ${{ secrets.DEPLOY_KEY }}
+        remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
