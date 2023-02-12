@@ -1,4 +1,4 @@
-name: sync files
+name: sync files raspberry outage
 on:
   push:
     paths:

@@ -1,4 +1,4 @@
-name: sync files
+name: sync files imdb backups
 on:
   push:
     paths:
