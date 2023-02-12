@@ -1,0 +1,21 @@
+name: sync files
+on:
+  push:
+    paths:
+    - scripts/imdb_backup/imdb_backup.py
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2.3.2
+    - name: rsync deployments
+      uses: burnett01/rsync-deployments@5.2.1
+      with:
+        switches: -avz --delete --chmod=755
+        path: scripts/imdb_backup/imdb_backup.py
+        remote_path: ${{ secrets.REMOTE_PATH_IMDB }}
+        remote_host: ${{ secrets.REMOTE_HOST }}
+        remote_user: ${{ secrets.REMOTE_USER }}
+        remote_port: ${{ secrets.REMOTE_PORT }}
+        remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
