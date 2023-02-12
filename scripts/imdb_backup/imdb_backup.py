@@ -21,7 +21,7 @@ load_dotenv()
 
 REQUIRED_COOKIES = {'at-main', 'ubid-main', 'uu'}
 COOKIE_FNAME = 'imdb_cookie.json'
-ZIP_FNAME = 'imdb_exported_lists.zip'
+ZIP_FNAME = '/home/pi/backups/imdb_exported_lists.zip'
 README_REF = 'For more info check README.md.\n' \
              '[https://github.com/monk-time/imdb-backup-lists/blob/master/README.md]'
 
