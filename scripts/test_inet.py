@@ -2,14 +2,13 @@
 
 ### cron
 ### @reboot sleep 120 && /home/pi/test_inet.py
-###
+### 2min to boot router and provider switch
 
 import requests
 import http.client as httplib
 import time
 import subprocess
-import datetime
-
+from datetime import datetime
 import os
 from dotenv import load_dotenv
 
@@ -27,34 +26,23 @@ def have_internet():
         conn.close()
 
 
+def poweroff_start_time():
+    output = subprocess.run(["journalctl", "--list-boots"], capture_output=True, text=True).stdout
+    latest_boot = output.strip().split("\n")[-2]
+    date_string = latest_boot.split(" ")[-3:]
+    date = " ".join(date_string)
+    return date
 
 
-def time_since_last_boot():
-    result = subprocess.run(["journalctl", "--list-boots"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    output = result.stdout.decode()
-    lines = output.split("\n")
-    for line in lines:
-        if " - " in line:
-            boot_time_str = line.split(" - ")[1]
-            boot_time = datetime.datetime.strptime(boot_time_str, "%a %b %d %H:%M:%S %Y")
-            now = datetime.datetime.now()
-            time_since_boot = now - boot_time
-            return time_since_boot
-
-
-
-
-#def return_uptime():
-#    with open('/proc/uptime', 'r') as f:
-#        seconds = float(f.readline().split()[0])
-#
-#    minutes = int(seconds // 60)
-#    hours = int(minutes // 60)
-#    days = int(hours // 24)
-#
-#    return str(days) + " days " + str(hours % 24) + " hours " + str(minutes % 60) + " minutes"
-
-
+def outage_duration(start_time):
+    start_time = datetime.strptime(start_time, "%Y-%m-%d %H:%M:%S %Z")
+    now = datetime.now()
+    diff = now - start_time
+    seconds = diff.total_seconds()
+    minutes = int(seconds // 60)
+    hours = int(minutes // 60)
+    days = int(hours // 24)
+    return str(days) + " days " + str(hours % 24) + " hours " + str(minutes % 60) + " minutes"
 
 
 def telegram_bot_sendtext(bot_message):
@@ -64,13 +52,12 @@ def telegram_bot_sendtext(bot_message):
    response = requests.get(send_text)
 
 
-
 retry = True
 while retry:
     try:
         conn = have_internet()
         if(conn == True):
-           telegram_bot_sendtext("Internet connection was established after a power outage in {}".format(time_since_last_boot()))
+           telegram_bot_sendtext("Internet connection was established after a power outage {} that lasted {}".format(poweroff_start_time(), outage_duration(poweroff_start_time())))
            retry = False
     except:
            time.sleep(60)
