@@ -8,6 +8,7 @@ import zipfile
 from pathlib import Path
 from typing import Dict, Generator, Iterable, Union
 from dotenv import load_dotenv
+from datetime import datetime
 
 import requests
 import unidecode
@@ -21,7 +22,7 @@ load_dotenv()
 
 REQUIRED_COOKIES = {'at-main', 'ubid-main', 'uu'}
 COOKIE_FNAME = 'imdb_cookie.json'
-ZIP_FNAME = '/home/pi/docker/syncthing/sync/backup/imdb_exported_lists.zip'
+ZIP_FNAME = '/home/pi/docker/syncthing/sync/backup/imdb_exported_lists_datetime_' + datetime.now().strftime("%Y%m%d") + '.zip'
 README_REF = 'For more info check README.md.\n' \
              '[https://github.com/monk-time/imdb-backup-lists/blob/master/README.md]'
 
