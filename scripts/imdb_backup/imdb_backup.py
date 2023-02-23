@@ -132,7 +132,7 @@ def zip_all(mlists: Iterable[MList], zip_fname=ZIP_FNAME):
                 title = f'"{title}"'.replace('\n', os.linesep)
             titles.append(f'{ml["fname"]}: {title}')
         zf.writestr('lists.txt', os.linesep.join(titles))
-    telegram_bot_sendtext("Zip archive - " + ZIP_FNAME + " created successfully")
+    telegram_bot_sendtext("Zip archive created successfully")
 
 def backup(cookie_path):
     cookies = load_imdb_cookies(cookie_path)
