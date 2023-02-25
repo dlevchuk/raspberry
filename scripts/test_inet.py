@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-## cron
 ## @reboot sleep 120 && /home/pi/test_inet.py
 ## 2min to boot router and provider switch
 
