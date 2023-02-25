@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.3.2
+
     - name: rsync deployments
       uses: burnett01/rsync-deployments@5.2.1
       with:
@@ -19,3 +20,8 @@ jobs:
         remote_user: ${{ secrets.REMOTE_USER }}
         remote_port: ${{ secrets.REMOTE_PORT }}
         remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+    
+    - name: Install Python dependencies
+      uses: py-actions/py-dependency-install@v2
+      with:
+        path: scripts/imdb_backup/requirements.txt
