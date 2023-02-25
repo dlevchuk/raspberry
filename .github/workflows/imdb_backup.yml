@@ -25,3 +25,13 @@ jobs:
       uses: py-actions/py-dependency-install@v2
       with:
         path: scripts/imdb_backup/requirements.txt
+        update-pip: "true"
+
+    - name: executing remote ssh to setup cron
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port:  ${{ secrets.REMOTE_PORT }}
+        script: crontab -l | { cat; echo "0 15 * * * cd /home/pi/scripts/imdb_backup/ && python3 imdb_backup.py --nopause"; } | crontab -

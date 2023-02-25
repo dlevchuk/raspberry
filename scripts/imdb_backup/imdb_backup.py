@@ -15,7 +15,7 @@ import unidecode
 from bs4 import BeautifulSoup
 
 
-#0 23 * * * cd /home/pi/scripts/imdb_backup/ && python3 imdb_backup.py --nopause
+
 #https://github.com/monk-time/imdb-backup-lists
 
 load_dotenv()
