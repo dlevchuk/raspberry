@@ -15,9 +15,6 @@ import unidecode
 from bs4 import BeautifulSoup
 
 
-
-#https://github.com/monk-time/imdb-backup-lists
-
 load_dotenv()
 
 REQUIRED_COOKIES = {'at-main', 'ubid-main', 'uu'}

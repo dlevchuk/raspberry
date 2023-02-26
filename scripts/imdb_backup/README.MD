@@ -19,9 +19,7 @@ A simple tool to backup all your lists from IMDb including your watchlist and ra
    1. Open any page on IMDb.
    2. Open Developer tools in your browser:
       - Firefox: ≡ → Web Developer → Storage Inspector<br><br>
-        ![Firefox](images/firefox.png)
       - Chrome: ⫶ → More tools → Developer tools → Application tab<br><br>
-        ![Chrome](images/chrome.png)
    3. Expand "Cookies" in the left panel and select `http://www.imdb.com`.
    4. Find rows named `at-main`, `ubid-main` and `uu`, double click on their cells in the "Value" column and copy them.
 
