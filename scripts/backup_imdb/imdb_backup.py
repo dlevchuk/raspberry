@@ -14,22 +14,21 @@ import requests
 import unidecode
 from bs4 import BeautifulSoup
 
-
 load_dotenv()
 
 REQUIRED_COOKIES = {'at-main', 'ubid-main', 'uu'}
 COOKIE_FNAME = 'imdb_cookie.json'
 ZIP_FNAME = '/home/pi/docker/syncthing/sync/backup/imdb_exported_lists_datetime_' + datetime.now().strftime("%Y_%m_%d") + '.zip'
-README_REF = 'For more info check README.md.\n' \
-             '[https://github.com/monk-time/imdb-backup-lists/blob/master/README.md]'
 
 MList = Dict[str, Union[str, bytes]]
+
 
 def telegram_bot_sendtext(bot_message):
    bot_token = os.environ.get("BOT_TOKEN")
    bot_chatID = os.environ.get("BOT_CHAT_ID")
    send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=Markdown&text=' + bot_message
    response = requests.get(send_text)
+
 
 def slugify(s: str) -> str:
     """
@@ -53,7 +52,7 @@ def load_imdb_cookies(cookie_path):
         return cookies
     else:
         raise FileNotFoundError(f'\n\nCreate a file "{COOKIE_FNAME}" in the script directory\n'
-                                f'and put your IMDb cookie inside.\n{README_REF}')
+                                f'and put your IMDb cookie inside.')
 
 
 def fetch_userid(cookies: dict) -> str:
@@ -63,8 +62,7 @@ def fetch_userid(cookies: dict) -> str:
     m = re.search(r'ur\d+', r.headers['Location'])
     if not m:
         raise Exception("\n\nCan't log into IMDb.\n"
-                        f'Make sure that your IMDb cookie in {COOKIE_FNAME} is correct.\n'
-                        f'{README_REF}')
+                        f'Make sure that your IMDb cookie in {COOKIE_FNAME} is correct.\n')
     return m.group()
 
 
@@ -131,6 +129,7 @@ def zip_all(mlists: Iterable[MList], zip_fname=ZIP_FNAME):
         zf.writestr('lists.txt', os.linesep.join(titles))
     telegram_bot_sendtext("Zip archive created successfully")
 
+
 def backup(cookie_path):
     cookies = load_imdb_cookies(cookie_path)
     userid = fetch_userid(cookies)
@@ -138,7 +137,6 @@ def backup(cookie_path):
     telegram_bot_sendtext(f'Successfully logged in as user {userid}')
     mlists = fetch_lists_info(userid, cookies)
     zip_all(export(ml, cookies) for ml in mlists)
-
 
 
 def pause_before_exit_unless_run_with_flag():

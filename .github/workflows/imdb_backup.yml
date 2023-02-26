@@ -2,7 +2,7 @@ name: sync files imdb backups
 on:
   push:
     paths:
-    - scripts/imdb_backup/imdb_backup.py
+    - scripts/backup_imdb/imdb_backup.py
 
 jobs:
   deploy:
@@ -24,7 +24,7 @@ jobs:
     - name: Install Python dependencies
       uses: py-actions/py-dependency-install@v2
       with:
-        path: scripts/imdb_backup/requirements.txt
+        path: scripts/backup_imdb/requirements.txt
         update-pip: "true"
 
     - name: executing remote ssh to setup cron
