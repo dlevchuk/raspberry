@@ -33,4 +33,4 @@ jobs:
         username: ${{ secrets.REMOTE_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port:  ${{ secrets.REMOTE_PORT }}
-        script: sudo grep '/home/pi/scripts/backup_feedly/feedly_backup.py' /var/spool/cron/crontabs/pi || crontab -l | { cat; echo "10 23 * * * cd /home/pi/scripts/backup_feedly/ && python3 feedly_backup.py"; } | crontab -
+        script: sudo grep 'feedly_backup.py' /var/spool/cron/crontabs/pi || crontab -l | { cat; echo "10 23 * * * cd /home/pi/scripts/backup_feedly/ && python3 feedly_backup.py"; } | crontab -
