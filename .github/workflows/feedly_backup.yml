@@ -5,7 +5,7 @@ on:
     - scripts/backup_feedly/feedly_backup.py
 
 jobs:
-  deploy_feedly:
+  deploy_feedly_backup:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.3.2

@@ -2,10 +2,10 @@ name: sync files raspberry outage
 on:
   push:
     paths:
-    - scripts/test_inet.py
+    - scripts/raspberry_outage/raspberry_outage.py
 
 jobs:
-  deploy:
+  deploy_raspberry_outage_script:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.3.2

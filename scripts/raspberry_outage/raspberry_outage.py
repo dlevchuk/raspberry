@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-## @reboot sleep 120 && /home/pi/test_inet.py
+## @reboot sleep 120 && raspberry_outage.py
 ## 2min to boot router and provider switch
 
 import requests
@@ -12,7 +12,6 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()  # take environment variables from .env.
-
 
 def have_internet():
     conn = httplib.HTTPSConnection("8.8.8.8", timeout=5)
