@@ -1,6 +1,6 @@
 # imdb-backup-lists
 
-A simple tool to backup all your lists from IMDb including your watchlist and ratings. Creates a .zip archive with .csv files exported from the site. To prevent filesystem errors all personal lists are renamed to `ls0XXXXXXXX_latinized-list-name.csv`, but all original list titles (including multiline ones) are preserved in `titles.txt` in the same archive.
+A simple tool to backup all your lists from IMDb including your watchlist and ratings. Creates a .zip archive with .csv files exported from the site. 
 
 ## Installation:
 
@@ -31,3 +31,4 @@ A simple tool to backup all your lists from IMDb including your watchlist and ra
      "uu": "..."
    }
    ```
+3. Create .env file for TOKENS
