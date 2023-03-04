@@ -16,9 +16,14 @@ from bs4 import BeautifulSoup
 
 load_dotenv()
 
+folder = '/home/pi/docker/syncthing/sync/backup/imdb_backup/'
+isDirExist = os.path.exists(folder)
+if not isDirExist:
+  os.mkdir(folder)
+
 REQUIRED_COOKIES = {'at-main', 'ubid-main', 'uu'}
 COOKIE_FNAME = 'imdb_cookie.json'
-ZIP_FNAME = '/home/pi/docker/syncthing/sync/backup/imdb_exported_lists_datetime_' + datetime.now().strftime("%Y_%m_%d") + '.zip'
+ZIP_FNAME = folder + 'imdb_exported_lists_datetime_' + datetime.now().strftime("%Y_%m_%d") + '.zip'
 
 MList = Dict[str, Union[str, bytes]]
 
