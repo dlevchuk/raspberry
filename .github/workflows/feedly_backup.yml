@@ -1,0 +1,36 @@
+name: sync files raspberry outage
+on:
+  push:
+    paths:
+    - scripts/backup_feedly/feedly_backup.py
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2.3.2
+    - name: rsync deployments
+      uses: burnett01/rsync-deployments@5.2.1
+      with:
+        switches: -avz --delete --chmod=755
+        path: scripts/backup_feedly/feedly_backup.py
+        remote_path: ${{ secrets.REMOTE_PATH_FEEDLY }}
+        remote_host: ${{ secrets.REMOTE_HOST }}
+        remote_user: ${{ secrets.REMOTE_USER }}
+        remote_port: ${{ secrets.REMOTE_PORT }}
+        remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Install Python dependencies
+      uses: py-actions/py-dependency-install@v2
+      with:
+        path: scripts/backup_feedly/requirements.txt
+        update-pip: "true"
+
+    - name: executing remote ssh to setup cron
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port:  ${{ secrets.REMOTE_PORT }}
+        script: sudo grep '/home/pi/scripts/backup_feedly/feedly_backup.py' /var/spool/cron/crontabs/pi || crontab -l | { cat; echo "10 23 * * * cd /home/pi/scripts/backup_feedly/ && python3 feedly_backup.py"; } | crontab -

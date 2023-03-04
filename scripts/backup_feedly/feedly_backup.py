@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 
-import io
 import json
 import requests
-import time
 from datetime import datetime
 import os
 from dotenv import load_dotenv
