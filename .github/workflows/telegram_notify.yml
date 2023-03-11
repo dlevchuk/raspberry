@@ -16,6 +16,6 @@ jobs:
         message: |
           ${{ github.actor }} created commit:
           Commit message: ${{ github.event.commits[0].message }}
-          ${{ github.action_status }}	
+          ${{ github.action }}	
           Repository: ${{ github.repository }}
             
