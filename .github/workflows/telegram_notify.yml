@@ -8,14 +8,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: send custom message
-      if: ${{ failure() }}
+#      if: ${{ failure() }}
       uses: appleboy/telegram-action@master
       with:
-        to: ${{ secrets.TELEGRAM_TO1 }}
+        to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
           ${{ github.actor }} created commit:
           Commit message: ${{ github.event.commits[0].message }}
-          ${{ github.action }}	
+          1 ${{ github.action }}
+          2 ${{ github.event.name }}
+          3 ${{ github.workflow }}
+          4 ${{ github.event.path }}	
           Repository: ${{ github.repository }}
             
