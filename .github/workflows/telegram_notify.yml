@@ -1,4 +1,4 @@
-name: send message to telegram on fail
+name: send message to telegram 
 on:
   workflow_run:
     workflows: 
@@ -17,11 +17,5 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          ${{ github.actor }} created commit:
-          Commit message: ${{ github.event.commits[0].message }}
-          1 ${{ github.action }}
-          2 ${{ github.event.name }}
-          Github workflow ${{ github.workflow }}
-          4 ${{ github.event.path }}	
-          Repository: ${{ github.repository }}
+          github.event.name.workflow_run
             
