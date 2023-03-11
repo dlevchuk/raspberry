@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # @reboot sleep 120 && raspberry_outage.py
-# 2min to boot router and provider switch 
+## 2min to boot router and provider switch 
 
 import requests
 import http.client as httplib
