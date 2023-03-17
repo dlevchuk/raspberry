@@ -27,4 +27,4 @@ jobs:
         username: ${{ secrets.REMOTE_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port:  ${{ secrets.REMOTE_PORT }}
-        script: sudo grep '/home/pi/scripts/test_inet.py' /var/spool/cron/crontabs/pi || crontab -l | { cat; echo "@reboot sleep 120 && /home/pi/scripts/test_inet.py"; } | crontab -
+        script: sudo grep '/home/pi/scripts/test_inet.py' /var/spool/cron/crontabs/pi || crontab -l | { cat; echo "@reboot sleep 120 && /home/pi/scripts/test_inet.py > /dev/null 2>&1"; } | crontab -
