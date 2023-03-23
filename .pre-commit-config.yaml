@@ -2,8 +2,14 @@ repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
-    -   id: check-yaml
     -   id: end-of-file-fixer
     -   id: trailing-whitespace
-    -   id: detect_aws_credentials
     -   id: detect-private-key
+
+repos:
+-   repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+    -   id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
+        exclude: package.lock.json
