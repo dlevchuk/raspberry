@@ -1,8 +1,8 @@
-name: sync files feedly backup
+name: sync files github quotas
 on:
   push:
     paths:
-    - scripts/backup_feedly/feedly_backup.py
+    - scripts/github_quotas/get_github_quotas.py
 
 jobs:
   deploy_feedly_backup:
@@ -13,8 +13,8 @@ jobs:
       uses: burnett01/rsync-deployments@5.2.1
       with:
         switches: -avz --delete --chmod=755
-        path: scripts/backup_feedly/feedly_backup.py
-        remote_path: ${{ secrets.REMOTE_PATH_FEEDLY }}
+        path: scripts/github_quotas/get_github_quotas.py
+        remote_path: ${{ secrets.REMOTE_PATH_GITHUB_QUOTAS }}
         remote_host: ${{ secrets.REMOTE_HOST }}
         remote_user: ${{ secrets.REMOTE_USER }}
         remote_port: ${{ secrets.REMOTE_PORT }}
@@ -33,4 +33,4 @@ jobs:
         username: ${{ secrets.REMOTE_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port:  ${{ secrets.REMOTE_PORT }}
-        script: sudo grep 'feedly_backup.py' /var/spool/cron/crontabs/pi || crontab -l | { cat; echo "10 20 * * 6 cd /home/pi/scripts/backup_feedly/ && python3 feedly_backup.py > /dev/null 2>&1"; } | crontab -
+        script: sudo grep 'get_github_quotas.py' /var/spool/cron/crontabs/pi || crontab -l | { cat; echo "30 20 * * 6 cd ${{ secrets.REMOTE_PATH_GITHUB_QUOTAS }} && python3 get_github_quotas.py > /dev/null 2>&1"; } | crontab -
