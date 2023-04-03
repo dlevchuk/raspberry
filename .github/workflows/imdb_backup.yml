@@ -34,4 +34,4 @@ jobs:
         username: ${{ secrets.REMOTE_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port:  ${{ secrets.REMOTE_PORT }}
-        script: sudo grep '/home/pi/scripts/imdb_backup' /var/spool/cron/crontabs/pi || crontab -l | { cat; echo "0 20 * * 6 cd /home/pi/scripts/imdb_backup/ && python3 imdb_backup.py --nopause > /dev/null 2>&1"; } | crontab -
+        script: sudo grep '/home/pi/scripts/imdb_backup' /var/spool/cron/crontabs/pi || crontab -l | { cat; echo "0 20 * * 6 cd ${{ secrets.REMOTE_PATH_IMDB }} && python3 imdb_backup.py --nopause > /dev/null 2>&1"; } | crontab -
