@@ -1,0 +1,5 @@
+requests
+load_dotenv
+selenium>=3.141.0
+ConfigArgParse>=1.5.2
+geckodriver-autoinstaller>=0.1.0
