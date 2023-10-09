@@ -22,7 +22,7 @@ filename_boards = folder + 'feedly_export_boards_' + datetime.now().strftime("%Y
 headers = {'Authorization' : 'OAuth '+ feedly_token}
 
 url_opml = 'https://cloud.feedly.com/v3/opml'
-#get boards list
+##get boards list
 url_boards = 'https://cloud.feedly.com/v3/boards'
 
 def telegram_bot_sendtext(bot_message):
