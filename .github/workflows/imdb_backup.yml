@@ -10,6 +10,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2.3.2
 
+    - name: Tailscale
+      uses: tailscale/github-action@v2
+      with:
+        authkey: ${{ secrets.TAILSCALE_AUTHKEY }}       
+
     - name: rsync deployments
       uses: burnett01/rsync-deployments@5.2.1
       with:
