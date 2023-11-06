@@ -1,7 +1,7 @@
-name: send message to telegram 
+name: send message to telegram
 on:
   workflow_run:
-    workflows: 
+    workflows:
       - '*'
     types:
       - completed
@@ -17,4 +17,4 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
 
-            
+
