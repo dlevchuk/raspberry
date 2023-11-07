@@ -1,6 +1,6 @@
 # goodreads account backup
 
-A simple tool to backup data from goodreads account. Create a .csv file exported from the site. 
+A simple tool to backup data from goodreads account. Create a .csv file exported from the site.
 
 ## Installation:
 

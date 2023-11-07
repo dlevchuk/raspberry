@@ -1,6 +1,6 @@
 # imdb-backup-lists
 
-A simple tool to backup all your lists from IMDb including your watchlist and ratings. Creates a .zip archive with .csv files exported from the site. 
+A simple tool to backup all your lists from IMDb including your watchlist and ratings. Creates a .zip archive with .csv files exported from the site.
 
 ## Installation:
 

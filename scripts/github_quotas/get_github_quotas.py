@@ -34,7 +34,7 @@ response_gh_sh_storage = requests.get(url_gh_sh_storage, headers=headers)
 # parse the response and print out the GitHub Packages quotas
 if response_gh_sh_storage.status_code == 200:
     data = json.loads(response_gh_sh_storage.content.decode('utf-8'))
-    
+
     message_list.append("<b>GitHub shared-storage quotas</b>")
     message_list.append(f"  Days left in billing cycle: <u>{data['days_left_in_billing_cycle']}</u>")
     message_list.append(f"  Estimated Packages paid storage for month: <u>{data['estimated_paid_storage_for_month']}</u>")
@@ -51,14 +51,14 @@ if response_gh_action.status_code == 200:
     if data['total_minutes_used'] > 1500:
         message_list.append(f"\n<b>GitHub action quotas</b> {large_red_circle}")
     else:
-        message_list.append(f"\n<b>GitHub action quotas</b> {heavy_check_mark}")    
-    
+        message_list.append(f"\n<b>GitHub action quotas</b> {heavy_check_mark}")
+
     message_list.append(f"  Total minutes used: <u>{data['total_minutes_used']}</u>")
     message_list.append(f"  Total paid minutes used: <u>{data['total_paid_minutes_used']}</u>")
     message_list.append(f"  Included minutes: <u>{data['included_minutes']}</u>")
     message_list.append("  <i>Minutes used breakdown:</i>")
     breakdown = data["minutes_used_breakdown"]
-    
+
     for key, value in breakdown.items():
         if value != 0:
             minutes_used_by_os = ": ".join(str(x) for x in (key, value))
@@ -77,7 +77,7 @@ if response_gh_packages.status_code == 200:
     if data['total_gigabytes_bandwidth_used'] > 0.8:
         message_list.append(f"\n<b>GitHub packges quotas</b> {large_red_circle}")
     else:
-        message_list.append(f"\n<b>GitHub packges quotas</b> {heavy_check_mark}")  
+        message_list.append(f"\n<b>GitHub packges quotas</b> {heavy_check_mark}")
 
     message_list.append(f"  Total gigabytes bandwidth used: <u>{data['total_gigabytes_bandwidth_used']}</u>")
     message_list.append(f"  Total paid gigabytes bandwidth used: <u>{data['total_paid_gigabytes_bandwidth_used']}</u>")

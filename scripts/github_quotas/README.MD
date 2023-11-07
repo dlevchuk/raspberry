@@ -14,7 +14,7 @@ This script allows you to get notifications to telegram about your github accoun
 
 ## How to run:
 
-1. Obtain a Github developer token. 
+1. Obtain a Github developer token.
 
 2. Create .env file and add your tokens as environment variables:
    ```
