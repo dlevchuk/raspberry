@@ -37,15 +37,15 @@ jobs:
        rm -f ansible/group_vars/all
        rm -f ansible/hosts 
        mkdir -p ~/.ssh/
+       echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
+       chmod 600 private_key.pem
        ssh-keyscan -H "$REMOTE_HOST" >> ~/.ssh/known_hosts
        chmod 0700 ~/.ssh
-       chmod 600 ~/.ssh/known_hosts
-       eval $(ssh-agent -s)
-       ssh-add <(echo "$SSH_KEY")
+       chmod 0600 ~/.ssh/known_hosts
+
        export ANSIBLE_HOST_KEY_CHECKING=True
-       echo "[raspberry]" >> ansible/hosts
-       echo "$REMOTE_HOST" >> ansible/hosts
+
       shell: bash 
        
     - name: Run Ansible playbook
-      run: ansible-playbook ansible/site.yml -i "$REMOTE_HOST", --extra-vars "ansible_user=pi ansible_port=7722"
+      run: ansible-playbook ansible/site.yml -i "$REMOTE_HOST", --private-key=private_key.pem --extra-vars "ansible_user=pi ansible_port=7722"
