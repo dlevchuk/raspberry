@@ -1,0 +1,10 @@
+---
+- name: configure and deploy the raspberry
+  hosts: all
+  remote_user: pi
+  gather_facts: True
+  become: true
+
+  roles:
+    - common
+#    - docker_apps

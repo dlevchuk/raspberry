@@ -1,0 +1,9 @@
+- name: setup Cronicle
+  docker_container:
+    name: cronicle
+    image: bluet/cronicle-docker:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "3012:3012"
+    restart_policy: always

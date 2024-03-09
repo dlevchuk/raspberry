@@ -1,0 +1,35 @@
+- name: Enable watchdog in /boot/config.txt
+  ansible.builtin.lineinfile:
+    path: /boot/config.txt
+    line: 'dtparam=watchdog=on'
+    insertafter: EOF
+  notify: Reboot Pi
+
+- name: Reboot Pi
+  ansible.builtin.reboot:
+    connect_timeout: 30
+    reboot_timeout: 300
+  when: ansible_system == 'Linux' and ansible_distribution == 'Raspbian'
+  async: 0
+  poll: 0
+
+- name: Ensure watchdog software is installed
+  ansible.builtin.apt:
+    name: watchdog
+    state: present
+
+- name: Configure watchdog settings
+  ansible.builtin.template:
+    src: "watchdog.conf.j2"
+    dest: "/etc/watchdog.conf"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart watchdog
+
+- name: Start watchdog service
+  ansible.builtin.service:
+    name: watchdog
+    state: started
+    enabled: yes
+  notify: Check watchdog status

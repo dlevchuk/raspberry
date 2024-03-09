@@ -1,0 +1,17 @@
+- name: Setup syncthing
+  docker_container:
+    name: syncthing
+    image: lscr.io/linuxserver/syncthing:latest
+    env:
+       PUID: "1000" #id username
+       PGID: "1000" #id username
+       TZ: "Europe/Kiev"  
+    volumes:
+      - /home/pi/docker/syncthing/config:/config
+      - /home/pi/docker/syncthing/sync:/data1
+    ports:
+      - "8384:8384" # Web UI
+      - "22000:22000/tcp" # TCP file transfers
+      - "22000:22000/udp" # QUIC file transfers
+      - "21027:21027/udp" # Receive local discovery broadcasts
+    restart_policy: always

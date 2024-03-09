@@ -1,0 +1,14 @@
+- name: AdGuard Home - DNS AdBlocking
+  docker_container:
+    name: adguardhome
+    image: adguard/adguardhome
+    volumes:
+      - /home/pi/docker/adguardhome/conf:/opt/adguardhome/conf
+      - /home/pi/docker/adguardhome/work:/opt/adguardhome/work
+    ports:
+      - "53:53/udp"
+      - "80:80/tcp" 
+      - "443:443/tcp" 
+      - "853:853/tcp" 
+      - "3000:3000/tcp" 
+    restart_policy: unless-stopped

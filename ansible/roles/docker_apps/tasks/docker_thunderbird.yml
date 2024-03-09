@@ -1,0 +1,20 @@
+#https://hub.docker.com/r/ich777/thunderbird
+- name: Setup Thunderbird
+  docker_container:
+    name: Thunderbird
+    image: ich777/thunderbird
+    env:
+       UID: "1000" #id username
+       GID: "1000" #id username
+       THUNDERBIRD_V: "latest"
+       THUNDERBIRD_LANG: "en-US"
+       TURBOVNC_PARAMS: "-securitytypes none"
+       CUSTOM_RES_W: "1280"
+       CUSTOM_RES_H: "768"
+       UMASK: "000"
+       DATA_PERM: "770"
+    volumes:
+      - /home/pi/docker/thunderbird:/thunderbird
+    ports:
+      - "9080:8080"
+    restart_policy: always

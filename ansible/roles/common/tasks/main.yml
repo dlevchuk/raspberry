@@ -1,0 +1,4 @@
+---
+- include_tasks: install_docker.yml
+- include_tasks: initial_setup.yml
+- include_tasks: watchdog_setup.yml

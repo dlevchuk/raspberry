@@ -1,0 +1,14 @@
+- name: Setup speedtest
+  docker_container:
+    name: speedtest
+    image: henrywhitaker3/speedtest-tracker:latest-arm
+    volumes:
+      - /home/pi/docker/speedtest:/config
+    ports:
+      - "8765:80"  
+    env:
+       OOKLA_EULA_GDPR: "true"
+    restart_policy: always
+
+
+

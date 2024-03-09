@@ -1,0 +1,12 @@
+- name: Setup glances
+  docker_container:
+    name: glances
+    image: nicolargo/glances:latest-full
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "61208-61209:61208-61209"
+    restart_policy: always
+    env:
+      GLANCES_OPT: "-w"
+    pid_mode: host
