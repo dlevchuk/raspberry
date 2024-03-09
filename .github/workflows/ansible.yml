@@ -43,7 +43,4 @@ jobs:
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
        
     - name: Run Ansible playbook
-      run: ansible-playbook ansible/site.yml \ 
-       --extra-vars ansible_user=$REMOTE_USER \
-       --extra-vars ansible_host=$REMOTE_HOST \
-       --extra-vars ansible_port=$REMOTE_PORT
+      run: ansible-playbook ansible/site.yml --extra-vars "ansible_user=$REMOTE_USER ansible_host=$REMOTE_HOST ansible_port=$REMOTE_PORT"
