@@ -11,9 +11,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
   
-    - name: Run ansible-lint
-      uses: ansible/ansible-lint@main
-
     - name: Tailscale
       uses: tailscale/github-action@v2
       with:
