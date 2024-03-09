@@ -34,7 +34,7 @@ jobs:
        chmod 0700 ~/.ssh
        eval $(ssh-agent -s)
        ssh-add <(echo "$SSH_KEY")
-       ANSIBLE_HOST_KEY_CHECKING=False
+       export ANSIBLE_HOST_KEY_CHECKING=False
       shell: bash 
       env:
         SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -44,7 +44,6 @@ jobs:
        
     - name: Run Ansible playbook
       run: ansible-playbook ansible/site.yml \ 
-       --ssh-common-args='-o StrictHostKeyChecking=no' \
        --extra-vars ansible_user=$REMOTE_USER \
        --extra-vars ansible_host=$REMOTE_HOST \
        --extra-vars ansible_port=$REMOTE_PORT
