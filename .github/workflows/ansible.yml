@@ -30,9 +30,11 @@ jobs:
       run: |
        rm -f ansible/group_vars/all
        rm -f ansible/hosts 
+       echo "${{ secrets.SSH_PRIVATE_KEY }}" >> ansible/raspberry
+       sudo chmod 600 ansible/raspberry
        echo "ansible_connection: ssh" >> ansible/group_vars/all
        echo "ansible_user: pi" >> ansible/group_vars/all
-       echo "ansible_ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}" >> ansible/group_vars/all
+       echo "ansible_ssh_private_key: ansible/raspberry" >> ansible/group_vars/all
        echo "ansible_port: ${{ secrets.REMOTE_PORT }}" >> ansible/group_vars/all
        echo "[raspberry]" >> ansible/hosts
        echo "${{ secrets.REMOTE_HOST }}" >> ansible/hosts
