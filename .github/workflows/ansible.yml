@@ -30,16 +30,20 @@ jobs:
       run: |
        rm -f ansible/group_vars/all
        rm -f ansible/hosts 
-       echo "${{ secrets.SSH_PRIVATE_KEY }}" >> ansible/raspberry
+       echo "$SSH_KEY" > ansible/raspberry
        sudo chmod 600 ansible/raspberry
        echo "ansible_connection: ssh" >> ansible/group_vars/all
-       echo "ansible_user: ${{ secrets.REMOTE_USER }}" >> ansible/group_vars/all
+       echo "ansible_user: $REMOTE_USER" >> ansible/group_vars/all
        echo "ansible_ssh_private_key_file: ansible/raspberry" >> ansible/group_vars/all
-       echo "ansible_port: ${{ secrets.REMOTE_PORT }}" >> ansible/group_vars/all
+       echo "ansible_port: $REMOTE_PORT" >> ansible/group_vars/all
        echo "[raspberry]" >> ansible/hosts
-       echo "${{ secrets.REMOTE_HOST }}" >> ansible/hosts
-       cat ansible/hosts
-       cat ansible/group_vars/all
+       echo "$REMOTE_HOST" >> ansible/hosts
+      shell: bash 
+      env:
+        SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
        
     - name: Run Ansible playbook
       run: ansible-playbook ansible/site.yml -i ansible/hosts
