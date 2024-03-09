@@ -4,6 +4,12 @@ on:
     paths:
     - ansible/**
 
+env:
+  SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  REMOTE_USER: ${{ secrets.REMOTE_USER }}
+  REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+  REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+
 jobs:
   ansible_deploy:
     runs-on: ubuntu-latest
@@ -36,11 +42,6 @@ jobs:
        ssh-add <(echo "$SSH_KEY")
        export ANSIBLE_HOST_KEY_CHECKING=False
       shell: bash 
-      env:
-        SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        REMOTE_USER: ${{ secrets.REMOTE_USER }}
-        REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
-        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
        
     - name: Run Ansible playbook
       run: ansible-playbook ansible/site.yml --extra-vars "ansible_user=$REMOTE_USER ansible_host=$REMOTE_HOST ansible_port=$REMOTE_PORT"
