@@ -38,4 +38,4 @@ jobs:
        echo "${{ secrets.REMOTE_HOST }}" >> ansible/hosts
        
     - name: Run Ansible playbook
-      run: ansible-playbook ansible/site.yaml -i ansible/hosts
+      run: ansible-playbook ansible/site.yml -i ansible/hosts
