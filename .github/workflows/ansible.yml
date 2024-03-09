@@ -30,12 +30,13 @@ jobs:
       run: |
        rm -f ansible/group_vars/all
        rm -f ansible/hosts 
-       echo -e "$SSH_KEY" > ansible/raspberry
-       sudo chmod 700 ansible/raspberry
-       ssh-keyscan -t rsa,dsa,ecdsa,ed25519 ${{ secrets.REMOTE_HOST }} >> /home/runner/.ssh/known_hosts
+       mkdir -p ~/.ssh/
+       chmod 0700 ~/.ssh
+       eval $(ssh-agent -s)
+       ssh-add <(echo "$SSH_KEY")
+
        echo "ansible_connection: ssh" >> ansible/group_vars/all
        echo "ansible_user: $REMOTE_USER" >> ansible/group_vars/all
-       echo "ansible_ssh_private_key_file: ansible/raspberry" >> ansible/group_vars/all
        echo "ansible_port: $REMOTE_PORT" >> ansible/group_vars/all
        echo "[raspberry]" >> ansible/hosts
        echo "$REMOTE_HOST" >> ansible/hosts
@@ -47,4 +48,4 @@ jobs:
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
        
     - name: Run Ansible playbook
-      run: ansible-playbook ansible/site.yml -i ansible/hosts
+      run: ansible-playbook ansible/site.yml -i ansible/hosts --ssh-common-args='-o StrictHostKeyChecking=no'
