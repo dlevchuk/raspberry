@@ -48,4 +48,4 @@ jobs:
       shell: bash 
        
     - name: Run Ansible playbook
-      run: ansible-playbook ansible/site.yml -i "$REMOTE_HOST", --extra-vars 'ansible_user="$REMOTE_USER" ansible_host="$REMOTE_HOST" ansible_port=7722'
+      run: ansible-playbook ansible/site.yml -i "$REMOTE_HOST", --extra-vars "ansible_user=$REMOTE_USER ansible_host=$REMOTE_HOST ansible_port=$REMOTE_PORT"
