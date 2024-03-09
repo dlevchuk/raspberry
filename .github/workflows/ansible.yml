@@ -34,12 +34,7 @@ jobs:
        chmod 0700 ~/.ssh
        eval $(ssh-agent -s)
        ssh-add <(echo "$SSH_KEY")
-
-       echo "ansible_connection: ssh" >> ansible/group_vars/all
-       echo "ansible_user: $REMOTE_USER" >> ansible/group_vars/all
-       echo "ansible_port: $REMOTE_PORT" >> ansible/group_vars/all
-       echo "[raspberry]" >> ansible/hosts
-       echo "$REMOTE_HOST" >> ansible/hosts
+       ANSIBLE_HOST_KEY_CHECKING=False
       shell: bash 
       env:
         SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -48,4 +43,8 @@ jobs:
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
        
     - name: Run Ansible playbook
-      run: ansible-playbook ansible/site.yml -i ansible/hosts --ssh-common-args='-o StrictHostKeyChecking=no'
+      run: ansible-playbook ansible/site.yml \ 
+       --ssh-common-args='-o StrictHostKeyChecking=no' \
+       --extra-vars ansible_user=$REMOTE_USER \
+       --extra-vars ansible_host=$REMOTE_HOST \
+       --extra-vars ansible_port=$REMOTE_PORT
