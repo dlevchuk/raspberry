@@ -34,7 +34,7 @@ jobs:
        sudo chmod 600 ansible/raspberry
        echo "ansible_connection: ssh" >> ansible/group_vars/all
        echo "ansible_user: pi" >> ansible/group_vars/all
-       echo "ansible_ssh_private_key: ansible/raspberry" >> ansible/group_vars/all
+       echo "ansible_ssh_private_key_file: ansible/raspberry" >> ansible/group_vars/all
        echo "ansible_port: ${{ secrets.REMOTE_PORT }}" >> ansible/group_vars/all
        echo "[raspberry]" >> ansible/hosts
        echo "${{ secrets.REMOTE_HOST }}" >> ansible/hosts
