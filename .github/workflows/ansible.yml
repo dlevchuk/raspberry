@@ -37,10 +37,10 @@ jobs:
        rm -f ansible/group_vars/all
        rm -f ansible/hosts 
        mkdir -p ~/.ssh/
-       chmod 0700 ~/.ssh
+       chmod 0600 ~/.ssh
        eval $(ssh-agent -s)
        ssh-add <(echo "$SSH_KEY")
-       export ANSIBLE_HOST_KEY_CHECKING=False
+       export ANSIBLE_HOST_KEY_CHECKING=True
        echo "[raspberry]" >> ansible/hosts
        echo "$REMOTE_HOST" >> ansible/hosts
       shell: bash 
