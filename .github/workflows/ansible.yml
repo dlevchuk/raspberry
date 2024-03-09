@@ -41,7 +41,9 @@ jobs:
        eval $(ssh-agent -s)
        ssh-add <(echo "$SSH_KEY")
        export ANSIBLE_HOST_KEY_CHECKING=False
+       echo "[raspberry]" >> ansible/hosts
+       echo "$REMOTE_HOST" >> ansible/hosts
       shell: bash 
        
     - name: Run Ansible playbook
-      run: ansible-playbook ansible/site.yml --extra-vars "ansible_user=$REMOTE_USER ansible_host=$REMOTE_HOST ansible_port=$REMOTE_PORT"
+      run: ansible-playbook ansible/site.yml -i ansible/hosts --extra-vars "ansible_user=$REMOTE_USER ansible_host=$REMOTE_HOST ansible_port=$REMOTE_PORT"
