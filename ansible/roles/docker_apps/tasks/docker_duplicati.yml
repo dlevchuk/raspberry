@@ -5,7 +5,7 @@
     env:
        UID: "1000" #id username
        GID: "1000" #id username
-       TZ: "Europe/Kiev"  
+       TZ: "Europe/Kiev"
     volumes:
       - /home/pi/docker/duplicati/config:/config
       - /home/pi/docker/duplicati/backups:/backups

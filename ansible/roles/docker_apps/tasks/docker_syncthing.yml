@@ -5,7 +5,7 @@
     env:
        PUID: "1000" #id username
        PGID: "1000" #id username
-       TZ: "Europe/Kiev"  
+       TZ: "Europe/Kiev"
     volumes:
       - /home/pi/docker/syncthing/config:/config
       - /home/pi/docker/syncthing/sync:/data1
