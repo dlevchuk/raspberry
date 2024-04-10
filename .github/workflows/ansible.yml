@@ -16,7 +16,7 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-  
+
     - name: Tailscale
       uses: tailscale/github-action@v2
       with:
@@ -35,7 +35,7 @@ jobs:
     - name: Create Ansible configuration file
       run: |
        rm -f ansible/group_vars/all
-       rm -f ansible/hosts 
+       rm -f ansible/hosts
        mkdir -p ~/.ssh/
        echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
        chmod 600 private_key.pem
@@ -45,7 +45,7 @@ jobs:
 
        export ANSIBLE_HOST_KEY_CHECKING=True
 
-      shell: bash 
-       
+      shell: bash
+
     - name: Run Ansible playbook
       run: ansible-playbook ansible/site.yml -i "$REMOTE_HOST", --private-key=private_key.pem --extra-vars "ansible_user=pi ansible_port=7722"

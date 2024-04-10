@@ -5,10 +5,7 @@
     volumes:
       - /home/pi/docker/speedtest:/config
     ports:
-      - "8765:80"  
+      - "8765:80"
     env:
        OOKLA_EULA_GDPR: "true"
     restart_policy: always
-
-
-

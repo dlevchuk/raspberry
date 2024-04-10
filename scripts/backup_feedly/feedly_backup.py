@@ -75,4 +75,3 @@ else:
     telegram_bot_sendtext('Status code: ' + str(boards.status_code))
 #    print(boards.json())
     exit(1)
-

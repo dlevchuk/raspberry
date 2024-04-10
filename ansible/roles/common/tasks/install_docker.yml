@@ -39,7 +39,7 @@
     executable: "{{ pip_executable }}"
   when: docker_install_compose | bool
 
-- name: Ensure group "docker" exists 
+- name: Ensure group "docker" exists
   ansible.builtin.group:
     name: docker
     state: present
