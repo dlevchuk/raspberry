@@ -16,6 +16,3 @@
     ports:
       - "9090:80" # Web UI
     restart_policy: unless-stopped
-    logging:
-      options:
-        max-size: 10m
