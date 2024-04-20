@@ -14,5 +14,5 @@
       - /home/pi/docker/freshrss/data:/var/www/FreshRSS/data
       - /home/pi/docker/freshrss/extensions:/var/www/FreshRSS/extensions
     ports:
-      - "9090:80" # Web UI
+      - "9191:80" # Web UI
     restart_policy: unless-stopped
