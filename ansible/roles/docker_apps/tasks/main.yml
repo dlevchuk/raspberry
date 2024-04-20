@@ -8,4 +8,5 @@
 #- include_tasks: docker_uptime_kuma.yml
 #- include_tasks: docker_adguard.yml
 #- include_tasks: docker_homebridge.yml
-- include_tasks: docker_watchtower.yml
+#- include_tasks: docker_watchtower.yml
+- include_tasks: docker_freshRSS.yml
