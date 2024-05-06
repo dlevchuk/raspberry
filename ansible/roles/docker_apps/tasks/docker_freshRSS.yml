@@ -1,6 +1,6 @@
 - name: Setup FreshRSS
   docker_container:
-    name: freshrss 
+    name: freshrss
     image: freshrss/freshrss:latest
     env:
        PUID: "1000" #id username
