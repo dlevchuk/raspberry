@@ -14,3 +14,4 @@
        GID: "1000" #id username
        TZ: Europe/Kiev
     restart_policy: always
+    state: stopped
