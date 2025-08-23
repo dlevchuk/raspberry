@@ -9,3 +9,12 @@
     env:
        OOKLA_EULA_GDPR: "true"
     restart_policy: always
+
+- name: Add daily restart cron job for speedtest container
+  cron:
+    name: "Restart speedtest container daily"
+    minute: "0"
+    hour: "0"
+    job: "docker restart speedtest"
+    user: "root"
+    state: present
