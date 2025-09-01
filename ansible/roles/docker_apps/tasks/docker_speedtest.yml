@@ -16,5 +16,4 @@
     minute: "0"
     hour: "0"
     job: "docker restart speedtest"
-    user: "root"
-    state: present
+    user: "pi"
