@@ -11,9 +11,10 @@
     restart_policy: always
 
 - name: Add daily restart cron job for speedtest container
-  cron:
+  ansible.builtin.cron:
     name: "Restart speedtest container daily"
     minute: "0"
     hour: "0"
     job: "docker restart speedtest"
     user: "pi"
+
