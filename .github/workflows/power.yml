@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - run: pip install -r requirements.txt
+      - run: pip install -r scripts/light_outage/requirements.txt
 
       - run: python scripts/light_outage/power.py
         env:
