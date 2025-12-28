@@ -18,7 +18,7 @@ CHAT_ID = os.environ["TG_CHAT_ID"]
 
 CACHE_FILE = "sent.json"
 WINDOW_MIN = 30
-WINDOW_MAX = 25  # щоб не спамило при кожному запуску
+WINDOW_MAX = 15  # щоб не спамило при кожному запуску
 
 def send(msg):
     requests.post(
@@ -48,8 +48,8 @@ for item in URLS:
         end   = datetime.combine(now.date(), datetime.strptime(b[1].text, "%H:%M").time())
 
         for t, label, msg in [
-            (start, "start", f"⚡ Відключення через 30 хв ({b[0].text}–{b[1].text})"),
-            (end, "end", f"💡 Світло повернеться через 30 хв ({b[1].text})"),
+            (start, "start", f"⚡ Відключення о ({b[0].text}–{b[1].text})"),
+            (end, "end", f"💡 Світло повернеться о ({b[1].text})"),
         ]:
             delta = (t - now).total_seconds() / 60
             key = f"{item['name']}|{label}|{t.isoformat()}"
