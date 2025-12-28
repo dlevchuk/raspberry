@@ -13,8 +13,8 @@ URLS = [
     }
 ]
 
-BOT_TOKEN = os.environ["TELEGRAM_TOKEN"]
-CHAT_ID = os.environ["TELEGRAM_TO"]
+BOT_TOKEN = os.environ["TG_TOKEN"]
+CHAT_ID = os.environ["TG_CHAT_ID"]
 
 CACHE_FILE = "sent.json"
 WINDOW_MIN = 30
