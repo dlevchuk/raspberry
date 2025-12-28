@@ -18,7 +18,7 @@ CHAT_ID = os.environ["TG_CHAT_ID"]
 
 CACHE_FILE = "sent.json"
 WINDOW_MIN = 30
-
+WINDOW_MAX = 0  
 
 def send(msg):
     requests.post(
@@ -54,7 +54,7 @@ for item in URLS:
             delta = (t - now).total_seconds() / 60
             key = f"{item['name']}|{label}|{t.isoformat()}"
 
-            if delta <= WINDOW_MIN and key not in sent:
+            if WINDOW_MAX <= delta <= WINDOW_MIN and key not in sent:
                 send(f"{item['name']}\n{msg}")
                 sent.append(key)
 
