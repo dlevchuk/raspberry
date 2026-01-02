@@ -1,4 +1,4 @@
-name: Power alerts
+name: power alerts
 
 on:
   schedule:
