@@ -4,7 +4,6 @@ warnings.filterwarnings("ignore")
 import os, requests, json, sys
 from datetime import datetime, timedelta
 from playwright.sync_api import sync_playwright
-from playwright_stealth import stealth_sync
 from bs4 import BeautifulSoup
 import pytz
 
@@ -54,7 +53,7 @@ now = datetime.now(ukraine_tz)
 
 all_outages = {}
 
-print("Starting scraper with Playwright + Stealth...")
+print("Starting scraper with Playwright...")
 
 with sync_playwright() as p:
     browser = p.chromium.launch(
@@ -64,7 +63,8 @@ with sync_playwright() as p:
             '--disable-dev-shm-usage',
             '--no-sandbox',
             '--disable-setuid-sandbox',
-            '--disable-web-security'
+            '--disable-web-security',
+            '--disable-features=IsolateOrigins,site-per-process'
         ]
     )
     
@@ -72,37 +72,54 @@ with sync_playwright() as p:
         user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         viewport={'width': 1920, 'height': 1080},
         locale='uk-UA',
-        timezone_id='Europe/Kiev'
+        timezone_id='Europe/Kiev',
+        java_script_enabled=True,
+        extra_http_headers={
+            'Accept-Language': 'uk-UA,uk;q=0.9,en;q=0.8',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+        }
     )
     
+    # Remove webdriver flag
+    context.add_init_script("""
+        Object.defineProperty(navigator, 'webdriver', {
+            get: () => undefined
+        });
+    """)
+    
     page = context.new_page()
-    stealth_sync(page)
     
     for item in URLS:
         print(f"\nFetching: {item['url']}")
         
         try:
-            response = page.goto(item["url"], timeout=60000, wait_until="domcontentloaded")
+            response = page.goto(item["url"], timeout=60000, wait_until="networkidle")
             print(f"Response status: {response.status}")
             
-            # Wait for potential Cloudflare challenge
-            print("Waiting for page to settle...")
-            page.wait_for_timeout(10000)
+            # Extra wait for dynamic content
+            page.wait_for_timeout(5000)
             
             html = page.content()
             print(f"HTML length: {len(html)}")
             
             # Check if blocked
             if "Just a moment" in html or "challenge-platform" in html:
-                print("❌ Still blocked by Cloudflare")
+                print("❌ Blocked by Cloudflare")
+                # Try one more time with longer wait
+                print("Retrying with longer wait...")
+                page.wait_for_timeout(10000)
+                html = page.content()
+            
+            if "Just a moment" in html:
+                print("❌ Still blocked")
                 all_outages[item["name"]] = []
                 continue
             
             # Check if we have the content
             if "periods_items" not in html:
-                print("⚠️ Content not found, saving HTML for debug...")
+                print("⚠️ Content not found")
                 with open("debug.html", "w", encoding="utf-8") as f:
-                    f.write(html)
+                    f.write(html[:2000])
                 all_outages[item["name"]] = []
                 continue
             
@@ -128,10 +145,10 @@ with sync_playwright() as p:
                     continue
             
             all_outages[item["name"]] = outages
-            print(f"✓ Total outages for {item['name']}: {len(outages)}")
+            print(f"✓ Total outages: {len(outages)}")
             
         except Exception as e:
-            print(f"❌ Error for {item['name']}: {e}")
+            print(f"❌ Error: {e}")
             import traceback
             traceback.print_exc()
             all_outages[item["name"]] = []
@@ -139,11 +156,12 @@ with sync_playwright() as p:
     browser.close()
 
 print(f"\n{'='*50}")
-print("All outages collected:")
-print(json.dumps({k: [(s, e) for s, e, _, _ in v] for k, v in all_outages.items()}, indent=2, ensure_ascii=False))
+print("Results:")
+for k, v in all_outages.items():
+    print(f"{k}: {[(s, e) for s, e, _, _ in v]}")
 print(f"{'='*50}\n")
 
-# Send daily guarantee message if needed
+# Send daily message
 if should_send_daily():
     print("Sending daily message...")
     daily_msg = "📋 Графік відключень на сьогодні:\n\n"
@@ -159,23 +177,19 @@ if should_send_daily():
     send(daily_msg)
     mark_daily_sent()
     print("✓ Daily message sent")
-else:
-    print("Daily message already sent today")
 
-# Process individual notifications
-print("\nChecking for upcoming notifications...")
+# Individual notifications
+print("\nChecking notifications...")
 for item in URLS:
     outages = all_outages.get(item["name"], [])
-    
     for start_time, end_time, start, end in outages:
         for t, label, msg in [
             (start, "start", f"⚡ Відключення о ({start_time}–{end_time})"),
             (end, "end", f"💡 Світло повернеться о ({end_time})"),
         ]:
             delta = (t - now).total_seconds() / 60
-            
             if WINDOW_MAX <= delta <= WINDOW_MIN:
-                print(f"Sending notification: {msg} (in {delta:.1f} min)")
+                print(f"Sending: {msg}")
                 send(f"{item['name']}\n{msg}")
 
-print("\n✓ Script completed")
+print("\n✓ Done")
