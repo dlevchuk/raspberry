@@ -1,7 +1,7 @@
 import warnings
 warnings.filterwarnings("ignore")
 
-import os, json, requests
+import os, requests, json
 from datetime import datetime, timedelta
 import cloudscraper
 from bs4 import BeautifulSoup
@@ -16,9 +16,9 @@ URLS = [
 BOT_TOKEN = os.environ["TG_TOKEN"]
 CHAT_ID = os.environ["TG_CHAT_ID"]
 
-CACHE_FILE = "sent.json"
 WINDOW_MIN = 30
 WINDOW_MAX = 0  
+DAILY_SENT_FILE = "daily_sent.json"
 
 def send(msg):
     requests.post(
@@ -26,19 +26,33 @@ def send(msg):
         data={"chat_id": CHAT_ID, "text": msg}
     )
 
-if os.path.exists(CACHE_FILE):
-    sent = json.load(open(CACHE_FILE))
-else:
-    sent = []
+def should_send_daily():
+    """Check if we should send the daily guarantee message"""
+    today = datetime.now().date().isoformat()
+    if os.path.exists(DAILY_SENT_FILE):
+        try:
+            data = json.load(open(DAILY_SENT_FILE))
+            return data.get("last_sent") != today
+        except:
+            return True
+    return True
+
+def mark_daily_sent():
+    """Mark that we've sent the daily message today"""
+    json.dump({"last_sent": datetime.now().date().isoformat()}, open(DAILY_SENT_FILE, "w"))
 
 now = datetime.now()
 scraper = cloudscraper.create_scraper()
+
+# Collect all outage periods for daily message
+all_outages = {}
 
 for item in URLS:
     r = scraper.get(item["url"], timeout=15)
     soup = BeautifulSoup(r.text, "html.parser")
     spans = soup.select("div.periods_items > span")
-
+    
+    outages = []
     for s in spans:
         b = s.find_all("b")
         if len(b) < 2:
@@ -46,16 +60,35 @@ for item in URLS:
 
         start = datetime.combine(now.date(), datetime.strptime(b[0].text, "%H:%M").time())
         end   = datetime.combine(now.date(), datetime.strptime(b[1].text, "%H:%M").time())
+        outages.append((b[0].text, b[1].text, start, end))
+    
+    all_outages[item["name"]] = outages
 
+# Send daily guarantee message if needed
+if should_send_daily():
+    daily_msg = "📋 Графік відключень на сьогодні:\n\n"
+    for location, outages in all_outages.items():
+        daily_msg += f"🏠 {location}:\n"
+        if outages:
+            for start_time, end_time, start, end in outages:
+                daily_msg += f"  ⚡ {start_time}–{end_time}\n"
+        else:
+            daily_msg += "  ✅ Відключень немає\n"
+        daily_msg += "\n"
+    
+    send(daily_msg)
+    mark_daily_sent()
+
+# Process individual notifications
+for item in URLS:
+    outages = all_outages.get(item["name"], [])
+    
+    for start_time, end_time, start, end in outages:
         for t, label, msg in [
-            (start, "start", f"⚡ Відключення о ({b[0].text}–{b[1].text})"),
-            (end, "end", f"💡 Світло повернеться о ({b[1].text})"),
+            (start, "start", f"⚡ Відключення о ({start_time}–{end_time})"),
+            (end, "end", f"💡 Світло повернеться о ({end_time})"),
         ]:
             delta = (t - now).total_seconds() / 60
-            key = f"{item['name']}|{label}|{t.isoformat()}"
 
-            if WINDOW_MAX <= delta <= WINDOW_MIN and key not in sent:
+            if WINDOW_MAX <= delta <= WINDOW_MIN:
                 send(f"{item['name']}\n{msg}")
-                sent.append(key)
-
-json.dump(sent, open(CACHE_FILE, "w"))
