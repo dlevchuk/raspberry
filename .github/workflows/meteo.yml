@@ -25,7 +25,7 @@ jobs:
           pip install requests
       
       - name: Run weather bot
-        run: python weather_bot.py
+        run: python scripts/light_outage/meteo.py
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_TO }}
