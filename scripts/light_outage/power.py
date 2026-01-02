@@ -47,8 +47,6 @@ def mark_daily_sent():
 # Use Ukraine timezone (Europe/Kyiv)
 ukraine_tz = pytz.timezone('Europe/Kyiv')
 now = datetime.now(ukraine_tz)
-
-# Create scraper with better browser emulation
 scraper = cloudscraper.create_scraper(
     browser={
         'browser': 'chrome',
@@ -56,21 +54,6 @@ scraper = cloudscraper.create_scraper(
         'desktop': True
     }
 )
-
-# Add additional headers to mimic a real browser
-scraper.headers.update({
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-    'Accept-Language': 'uk-UA,uk;q=0.9,en-US;q=0.8,en;q=0.7',
-    'Accept-Encoding': 'gzip, deflate, br',
-    'DNT': '1',
-    'Connection': 'keep-alive',
-    'Upgrade-Insecure-Requests': '1',
-    'Sec-Fetch-Dest': 'document',
-    'Sec-Fetch-Mode': 'navigate',
-    'Sec-Fetch-Site': 'none',
-    'Sec-Fetch-User': '?1',
-    'Cache-Control': 'max-age=0',
-})
 
 # Collect all outage periods for daily message
 all_outages = {}
