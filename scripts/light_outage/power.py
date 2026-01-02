@@ -71,6 +71,7 @@ for item in URLS:
         outages.append((b[0].text, b[1].text, start, end))
     
     all_outages[item["name"]] = outages
+    print(all_outages)
 
 # Send daily guarantee message if needed
 if should_send_daily():
