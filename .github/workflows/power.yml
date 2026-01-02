@@ -2,7 +2,7 @@ name: Power alerts
 
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "*/15 * * * *"
   workflow_dispatch:
 
 jobs:
@@ -13,8 +13,10 @@ jobs:
 
       - uses: actions/cache@v3
         with:
-          path: sent.json
-          key: power-cache
+          path: daily_sent.json
+          key: power-daily-cache
+          restore-keys: |
+            power-daily-cache
 
       - uses: actions/setup-python@v5
         with:
