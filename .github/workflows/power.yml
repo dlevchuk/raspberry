@@ -32,7 +32,6 @@ jobs:
           TG_TOKEN: ${{ secrets.TG_TOKEN }}
           TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
         run: python scripts/light_outage/power.py
-        env:
       
       - name: Save state
         uses: actions/cache/save@v3
