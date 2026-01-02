@@ -1,42 +1,32 @@
-name: sync files github quotas
+name: GitHub Quotas Check
+
 on:
-  push:
-    paths:
-    - scripts/github_quotas/get_github_quotas.py
+  schedule:
+    # Run weekly on Saturday at 20:30 UTC (adjust timezone as needed)
+    - cron: "30 20 * * 6"
+  workflow_dispatch:  # Allow manual triggering
 
 jobs:
-  deploy_feedly_backup:
+  check_quotas:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2.3.2
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Tailscale
-      uses: tailscale/github-action@v2
-      with:
-        authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-    - name: rsync deployments
-      uses: burnett01/rsync-deployments@5.2.1
-      with:
-        switches: -avz --delete --chmod=755
-        path: scripts/github_quotas/get_github_quotas.py
-        remote_path: ${{ secrets.REMOTE_PATH_GITHUB_QUOTAS }}
-        remote_host: ${{ secrets.REMOTE_HOST }}
-        remote_user: ${{ secrets.REMOTE_USER }}
-        remote_port: ${{ secrets.REMOTE_PORT }}
-        remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r scripts/github_quotas/requirements.txt
 
-    - name: Install Python dependencies
-      uses: py-actions/py-dependency-install@v2
-      with:
-        path: scripts/backup_feedly/requirements.txt
-        update-pip: "true"
-
-    - name: executing remote ssh to setup cron
-      uses: appleboy/ssh-action@v0.1.7
-      with:
-        host: ${{ secrets.REMOTE_HOST }}
-        username: ${{ secrets.REMOTE_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port:  ${{ secrets.REMOTE_PORT }}
-        script: sudo grep 'get_github_quotas.py' /var/spool/cron/crontabs/pi || crontab -l | { cat; echo "30 20 * * 6 cd ${{ secrets.REMOTE_PATH_GITHUB_QUOTAS }} && python3 get_github_quotas.py > /dev/null 2>&1"; } | crontab -
+      - name: Run GitHub quotas check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USER: ${{ secrets.GITHUB_USER }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          BOT_CHAT_ID: ${{ secrets.BOT_CHAT_ID }}
+        run: python scripts/github_quotas/get_github_quotas.py

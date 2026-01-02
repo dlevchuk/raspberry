@@ -1,12 +1,13 @@
 import requests
 import json
 import os
+from urllib.parse import quote
 from dotenv import load_dotenv
 
 load_dotenv()  # take environment variables from .env.
 # replace with your own token and organization name
-github_token = os.environ.get("GITHUB_TOKEN")
-github_user = os.environ.get("GITHUB_USER")
+github_token = os.environ.get("GH_TOKEN")
+github_user = os.environ.get("GH_USER")
 #emoji
 heavy_check_mark = u'\u2705'
 large_red_circle = u'\U0001F534'
@@ -16,10 +17,29 @@ message_list = []
 def telegram_bot_sendtext(bot_message):
    bot_token = os.environ.get("BOT_TOKEN")
    bot_chatID = os.environ.get("BOT_CHAT_ID")
+   
+   if not bot_token or not bot_chatID:
+       print("Error: BOT_TOKEN or BOT_CHAT_ID not set")
+       return
+   
    message = "\n".join(bot_message)
-   send_text = 'https://api.telegram.org/bot' + bot_token + '/sendMessage?chat_id=' + bot_chatID + '&parse_mode=html&text=' + message
+   # URL encode the message to handle special characters
+   encoded_message = quote(message)
+   send_text = f'https://api.telegram.org/bot{bot_token}/sendMessage?chat_id={bot_chatID}&parse_mode=html&text={encoded_message}'
    response = requests.get(send_text)
+   
+   if response.status_code != 200:
+       print(f"Error sending Telegram message: {response.status_code} - {response.text}")
 
+
+# Validate required environment variables
+if not github_token:
+    print("Error: GITHUB_TOKEN environment variable is not set")
+    exit(1)
+
+if not github_user:
+    print("Error: GITHUB_USER environment variable is not set")
+    exit(1)
 
 # set the headers for authorization and content type
 headers = {
@@ -75,9 +95,9 @@ response_gh_packages = requests.get(url_gh_packages, headers=headers)
 if response_gh_packages.status_code == 200:
     data = json.loads(response_gh_packages.content.decode('utf-8'))
     if data['total_gigabytes_bandwidth_used'] > 0.8:
-        message_list.append(f"\n<b>GitHub packges quotas</b> {large_red_circle}")
+        message_list.append(f"\n<b>GitHub packages quotas</b> {large_red_circle}")
     else:
-        message_list.append(f"\n<b>GitHub packges quotas</b> {heavy_check_mark}")
+        message_list.append(f"\n<b>GitHub packages quotas</b> {heavy_check_mark}")
 
     message_list.append(f"  Total gigabytes bandwidth used: <u>{data['total_gigabytes_bandwidth_used']}</u>")
     message_list.append(f"  Total paid gigabytes bandwidth used: <u>{data['total_paid_gigabytes_bandwidth_used']}</u>")

@@ -1,3 +1,2 @@
 requests
-load_dotenv
-json
+python-dotenv
