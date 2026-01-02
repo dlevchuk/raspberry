@@ -47,15 +47,26 @@ def mark_daily_sent():
 # Use Ukraine timezone (Europe/Kyiv)
 ukraine_tz = pytz.timezone('Europe/Kyiv')
 now = datetime.now(ukraine_tz)
-scraper = cloudscraper.create_scraper()
+scraper = cloudscraper.create_scraper(
+    browser={
+        'browser': 'chrome',
+        'platform': 'windows',
+        'desktop': True
+    }
+)
 
 # Collect all outage periods for daily message
 all_outages = {}
 
 for item in URLS:
     r = scraper.get(item["url"], timeout=15)
+    print(f"Status: {r.status_code}")
+    print(f"Content length: {len(r.text)}")
+    print(f"First 500 chars: {r.text[:500]}")
+    
     soup = BeautifulSoup(r.text, "html.parser")
     spans = soup.select("div.periods_items > span")
+    print(f"Found spans: {len(spans)}")
     
     outages = []
     for s in spans:
