@@ -1,10 +1,11 @@
 import warnings
 warnings.filterwarnings("ignore")
 
-import os, requests, json
+import os, requests, json, sys
 from datetime import datetime, timedelta
 import cloudscraper
 from bs4 import BeautifulSoup
+import pytz
 
 URLS = [
     {
@@ -28,7 +29,8 @@ def send(msg):
 
 def should_send_daily():
     """Check if we should send the daily guarantee message"""
-    today = datetime.now().date().isoformat()
+    ukraine_tz = pytz.timezone('Europe/Kyiv')
+    today = datetime.now(ukraine_tz).date().isoformat()
     if os.path.exists(DAILY_SENT_FILE):
         try:
             data = json.load(open(DAILY_SENT_FILE))
@@ -39,30 +41,57 @@ def should_send_daily():
 
 def mark_daily_sent():
     """Mark that we've sent the daily message today"""
-    json.dump({"last_sent": datetime.now().date().isoformat()}, open(DAILY_SENT_FILE, "w"))
+    ukraine_tz = pytz.timezone('Europe/Kyiv')
+    json.dump({"last_sent": datetime.now(ukraine_tz).date().isoformat()}, open(DAILY_SENT_FILE, "w"))
 
-now = datetime.now()
-scraper = cloudscraper.create_scraper()
+# Use Ukraine timezone (Europe/Kyiv)
+ukraine_tz = pytz.timezone('Europe/Kyiv')
+now = datetime.now(ukraine_tz)
+scraper = cloudscraper.create_scraper(
+    browser={
+        'browser': 'chrome',
+        'platform': 'windows',
+        'desktop': True
+    }
+)
 
 # Collect all outage periods for daily message
 all_outages = {}
 
 for item in URLS:
-    r = scraper.get(item["url"], timeout=15)
-    soup = BeautifulSoup(r.text, "html.parser")
-    spans = soup.select("div.periods_items > span")
-    
-    outages = []
-    for s in spans:
-        b = s.find_all("b")
-        if len(b) < 2:
-            continue
+    try:
+        r = scraper.get(item["url"], timeout=15)
+        r.raise_for_status()
+        soup = BeautifulSoup(r.text, "html.parser")
+        spans = soup.select("div.periods_items > span")
+        
+        outages = []
+        for s in spans:
+            b = s.find_all("b")
+            if len(b) < 2:
+                continue
 
-        start = datetime.combine(now.date(), datetime.strptime(b[0].text, "%H:%M").time())
-        end   = datetime.combine(now.date(), datetime.strptime(b[1].text, "%H:%M").time())
-        outages.append((b[0].text, b[1].text, start, end))
-    
-    all_outages[item["name"]] = outages
+            start = datetime.combine(now.date(), datetime.strptime(b[0].text, "%H:%M").time())
+            end   = datetime.combine(now.date(), datetime.strptime(b[1].text, "%H:%M").time())
+            # Make datetime timezone-aware
+            start = ukraine_tz.localize(start)
+            end = ukraine_tz.localize(end)
+            outages.append((b[0].text, b[1].text, start, end))
+        
+        all_outages[item["name"]] = outages
+        
+        # Debug output
+        if not outages:
+            print(f"Warning: No outages found for {item['name']}", file=sys.stderr)
+            print(f"Found {len(spans)} span elements", file=sys.stderr)
+            if len(spans) > 0:
+                print(f"First span content: {spans[0].get_text()}", file=sys.stderr)
+    except requests.RequestException as e:
+        print(f"Error fetching {item['name']}: {e}", file=sys.stderr)
+        all_outages[item["name"]] = []
+    except Exception as e:
+        print(f"Error processing {item['name']}: {e}", file=sys.stderr)
+        all_outages[item["name"]] = []
 
 # Send daily guarantee message if needed
 if should_send_daily():
