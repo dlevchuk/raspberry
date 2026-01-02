@@ -1,7 +1,7 @@
 import warnings
 warnings.filterwarnings("ignore")
 
-import os, requests, json, sys
+import os, requests, json, sys, time
 from datetime import datetime, timedelta
 import cloudscraper
 from bs4 import BeautifulSoup
@@ -47,6 +47,8 @@ def mark_daily_sent():
 # Use Ukraine timezone (Europe/Kyiv)
 ukraine_tz = pytz.timezone('Europe/Kyiv')
 now = datetime.now(ukraine_tz)
+
+# Create scraper with better browser emulation
 scraper = cloudscraper.create_scraper(
     browser={
         'browser': 'chrome',
@@ -55,13 +57,63 @@ scraper = cloudscraper.create_scraper(
     }
 )
 
+# Add additional headers to mimic a real browser
+scraper.headers.update({
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+    'Accept-Language': 'uk-UA,uk;q=0.9,en-US;q=0.8,en;q=0.7',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'DNT': '1',
+    'Connection': 'keep-alive',
+    'Upgrade-Insecure-Requests': '1',
+    'Sec-Fetch-Dest': 'document',
+    'Sec-Fetch-Mode': 'navigate',
+    'Sec-Fetch-Site': 'none',
+    'Sec-Fetch-User': '?1',
+    'Cache-Control': 'max-age=0',
+})
+
 # Collect all outage periods for daily message
 all_outages = {}
 
 for item in URLS:
     try:
-        r = scraper.get(item["url"], timeout=15)
-        r.raise_for_status()
+        # First, try to visit the main page to establish a session
+        base_url = "https://chernigiv.energy-ua.info"
+        try:
+            scraper.get(base_url, timeout=15)
+        except:
+            pass  # Ignore errors on base page
+        
+        # Add referer header for the specific request
+        headers = {
+            'Referer': base_url,
+        }
+        
+        # Retry logic for 403 errors
+        max_retries = 3
+        r = None
+        for attempt in range(max_retries):
+            try:
+                r = scraper.get(item["url"], timeout=15, headers=headers)
+                if r.status_code == 200:
+                    break
+                elif r.status_code == 403 and attempt < max_retries - 1:
+                    print(f"Got 403, retrying ({attempt + 1}/{max_retries})...", file=sys.stderr)
+                    time.sleep(2)  # Wait before retry
+                    continue
+                else:
+                    r.raise_for_status()
+            except requests.RequestException as e:
+                if attempt < max_retries - 1:
+                    print(f"Request failed, retrying ({attempt + 1}/{max_retries}): {e}", file=sys.stderr)
+                    time.sleep(2)
+                    continue
+                else:
+                    raise
+        
+        if r is None or r.status_code != 200:
+            raise requests.RequestException(f"Failed to fetch after {max_retries} attempts")
+        
         soup = BeautifulSoup(r.text, "html.parser")
         spans = soup.select("div.periods_items > span")
         
