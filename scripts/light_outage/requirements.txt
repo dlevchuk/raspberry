@@ -2,4 +2,3 @@ cloudscraper
 beautifulsoup4
 requests
 pytz
-playwright

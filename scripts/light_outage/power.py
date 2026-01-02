@@ -3,7 +3,6 @@ warnings.filterwarnings("ignore")
 
 import os, requests, json, sys
 from datetime import datetime, timedelta
-from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
 import pytz
 
@@ -16,6 +15,7 @@ URLS = [
 
 BOT_TOKEN = os.environ["TG_TOKEN"]
 CHAT_ID = os.environ["TG_CHAT_ID"]
+SCRAPER_API_KEY = os.environ.get("SCRAPER_API_KEY", "")  # Get free key at scraperapi.com
 
 WINDOW_MIN = 30
 WINDOW_MAX = 0  
@@ -30,6 +30,27 @@ def send(msg):
         )
     except Exception as e:
         print(f"Telegram error: {e}")
+
+def fetch_with_proxy(url):
+    """Fetch URL through ScraperAPI proxy"""
+    if SCRAPER_API_KEY:
+        print("Using ScraperAPI proxy...")
+        proxy_url = "http://api.scraperapi.com"
+        params = {
+            'api_key': SCRAPER_API_KEY,
+            'url': url,
+            'render': 'true'  # Enable JS rendering for Cloudflare
+        }
+        response = requests.get(proxy_url, params=params, timeout=60)
+        return response.text
+    else:
+        # Fallback to direct request (will likely fail)
+        print("No proxy key, trying direct...")
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        }
+        response = requests.get(url, headers=headers, timeout=30)
+        return response.text
 
 def should_send_daily():
     ukraine_tz = pytz.timezone('Europe/Kyiv')
@@ -53,107 +74,50 @@ now = datetime.now(ukraine_tz)
 
 all_outages = {}
 
-print("Starting scraper with Playwright...")
+print("Starting scraper...")
 
-with sync_playwright() as p:
-    browser = p.chromium.launch(
-        headless=True,
-        args=[
-            '--disable-blink-features=AutomationControlled',
-            '--disable-dev-shm-usage',
-            '--no-sandbox',
-            '--disable-setuid-sandbox',
-            '--disable-web-security',
-            '--disable-features=IsolateOrigins,site-per-process'
-        ]
-    )
+for item in URLS:
+    print(f"\nFetching: {item['url']}")
     
-    context = browser.new_context(
-        user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        viewport={'width': 1920, 'height': 1080},
-        locale='uk-UA',
-        timezone_id='Europe/Kiev',
-        java_script_enabled=True,
-        extra_http_headers={
-            'Accept-Language': 'uk-UA,uk;q=0.9,en;q=0.8',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
-        }
-    )
-    
-    # Remove webdriver flag
-    context.add_init_script("""
-        Object.defineProperty(navigator, 'webdriver', {
-            get: () => undefined
-        });
-    """)
-    
-    page = context.new_page()
-    
-    for item in URLS:
-        print(f"\nFetching: {item['url']}")
+    try:
+        html = fetch_with_proxy(item["url"])
+        print(f"HTML length: {len(html)}")
         
-        try:
-            response = page.goto(item["url"], timeout=60000, wait_until="networkidle")
-            print(f"Response status: {response.status}")
-            
-            # Extra wait for dynamic content
-            page.wait_for_timeout(5000)
-            
-            html = page.content()
-            print(f"HTML length: {len(html)}")
-            
-            # Check if blocked
-            if "Just a moment" in html or "challenge-platform" in html:
-                print("❌ Blocked by Cloudflare")
-                # Try one more time with longer wait
-                print("Retrying with longer wait...")
-                page.wait_for_timeout(10000)
-                html = page.content()
-            
-            if "Just a moment" in html:
-                print("❌ Still blocked")
-                all_outages[item["name"]] = []
-                continue
-            
-            # Check if we have the content
-            if "periods_items" not in html:
-                print("⚠️ Content not found")
-                with open("debug.html", "w", encoding="utf-8") as f:
-                    f.write(html[:2000])
-                all_outages[item["name"]] = []
-                continue
-            
-            soup = BeautifulSoup(html, "html.parser")
-            spans = soup.select("div.periods_items > span")
-            print(f"✓ Found {len(spans)} span elements")
-            
-            outages = []
-            for s in spans:
-                b = s.find_all("b")
-                if len(b) < 2:
-                    continue
-                
-                try:
-                    start = datetime.combine(now.date(), datetime.strptime(b[0].text.strip(), "%H:%M").time())
-                    end   = datetime.combine(now.date(), datetime.strptime(b[1].text.strip(), "%H:%M").time())
-                    start = ukraine_tz.localize(start)
-                    end = ukraine_tz.localize(end)
-                    outages.append((b[0].text.strip(), b[1].text.strip(), start, end))
-                    print(f"  - Outage: {b[0].text.strip()} - {b[1].text.strip()}")
-                except Exception as e:
-                    print(f"  ! Parse error: {e}")
-                    continue
-            
-            all_outages[item["name"]] = outages
-            print(f"✓ Total outages: {len(outages)}")
-            
-        except Exception as e:
-            print(f"❌ Error: {e}")
-            import traceback
-            traceback.print_exc()
+        # Check if blocked
+        if "Just a moment" in html or len(html) < 1000:
+            print("❌ Still blocked or invalid response")
             all_outages[item["name"]] = []
-    
-    browser.close()
+            continue
+        
+        soup = BeautifulSoup(html, "html.parser")
+        spans = soup.select("div.periods_items > span")
+        print(f"✓ Found {len(spans)} span elements")
+        
+        outages = []
+        for s in spans:
+            b = s.find_all("b")
+            if len(b) < 2:
+                continue
+            
+            try:
+                start = datetime.combine(now.date(), datetime.strptime(b[0].text.strip(), "%H:%M").time())
+                end   = datetime.combine(now.date(), datetime.strptime(b[1].text.strip(), "%H:%M").time())
+                start = ukraine_tz.localize(start)
+                end = ukraine_tz.localize(end)
+                outages.append((b[0].text.strip(), b[1].text.strip(), start, end))
+                print(f"  - Outage: {b[0].text.strip()} - {b[1].text.strip()}")
+            except Exception as e:
+                print(f"  ! Parse error: {e}")
+                continue
+        
+        all_outages[item["name"]] = outages
+        print(f"✓ Total outages: {len(outages)}")
+        
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        import traceback
+        traceback.print_exc()
+        all_outages[item["name"]] = []
 
 print(f"\n{'='*50}")
 print("Results:")
