@@ -3,7 +3,7 @@ warnings.filterwarnings("ignore")
 
 import os, requests, json, sys
 from datetime import datetime, timedelta
-import cloudscraper
+from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
 import pytz
 
@@ -28,7 +28,6 @@ def send(msg):
     )
 
 def should_send_daily():
-    """Check if we should send the daily guarantee message"""
     ukraine_tz = pytz.timezone('Europe/Kyiv')
     today = datetime.now(ukraine_tz).date().isoformat()
     if os.path.exists(DAILY_SENT_FILE):
@@ -40,49 +39,50 @@ def should_send_daily():
     return True
 
 def mark_daily_sent():
-    """Mark that we've sent the daily message today"""
     ukraine_tz = pytz.timezone('Europe/Kyiv')
-    json.dump({"last_sent": datetime.now(ukraine_tz).date().isoformat()}, open(DAILY_SENT_FILE, "w"))
+    with open(DAILY_SENT_FILE, "w") as f:
+        json.dump({"last_sent": datetime.now(ukraine_tz).date().isoformat()}, f)
 
-# Use Ukraine timezone (Europe/Kyiv)
 ukraine_tz = pytz.timezone('Europe/Kyiv')
 now = datetime.now(ukraine_tz)
-scraper = cloudscraper.create_scraper(
-    browser={
-        'browser': 'chrome',
-        'platform': 'windows',
-        'desktop': True
-    }
-)
 
-# Collect all outage periods for daily message
 all_outages = {}
 
-for item in URLS:
-    r = scraper.get(item["url"], timeout=15)
-    print(f"Status: {r.status_code}")
-    print(f"Content length: {len(r.text)}")
-    print(f"First 500 chars: {r.text[:500]}")
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=True)
+    page = browser.new_page()
     
-    soup = BeautifulSoup(r.text, "html.parser")
-    spans = soup.select("div.periods_items > span")
-    print(f"Found spans: {len(spans)}")
-    
-    outages = []
-    for s in spans:
-        b = s.find_all("b")
-        if len(b) < 2:
-            continue
+    for item in URLS:
+        print(f"Fetching: {item['url']}")
+        page.goto(item["url"], wait_until="networkidle", timeout=30000)
+        
+        # Wait for content to load
+        try:
+            page.wait_for_selector("div.periods_items > span", timeout=10000)
+        except:
+            print(f"Warning: Selector not found for {item['name']}")
+        
+        html = page.content()
+        soup = BeautifulSoup(html, "html.parser")
+        spans = soup.select("div.periods_items > span")
+        
+        print(f"Found {len(spans)} spans")
+        
+        outages = []
+        for s in spans:
+            b = s.find_all("b")
+            if len(b) < 2:
+                continue
 
-        start = datetime.combine(now.date(), datetime.strptime(b[0].text, "%H:%M").time())
-        end   = datetime.combine(now.date(), datetime.strptime(b[1].text, "%H:%M").time())
-        # Make datetime timezone-aware
-        start = ukraine_tz.localize(start)
-        end = ukraine_tz.localize(end)
-        outages.append((b[0].text, b[1].text, start, end))
+            start = datetime.combine(now.date(), datetime.strptime(b[0].text, "%H:%M").time())
+            end   = datetime.combine(now.date(), datetime.strptime(b[1].text, "%H:%M").time())
+            start = ukraine_tz.localize(start)
+            end = ukraine_tz.localize(end)
+            outages.append((b[0].text, b[1].text, start, end))
+        
+        all_outages[item["name"]] = outages
     
-    all_outages[item["name"]] = outages
-    print(all_outages)
+    browser.close()
 
 # Send daily guarantee message if needed
 if should_send_daily():
@@ -109,7 +109,6 @@ for item in URLS:
             (end, "end", f"💡 Світло повернеться о ({end_time})"),
         ]:
             delta = (t - now).total_seconds() / 60
-            print(delta)
 
             if WINDOW_MAX <= delta <= WINDOW_MIN:
                 send(f"{item['name']}\n{msg}")
