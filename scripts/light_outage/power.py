@@ -97,6 +97,7 @@ for item in URLS:
             (end, "end", f"💡 Світло повернеться о ({end_time})"),
         ]:
             delta = (t - now).total_seconds() / 60
+            print(delta)
 
             if WINDOW_MAX <= delta <= WINDOW_MIN:
                 send(f"{item['name']}\n{msg}")
