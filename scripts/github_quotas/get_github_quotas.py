@@ -4,8 +4,8 @@ import os
 from urllib.parse import quote
 
 
-github_token = os.environ.get("GH_TOKEN")
-github_user = os.environ.get("GH_USER")
+github_token = os.environ.get("GITHUB_TOKEN")
+github_user = os.environ.get("GITHUB_USER")
 #emoji
 heavy_check_mark = u'\u2705'
 large_red_circle = u'\U0001F534'

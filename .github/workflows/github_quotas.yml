@@ -27,6 +27,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           GITHUB_USER: ${{ secrets.GH_USER }}
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          BOT_CHAT_ID: ${{ secrets.BOT_CHAT_ID }}
+          BOT_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          BOT_CHAT_ID: ${{ secrets.TELEGRAM_TO }}
         run: python scripts/github_quotas/get_github_quotas.py
+
