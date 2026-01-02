@@ -1,7 +1,7 @@
 import warnings
 warnings.filterwarnings("ignore")
 
-import os, requests, json, sys, time
+import os, requests, json, sys
 from datetime import datetime, timedelta
 import cloudscraper
 from bs4 import BeautifulSoup
@@ -47,86 +47,30 @@ def mark_daily_sent():
 # Use Ukraine timezone (Europe/Kyiv)
 ukraine_tz = pytz.timezone('Europe/Kyiv')
 now = datetime.now(ukraine_tz)
-scraper = cloudscraper.create_scraper(
-    browser={
-        'browser': 'chrome',
-        'platform': 'windows',
-        'desktop': True
-    }
-)
+scraper = cloudscraper.create_scraper()
 
 # Collect all outage periods for daily message
 all_outages = {}
 
 for item in URLS:
-    try:
-        # First, try to visit the main page to establish a session
-        base_url = "https://chernigiv.energy-ua.info"
-        try:
-            scraper.get(base_url, timeout=15)
-        except:
-            pass  # Ignore errors on base page
-        
-        # Add referer header for the specific request
-        headers = {
-            'Referer': base_url,
-        }
-        
-        # Retry logic for 403 errors
-        max_retries = 3
-        r = None
-        for attempt in range(max_retries):
-            try:
-                r = scraper.get(item["url"], timeout=15, headers=headers)
-                if r.status_code == 200:
-                    break
-                elif r.status_code == 403 and attempt < max_retries - 1:
-                    print(f"Got 403, retrying ({attempt + 1}/{max_retries})...", file=sys.stderr)
-                    time.sleep(2)  # Wait before retry
-                    continue
-                else:
-                    r.raise_for_status()
-            except requests.RequestException as e:
-                if attempt < max_retries - 1:
-                    print(f"Request failed, retrying ({attempt + 1}/{max_retries}): {e}", file=sys.stderr)
-                    time.sleep(2)
-                    continue
-                else:
-                    raise
-        
-        if r is None or r.status_code != 200:
-            raise requests.RequestException(f"Failed to fetch after {max_retries} attempts")
-        
-        soup = BeautifulSoup(r.text, "html.parser")
-        spans = soup.select("div.periods_items > span")
-        
-        outages = []
-        for s in spans:
-            b = s.find_all("b")
-            if len(b) < 2:
-                continue
+    r = scraper.get(item["url"], timeout=15)
+    soup = BeautifulSoup(r.text, "html.parser")
+    spans = soup.select("div.periods_items > span")
+    
+    outages = []
+    for s in spans:
+        b = s.find_all("b")
+        if len(b) < 2:
+            continue
 
-            start = datetime.combine(now.date(), datetime.strptime(b[0].text, "%H:%M").time())
-            end   = datetime.combine(now.date(), datetime.strptime(b[1].text, "%H:%M").time())
-            # Make datetime timezone-aware
-            start = ukraine_tz.localize(start)
-            end = ukraine_tz.localize(end)
-            outages.append((b[0].text, b[1].text, start, end))
-        
-        all_outages[item["name"]] = outages
-        
-        # Debug output
-        if not outages:
-            print(f"Warning: No outages found for {item['name']}", file=sys.stderr)
-            print(f"Found {len(spans)} span elements", file=sys.stderr)
-            if len(spans) > 0:
-                print(f"First span content: {spans[0].get_text()}", file=sys.stderr)
-    except requests.RequestException as e:
-        print(f"Error fetching {item['name']}: {e}", file=sys.stderr)
-        all_outages[item["name"]] = []
-    except Exception as e:
-        print(f"Error processing {item['name']}: {e}", file=sys.stderr)
-        all_outages[item["name"]] = []
+        start = datetime.combine(now.date(), datetime.strptime(b[0].text, "%H:%M").time())
+        end   = datetime.combine(now.date(), datetime.strptime(b[1].text, "%H:%M").time())
+        # Make datetime timezone-aware
+        start = ukraine_tz.localize(start)
+        end = ukraine_tz.localize(end)
+        outages.append((b[0].text, b[1].text, start, end))
+    
+    all_outages[item["name"]] = outages
 
 # Send daily guarantee message if needed
 if should_send_daily():
