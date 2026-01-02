@@ -71,6 +71,7 @@ for item in URLS:
         outages.append((b[0].text, b[1].text, start, end))
     
     all_outages[item["name"]] = outages
+    print(all_outages)
 
 # Send daily guarantee message if needed
 if should_send_daily():
@@ -97,6 +98,7 @@ for item in URLS:
             (end, "end", f"💡 Світло повернеться о ({end_time})"),
         ]:
             delta = (t - now).total_seconds() / 60
+            print(delta)
 
             if WINDOW_MAX <= delta <= WINDOW_MIN:
                 send(f"{item['name']}\n{msg}")
