@@ -1,4 +1,4 @@
-name: GitHub Quotas Check
+name: gitHub quotas check
 
 on:
   schedule:
