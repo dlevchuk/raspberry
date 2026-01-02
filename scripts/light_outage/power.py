@@ -39,12 +39,16 @@ def fetch_with_proxy(url):
         params = {
             'api_key': SCRAPER_API_KEY,
             'url': url,
-            'render': 'true'  # Enable JS rendering for Cloudflare
+            'render': 'true',
+            'country_code': 'ua',  # Use Ukraine proxy
+            'premium': 'true',     # Use premium proxy pool
+            'wait_for_selector': 'div.periods_items'  # Wait for content
         }
-        response = requests.get(proxy_url, params=params, timeout=60)
+        response = requests.get(proxy_url, params=params, timeout=90)
+        print(f"Status: {response.status_code}")
+        print(f"Response preview: {response.text[:500]}")
         return response.text
     else:
-        # Fallback to direct request (will likely fail)
         print("No proxy key, trying direct...")
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
