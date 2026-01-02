@@ -10,21 +10,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - uses: actions/cache@v3
+      
+      - name: Restore state
+        uses: actions/cache/restore@v3
         with:
           path: daily_sent.json
-          key: power-daily-cache
+          key: outage-state-${{ github.run_number }}
           restore-keys: |
-            power-daily-cache
+            outage-state-
 
-      - uses: actions/setup-python@v5
+      - name: Setup Python
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
-
-      - run: pip install -r scripts/light_outage/requirements.txt
-
-      - run: python scripts/light_outage/power.py
+          python-version: '3.11'
+      
+      - name: Install deps
+        run: pip install -r scripts/light_outage/requirements.txt
+      
+      - name: Run script
         env:
-          TG_CHAT_ID: ${{ secrets.TELEGRAM_TO }}
-          TG_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TG_TOKEN: ${{ secrets.TG_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+        run: python scripts/light_outage/power.py
+        env:
+      
+      - name: Save state
+        uses: actions/cache/save@v3
+        if: always()
+        with:
+          path: daily_sent.json
+          key: outage-state-${{ github.run_number }}
