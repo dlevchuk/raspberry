@@ -2,10 +2,8 @@ import requests
 import json
 import os
 from urllib.parse import quote
-from dotenv import load_dotenv
 
-load_dotenv()  # take environment variables from .env.
-# replace with your own token and organization name
+
 github_token = os.environ.get("GH_TOKEN")
 github_user = os.environ.get("GH_USER")
 #emoji

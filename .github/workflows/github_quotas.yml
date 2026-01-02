@@ -25,8 +25,8 @@ jobs:
 
       - name: Run GitHub quotas check
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_USER: ${{ secrets.GITHUB_USER }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_USER: ${{ secrets.GH_USER }}
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           BOT_CHAT_ID: ${{ secrets.BOT_CHAT_ID }}
         run: python scripts/github_quotas/get_github_quotas.py
