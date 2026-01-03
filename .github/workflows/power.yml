@@ -2,7 +2,7 @@ name: power alerts
 
 on:
   schedule:
-    - cron: "* */12 * * *"
+    - cron: "0 */12 * * *"
   workflow_dispatch:
 
 jobs:
@@ -30,11 +30,10 @@ jobs:
       
       - name: Run script
         env:
-          TG_TOKEN: ${{ secrets.TG_TOKEN }}
+          TG_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TG_CHAT_ID: ${{ secrets.TELEGRAM_TO }}
           SCRAPER_API_KEY: ${{ secrets.SCRAPER_API_KEY }}
-        run: python scripts/light_outage/power.py
-      
+        run: python scripts/light_outage/power.py      
       - name: Save state
         uses: actions/cache/save@v3
         if: always()
