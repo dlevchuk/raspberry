@@ -16,3 +16,10 @@ jobs:
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          ❌ Workflow Failed
+          
+          Workflow: ${{ github.event.workflow_run.name }}
+          Repository: ${{ github.repository }}
+          Branch: ${{ github.event.workflow_run.head_branch }}
+          Run: ${{ github.event.workflow_run.html_url }}

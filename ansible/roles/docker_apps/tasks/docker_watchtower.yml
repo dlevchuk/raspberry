@@ -2,7 +2,7 @@
   docker_container:
     name: watchtower
     #image: containrrr/watchtower:latest
-    image: nickfedor/watchtower
+    image: nickfedor/watchtower:latest
     
     env:
        WATCHTOWER_SCHEDULE: "0 0 6 * * *" # requires a go cron syntax of 6 space-separated fields; see https://containrrr.dev/watchtower/arguments/#scheduling
