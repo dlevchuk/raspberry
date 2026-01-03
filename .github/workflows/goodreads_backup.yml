@@ -1,4 +1,4 @@
-name: goodreads_backup
+name: Goodreads Backup
 
 on:
   schedule:
@@ -25,12 +25,25 @@ jobs:
       
       - name: Run scraper
         run: |
-          python scripts/backup_goodreads_web/goodreads_scraper.py > scripts/backup_goodreads_web/goodreads_backup.json
+          python goodreads_scraper.py > goodreads_backup.json 2>&1
+          cat goodreads_backup.json
+      
+      - name: Check if file exists
+        run: |
+          if [ ! -f goodreads_backup.json ]; then
+            echo "ERROR: goodreads_backup.json not created"
+            exit 1
+          fi
+          echo "File created successfully, size: $(wc -c < goodreads_backup.json) bytes"
       
       - name: Commit and push if changed
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add goodreads_backup.json
-          git diff --staged --quiet || git commit -m "Update Goodreads backup - $(date -u '+%Y-%m-%d %H:%M UTC')"
-          git push
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update Goodreads backup - $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
