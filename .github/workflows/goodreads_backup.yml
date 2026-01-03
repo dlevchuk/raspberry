@@ -1,4 +1,4 @@
-name: Goodreads Backup
+name: goodreads_backup
 
 on:
   schedule:
@@ -25,7 +25,7 @@ jobs:
       
       - name: Run scraper
         run: |
-          python goodreads_scraper.py > goodreads_backup.json
+          python scripts/backup_goodreads_web/goodreads_scraper.py > scripts/backup_goodreads_web/goodreads_backup.json
       
       - name: Commit and push if changed
         run: |
