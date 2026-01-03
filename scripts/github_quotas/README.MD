@@ -1,5 +1,8 @@
 # get github quotas
-This script allows you to get notifications to telegram about your github account quotas
+
+⚠️ **DEPRECATED**: This script and workflow are no longer functional as GitHub has deprecated the billing API endpoints used by this script. The API endpoints (`/users/{username}/settings/billing/*`) are no longer available.
+
+This script was designed to get notifications to telegram about your github account quotas.
 
 
 ## Installation:

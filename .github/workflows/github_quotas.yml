@@ -1,14 +1,18 @@
 name: gitHub quotas check
 
+# DISABLED: GitHub billing API endpoints have been deprecated
+# See: https://docs.github.com/en/rest/billing/billing?apiVersion=2022-11-28
 on:
-  schedule:
-    # Run weekly on Saturday at 20:30 UTC (adjust timezone as needed)
-    - cron: "30 20 * * 6"
-  workflow_dispatch:  # Allow manual triggering
+  # schedule:
+  #   # Run weekly on Saturday at 20:30 UTC (adjust timezone as needed)
+  #   - cron: "30 20 * * 6"
+  workflow_dispatch:  # Allow manual triggering (kept for reference)
 
 jobs:
   check_quotas:
     runs-on: ubuntu-latest
+    # Workflow disabled - API deprecated
+    if: false
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
