@@ -15,19 +15,17 @@ URLS = [
 
 BOT_TOKEN = os.environ["TG_TOKEN"]
 CHAT_ID = os.environ["TG_CHAT_ID"]
-SCRAPER_API_KEY = os.environ.get("SCRAPER_API_KEY", "")  # Get free key at scraperapi.com
-
-WINDOW_MIN = 30
-WINDOW_MAX = 0  
-DAILY_SENT_FILE = "daily_sent.json"
+SCRAPER_API_KEY = os.environ.get("SCRAPER_API_KEY", "")
 
 def send(msg):
     try:
-        requests.post(
+        response = requests.post(
             f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
-            data={"chat_id": CHAT_ID, "text": msg},
+            data={"chat_id": CHAT_ID, "text": msg, "parse_mode": "HTML"},
             timeout=10
         )
+        response.raise_for_status()
+        print(f"✓ Message sent")
     except Exception as e:
         print(f"Telegram error: {e}")
 
@@ -40,62 +38,51 @@ def fetch_with_proxy(url):
             'api_key': SCRAPER_API_KEY,
             'url': url,
             'render': 'true',
-            'country_code': 'ua',  # Use Ukraine proxy
-            'premium': 'true',     # Use premium proxy pool
-            'wait_for_selector': 'div.periods_items'  # Wait for content
+            'country_code': 'ua',
+            'premium': 'true',
+            'wait_for_selector': 'div.periods_items'
         }
         response = requests.get(proxy_url, params=params, timeout=90)
-        print(f"Status: {response.status_code}")
-        print(f"Response preview: {response.text[:500]}")
+        print(f"Status: {response.status_code}, Length: {len(response.text)}")
         return response.text
     else:
-        print("No proxy key, trying direct...")
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-        }
+        print("No proxy, trying direct...")
+        headers = {'User-Agent': 'Mozilla/5.0'}
         response = requests.get(url, headers=headers, timeout=30)
         return response.text
 
-def should_send_daily():
-    ukraine_tz = pytz.timezone('Europe/Kyiv')
-    today = datetime.now(ukraine_tz).date().isoformat()
-    if os.path.exists(DAILY_SENT_FILE):
-        try:
-            with open(DAILY_SENT_FILE) as f:
-                data = json.load(f)
-            return data.get("last_sent") != today
-        except:
-            return True
-    return True
-
-def mark_daily_sent():
-    ukraine_tz = pytz.timezone('Europe/Kyiv')
-    with open(DAILY_SENT_FILE, "w") as f:
-        json.dump({"last_sent": datetime.now(ukraine_tz).date().isoformat()}, f)
+def format_time_delta(minutes):
+    """Format time difference in human readable way"""
+    if minutes < 60:
+        return f"{int(minutes)} хв"
+    hours = minutes / 60
+    if hours < 24:
+        return f"{hours:.1f} год"
+    days = hours / 24
+    return f"{days:.1f} днів"
 
 ukraine_tz = pytz.timezone('Europe/Kyiv')
 now = datetime.now(ukraine_tz)
 
+print(f"Script run at: {now.strftime('%Y-%m-%d %H:%M %Z')}\n")
+
 all_outages = {}
 
-print("Starting scraper...")
-
+# Fetch and parse outages
 for item in URLS:
-    print(f"\nFetching: {item['url']}")
+    print(f"Fetching: {item['name']}")
     
     try:
         html = fetch_with_proxy(item["url"])
-        print(f"HTML length: {len(html)}")
         
-        # Check if blocked
         if "Just a moment" in html or len(html) < 1000:
-            print("❌ Still blocked or invalid response")
+            print("❌ Blocked or invalid response")
             all_outages[item["name"]] = []
             continue
         
         soup = BeautifulSoup(html, "html.parser")
         spans = soup.select("div.periods_items > span")
-        print(f"✓ Found {len(spans)} span elements")
+        print(f"✓ Found {len(spans)} outage periods")
         
         outages = []
         for s in spans:
@@ -104,60 +91,90 @@ for item in URLS:
                 continue
             
             try:
-                start = datetime.combine(now.date(), datetime.strptime(b[0].text.strip(), "%H:%M").time())
-                end   = datetime.combine(now.date(), datetime.strptime(b[1].text.strip(), "%H:%M").time())
+                start_time = b[0].text.strip()
+                end_time = b[1].text.strip()
+                
+                start = datetime.combine(now.date(), datetime.strptime(start_time, "%H:%M").time())
+                end = datetime.combine(now.date(), datetime.strptime(end_time, "%H:%M").time())
+                
+                # Handle overnight outages
+                if end < start:
+                    end += timedelta(days=1)
+                
+                # If outage already passed today, assume it's tomorrow
+                if start < now:
+                    start += timedelta(days=1)
+                    end += timedelta(days=1)
+                
                 start = ukraine_tz.localize(start)
                 end = ukraine_tz.localize(end)
-                outages.append((b[0].text.strip(), b[1].text.strip(), start, end))
-                print(f"  - Outage: {b[0].text.strip()} - {b[1].text.strip()}")
+                
+                outages.append({
+                    'start_time': start_time,
+                    'end_time': end_time,
+                    'start': start,
+                    'end': end
+                })
+                print(f"  - {start_time} – {end_time}")
+                
             except Exception as e:
                 print(f"  ! Parse error: {e}")
                 continue
         
         all_outages[item["name"]] = outages
-        print(f"✓ Total outages: {len(outages)}")
         
     except Exception as e:
         print(f"❌ Error: {e}")
-        import traceback
-        traceback.print_exc()
         all_outages[item["name"]] = []
 
-print(f"\n{'='*50}")
-print("Results:")
-for k, v in all_outages.items():
-    print(f"{k}: {[(s, e) for s, e, _, _ in v]}")
-print(f"{'='*50}\n")
+print(f"\n{'='*60}")
 
-# Send daily message
-if should_send_daily():
-    print("Sending daily message...")
-    daily_msg = "📋 Графік відключень на сьогодні:\n\n"
-    for location, outages in all_outages.items():
-        daily_msg += f"🏠 {location}:\n"
-        if outages:
-            for start_time, end_time, start, end in outages:
-                daily_msg += f"  ⚡ {start_time}–{end_time}\n"
-        else:
-            daily_msg += "  ✅ Відключень немає\n"
-        daily_msg += "\n"
+# Build message with next outages
+message_parts = []
+message_parts.append(f"📅 <b>Графік відключень</b>")
+message_parts.append(f"🕐 {now.strftime('%d.%m.%Y %H:%M')}\n")
+
+for location, outages in all_outages.items():
+    message_parts.append(f"🏠 <b>{location}</b>")
     
-    send(daily_msg)
-    mark_daily_sent()
-    print("✓ Daily message sent")
+    if not outages:
+        message_parts.append("  ✅ Відключень немає\n")
+        continue
+    
+    # Find next outage
+    next_outage = None
+    for outage in sorted(outages, key=lambda x: x['start']):
+        if outage['start'] > now:
+            next_outage = outage
+            break
+    
+    if next_outage:
+        delta_min = (next_outage['start'] - now).total_seconds() / 60
+        time_str = format_time_delta(delta_min)
+        
+        message_parts.append(f"  ⚡ Наступне відключення:")
+        message_parts.append(f"     Через <b>{time_str}</b>")
+        message_parts.append(f"     {next_outage['start_time']} – {next_outage['end_time']}\n")
+    
+    # Show all today's outages
+    message_parts.append("  📋 Всі відключення:")
+    for outage in outages:
+        status = ""
+        if outage['start'] <= now <= outage['end']:
+            status = " 🔴 зараз"
+        elif outage['start'] < now:
+            status = " ✓ пройшло"
+        
+        message_parts.append(f"     {outage['start_time']} – {outage['end_time']}{status}")
+    
+    message_parts.append("")
 
-# Individual notifications
-print("\nChecking notifications...")
-for item in URLS:
-    outages = all_outages.get(item["name"], [])
-    for start_time, end_time, start, end in outages:
-        for t, label, msg in [
-            (start, "start", f"⚡ Відключення о ({start_time}–{end_time})"),
-            (end, "end", f"💡 Світло повернеться о ({end_time})"),
-        ]:
-            delta = (t - now).total_seconds() / 60
-            if WINDOW_MAX <= delta <= WINDOW_MIN:
-                print(f"Sending: {msg}")
-                send(f"{item['name']}\n{msg}")
+message = "\n".join(message_parts)
 
-print("\n✓ Done")
+print(message)
+print(f"{'='*60}\n")
+
+# Send message
+send(message)
+
+print("✓ Script completed")
