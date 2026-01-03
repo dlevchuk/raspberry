@@ -8,10 +8,10 @@ jobs:
   deploy_raspberry_outage_script:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2.3.2
+    - uses: actions/checkout@v4
 
     - name: Tailscale
-      uses: tailscale/github-action@v2
+      uses: tailscale/github-action@v3
       with:
         authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
 
@@ -27,7 +27,7 @@ jobs:
         remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
 
     - name: executing remote ssh to setup cron
-      uses: appleboy/ssh-action@v0.1.7
+      uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}

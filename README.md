@@ -3,7 +3,8 @@
 
 ![workflow](https://github.com/dlevchuk/raspberry/actions/workflows/telegram_notify.yml/badge.svg)
 
-![workflow](https://github.com/dlevchuk/raspberry/actions/workflows/github_quotas.yml/badge.svg)
+<!-- Deprecated: GitHub billing API endpoints have been deprecated -->
+<!-- ![workflow](https://github.com/dlevchuk/raspberry/actions/workflows/github_quotas.yml/badge.svg) -->
 
 ![workflow](https://github.com/dlevchuk/raspberry/actions/workflows/imdb_backup.yml/badge.svg)
 
