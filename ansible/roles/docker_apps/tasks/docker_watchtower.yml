@@ -1,7 +1,9 @@
 - name: Setup watchtower
   docker_container:
     name: watchtower
-    image: containrrr/watchtower:latest
+    #image: containrrr/watchtower:latest
+    image: nickfedor/watchtower
+    
     env:
        WATCHTOWER_SCHEDULE: "0 0 6 * * *" # requires a go cron syntax of 6 space-separated fields; see https://containrrr.dev/watchtower/arguments/#scheduling
        WATCHTOWER_CLEANUP: "true" # remove unused images afterwards
@@ -10,3 +12,7 @@
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart_policy: always
+
+
+
+
