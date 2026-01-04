@@ -1,59 +1,6 @@
-Starting Goodreads scraper...
-Scraping read...
-  Page 1: 20 books
-  Page 2: 20 books
-  Page 3: 20 books
-  Page 4: 20 books
-  Page 5: 20 books
-  Page 6: 20 books
-  Page 7: 20 books
-  Page 8: 20 books
-  Page 9: 20 books
-  Page 10: 20 books
-  Page 11: 20 books
-  Page 12: 20 books
-  Page 13: 20 books
-  Page 14: 20 books
-  Page 15: 20 books
-  Page 16: 20 books
-  Page 17: 20 books
-  Page 18: 20 books
-  Page 19: 20 books
-  Page 20: 20 books
-  Page 21: 20 books
-  Page 22: 20 books
-  Page 23: 20 books
-  Page 24: 20 books
-  Page 25: 20 books
-  Page 26: 20 books
-  Page 27: 13 books
-Scraping currently-reading...
-  Page 1: 2 books
-Scraping to-read...
-  Page 1: 20 books
-  Page 2: 20 books
-  Page 3: 20 books
-  Page 4: 20 books
-  Page 5: 20 books
-  Page 6: 20 books
-  Page 7: 20 books
-  Page 8: 20 books
-  Page 9: 20 books
-  Page 10: 20 books
-  Page 11: 20 books
-  Page 12: 20 books
-  Page 13: 20 books
-  Page 14: 20 books
-  Page 15: 20 books
-  Page 16: 20 books
-  Page 17: 20 books
-  Page 18: 20 books
-  Page 19: 20 books
-  Page 20: 20 books
-  Page 21: 2 books
 {
   "user_id": "76529348",
-  "scraped_at": "2026-01-03 21:18:36 UTC",
+  "scraped_at": "2026-01-04 03:52:19 UTC",
   "total_books": 937,
   "books": [
     {
@@ -253,7 +200,7 @@ Scraping to-read...
       ],
       "date_read": "Oct 30, 2025",
       "date_added": "Oct 30, 2025",
-      "avg_rating": "3.69",
+      "avg_rating": "3.71",
       "pages": "127\n        pp"
     },
     {
@@ -1233,7 +1180,7 @@ Scraping to-read...
       ],
       "date_read": "not set",
       "date_added": "Jan 14, 2025",
-      "avg_rating": "4.18",
+      "avg_rating": "4.17",
       "pages": "46\n        pp"
     },
     {
@@ -2058,7 +2005,7 @@ Scraping to-read...
     },
     {
       "id": "6948647395",
-      "title": "Dune (Dune #1)",
+      "title": "Dune (Dune, #1)",
       "url": "https://www.goodreads.com/book/show/44767458-dune",
       "author": "Herbert, Frank",
       "isbn": "059309932X",
@@ -3133,7 +3080,7 @@ Scraping to-read...
       ],
       "date_read": "Dec 25, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "2.67",
+      "avg_rating": "2.68",
       "pages": "24\n        pp"
     },
     {
@@ -7517,7 +7464,7 @@ Scraping to-read...
       ],
       "date_read": "not set",
       "date_added": "Mar 09, 2021",
-      "avg_rating": "4.22",
+      "avg_rating": "4.23",
       "pages": "704\n        pp"
     },
     {
@@ -11117,7 +11064,7 @@ Scraping to-read...
       ],
       "date_read": "not set",
       "date_added": "Apr 24, 2025",
-      "avg_rating": "4.30",
+      "avg_rating": "4.29",
       "pages": "339\n        pp"
     },
     {
@@ -16557,7 +16504,7 @@ Scraping to-read...
       ],
       "date_read": "not set",
       "date_added": "Aug 08, 2022",
-      "avg_rating": "4.22",
+      "avg_rating": "4.23",
       "pages": "1,147\n        pp"
     },
     {
@@ -16937,7 +16884,7 @@ Scraping to-read...
       ],
       "date_read": "not set",
       "date_added": "Jul 05, 2022",
-      "avg_rating": "3.83",
+      "avg_rating": "3.82",
       "pages": "467\n        pp"
     },
     {
@@ -18802,5 +18749,3 @@ Scraping to-read...
     }
   ]
 }
-Total books scraped: 937
-
