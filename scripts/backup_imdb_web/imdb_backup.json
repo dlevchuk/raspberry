@@ -1,0 +1,798 @@
+Starting IMDB scraper...
+Scraping ratings...
+  Page 1: 25 titles
+Scraping watchlist...
+  Page 1: 25 titles
+Scraping reviews...
+  Found 0 reviews
+Scraping custom lists...
+  Scraping list: 
+    Found 0 items
+  Scraping list: Talk shows
+    Found 0 items
+  Scraping list: 
+    Found 0 items
+  Scraping list: Music video
+    Found 0 items
+  Scraping list: 
+    Found 0 items
+  Scraping list: Standup
+    Found 0 items
+  Scraping list: 
+    Found 0 items
+  Scraping list: In cinema
+    Found 0 items
+  Scraping list: 
+    Found 0 items
+  Scraping list: in English
+    Found 0 items
+  Scraping list: 
+    Found 0 items
+  Scraping list: Anime
+    Found 0 items
+  Scraping list: 
+    Found 0 items
+  Scraping list: Shorts
+    Found 0 items
+  Scraping list: 
+    Found 0 items
+  Scraping list: UA
+    Found 0 items
+  Scraping list: 
+    Found 0 items
+  Scraping list: Serials
+    Found 0 items
+  Scraping list: 
+    Found 0 items
+  Scraping list: Animation
+    Found 0 items
+  Scraping list: 
+    Found 0 items
+  Scraping list: Films
+    Found 0 items
+  Total lists: 22
+{
+  "user_id": "ur48993532",
+  "scraped_at": "2026-01-05 12:21:51 UTC",
+  "ratings": [
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0",
+      "metadata": [
+        "2025",
+        "1h 54m",
+        "PG-13"
+      ]
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0",
+      "metadata": [
+        "2015",
+        "1h 41m",
+        "R"
+      ]
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4",
+      "metadata": [
+        "2025",
+        "2h 28m",
+        "PG-13"
+      ]
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1",
+      "metadata": [
+        "1950",
+        "1h 28m",
+        "Not Rated"
+      ]
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6",
+      "metadata": [
+        "2025",
+        "1h 48m",
+        "PG"
+      ]
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3",
+      "metadata": [
+        "2025",
+        "1h 56m"
+      ]
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2",
+      "metadata": [
+        "2002",
+        "2h 5m",
+        "R"
+      ]
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2",
+      "metadata": [
+        "2005",
+        "2h 13m",
+        "Not Rated"
+      ]
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1",
+      "metadata": [
+        "2025–",
+        "9 eps",
+        "TV-MA"
+      ]
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5",
+      "metadata": [
+        "2025",
+        "2h 19m",
+        "R"
+      ]
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8",
+      "metadata": [
+        "2025",
+        "1h 38m",
+        "R"
+      ]
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1",
+      "metadata": [
+        "2025",
+        "1h 59m",
+        "R"
+      ]
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0",
+      "metadata": [
+        "2025–",
+        "10 eps",
+        "TV-MA"
+      ]
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1",
+      "metadata": [
+        "2025–",
+        "10 eps",
+        "TV-MA"
+      ]
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6",
+      "metadata": [
+        "2025",
+        "2h 12m",
+        "R"
+      ]
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8",
+      "metadata": [
+        "2025",
+        "2h 18m",
+        "R"
+      ]
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0",
+      "metadata": [
+        "2024",
+        "1h 30m"
+      ]
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5",
+      "metadata": [
+        "2023",
+        "1h 59m"
+      ]
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4",
+      "metadata": [
+        "2025",
+        "2h 13m",
+        "R"
+      ]
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9",
+      "metadata": [
+        "2025",
+        "2h 13m",
+        "R"
+      ]
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0",
+      "metadata": [
+        "2025",
+        "1h 49m",
+        "R"
+      ]
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5",
+      "metadata": [
+        "2025",
+        "1h 38m"
+      ]
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.4",
+      "user_rating": "8.4",
+      "metadata": [
+        "2024",
+        "20m"
+      ]
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0",
+      "metadata": [
+        "2025",
+        "1h 53m",
+        "PG-13"
+      ]
+    },
+    {
+      "imdb_id": "tt0077269",
+      "url": "https://www.imdb.com/title/tt0077269/",
+      "title": "The Boys from Brazil",
+      "year": "1978",
+      "rating": "7.0",
+      "user_rating": "7.0",
+      "metadata": [
+        "1978",
+        "2h 5m",
+        "R"
+      ]
+    }
+  ],
+  "watchlist": [
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6",
+      "metadata": [
+        "2025",
+        "1h 53m",
+        "R"
+      ]
+    },
+    {
+      "imdb_id": "tt27811632",
+      "url": "https://www.imdb.com/title/tt27811632/",
+      "title": "Silent Friend",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6",
+      "metadata": [
+        "2025",
+        "2h 27m"
+      ]
+    },
+    {
+      "imdb_id": "tt0870984",
+      "url": "https://www.imdb.com/title/tt0870984/",
+      "title": "Antichrist",
+      "year": "2009",
+      "rating": "6.5",
+      "user_rating": "6.5",
+      "metadata": [
+        "2009",
+        "1h 48m",
+        "Not Rated"
+      ]
+    },
+    {
+      "imdb_id": "tt1757678",
+      "url": "https://www.imdb.com/title/tt1757678/",
+      "title": "Avatar: Fire and Ash",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4",
+      "metadata": [
+        "2025",
+        "3h 17m",
+        "PG-13"
+      ]
+    },
+    {
+      "imdb_id": "tt33764258",
+      "url": "https://www.imdb.com/title/tt33764258/",
+      "title": "The Odyssey",
+      "year": "2026"
+    },
+    {
+      "imdb_id": "tt14261112",
+      "url": "https://www.imdb.com/title/tt14261112/",
+      "title": "Twisted Metal",
+      "year": "2023–",
+      "rating": "7.3",
+      "user_rating": "7.3",
+      "metadata": [
+        "2023–",
+        "23 eps",
+        "TV-MA"
+      ]
+    },
+    {
+      "imdb_id": "tt0100935",
+      "url": "https://www.imdb.com/title/tt0100935/",
+      "title": "Wild at Heart",
+      "year": "1990",
+      "rating": "7.2",
+      "user_rating": "7.2",
+      "metadata": [
+        "1990",
+        "2h 5m",
+        "R"
+      ]
+    },
+    {
+      "imdb_id": "tt8814476",
+      "url": "https://www.imdb.com/title/tt8814476/",
+      "title": "Supergirl",
+      "year": "2026"
+    },
+    {
+      "imdb_id": "tt31597044",
+      "url": "https://www.imdb.com/title/tt31597044/",
+      "title": "Us, Our Pets and the War",
+      "year": "2024",
+      "rating": "8.5",
+      "user_rating": "8.5",
+      "metadata": [
+        "2024",
+        "1h 19m"
+      ]
+    },
+    {
+      "imdb_id": "tt35820341",
+      "url": "https://www.imdb.com/title/tt35820341/",
+      "title": "Sanatorium",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0",
+      "metadata": [
+        "2025",
+        "1h 30m"
+      ]
+    },
+    {
+      "imdb_id": "tt31688586",
+      "url": "https://www.imdb.com/title/tt31688586/",
+      "title": "Nouvelle Vague",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3",
+      "metadata": [
+        "2025",
+        "1h 46m",
+        "R"
+      ]
+    },
+    {
+      "imdb_id": "tt32536315",
+      "url": "https://www.imdb.com/title/tt32536315/",
+      "title": "Blue Moon",
+      "year": "2025",
+      "rating": "6.9",
+      "user_rating": "6.9",
+      "metadata": [
+        "2025",
+        "1h 40m",
+        "R"
+      ]
+    },
+    {
+      "imdb_id": "tt27995114",
+      "url": "https://www.imdb.com/title/tt27995114/",
+      "title": "Dept. Q",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1",
+      "metadata": [
+        "2025–",
+        "10 eps",
+        "TV-MA"
+      ]
+    },
+    {
+      "imdb_id": "tt31974367",
+      "url": "https://www.imdb.com/title/tt31974367/",
+      "title": "The Beast in Me",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5",
+      "metadata": [
+        "2025",
+        "8 eps",
+        "TV-MA"
+      ]
+    },
+    {
+      "imdb_id": "tt32298285",
+      "url": "https://www.imdb.com/title/tt32298285/",
+      "title": "Sirat",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0",
+      "metadata": [
+        "2025",
+        "1h 55m"
+      ]
+    },
+    {
+      "imdb_id": "tt32916440",
+      "url": "https://www.imdb.com/title/tt32916440/",
+      "title": "Marty Supreme",
+      "year": "2025",
+      "rating": "8.3",
+      "user_rating": "8.3",
+      "metadata": [
+        "2025",
+        "2h 29m",
+        "R"
+      ]
+    },
+    {
+      "imdb_id": "tt27847051",
+      "url": "https://www.imdb.com/title/tt27847051/",
+      "title": "The Secret Agent",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9",
+      "metadata": [
+        "2025",
+        "2h 41m",
+        "R"
+      ]
+    },
+    {
+      "imdb_id": "tt14905854",
+      "url": "https://www.imdb.com/title/tt14905854/",
+      "title": "Hamnet",
+      "year": "2025",
+      "rating": "8.1",
+      "user_rating": "8.1",
+      "metadata": [
+        "2025",
+        "2h 5m",
+        "PG-13"
+      ]
+    },
+    {
+      "imdb_id": "tt27497448",
+      "url": "https://www.imdb.com/title/tt27497448/",
+      "title": "A Knight of the Seven Kingdoms",
+      "year": "2026–",
+      "metadata": [
+        "2026–",
+        "7 eps",
+        "TV-MA"
+      ]
+    },
+    {
+      "imdb_id": "tt12042730",
+      "url": "https://www.imdb.com/title/tt12042730/",
+      "title": "Project Hail Mary",
+      "year": "2026"
+    },
+    {
+      "imdb_id": "tt31314751",
+      "url": "https://www.imdb.com/title/tt31314751/",
+      "title": "All Her Fault",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5",
+      "metadata": [
+        "2025",
+        "8 eps",
+        "TV-MA"
+      ]
+    },
+    {
+      "imdb_id": "tt0272338",
+      "url": "https://www.imdb.com/title/tt0272338/",
+      "title": "Punch-Drunk Love",
+      "year": "2002",
+      "rating": "7.3",
+      "user_rating": "7.3",
+      "metadata": [
+        "2002",
+        "1h 35m",
+        "R"
+      ]
+    },
+    {
+      "imdb_id": "tt2402927",
+      "url": "https://www.imdb.com/title/tt2402927/",
+      "title": "Carol",
+      "year": "2015",
+      "rating": "7.3",
+      "user_rating": "7.3",
+      "metadata": [
+        "2015",
+        "1h 58m",
+        "R"
+      ]
+    },
+    {
+      "imdb_id": "tt0441909",
+      "url": "https://www.imdb.com/title/tt0441909/",
+      "title": "Volver",
+      "year": "2006",
+      "rating": "7.6",
+      "user_rating": "7.6",
+      "metadata": [
+        "2006",
+        "2h 1m",
+        "R"
+      ]
+    },
+    {
+      "imdb_id": "tt2347569",
+      "url": "https://www.imdb.com/title/tt2347569/",
+      "title": "Frances Ha",
+      "year": "2012",
+      "rating": "7.4",
+      "user_rating": "7.4",
+      "metadata": [
+        "2012",
+        "1h 26m",
+        "R"
+      ]
+    }
+  ],
+  "reviews": [],
+  "custom_lists": [
+    {
+      "list_id": "ls534437796",
+      "list_name": "",
+      "items": []
+    },
+    {
+      "list_id": "ls534437796",
+      "list_name": "Talk shows",
+      "items": []
+    },
+    {
+      "list_id": "ls534867893",
+      "list_name": "",
+      "items": []
+    },
+    {
+      "list_id": "ls534867893",
+      "list_name": "Music video",
+      "items": []
+    },
+    {
+      "list_id": "ls534437561",
+      "list_name": "",
+      "items": []
+    },
+    {
+      "list_id": "ls534437561",
+      "list_name": "Standup",
+      "items": []
+    },
+    {
+      "list_id": "ls088540345",
+      "list_name": "",
+      "items": []
+    },
+    {
+      "list_id": "ls088540345",
+      "list_name": "In cinema",
+      "items": []
+    },
+    {
+      "list_id": "ls500612042",
+      "list_name": "",
+      "items": []
+    },
+    {
+      "list_id": "ls500612042",
+      "list_name": "in English",
+      "items": []
+    },
+    {
+      "list_id": "ls500015753",
+      "list_name": "",
+      "items": []
+    },
+    {
+      "list_id": "ls500015753",
+      "list_name": "Anime",
+      "items": []
+    },
+    {
+      "list_id": "ls554212642",
+      "list_name": "",
+      "items": []
+    },
+    {
+      "list_id": "ls554212642",
+      "list_name": "Shorts",
+      "items": []
+    },
+    {
+      "list_id": "ls593302736",
+      "list_name": "",
+      "items": []
+    },
+    {
+      "list_id": "ls593302736",
+      "list_name": "UA",
+      "items": []
+    },
+    {
+      "list_id": "ls089899659",
+      "list_name": "",
+      "items": []
+    },
+    {
+      "list_id": "ls089899659",
+      "list_name": "Serials",
+      "items": []
+    },
+    {
+      "list_id": "ls500094528",
+      "list_name": "",
+      "items": []
+    },
+    {
+      "list_id": "ls500094528",
+      "list_name": "Animation",
+      "items": []
+    },
+    {
+      "list_id": "ls089899651",
+      "list_name": "",
+      "items": []
+    },
+    {
+      "list_id": "ls089899651",
+      "list_name": "Films",
+      "items": []
+    }
+  ],
+  "total_ratings": 25,
+  "total_watchlist": 25,
+  "total_reviews": 0,
+  "total_lists": 22
+}
+Total - Ratings: 25, Watchlist: 25, Reviews: 0, Lists: 22
+
