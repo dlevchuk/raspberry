@@ -23,3 +23,20 @@ jobs:
           Repository: ${{ github.repository }}
           Branch: ${{ github.event.workflow_run.head_branch }}
           Run: ${{ github.event.workflow_run.html_url }}
+
+  notifyBackupSuccess:
+    runs-on: ubuntu-latest
+    if: ${{ (github.event.workflow_run.name == 'goodreads backup' || github.event.workflow_run.name == 'IMDB Backup') && github.event.workflow_run.conclusion == 'success' }}
+    steps:
+    - name: send success message
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          ✅ Backup Successful
+          
+          Workflow: ${{ github.event.workflow_run.name }}
+          Repository: ${{ github.repository }}
+          Branch: ${{ github.event.workflow_run.head_branch }}
+          Run: ${{ github.event.workflow_run.html_url }}
