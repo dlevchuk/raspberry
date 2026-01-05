@@ -1,42 +1,52 @@
-name: sync files imdb backups
+name: IMDB Backup
+
 on:
-  push:
-    paths:
-    - scripts/backup_imdb/imdb_backup.py
+  schedule:
+    # Run every Sunday at 3 AM UTC
+    - cron: '0 3 * * 0'
+  workflow_dispatch:
 
 jobs:
-  deploy_imdb_backup:
+  backup:
     runs-on: ubuntu-latest
+    
     steps:
-    - uses: actions/checkout@v4
-
-    - name: Tailscale
-      uses: tailscale/github-action@v3
-      with:
-        authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
-
-    - name: rsync deployments
-      uses: burnett01/rsync-deployments@5.2.1
-      with:
-        switches: -avz --delete --chmod=755
-        path: scripts/backup_imdb/imdb_backup.py
-        remote_path: ${{ secrets.REMOTE_PATH_IMDB }}
-        remote_host: ${{ secrets.REMOTE_HOST }}
-        remote_user: ${{ secrets.REMOTE_USER }}
-        remote_port: ${{ secrets.REMOTE_PORT }}
-        remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-    - name: Install Python dependencies
-      uses: py-actions/py-dependency-install@v2
-      with:
-        path: scripts/backup_imdb/requirements.txt
-        update-pip: "true"
-
-    - name: executing remote ssh to setup cron
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.REMOTE_HOST }}
-        username: ${{ secrets.REMOTE_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port:  ${{ secrets.REMOTE_PORT }}
-        script: sudo grep '/home/pi/scripts/imdb_backup' /var/spool/cron/crontabs/pi || crontab -l | { cat; echo "0 20 * * 6 cd ${{ secrets.REMOTE_PATH_IMDB }} && python3 imdb_backup.py --nopause > /dev/null 2>&1"; } | crontab -
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4
+      
+      - name: Run scraper
+        run: |
+          python scripts/backup_imdb_web/imdb_scraper.py > scripts/backup_imdb_web/imdb_backup.json 2>&1
+          cat scripts/backup_imdb_web/imdb_backup.json
+      
+      - name: Check if file exists
+        run: |
+          if [ ! -f scripts/backup_imdb_web/imdb_backup.json ]; then
+            echo "ERROR: imdb_backup.json not created"
+            exit 1
+          fi
+          echo "File created, size: $(wc -c < scripts/backup_imdb_web/imdb_backup.json) bytes"
+      
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add imdb_backup.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update IMDB backup - $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
