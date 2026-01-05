@@ -8,6 +8,12 @@ Raspberry Pi infrastructure management repository with automated backups, monito
 ![workflow](https://github.com/dlevchuk/raspberry/actions/workflows/telegram_notify.yml/badge.svg)
 ![workflow](https://github.com/dlevchuk/raspberry/actions/workflows/imdb_backup.yml/badge.svg)
 ![workflow](https://github.com/dlevchuk/raspberry/actions/workflows/raspberry_outage.yml/badge.svg)
+![workflow](https://github.com/dlevchuk/raspberry/actions/workflows/goodreads_backup.yml/badge.svg)
+![workflow](https://github.com/dlevchuk/raspberry/actions/workflows/meteo.yml/badge.svg)
+![workflow](https://github.com/dlevchuk/raspberry/actions/workflows/power.yml/badge.svg)
+![workflow](https://github.com/dlevchuk/raspberry/actions/workflows/ansible.yml/badge.svg)
+
+
 
 <!-- Deprecated: GitHub billing API endpoints have been deprecated -->
 <!-- ![workflow](https://github.com/dlevchuk/raspberry/actions/workflows/github_quotas.yml/badge.svg) -->
