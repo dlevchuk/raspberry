@@ -1,0 +1,4247 @@
+Starting IMDB scraper (optimized)...
+Scraping ratings...
+  ratings page 1: +25 (total: 25)
+  ratings page 2: +25 (total: 50)
+  ratings page 3: +25 (total: 75)
+  ratings page 4: +25 (total: 100)
+  ratings page 5: +25 (total: 125)
+  ratings page 6: +25 (total: 150)
+  ratings page 7: +25 (total: 175)
+  ratings page 8: +25 (total: 200)
+  ratings page 9: +25 (total: 225)
+  ratings page 10: +25 (total: 250)
+  ratings page 11: +25 (total: 275)
+  ratings page 12: +25 (total: 300)
+  ratings page 13: +25 (total: 325)
+  ratings page 14: +25 (total: 350)
+  ratings page 15: +25 (total: 375)
+  ratings page 16: +25 (total: 400)
+  ratings page 17: +25 (total: 425)
+  ratings page 18: +25 (total: 450)
+  ratings page 19: +25 (total: 475)
+  ratings page 20: +25 (total: 500)
+503 error, adjusting delay to 2.0s, waiting 2.0s...
+  ratings page 21: +25 (total: 525)
+503 error, adjusting delay to 4.0s, waiting 4.0s...
+503 error, adjusting delay to 8.0s, waiting 16.0s...
+Scraping watchlist...
+503 error, adjusting delay to 10.0s, waiting 10.0s...
+503 error, adjusting delay to 10.0s, waiting 20.0s...
+Scraping custom lists...
+503 error, adjusting delay to 10.0s, waiting 10.0s...
+503 error, adjusting delay to 10.0s, waiting 20.0s...
+
+Completed in 2.9 minutes
+Ratings: 525, Watchlist: 0, Lists: 0 (0 items)
+{
+  "user_id": "ur48993532",
+  "scraped_at": "2026-01-06 22:03:25 UTC",
+  "ratings": [
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt18382850",
+      "url": "https://www.imdb.com/title/tt18382850/",
+      "title": "If I Had Legs I'd Kick You",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt24950660",
+      "url": "https://www.imdb.com/title/tt24950660/",
+      "title": "Eternity",
+      "year": "2025",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt1172049",
+      "url": "https://www.imdb.com/title/tt1172049/",
+      "title": "Demolition",
+      "year": "2015",
+      "rating": "7.0",
+      "user_rating": "7.0"
+    },
+    {
+      "imdb_id": "tt29567915",
+      "url": "https://www.imdb.com/title/tt29567915/",
+      "title": "Nuremberg",
+      "year": "2025",
+      "rating": "7.4",
+      "user_rating": "7.4"
+    },
+    {
+      "imdb_id": "tt0042876",
+      "url": "https://www.imdb.com/title/tt0042876/",
+      "title": "Rashomon",
+      "year": "1950",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt26443597",
+      "url": "https://www.imdb.com/title/tt26443597/",
+      "title": "Zootopia 2",
+      "year": "2025",
+      "rating": "7.6",
+      "user_rating": "7.6"
+    },
+    {
+      "imdb_id": "tt27817389",
+      "url": "https://www.imdb.com/title/tt27817389/",
+      "title": "The Last Viking",
+      "year": "2025",
+      "rating": "7.3",
+      "user_rating": "7.3"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "url": "https://www.imdb.com/title/tt0257360/",
+      "title": "About Schmidt",
+      "year": "2002",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt0342735",
+      "url": "https://www.imdb.com/title/tt0342735/",
+      "title": "Manderlay",
+      "year": "2005",
+      "rating": "7.2",
+      "user_rating": "7.2"
+    },
+    {
+      "imdb_id": "tt13623632",
+      "url": "https://www.imdb.com/title/tt13623632/",
+      "title": "Alien: Earth",
+      "year": "2025–",
+      "rating": "7.1",
+      "user_rating": "7.1"
+    },
+    {
+      "imdb_id": "tt1527793",
+      "url": "https://www.imdb.com/title/tt1527793/",
+      "title": "No Other Choice",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27773954",
+      "url": "https://www.imdb.com/title/tt27773954/",
+      "title": "The Thing with Feathers",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt9362736",
+      "url": "https://www.imdb.com/title/tt9362736/",
+      "title": "Die My Love",
+      "year": "2025",
+      "rating": "6.1",
+      "user_rating": "6.1"
+    },
+    {
+      "imdb_id": "tt19244304",
+      "url": "https://www.imdb.com/title/tt19244304/",
+      "title": "IT: Welcome to Derry",
+      "year": "2025–",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt22202452",
+      "url": "https://www.imdb.com/title/tt22202452/",
+      "title": "Pluribus",
+      "year": "2025–",
+      "rating": "8.1",
+      "user_rating": "8.1"
+    },
+    {
+      "imdb_id": "tt30446847",
+      "url": "https://www.imdb.com/title/tt30446847/",
+      "title": "Jay Kelly",
+      "year": "2025",
+      "rating": "6.6",
+      "user_rating": "6.6"
+    },
+    {
+      "imdb_id": "tt32159989",
+      "url": "https://www.imdb.com/title/tt32159989/",
+      "title": "After the Hunt",
+      "year": "2025",
+      "rating": "5.8",
+      "user_rating": "5.8"
+    },
+    {
+      "imdb_id": "tt19783734",
+      "url": "https://www.imdb.com/title/tt19783734/",
+      "title": "U Are the Universe",
+      "year": "2024",
+      "rating": "8.0",
+      "user_rating": "8.0"
+    },
+    {
+      "imdb_id": "tt21260826",
+      "url": "https://www.imdb.com/title/tt21260826/",
+      "title": "Diagnosis: Dissent",
+      "year": "2023",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt14107334",
+      "url": "https://www.imdb.com/title/tt14107334/",
+      "title": "The Running Man",
+      "year": "2025",
+      "rating": "6.4",
+      "user_rating": "6.4"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "url": "https://www.imdb.com/title/tt27714581/",
+      "title": "Sentimental Value",
+      "year": "2025",
+      "rating": "7.9",
+      "user_rating": "7.9"
+    },
+    {
+      "imdb_id": "tt13650700",
+      "url": "https://www.imdb.com/title/tt13650700/",
+      "title": "A Big Bold Beautiful Journey",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    },
+    {
+      "imdb_id": "tt32203874",
+      "url": "https://www.imdb.com/title/tt32203874/",
+      "title": "Animals in War",
+      "year": "2025",
+      "rating": "7.5",
+      "user_rating": "7.5"
+    },
+    {
+      "imdb_id": "tt27895331",
+      "url": "https://www.imdb.com/title/tt27895331/",
+      "title": "Rock, Paper, Scissors",
+      "year": "2024",
+      "rating": "8.3",
+      "user_rating": "8.3"
+    },
+    {
+      "imdb_id": "tt4712810",
+      "url": "https://www.imdb.com/title/tt4712810/",
+      "title": "Now You See Me: Now You Don't",
+      "year": "2025",
+      "rating": "6.0",
+      "user_rating": "6.0"
+    }
+  ],
+  "watchlist": [],
+  "custom_lists": [],
+  "total_ratings": 525,
+  "total_watchlist": 0,
+  "total_lists": 0,
+  "total_list_items": 0
+}
