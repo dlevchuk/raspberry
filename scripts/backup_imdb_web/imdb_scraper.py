@@ -76,17 +76,16 @@ def scrape_ratings():
     print("Scraping ratings...", file=sys.stderr)
     
     ratings = []
+    start = 1
     page = 1
     
     while True:
-        url = f"{BASE_URL}/user/{USER_ID}/ratings/?sort=date_added,desc&mode=detail&start={(page-1)*100+1}"
+        url = f"{BASE_URL}/user/{USER_ID}/ratings/?sort=date_added,desc&mode=detail&start={start}"
         html = fetch_page(url)
         if not html:
             break
         
         soup = BeautifulSoup(html, 'html.parser')
-        
-        # Find all title cards
         cards = soup.find_all('li', class_=re.compile('ipc-metadata-list-summary-item'))
         
         if not cards:
@@ -97,13 +96,14 @@ def scrape_ratings():
             if title:
                 ratings.append(title)
         
-        print(f"  Page {page}: {len(cards)} titles", file=sys.stderr)
+        print(f"  Page {page}: {len(cards)} titles (total: {len(ratings)})", file=sys.stderr)
         
-        # Check for next page
-        next_button = soup.find('button', class_=re.compile('ipc-button.*next'))
+        # Check for next page button
+        next_button = soup.find('button', {'aria-label': 'Next'})
         if not next_button or 'disabled' in next_button.get('class', []):
             break
         
+        start += 250  # IMDB uses 250 items per page
         page += 1
         time.sleep(2)
     
@@ -114,10 +114,11 @@ def scrape_watchlist():
     print("Scraping watchlist...", file=sys.stderr)
     
     watchlist = []
+    start = 1
     page = 1
     
     while True:
-        url = f"{BASE_URL}/user/{USER_ID}/watchlist/?sort=date_added,desc&mode=detail&start={(page-1)*100+1}"
+        url = f"{BASE_URL}/user/{USER_ID}/watchlist/?sort=date_added,desc&mode=detail&start={start}"
         html = fetch_page(url)
         if not html:
             break
@@ -133,12 +134,13 @@ def scrape_watchlist():
             if title:
                 watchlist.append(title)
         
-        print(f"  Page {page}: {len(cards)} titles", file=sys.stderr)
+        print(f"  Page {page}: {len(cards)} titles (total: {len(watchlist)})", file=sys.stderr)
         
-        next_button = soup.find('button', class_=re.compile('ipc-button.*next'))
+        next_button = soup.find('button', {'aria-label': 'Next'})
         if not next_button or 'disabled' in next_button.get('class', []):
             break
         
+        start += 250
         page += 1
         time.sleep(2)
     
@@ -201,6 +203,7 @@ def scrape_custom_lists():
     print("Scraping custom lists...", file=sys.stderr)
     
     lists = []
+    seen_ids = set()
     url = f"{BASE_URL}/user/{USER_ID}/lists"
     html = fetch_page(url)
     
@@ -209,58 +212,102 @@ def scrape_custom_lists():
     
     soup = BeautifulSoup(html, 'html.parser')
     
-    # Find list links
-    list_links = soup.find_all('a', href=re.compile(r'/list/ls\d+/'))
+    # Find all list containers
+    list_containers = soup.find_all('div', class_=re.compile('ipc-metadata-list-summary-item'))
     
-    for link in list_links:
-        list_id_match = re.search(r'/list/(ls\d+)/', link.get('href', ''))
+    for container in list_containers:
+        # Find list link
+        link = container.find('a', href=re.compile(r'/list/ls\d+'))
+        if not link:
+            continue
+            
+        list_id_match = re.search(r'/list/(ls\d+)', link.get('href', ''))
         if not list_id_match:
             continue
         
         list_id = list_id_match.group(1)
+        
+        # Skip duplicates
+        if list_id in seen_ids:
+            continue
+        seen_ids.add(list_id)
+        
+        # Get list name from title
+        title_elem = container.find('h3', class_=re.compile('ipc-title__text'))
+        list_name = title_elem.get_text(strip=True) if title_elem else f"List {list_id}"
+        
         list_data = {
             'list_id': list_id,
-            'list_name': link.get_text(strip=True),
+            'list_name': list_name,
             'items': []
         }
         
-        # Fetch list contents
-        print(f"  Scraping list: {list_data['list_name']}", file=sys.stderr)
-        list_url = f"{BASE_URL}/list/{list_id}/"
-        list_html = fetch_page(list_url)
+        # Fetch list contents with pagination
+        print(f"  Scraping list: {list_name}", file=sys.stderr)
+        start = 1
+        list_page = 1
         
-        if list_html:
+        while True:
+            list_url = f"{BASE_URL}/list/{list_id}/?sort=list_order,asc&mode=detail&page={list_page}"
+            list_html = fetch_page(list_url)
+            
+            if not list_html:
+                break
+            
             list_soup = BeautifulSoup(list_html, 'html.parser')
-            cards = list_soup.find_all('div', class_=re.compile('lister-item'))
+            
+            # Try modern layout first
+            cards = list_soup.find_all('li', class_=re.compile('ipc-metadata-list-summary-item'))
+            
+            # Fallback to old layout
+            if not cards:
+                cards = list_soup.find_all('div', class_=re.compile('lister-item'))
+            
+            if not cards:
+                break
             
             for card in cards:
                 item = {}
                 
                 # Title link
-                title_link = card.find('a', href=re.compile(r'/title/tt\d+/'))
+                title_link = card.find('a', href=re.compile(r'/title/tt\d+'))
                 if title_link:
                     href = title_link.get('href', '')
-                    match = re.search(r'/title/(tt\d+)/', href)
+                    match = re.search(r'/title/(tt\d+)', href)
                     if match:
                         item['imdb_id'] = match.group(1)
-                        item['title'] = title_link.get_text(strip=True)
+                        item['url'] = f"{BASE_URL}/title/{item['imdb_id']}/"
+                        
+                        # Get title text
+                        title_elem = card.find('h3', class_=re.compile('ipc-title__text'))
+                        if not title_elem:
+                            title_elem = card.find('a', href=re.compile(r'/title/tt\d+'))
+                        if title_elem:
+                            text = title_elem.get_text(strip=True)
+                            item['title'] = re.sub(r'^\d+\.\s*', '', text)
                 
                 # Year
-                year_span = card.find('span', class_='lister-item-year')
+                year_span = card.find('span', class_=re.compile('(lister-item-year|dli-title-metadata-item)'))
                 if year_span:
                     item['year'] = year_span.get_text(strip=True)
                 
                 # Rating
-                rating_div = card.find('div', class_='ipl-rating-star')
-                if rating_div:
-                    rating_span = rating_div.find('span', class_='ipl-rating-star__rating')
-                    if rating_span:
-                        item['rating'] = rating_span.get_text(strip=True)
+                rating_span = card.find('span', class_=re.compile('ipc-rating-star--rating'))
+                if rating_span:
+                    item['rating'] = rating_span.get_text(strip=True)
                 
                 if item.get('imdb_id'):
                     list_data['items'].append(item)
             
-            print(f"    Found {len(list_data['items'])} items", file=sys.stderr)
+            print(f"    Page {list_page}: {len(cards)} items (total: {len(list_data['items'])})", file=sys.stderr)
+            
+            # Check for next page
+            next_button = list_soup.find('button', {'aria-label': 'Next'})
+            if not next_button or 'disabled' in next_button.get('class', []):
+                break
+            
+            list_page += 1
+            time.sleep(2)
         
         lists.append(list_data)
         time.sleep(2)
