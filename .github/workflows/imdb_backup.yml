@@ -17,6 +17,17 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           persist-credentials: true
       
+      - name: Export ratings and watchlist from IMDB
+        uses: jpalumickas/imdb-export-action@v1.3.0
+        with:
+          imdb_email: ${{ secrets.IMDB_EMAIL }}
+          imdb_password: ${{ secrets.IMDB_PASSWORD }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          export_ratings: true
+          export_watchlist: true
+          ratings_path: scripts/backup_imdb_web/ratings.csv
+          watchlist_path: scripts/backup_imdb_web/watchlist.csv
+      
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -26,24 +37,16 @@ jobs:
         run: |
           pip install requests beautifulsoup4
       
-      - name: Run scraper
+      - name: Scrape custom lists
         run: |
-          python scripts/backup_imdb_web/imdb_scraper.py > scripts/backup_imdb_web/imdb_backup.json 2>&1
-          cat scripts/backup_imdb_web/imdb_backup.json
-      
-      - name: Check if file exists
-        run: |
-          if [ ! -f scripts/backup_imdb_web/imdb_backup.json ]; then
-            echo "ERROR: imdb_backup.json not created"
-            exit 1
-          fi
-          echo "File created, size: $(wc -c < scripts/backup_imdb_web/imdb_backup.json) bytes"
+          python scripts/backup_imdb_web/imdb_scraper.py > scripts/backup_imdb_web/imdb_lists.json 2>&1
+          cat scripts/backup_imdb_web/imdb_lists.json
       
       - name: Commit and push if changed
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add scripts/backup_imdb_web/imdb_backup.json
+          git add scripts/backup_imdb_web/ratings.csv scripts/backup_imdb_web/watchlist.csv scripts/backup_imdb_web/imdb_lists.json
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
