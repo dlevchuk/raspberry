@@ -1,7 +1,7 @@
 {
   "user_id": "76529348",
-  "scraped_at": "2026-01-04 03:52:19 UTC",
-  "total_books": 937,
+  "scraped_at": "2026-01-11 03:51:51 UTC",
+  "total_books": 938,
   "books": [
     {
       "id": "8194524102",
@@ -20,7 +20,7 @@
       ],
       "date_read": "Dec 30, 2025",
       "date_added": "Dec 30, 2025",
-      "avg_rating": "3.66",
+      "avg_rating": "3.67",
       "pages": "192\n        pp"
     },
     {
@@ -42,6 +42,26 @@
       "date_added": "Dec 18, 2025",
       "avg_rating": "3.97",
       "pages": "403\n        pp"
+    },
+    {
+      "id": "8153610807",
+      "title": "Nouvelles sous ecstasy",
+      "url": "https://www.goodreads.com/book/show/1062374.Nouvelles_sous_ecstasy",
+      "author": "Beigbeder, Frédéric",
+      "isbn": "2070413586",
+      "rating": 5,
+      "shelves": [
+        "1 of 5 stars",
+        "2 of 5 stars",
+        "3 of 5 stars",
+        "4 of 5 stars",
+        "5 of 5 stars",
+        "add to shelves"
+      ],
+      "date_read": "Jan 04, 2026",
+      "date_added": "Dec 17, 2025",
+      "avg_rating": "3.30",
+      "pages": "101\n        pp"
     },
     {
       "id": "8142868051",
@@ -360,7 +380,7 @@
       ],
       "date_read": "Aug 11, 2025",
       "date_added": "Aug 07, 2025",
-      "avg_rating": "4.18",
+      "avg_rating": "4.17",
       "pages": "220\n        pp"
     },
     {
@@ -1140,7 +1160,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 17, 2025",
-      "avg_rating": "3.75",
+      "avg_rating": "3.76",
       "pages": "unknown"
     },
     {
@@ -1180,7 +1200,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 14, 2025",
-      "avg_rating": "4.17",
+      "avg_rating": "4.18",
       "pages": "46\n        pp"
     },
     {
@@ -1220,7 +1240,7 @@
       ],
       "date_read": "Jan 11, 2025",
       "date_added": "Jan 11, 2025",
-      "avg_rating": "4.17",
+      "avg_rating": "4.16",
       "pages": "224\n        pp"
     },
     {
@@ -1240,7 +1260,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 08, 2025",
-      "avg_rating": "3.01",
+      "avg_rating": "3.02",
       "pages": "15\n        pp"
     },
     {
@@ -1400,7 +1420,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 04, 2025",
-      "avg_rating": "3.82",
+      "avg_rating": "3.83",
       "pages": "4\n        pp"
     },
     {
@@ -1460,7 +1480,7 @@
       ],
       "date_read": "Jan 03, 2025",
       "date_added": "Jan 03, 2025",
-      "avg_rating": "4.42",
+      "avg_rating": "4.41",
       "pages": "55\n        pp"
     },
     {
@@ -2061,7 +2081,7 @@
       "date_read": "not set",
       "date_added": "Oct 23, 2024",
       "avg_rating": "3.97",
-      "pages": "194\n        pp"
+      "pages": "249\n        pp"
     },
     {
       "id": "6948123925",
@@ -2100,7 +2120,7 @@
       ],
       "date_read": "Oct 23, 2024",
       "date_added": "Oct 22, 2024",
-      "avg_rating": "3.72",
+      "avg_rating": "3.73",
       "pages": "272\n        pp"
     },
     {
@@ -2380,7 +2400,7 @@
       ],
       "date_read": "Sep 29, 2024",
       "date_added": "Sep 29, 2024",
-      "avg_rating": "3.43",
+      "avg_rating": "3.44",
       "pages": "unknown"
     },
     {
@@ -2440,7 +2460,7 @@
       ],
       "date_read": "Nov 27, 2025",
       "date_added": "Sep 22, 2024",
-      "avg_rating": "4.09",
+      "avg_rating": "4.10",
       "pages": "752\n        pp"
     },
     {
@@ -2460,7 +2480,7 @@
       ],
       "date_read": "Aug 27, 2024",
       "date_added": "Aug 27, 2024",
-      "avg_rating": "3.80",
+      "avg_rating": "3.81",
       "pages": "28\n        pp"
     },
     {
@@ -2600,7 +2620,7 @@
       ],
       "date_read": "Aug 03, 2024",
       "date_added": "Jul 15, 2024",
-      "avg_rating": "4.15",
+      "avg_rating": "4.14",
       "pages": "568\n        pp"
     },
     {
@@ -2660,7 +2680,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 07, 2024",
-      "avg_rating": "4.29",
+      "avg_rating": "4.30",
       "pages": "512\n        pp"
     },
     {
@@ -2880,7 +2900,7 @@
       ],
       "date_read": "Dec 25, 2023",
       "date_added": "Dec 25, 2023",
-      "avg_rating": "2.72",
+      "avg_rating": "2.73",
       "pages": "24\n        pp"
     },
     {
@@ -3200,7 +3220,7 @@
       ],
       "date_read": "Nov 19, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "3.53",
+      "avg_rating": "3.54",
       "pages": "30\n        pp"
     },
     {
@@ -3300,7 +3320,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "3.07",
+      "avg_rating": "3.08",
       "pages": "14\n        pp"
     },
     {
@@ -3480,7 +3500,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "2.88",
+      "avg_rating": "2.89",
       "pages": "unknown"
     },
     {
@@ -3700,7 +3720,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 13, 2023",
-      "avg_rating": "3.01",
+      "avg_rating": "3.02",
       "pages": "7\n        pp"
     },
     {
@@ -4462,7 +4482,7 @@
       ],
       "date_read": "Mar 29, 2023",
       "date_added": "Mar 29, 2023",
-      "avg_rating": "4.09",
+      "avg_rating": "4.08",
       "pages": "10\n        pp"
     },
     {
@@ -4623,7 +4643,7 @@
       ],
       "date_read": "Mar 12, 2023",
       "date_added": "Jan 11, 2023",
-      "avg_rating": "3.89",
+      "avg_rating": "3.88",
       "pages": "288\n        pp"
     },
     {
@@ -4683,7 +4703,7 @@
       ],
       "date_read": "Jan 05, 2023",
       "date_added": "Jan 05, 2023",
-      "avg_rating": "4.09",
+      "avg_rating": "4.10",
       "pages": "unknown"
     },
     {
@@ -4803,7 +4823,7 @@
       ],
       "date_read": "Dec 07, 2022",
       "date_added": "Dec 07, 2022",
-      "avg_rating": "4.09",
+      "avg_rating": "4.08",
       "pages": "3\n        pp"
     },
     {
@@ -5043,7 +5063,7 @@
       ],
       "date_read": "not set",
       "date_added": "Sep 04, 2022",
-      "avg_rating": "3.79",
+      "avg_rating": "3.78",
       "pages": "320\n        pp"
     },
     {
@@ -5283,7 +5303,7 @@
       ],
       "date_read": "Oct 29, 2022",
       "date_added": "Jul 29, 2022",
-      "avg_rating": "4.33",
+      "avg_rating": "4.34",
       "pages": "512\n        pp"
     },
     {
@@ -6609,7 +6629,7 @@
     },
     {
       "id": "3881745065",
-      "title": "The Silver Chair (Chronicles of Narnia, #4)",
+      "title": "The Silver Chair (Chronicles of Narnia, #5)",
       "url": "https://www.goodreads.com/book/show/65641.The_Silver_Chair",
       "author": "Lewis, C.S.",
       "isbn": "",
@@ -6649,7 +6669,7 @@
     },
     {
       "id": "3881744525",
-      "title": "The Voyage of the Dawn Treader (Chronicles of Narnia, #3)",
+      "title": "The Voyage of the Dawn Treader (Chronicles of Narnia, #4)",
       "url": "https://www.goodreads.com/book/show/140225.The_Voyage_of_the_Dawn_Treader",
       "author": "Lewis, C.S.",
       "isbn": "006112527X",
@@ -6709,7 +6729,7 @@
     },
     {
       "id": "3881740705",
-      "title": "Twenty Years After (Trilogie des mousquetaires #2)",
+      "title": "Twenty Years After (Musketeers Trilogy #2)",
       "url": "https://www.goodreads.com/book/show/7184.Twenty_Years_After",
       "author": "Dumas, Alexandre",
       "isbn": "0192838431",
@@ -7064,7 +7084,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 09, 2021",
-      "avg_rating": "3.88",
+      "avg_rating": "3.87",
       "pages": "64\n        pp"
     },
     {
@@ -7204,7 +7224,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 09, 2021",
-      "avg_rating": "3.71",
+      "avg_rating": "3.72",
       "pages": "352\n        pp"
     },
     {
@@ -7769,7 +7789,7 @@
     },
     {
       "id": "3881276870",
-      "title": "The Magician’s Nephew (Chronicles of Narnia, #6)",
+      "title": "The Magician’s Nephew",
       "url": "https://www.goodreads.com/book/show/65605.The_Magician_s_Nephew",
       "author": "Lewis, C.S.",
       "isbn": "0060764902",
@@ -8069,7 +8089,7 @@
     },
     {
       "id": "3881251432",
-      "title": "Prince Caspian (Chronicles of Narnia, #2)",
+      "title": "Prince Caspian (Chronicles of Narnia, #3)",
       "url": "https://www.goodreads.com/book/show/121749.Prince_Caspian",
       "author": "Lewis, C.S.",
       "isbn": "000720230X",
@@ -8144,7 +8164,7 @@
       ],
       "date_read": "Aug 03, 2023\n\n\n\n\nnot set",
       "date_added": "Mar 09, 2021",
-      "avg_rating": "3.95",
+      "avg_rating": "3.94",
       "pages": "112\n        pp"
     },
     {
@@ -8264,7 +8284,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 09, 2021",
-      "avg_rating": "4.13",
+      "avg_rating": "4.14",
       "pages": "256\n        pp"
     },
     {
@@ -9644,7 +9664,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 15, 2018",
-      "avg_rating": "3.67",
+      "avg_rating": "3.66",
       "pages": "11\n        pp"
     },
     {
@@ -9784,7 +9804,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 15, 2018",
-      "avg_rating": "4.04",
+      "avg_rating": "4.03",
       "pages": "307\n        pp"
     },
     {
@@ -9904,7 +9924,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 15, 2018",
-      "avg_rating": "4.15",
+      "avg_rating": "4.16",
       "pages": "542\n        pp"
     },
     {
@@ -10404,7 +10424,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 15, 2018",
-      "avg_rating": "4.31",
+      "avg_rating": "4.32",
       "pages": "230\n        pp"
     },
     {
@@ -10668,11 +10688,11 @@
       "pages": "279\n        pp"
     },
     {
-      "id": "8153610807",
-      "title": "Nouvelles sous ecstasy",
-      "url": "https://www.goodreads.com/book/show/1062374.Nouvelles_sous_ecstasy",
-      "author": "Beigbeder, Frédéric",
-      "isbn": "2070413586",
+      "id": "6030927489",
+      "title": "Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones",
+      "url": "https://www.goodreads.com/book/show/40121378-atomic-habits",
+      "author": "Clear, James",
+      "isbn": "",
       "rating": 0,
       "shelves": [
         "1 of 5 stars",
@@ -10683,9 +10703,9 @@
         "add to shelves"
       ],
       "date_read": "not set",
-      "date_added": "Dec 17, 2025",
-      "avg_rating": "3.30",
-      "pages": "101\n        pp"
+      "date_added": "Dec 07, 2023",
+      "avg_rating": "4.32",
+      "pages": "319\n        pp"
     },
     {
       "id": "5089147172",
@@ -10706,6 +10726,26 @@
       "date_added": "Nov 06, 2022",
       "avg_rating": "4.70",
       "pages": "562\n        pp"
+    },
+    {
+      "id": "8245837981",
+      "title": "Perfection",
+      "url": "https://www.goodreads.com/book/show/214988449-perfection",
+      "author": "Latronico, Vincenzo",
+      "isbn": "1681378728",
+      "rating": 0,
+      "shelves": [
+        "1 of 5 stars",
+        "2 of 5 stars",
+        "3 of 5 stars",
+        "4 of 5 stars",
+        "5 of 5 stars",
+        "add to shelves"
+      ],
+      "date_read": "not set",
+      "date_added": "Jan 10, 2026",
+      "avg_rating": "3.71",
+      "pages": "136\n        pp"
     },
     {
       "id": "8157018854",
@@ -10824,7 +10864,7 @@
       ],
       "date_read": "not set",
       "date_added": "Nov 20, 2025",
-      "avg_rating": "4.18",
+      "avg_rating": "4.19",
       "pages": "343\n        pp"
     },
     {
@@ -10964,7 +11004,7 @@
       ],
       "date_read": "not set",
       "date_added": "Sep 06, 2025",
-      "avg_rating": "3.82",
+      "avg_rating": "3.83",
       "pages": "188\n        pp"
     },
     {
@@ -12164,7 +12204,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.29",
+      "avg_rating": "4.30",
       "pages": "295\n        pp"
     },
     {
@@ -12625,7 +12665,7 @@
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
       "avg_rating": "4.57",
-      "pages": "unknown"
+      "pages": "288\n        pp"
     },
     {
       "id": "7500649337",
@@ -12664,7 +12704,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.03",
+      "avg_rating": "4.01",
       "pages": "116\n        pp"
     },
     {
@@ -12764,7 +12804,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.08",
+      "avg_rating": "4.06",
       "pages": "unknown"
     },
     {
@@ -12824,7 +12864,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.37",
+      "avg_rating": "4.38",
       "pages": "1,264\n        pp"
     },
     {
@@ -12864,7 +12904,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.03",
+      "avg_rating": "4.02",
       "pages": "251\n        pp"
     },
     {
@@ -12904,7 +12944,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.71",
+      "avg_rating": "4.75",
       "pages": "310\n        pp"
     },
     {
@@ -12964,7 +13004,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.06",
+      "avg_rating": "3.89",
       "pages": "516\n        pp"
     },
     {
@@ -13024,7 +13064,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.88",
+      "avg_rating": "3.87",
       "pages": "288\n        pp"
     },
     {
@@ -13144,7 +13184,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.25",
+      "avg_rating": "4.26",
       "pages": "560\n        pp"
     },
     {
@@ -13164,7 +13204,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.47",
+      "avg_rating": "4.46",
       "pages": "298\n        pp"
     },
     {
@@ -13284,7 +13324,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.79",
+      "avg_rating": "3.80",
       "pages": "140\n        pp"
     },
     {
@@ -13324,7 +13364,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.04",
+      "avg_rating": "4.05",
       "pages": "208\n        pp"
     },
     {
@@ -14488,26 +14528,6 @@
       "pages": "392\n        pp"
     },
     {
-      "id": "6030927489",
-      "title": "Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones",
-      "url": "https://www.goodreads.com/book/show/40121378-atomic-habits",
-      "author": "Clear, James",
-      "isbn": "",
-      "rating": 0,
-      "shelves": [
-        "1 of 5 stars",
-        "2 of 5 stars",
-        "3 of 5 stars",
-        "4 of 5 stars",
-        "5 of 5 stars",
-        "add to shelves"
-      ],
-      "date_read": "not set",
-      "date_added": "Dec 07, 2023",
-      "avg_rating": "4.32",
-      "pages": "319\n        pp"
-    },
-    {
       "id": "5955630462",
       "title": "Точка нуль",
       "url": "https://www.goodreads.com/book/show/35193535",
@@ -14804,7 +14824,7 @@
       ],
       "date_read": "not set",
       "date_added": "May 05, 2023",
-      "avg_rating": "4.06",
+      "avg_rating": "4.07",
       "pages": "351\n        pp"
     },
     {
@@ -14984,7 +15004,7 @@
       ],
       "date_read": "not set",
       "date_added": "May 04, 2023",
-      "avg_rating": "4.08",
+      "avg_rating": "4.09",
       "pages": "798\n        pp"
     },
     {
@@ -16184,7 +16204,7 @@
       ],
       "date_read": "not set",
       "date_added": "Nov 11, 2022",
-      "avg_rating": "3.68",
+      "avg_rating": "3.69",
       "pages": "224\n        pp"
     },
     {
@@ -16284,7 +16304,7 @@
       ],
       "date_read": "not set",
       "date_added": "Oct 09, 2022",
-      "avg_rating": "3.76",
+      "avg_rating": "3.77",
       "pages": "350\n        pp"
     },
     {
@@ -16884,7 +16904,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 05, 2022",
-      "avg_rating": "3.82",
+      "avg_rating": "3.83",
       "pages": "467\n        pp"
     },
     {
