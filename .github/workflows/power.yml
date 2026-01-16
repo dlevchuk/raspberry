@@ -2,7 +2,7 @@ name: power alerts
 
 on:
   schedule:
-    - cron: "0 21 * * *"
+    - cron: "0 22 * * *"
   workflow_dispatch:
 
 jobs:
@@ -11,13 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Restore state
-        uses: actions/cache/restore@v4
-        with:
-          path: daily_sent.json
-          key: outage-state-${{ github.run_number }}
-          restore-keys: |
-            outage-state-
+
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -34,9 +28,4 @@ jobs:
           TG_CHAT_ID: ${{ secrets.TELEGRAM_TO }}
           SCRAPER_API_KEY: ${{ secrets.SCRAPER_API_KEY }}
         run: python scripts/light_outage/power.py      
-      - name: Save state
-        uses: actions/cache/save@v4
-        if: always()
-        with:
-          path: daily_sent.json
-          key: outage-state-${{ github.run_number }}
+
