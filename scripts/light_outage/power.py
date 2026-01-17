@@ -13,9 +13,11 @@ URLS = [
     }
 ]
 
+
 BOT_TOKEN = os.environ.get("TG_TOKEN")
 CHAT_ID = os.environ.get("TG_CHAT_ID")
 SCRAPER_API_KEY = os.environ.get("SCRAPER_API_KEY", "")
+ZENROWS_API_KEY = os.environ.get("ZENROWS_API_KEY", "")
 
 def send(msg):
     if not BOT_TOKEN or not CHAT_ID:
@@ -33,27 +35,79 @@ def send(msg):
     except Exception as e:
         print(f"Telegram error: {e}")
 
+def fetch_with_zenrows(url):
+    if not ZENROWS_API_KEY:
+        print("⚠️ ZenRows API key missing, skipping fallback.")
+        return ""
+    
+    print("🔄 Switching to ZenRows fallback...")
+    proxy_url = "https://api.zenrows.com/v1/"
+    params = {
+        'apikey': ZENROWS_API_KEY,
+        'url': url,
+        'js_render': 'true',
+        'wait_for': '.periods_items',
+    }
+    
+    try:
+        res = requests.get(proxy_url, params=params, timeout=60)
+        if res.status_code == 200:
+            print("✅ Success with ZenRows")
+            return res.text
+        else:
+            print(f"❌ ZenRows failed: {res.status_code} {res.text}")
+            return ""
+    except Exception as e:
+        print(f"❌ ZenRows request error: {e}")
+        return ""
+
 
 def fetch_with_proxy(url):
+    # Try ScraperAPI first
     if SCRAPER_API_KEY:
-        print("Using ScraperAPI proxy...")
         proxy_url = "http://api.scraperapi.com"
-        params = {
+        
+        # Tier 1: Cheap Attempt
+        print("🛰 Attempting ScraperAPI Standard Request (1 credit)...")
+        cheap_params = {
             'api_key': SCRAPER_API_KEY,
             'url': url,
-            'render': 'true',
-            'country_code': 'ua',
-            'premium': 'true',
-            'wait_for_selector': 'div.periods_items'
+            'render': 'false',
+            'premium': 'false',
+            'country_code': 'ua'
         }
-        response = requests.get(proxy_url, params=params, timeout=90)
-        print(f"Status: {response.status_code}, Length: {len(response.text)}")
-        return response.text
-    else:
-        print("No proxy, trying direct...")
-        headers = {'User-Agent': 'Mozilla/5.0'}
-        response = requests.get(url, headers=headers, timeout=30)
-        return response.text
+        
+        try:
+            res = requests.get(proxy_url, params=cheap_params, timeout=45)
+            if res.status_code == 200 and "periods_items" in res.text:
+                print("✅ Success with ScraperAPI Standard Request")
+                return res.text
+            elif res.status_code in [403, 429]:
+                 print(f"⚠️ ScraperAPI blocked or quota exceeded: {res.status_code}")
+                 raise Exception("ScraperAPI Quota/Block")
+        except Exception as e:
+            print(f"⚠️ ScraperAPI Standard attempt failed: {e}")
+
+        # Tier 2: Premium Escalation
+        print("🚀 Escalating to ScraperAPI Premium...")
+        premium_params = cheap_params.copy()
+        premium_params.update({
+            'premium': 'true',
+            'render': 'true',
+        })
+        
+        try:
+            res = requests.get(proxy_url, params=premium_params, timeout=90)
+            if res.status_code == 200 and "periods_items" in res.text:
+                 return res.text
+            elif res.status_code in [403, 429]:
+                 print(f"⚠️ ScraperAPI Premium blocked or quota exceeded: {res.status_code}")
+                 raise Exception("ScraperAPI Premium Quota/Block")
+        except Exception as e:
+            print(f"❌ ScraperAPI Premium attempt failed: {e}")
+
+    # Fallback to ZenRows if ScraperAPI failed or is missing
+    return fetch_with_zenrows(url)
 
 
 def format_time_delta(minutes):
