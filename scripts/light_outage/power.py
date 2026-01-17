@@ -33,48 +33,7 @@ def send(msg):
     except Exception as e:
         print(f"Telegram error: {e}")
 
-def fetch_with_proxy(url):
-    if not SCRAPER_API_KEY:
-        return requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}, timeout=30).text
 
-    proxy_url = "http://api.scraperapi.com"
-    
-    # Tier 1: Cheap Attempt (1 credit)
-    print("🛰 Attempting Standard Request (1 credit)...")
-    cheap_params = {
-        'api_key': SCRAPER_API_KEY,
-        'url': url,
-        'render': 'false',
-        'premium': 'false',
-        'country_code': 'ua'
-    }
-    
-    try:
-        res = requests.get(proxy_url, params=cheap_params, timeout=45)
-        # Check if we got actual content or a block page
-        if res.status_code == 200 and "periods_items" in res.text:
-            print("✅ Success with Standard Request")
-            return res.text
-    except Exception as e:
-        print(f"⚠️ Standard attempt failed: {e}")
-
-    # Tier 2: Premium Escalation (Only if Tier 1 fails)
-    print("🚀 Standard failed or blocked. Escalating to Premium...")
-    premium_params = cheap_params.copy()
-    premium_params.update({
-        'premium': 'true',
-        'render': 'true', # Only add this if you suspect JS-based blocking
-    })
-    
-    try:
-        res = requests.get(proxy_url, params=premium_params, timeout=90)
-        return res.text
-    except Exception as e:
-        print(f"❌ Premium attempt failed: {e}")
-        return ""
-
-
-"""
 def fetch_with_proxy(url):
     if SCRAPER_API_KEY:
         print("Using ScraperAPI proxy...")
@@ -95,7 +54,6 @@ def fetch_with_proxy(url):
         headers = {'User-Agent': 'Mozilla/5.0'}
         response = requests.get(url, headers=headers, timeout=30)
         return response.text
-"""
 
 
 def format_time_delta(minutes):
