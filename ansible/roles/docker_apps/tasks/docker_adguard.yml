@@ -12,3 +12,4 @@
       - "853:853/tcp"
       - "3000:3000/tcp"
     restart_policy: unless-stopped
+    state: absent

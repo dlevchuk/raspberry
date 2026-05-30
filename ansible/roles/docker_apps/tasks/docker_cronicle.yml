@@ -7,3 +7,4 @@
     ports:
       - "3012:3012"
     restart_policy: always
+    state: absent
