@@ -1,0 +1,14 @@
+- name: Setup Homepage
+  docker_container:
+    name: homepage
+    image: ghcr.io/gethomepage/homepage:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/pi/docker/homepage/homepage_data:/app/config
+    env:
+      HOMEPAGE_ALLOWED_HOSTS: "raspberrypi.tail72e9f.ts.net:3005"
+      PUID: "1000"
+      PGID: "1000"
+    ports:  
+      - "3005:3000"
+    restart_policy: always
