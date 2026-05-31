@@ -17,13 +17,11 @@
         icon: watchtower
         description: Container updater
         container: watchtower
-
-- Network & Admin:
-    - AdGuard Home:
-        icon: adguard-home
-        href: http://{{ ansible_host }}:3000
-        description: Network-wide ad blocking & DNS
-        container: adguardhome
+#    - AdGuard Home:
+#        icon: adguard-home
+#        href: http://{{ ansible_host }}:3000
+#        description: Network-wide ad blocking & DNS
+#        container: adguardhome
     - Uptime Kuma:
         icon: uptime-kuma
         href: http://{{ ansible_host }}:3001
@@ -46,13 +44,14 @@
         href: http://{{ ansible_host }}:8765
         description: Network speed monitoring
         container: speedtest
-    - Thunderbird:
-        icon: thunderbird
-        href: http://{{ ansible_host }}:9080
-        description: Web-based email client
-        container: thunderbird
+#    - Thunderbird:
+#        icon: thunderbird
+#        href: http://{{ ansible_host }}:9080
+#        description: Web-based email client
+#        container: thunderbird
     - Glances:
         icon: glances
         href: http://{{ ansible_host }}:61208
         description: System monitoring tool
         container: glances
+
