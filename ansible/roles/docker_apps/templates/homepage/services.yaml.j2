@@ -1,0 +1,58 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/
+
+- Infrastructure:
+    - Portainer:
+        icon: portainer
+        href: http://{{ ansible_host }}:9000
+        description: Docker container management
+        container: portainer
+    - Dozzle:
+        icon: dozzle
+        href: http://{{ ansible_host }}:8888
+        description: Real-time container log viewer
+        container: dozzle
+    - Watchtower:
+        icon: watchtower
+        description: Container updater
+        container: watchtower
+
+- Network & Admin:
+    - AdGuard Home:
+        icon: adguard-home
+        href: http://{{ ansible_host }}:3000
+        description: Network-wide ad blocking & DNS
+        container: adguardhome
+    - Uptime Kuma:
+        icon: uptime-kuma
+        href: http://{{ ansible_host }}:3001
+        description: Self-hosted uptime monitor
+        container: uptime-kuma
+
+- Applications:
+    - Syncthing:
+        icon: syncthing
+        href: http://{{ ansible_host }}:8384
+        description: Continuous file synchronization
+        container: syncthing
+    - Duplicati:
+        icon: duplicati
+        href: http://{{ ansible_host }}:8200
+        description: Secure backup software
+        container: duplicati
+    - Speedtest:
+        icon: speedtest-tracker
+        href: http://{{ ansible_host }}:8765
+        description: Network speed monitoring
+        container: speedtest
+    - Thunderbird:
+        icon: thunderbird
+        href: http://{{ ansible_host }}:9080
+        description: Web-based email client
+        container: thunderbird
+    - Glances:
+        icon: glances
+        href: http://{{ ansible_host }}:61208
+        description: System monitoring tool
+        container: glances

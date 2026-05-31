@@ -1,10 +1,31 @@
-- name: Setup Homepage
+- name: Ensure Homepage configuration directory exists
+  ansible.builtin.file:
+    path: /home/pi/docker/homepage
+    state: directory
+    owner: pi
+    group: pi
+    mode: '0755'
+
+- name: Deploy Homepage configuration files
+  ansible.builtin.template:
+    src: "homepage/{{ item }}.j2"
+    dest: "/home/pi/docker/homepage/{{ item }}"
+    owner: pi
+    group: pi
+    mode: '0644'
+  loop:
+    - settings.yaml
+    - services.yaml
+    - widgets.yaml
+    - bookmarks.yaml
+
+- name: Setup Homepage container
   docker_container:
     name: homepage
     image: ghcr.io/gethomepage/homepage:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /home/pi/docker/homepage/homepage_data:/app/config
+      - /home/pi/docker/homepage:/app/config
     env:
       HOMEPAGE_ALLOWED_HOSTS: "raspberrypi.tail72e9f.ts.net:3005"
       PUID: "1000"
