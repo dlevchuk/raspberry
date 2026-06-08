@@ -8,8 +8,8 @@ import pytz
 
 URLS = [
     {
-        "name": "М.Коцюбинського 11",
-        "url": "https://chernigiv.energy-ua.info/grafik/МИХАЙЛО-КОЦЮБИНСЬКЕ/М.Коцюбинського/11"
+        "name": "РОЇЩЕ",
+        "url": "https://chernigiv.energy-ua.info/grafik/РОЇЩЕ/Миру/11"
     }
 ]
 
