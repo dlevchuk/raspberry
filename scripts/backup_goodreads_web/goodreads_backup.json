@@ -1,8 +1,24 @@
 {
   "user_id": "76529348",
-  "scraped_at": "2026-06-14 06:39:44 UTC",
-  "total_books": 972,
+  "scraped_at": "2026-06-21 06:50:46 UTC",
+  "total_books": 973,
   "books": [
+    {
+      "id": "338798",
+      "title": "Ulysses",
+      "url": "https://www.goodreads.com/book/show/338798.Ulysses",
+      "author": "James Joyce",
+      "isbn": "",
+      "rating": 4,
+      "shelves": [
+        "read"
+      ],
+      "date_read": "Jun 15, 2026",
+      "date_added": "Jun 15, 2026",
+      "avg_rating": "3.73",
+      "pages": "783\n        pp",
+      "review": ""
+    },
     {
       "id": "243803036",
       "title": "Wuthering Heights",
@@ -15,7 +31,7 @@
       ],
       "date_read": "May 26, 2026",
       "date_added": "May 26, 2026",
-      "avg_rating": "3.62",
+      "avg_rating": "3.63",
       "pages": "349\n        pp",
       "review": ""
     },
@@ -31,7 +47,7 @@
       ],
       "date_read": "May 14, 2026",
       "date_added": "May 14, 2026",
-      "avg_rating": "3.68",
+      "avg_rating": "3.67",
       "pages": "319\n        pp",
       "review": ""
     },
@@ -266,7 +282,7 @@
       ],
       "date_read": "Apr 05, 2026",
       "date_added": "Apr 05, 2026",
-      "avg_rating": "4.20",
+      "avg_rating": "4.22",
       "pages": "304\n        pp",
       "review": ""
     },
@@ -366,7 +382,7 @@
       ],
       "date_read": "Jan 26, 2026",
       "date_added": "Jan 26, 2026",
-      "avg_rating": "4.11",
+      "avg_rating": "4.09",
       "pages": "368\n        pp",
       "review": ""
     },
@@ -432,7 +448,7 @@
       ],
       "date_read": "Jan 12, 2026",
       "date_added": "Jan 12, 2026",
-      "avg_rating": "4.32",
+      "avg_rating": "4.31",
       "pages": "319\n        pp",
       "review": ""
     },
@@ -626,7 +642,7 @@
       ],
       "date_read": "Nov 01, 2025",
       "date_added": "Nov 01, 2025",
-      "avg_rating": "4.02",
+      "avg_rating": "4.03",
       "pages": "not set",
       "review": ""
     },
@@ -643,7 +659,7 @@
       ],
       "date_read": "Nov 01, 2025",
       "date_added": "Nov 01, 2025",
-      "avg_rating": "4.41",
+      "avg_rating": "4.42",
       "pages": "not set",
       "review": ""
     },
@@ -660,7 +676,7 @@
       ],
       "date_read": "Nov 01, 2025",
       "date_added": "Nov 01, 2025",
-      "avg_rating": "4.08",
+      "avg_rating": "3.86",
       "pages": "not set",
       "review": ""
     },
@@ -677,7 +693,7 @@
       ],
       "date_read": "Oct 30, 2025",
       "date_added": "Oct 30, 2025",
-      "avg_rating": "3.69",
+      "avg_rating": "3.68",
       "pages": "127\n        pp",
       "review": ""
     },
@@ -711,7 +727,7 @@
       ],
       "date_read": "Oct 30, 2025",
       "date_added": "Oct 30, 2025",
-      "avg_rating": "4.25",
+      "avg_rating": "4.24",
       "pages": "not set",
       "review": ""
     },
@@ -776,7 +792,7 @@
       ],
       "date_read": "Oct 15, 2025",
       "date_added": "Oct 15, 2025",
-      "avg_rating": "4.15",
+      "avg_rating": "4.16",
       "pages": "127\n        pp",
       "review": ""
     },
@@ -872,7 +888,7 @@
       ],
       "date_read": "Aug 11, 2025",
       "date_added": "Aug 11, 2025",
-      "avg_rating": "4.03",
+      "avg_rating": "4.02",
       "pages": "220\n        pp",
       "review": ""
     },
@@ -888,7 +904,7 @@
       ],
       "date_read": "Aug 11, 2025",
       "date_added": "Aug 11, 2025",
-      "avg_rating": "4.05",
+      "avg_rating": "4.06",
       "pages": "not set",
       "review": ""
     },
@@ -2868,7 +2884,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 27, 2024",
-      "avg_rating": "4.24",
+      "avg_rating": "4.23",
       "pages": "204\n        pp",
       "review": ""
     },
@@ -2885,7 +2901,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 27, 2024",
-      "avg_rating": "4.49",
+      "avg_rating": "4.48",
       "pages": "200\n        pp",
       "review": ""
     },
@@ -3019,7 +3035,7 @@
       ],
       "date_read": "Dec 26, 2024",
       "date_added": "Dec 26, 2024",
-      "avg_rating": "3.85",
+      "avg_rating": "3.84",
       "pages": "256\n        pp",
       "review": ""
     },
@@ -3392,7 +3408,7 @@
       ],
       "date_read": "Oct 23, 2024",
       "date_added": "Oct 23, 2024",
-      "avg_rating": "3.73",
+      "avg_rating": "3.74",
       "pages": "272\n        pp",
       "review": ""
     },
@@ -3964,7 +3980,7 @@
       ],
       "date_read": "Jul 23, 2024",
       "date_added": "Jul 23, 2024",
-      "avg_rating": "3.52",
+      "avg_rating": "3.53",
       "pages": "320\n        pp",
       "review": ""
     },
@@ -4498,7 +4514,7 @@
       ],
       "date_read": "Nov 17, 2023",
       "date_added": "Nov 17, 2023",
-      "avg_rating": "3.30",
+      "avg_rating": "3.29",
       "pages": "26\n        pp",
       "review": ""
     },
@@ -4690,7 +4706,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "2.89",
+      "avg_rating": "2.90",
       "pages": "not set",
       "review": ""
     },
@@ -4818,7 +4834,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "3.85",
+      "avg_rating": "3.84",
       "pages": "30\n        pp",
       "review": ""
     },
@@ -5316,7 +5332,7 @@
       ],
       "date_read": "Jun 03, 2023",
       "date_added": "Jun 03, 2023",
-      "avg_rating": "3.94",
+      "avg_rating": "3.93",
       "pages": "240\n        pp",
       "review": ""
     },
@@ -5576,7 +5592,7 @@
       ],
       "date_read": "Jan 29, 2018",
       "date_added": "Feb 26, 2023",
-      "avg_rating": "3.30",
+      "avg_rating": "3.29",
       "pages": "350\n        pp",
       "review": ""
     },
@@ -5865,7 +5881,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 29, 2023",
-      "avg_rating": "4.17",
+      "avg_rating": "4.18",
       "pages": "304\n        pp",
       "review": ""
     },
@@ -6045,7 +6061,7 @@
       ],
       "date_read": "Jun 22, 2022",
       "date_added": "Dec 29, 2022",
-      "avg_rating": "4.45",
+      "avg_rating": "4.44",
       "pages": "432\n        pp",
       "review": ""
     },
@@ -6318,7 +6334,7 @@
       ],
       "date_read": "Jul 06, 2021",
       "date_added": "Dec 08, 2022",
-      "avg_rating": "4.17",
+      "avg_rating": "4.16",
       "pages": "160\n        pp",
       "review": ""
     },
@@ -6399,7 +6415,7 @@
       ],
       "date_read": "Feb 15, 2022",
       "date_added": "Dec 08, 2022",
-      "avg_rating": "4.04",
+      "avg_rating": "4.03",
       "pages": "225\n        pp",
       "review": ""
     },
@@ -6449,7 +6465,7 @@
       ],
       "date_read": "Sep 24, 2022",
       "date_added": "Dec 08, 2022",
-      "avg_rating": "4.42",
+      "avg_rating": "4.43",
       "pages": "575\n        pp",
       "review": "It feels like the story was written straight away as a script for a future film. The main character is revealed only at the level of the plot twist in the story's finale. At least the narrative style is light and entertaining."
     },
@@ -6914,7 +6930,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 29, 2022",
-      "avg_rating": "4.14",
+      "avg_rating": "4.15",
       "pages": "290\n        pp",
       "review": ""
     },
@@ -6962,7 +6978,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 29, 2022",
-      "avg_rating": "3.71",
+      "avg_rating": "3.70",
       "pages": "765\n        pp",
       "review": ""
     },
@@ -7090,7 +7106,7 @@
       ],
       "date_read": "Jun 03, 2021",
       "date_added": "Jun 03, 2021",
-      "avg_rating": "4.03",
+      "avg_rating": "4.05",
       "pages": "384\n        pp",
       "review": ""
     },
@@ -7411,7 +7427,7 @@
       "date_read": "not set",
       "date_added": "Mar 09, 2021",
       "avg_rating": "4.00",
-      "pages": "470\n        pp",
+      "pages": "383\n        pp",
       "review": ""
     },
     {
@@ -7698,7 +7714,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 09, 2021",
-      "avg_rating": "3.91",
+      "avg_rating": "3.90",
       "pages": "384\n        pp",
       "review": ""
     },
@@ -8562,7 +8578,7 @@
       ],
       "date_read": "May 09, 2019",
       "date_added": "May 09, 2019",
-      "avg_rating": "4.38",
+      "avg_rating": "4.39",
       "pages": "408\n        pp",
       "review": ""
     },
@@ -9095,22 +9111,6 @@
       "review": ""
     },
     {
-      "id": "338798",
-      "title": "Ulysses",
-      "url": "https://www.goodreads.com/book/show/338798.Ulysses",
-      "author": "James Joyce",
-      "isbn": "",
-      "rating": 0,
-      "shelves": [
-        "currently-reading"
-      ],
-      "date_read": "not set",
-      "date_added": "Jan 28, 2026",
-      "avg_rating": "3.73",
-      "pages": "783\n        pp",
-      "review": ""
-    },
-    {
       "id": "23463279",
       "title": "Designing Data-Intensive Applications",
       "url": "https://www.goodreads.com/book/show/23463279-designing-data-intensive-applications",
@@ -9125,6 +9125,22 @@
       "date_added": "Aug 04, 2024",
       "avg_rating": "4.70",
       "pages": "562\n        pp",
+      "review": ""
+    },
+    {
+      "id": "220817728",
+      "title": "Atmosphere",
+      "url": "https://www.goodreads.com/book/show/220817728-atmosphere",
+      "author": "Taylor Jenkins Reid",
+      "isbn": "",
+      "rating": 0,
+      "shelves": [
+        "to-read"
+      ],
+      "date_read": "not set",
+      "date_added": "Jun 19, 2026",
+      "avg_rating": "4.30",
+      "pages": "337\n        pp",
       "review": ""
     },
     {
@@ -9189,7 +9205,7 @@
       ],
       "date_read": "not set",
       "date_added": "May 19, 2026",
-      "avg_rating": "4.04",
+      "avg_rating": "4.03",
       "pages": "160\n        pp",
       "review": ""
     },
@@ -9253,7 +9269,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 21, 2026",
-      "avg_rating": "3.94",
+      "avg_rating": "3.97",
       "pages": "1104\n        pp",
       "review": ""
     },
@@ -9559,7 +9575,7 @@
       ],
       "date_read": "not set",
       "date_added": "Oct 30, 2025",
-      "avg_rating": "4.29",
+      "avg_rating": "4.28",
       "pages": "340\n        pp",
       "review": ""
     },
@@ -10072,7 +10088,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.10",
+      "avg_rating": "4.09",
       "pages": "96\n        pp",
       "review": ""
     },
@@ -10950,7 +10966,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.87",
+      "avg_rating": "3.88",
       "pages": "240\n        pp",
       "review": ""
     },
@@ -11069,7 +11085,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.62",
+      "avg_rating": "4.61",
       "pages": "632\n        pp",
       "review": ""
     },
@@ -11222,7 +11238,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.71",
+      "avg_rating": "3.70",
       "pages": "124\n        pp",
       "review": ""
     },
@@ -11426,7 +11442,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.17",
+      "avg_rating": "4.19",
       "pages": "150\n        pp",
       "review": ""
     },
@@ -11494,7 +11510,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.37",
+      "avg_rating": "4.36",
       "pages": "336\n        pp",
       "review": ""
     },
@@ -11511,7 +11527,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.19",
+      "avg_rating": "4.18",
       "pages": "150\n        pp",
       "review": ""
     },
@@ -11734,7 +11750,7 @@
     },
     {
       "id": "13642",
-      "title": "A Wizard of Earthsea (Earthsea Cycle, #1)",
+      "title": "A Wizard of Earthsea",
       "url": "https://www.goodreads.com/book/show/13642.A_Wizard_of_Earthsea",
       "author": "Ursula K. Le Guin",
       "isbn": "",
@@ -11938,7 +11954,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 20, 2025",
-      "avg_rating": "4.26",
+      "avg_rating": "4.25",
       "pages": "304\n        pp",
       "review": ""
     },
@@ -12068,7 +12084,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 12, 2025",
-      "avg_rating": "4.10",
+      "avg_rating": "4.09",
       "pages": "352\n        pp",
       "review": ""
     },
@@ -12215,7 +12231,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 24, 2024",
-      "avg_rating": "4.30",
+      "avg_rating": "4.31",
       "pages": "103\n        pp",
       "review": ""
     },
@@ -13403,7 +13419,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 29, 2023",
-      "avg_rating": "4.60",
+      "avg_rating": "4.61",
       "pages": "304\n        pp",
       "review": ""
     },
@@ -13521,7 +13537,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 03, 2023",
-      "avg_rating": "4.05",
+      "avg_rating": "4.04",
       "pages": "240\n        pp",
       "review": ""
     },
@@ -14056,7 +14072,7 @@
       ],
       "date_read": "not set",
       "date_added": "Sep 02, 2022",
-      "avg_rating": "4.14",
+      "avg_rating": "4.13",
       "pages": "552\n        pp",
       "review": ""
     },
@@ -14184,7 +14200,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 05, 2022",
-      "avg_rating": "3.97",
+      "avg_rating": "3.96",
       "pages": "352\n        pp",
       "review": ""
     },
@@ -14328,7 +14344,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 05, 2022",
-      "avg_rating": "3.96",
+      "avg_rating": "3.95",
       "pages": "480\n        pp",
       "review": ""
     },
@@ -15560,7 +15576,7 @@
       ],
       "date_read": "not set",
       "date_added": "Feb 25, 2021",
-      "avg_rating": "4.01",
+      "avg_rating": "4.02",
       "pages": "480\n        pp",
       "review": ""
     },
