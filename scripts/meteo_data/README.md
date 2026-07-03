@@ -1,6 +1,6 @@
 # Meteo Data
 
-Automated weather fetching script for Chernihiv (UKRR) that combines aviation weather (METAR) and detailed forecast data. The script sends formatted weather updates via Telegram.
+Automated weather fetching script for Slavutych that combines aviation weather (METAR from UKRR) and detailed forecast data. The script sends formatted weather updates via Telegram.
 
 ## Overview
 
@@ -38,9 +38,9 @@ The script requires the following environment variables for Telegram integration
 - `TELEGRAM_BOT_TOKEN`: Your Telegram Bot API token.
 - `TELEGRAM_CHAT_ID`: The target chat ID where messages will be sent.
 
-Constants for location (Chernihiv) are hardcoded in the script:
-- ICAO Code: `UKRR`
-- Coordinates: `51.45642 N, 31.1265 P`
+Constants for location (Slavutych) are hardcoded in the script:
+- ICAO Code: `UKRR` (nearest reporting airfield)
+- Coordinates: `51.5206 N, 30.7569 E`
 
 ## Dependencies
 
@@ -57,7 +57,7 @@ pip install requests
 The script sends a Telegram message resembling:
 
 ```text
-✈️ **Aviation Weather for Chernihiv (UKRR)**
+✈️ **Aviation Weather for Slavutych (METAR: UKRR)**
 📅 2024-01-01 12:00 EET
 🌍 2024-01-01 10:00 UTC
 ━━━━━━━━━━━━━━━━━━━━

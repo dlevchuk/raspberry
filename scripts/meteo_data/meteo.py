@@ -13,9 +13,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Constants
-CHERNIHIV_LAT = 51.456421277890946
-CHERNIHIV_LON = 31.126549118658463
-CHERNIHIV_ICAO = "UKRR"
+SLAVUTYCH_LAT = 51.5206
+SLAVUTYCH_LON = 30.7569
+SLAVUTYCH_ICAO = "UKRR"
 
 def get_metar_data(icao_code: str) -> Optional[Dict[str, Any]]:
     """Get METAR data for aviation weather including cloud ceiling."""
@@ -149,7 +149,7 @@ def create_message(metar: Optional[Dict[str, Any]], weather: Optional[Dict[str, 
     timestamp_utc = now_utc.strftime("%Y-%m-%d %H:%M UTC")
     timestamp_local = now_local.strftime("%Y-%m-%d %H:%M %Z")
     
-    msg = f"✈️ **Aviation Weather for Chernihiv (UKRR)**\n"
+    msg = f"✈️ **Aviation Weather for Slavutych (METAR: UKRR)**\n"
     msg += f"📅 {timestamp_local}\n"
     msg += f"🌍 {timestamp_utc}\n"
     msg += f"━━━━━━━━━━━━━━━━━━━━\n\n"
@@ -246,11 +246,11 @@ def send_telegram(message: str) -> bool:
         return False
 
 def main():
-    logger.info(f"Fetching weather data for {CHERNIHIV_ICAO}...")
+    logger.info(f"Fetching weather data for Slavutych (nearest METAR: {SLAVUTYCH_ICAO})...")
     
     # Get data from both sources
-    metar = get_metar_data(CHERNIHIV_ICAO)
-    weather = get_open_meteo_data(CHERNIHIV_LAT, CHERNIHIV_LON)
+    metar = get_metar_data(SLAVUTYCH_ICAO)
+    weather = get_open_meteo_data(SLAVUTYCH_LAT, SLAVUTYCH_LON)
     
     if not metar and not weather:
         err_msg = "⚠️ Failed to fetch weather data from ALL sources."
@@ -261,7 +261,7 @@ def main():
         return
     
     if not metar:
-        logger.warning(f"Failed to fetch METAR data for {CHERNIHIV_ICAO}")
+        logger.warning(f"Failed to fetch METAR data for {SLAVUTYCH_ICAO}")
     if not weather:
         logger.warning("Failed to fetch Open-Meteo data")
 
