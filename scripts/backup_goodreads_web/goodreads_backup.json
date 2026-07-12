@@ -1,8 +1,24 @@
 {
   "user_id": "76529348",
-  "scraped_at": "2026-07-05 06:03:42 UTC",
+  "scraped_at": "2026-07-12 05:27:07 UTC",
   "total_books": 977,
   "books": [
+    {
+      "id": "288680",
+      "title": "The Truth (Discworld, #25; Industrial Revolution, #2)",
+      "url": "https://www.goodreads.com/book/show/288680.The_Truth",
+      "author": "Terry Pratchett",
+      "isbn": "0552147680",
+      "rating": 5,
+      "shelves": [
+        "read"
+      ],
+      "date_read": "Jul 08, 2026",
+      "date_added": "Jul 08, 2026",
+      "avg_rating": "4.40",
+      "pages": "444\n        pp",
+      "review": ""
+    },
     {
       "id": "6185",
       "title": "Wuthering Heights",
@@ -130,7 +146,7 @@
       ],
       "date_read": "May 10, 2026",
       "date_added": "May 10, 2026",
-      "avg_rating": "4.08",
+      "avg_rating": "4.07",
       "pages": "192\n        pp",
       "review": ""
     },
@@ -314,7 +330,7 @@
       ],
       "date_read": "Apr 05, 2026",
       "date_added": "Apr 05, 2026",
-      "avg_rating": "4.22",
+      "avg_rating": "4.21",
       "pages": "304\n        pp",
       "review": ""
     },
@@ -414,7 +430,7 @@
       ],
       "date_read": "Jan 26, 2026",
       "date_added": "Jan 26, 2026",
-      "avg_rating": "4.09",
+      "avg_rating": "4.10",
       "pages": "368\n        pp",
       "review": ""
     },
@@ -725,7 +741,7 @@
       ],
       "date_read": "Oct 30, 2025",
       "date_added": "Oct 30, 2025",
-      "avg_rating": "3.68",
+      "avg_rating": "3.70",
       "pages": "127\n        pp",
       "review": ""
     },
@@ -920,7 +936,7 @@
       ],
       "date_read": "Aug 11, 2025",
       "date_added": "Aug 11, 2025",
-      "avg_rating": "4.02",
+      "avg_rating": "4.01",
       "pages": "220\n        pp",
       "review": ""
     },
@@ -985,7 +1001,7 @@
       ],
       "date_read": "Jul 29, 2025",
       "date_added": "Jul 29, 2025",
-      "avg_rating": "3.96",
+      "avg_rating": "3.95",
       "pages": "140\n        pp",
       "review": ""
     },
@@ -1239,7 +1255,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 18, 2025",
-      "avg_rating": "4.43",
+      "avg_rating": "4.42",
       "pages": "188\n        pp",
       "review": ""
     },
@@ -1595,7 +1611,7 @@
       ],
       "date_read": "Apr 05, 2025",
       "date_added": "Apr 05, 2025",
-      "avg_rating": "3.93",
+      "avg_rating": "3.94",
       "pages": "248\n        pp",
       "review": ""
     },
@@ -2078,7 +2094,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 22, 2025",
-      "avg_rating": "3.76",
+      "avg_rating": "3.77",
       "pages": "556\n        pp",
       "review": ""
     },
@@ -2916,7 +2932,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 27, 2024",
-      "avg_rating": "4.23",
+      "avg_rating": "4.24",
       "pages": "204\n        pp",
       "review": ""
     },
@@ -3491,7 +3507,7 @@
       ],
       "date_read": "Oct 22, 2024",
       "date_added": "Oct 22, 2024",
-      "avg_rating": "4.37",
+      "avg_rating": "4.38",
       "pages": "488\n        pp",
       "review": ""
     },
@@ -4080,7 +4096,7 @@
       ],
       "date_read": "Jul 07, 2024",
       "date_added": "Jul 20, 2024",
-      "avg_rating": "4.51",
+      "avg_rating": "4.52",
       "pages": "536\n        pp",
       "review": ""
     },
@@ -4178,7 +4194,7 @@
       ],
       "date_read": "Jan 26, 2024",
       "date_added": "Jan 26, 2024",
-      "avg_rating": "4.41",
+      "avg_rating": "4.39",
       "pages": "32\n        pp",
       "review": ""
     },
@@ -4770,7 +4786,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "3.28",
+      "avg_rating": "3.29",
       "pages": "26\n        pp",
       "review": ""
     },
@@ -4946,7 +4962,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "3.60",
+      "avg_rating": "3.61",
       "pages": "12\n        pp",
       "review": ""
     },
@@ -5364,7 +5380,7 @@
       ],
       "date_read": "Jun 03, 2023",
       "date_added": "Jun 03, 2023",
-      "avg_rating": "3.93",
+      "avg_rating": "3.91",
       "pages": "240\n        pp",
       "review": ""
     },
@@ -5397,7 +5413,7 @@
       ],
       "date_read": "May 13, 2023",
       "date_added": "May 13, 2023",
-      "avg_rating": "3.82",
+      "avg_rating": "3.83",
       "pages": "320\n        pp",
       "review": ""
     },
@@ -5430,7 +5446,7 @@
       ],
       "date_read": "Apr 17, 2023",
       "date_added": "Apr 17, 2023",
-      "avg_rating": "4.24",
+      "avg_rating": "4.23",
       "pages": "not set",
       "review": "- прям добре в бік екзистенціалізму<br />- все ще рефлексую над рецензією<br />- але Домонтович доволі непоганий у жанрі<br />- така собі \"Нудота\" Сартра з нарисом епохи 30х років 20c Києва, з яскравими акцентами в сюжеті завдяки мініессе, які вкраплюються в основну історію"
     },
@@ -5528,7 +5544,7 @@
       ],
       "date_read": "Mar 12, 2023",
       "date_added": "Mar 12, 2023",
-      "avg_rating": "3.89",
+      "avg_rating": "3.90",
       "pages": "288\n        pp",
       "review": ""
     },
@@ -5624,7 +5640,7 @@
       ],
       "date_read": "Jan 29, 2018",
       "date_added": "Feb 26, 2023",
-      "avg_rating": "3.29",
+      "avg_rating": "3.30",
       "pages": "350\n        pp",
       "review": ""
     },
@@ -5709,7 +5725,7 @@
       ],
       "date_read": "Sep 21, 2022",
       "date_added": "Feb 26, 2023",
-      "avg_rating": "3.90",
+      "avg_rating": "3.89",
       "pages": "736\n        pp",
       "review": "A vivid criticism of the Gaussian distribution"
     },
@@ -6673,7 +6689,7 @@
       ],
       "date_read": "Aug 20, 2022",
       "date_added": "Dec 08, 2022",
-      "avg_rating": "3.83",
+      "avg_rating": "3.82",
       "pages": "256\n        pp",
       "review": "Reading this book is as difficult as leading existence."
     },
@@ -6722,7 +6738,7 @@
       ],
       "date_read": "Nov 21, 2022",
       "date_added": "Nov 21, 2022",
-      "avg_rating": "4.33",
+      "avg_rating": "4.34",
       "pages": "800\n        pp",
       "review": "Чудовий потенціал до невдалої екранізації посереднього роману."
     },
@@ -7010,7 +7026,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 29, 2022",
-      "avg_rating": "3.70",
+      "avg_rating": "3.71",
       "pages": "765\n        pp",
       "review": ""
     },
@@ -7074,7 +7090,7 @@
       ],
       "date_read": "not set",
       "date_added": "Aug 08, 2021",
-      "avg_rating": "3.64",
+      "avg_rating": "3.63",
       "pages": "416\n        pp",
       "review": ""
     },
@@ -9127,19 +9143,19 @@
       "review": ""
     },
     {
-      "id": "288680",
-      "title": "The Truth (Discworld, #25; Industrial Revolution, #2)",
-      "url": "https://www.goodreads.com/book/show/288680.The_Truth",
-      "author": "Terry Pratchett",
-      "isbn": "0552147680",
+      "id": "22628",
+      "title": "The Perks of Being a Wallflower",
+      "url": "https://www.goodreads.com/book/show/22628.The_Perks_of_Being_a_Wallflower",
+      "author": "Stephen Chbosky",
+      "isbn": "",
       "rating": 0,
       "shelves": [
         "currently-reading"
       ],
       "date_read": "not set",
-      "date_added": "Jun 29, 2026",
-      "avg_rating": "4.40",
-      "pages": "444\n        pp",
+      "date_added": "Jul 08, 2026",
+      "avg_rating": "4.25",
+      "pages": "213\n        pp",
       "review": ""
     },
     {
@@ -9268,7 +9284,7 @@
       ],
       "date_read": "not set",
       "date_added": "May 19, 2026",
-      "avg_rating": "3.84",
+      "avg_rating": "3.83",
       "pages": "not set",
       "review": ""
     },
@@ -9301,7 +9317,7 @@
       ],
       "date_read": "not set",
       "date_added": "May 02, 2026",
-      "avg_rating": "3.80",
+      "avg_rating": "3.79",
       "pages": "541\n        pp",
       "review": ""
     },
@@ -9349,7 +9365,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 21, 2026",
-      "avg_rating": "3.97",
+      "avg_rating": "3.96",
       "pages": "1104\n        pp",
       "review": ""
     },
@@ -9397,7 +9413,7 @@
       ],
       "date_read": "not set",
       "date_added": "Feb 13, 2026",
-      "avg_rating": "3.91",
+      "avg_rating": "3.90",
       "pages": "448\n        pp",
       "review": ""
     },
@@ -9655,7 +9671,7 @@
       ],
       "date_read": "not set",
       "date_added": "Oct 30, 2025",
-      "avg_rating": "4.30",
+      "avg_rating": "4.27",
       "pages": "340\n        pp",
       "review": ""
     },
@@ -10008,7 +10024,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.12",
+      "avg_rating": "4.11",
       "pages": "482\n        pp",
       "review": ""
     },
@@ -10168,7 +10184,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.09",
+      "avg_rating": "4.10",
       "pages": "96\n        pp",
       "review": ""
     },
@@ -10200,7 +10216,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.05",
+      "avg_rating": "4.04",
       "pages": "128\n        pp",
       "review": ""
     },
@@ -10680,7 +10696,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.30",
+      "avg_rating": "4.29",
       "pages": "295\n        pp",
       "review": ""
     },
@@ -10978,7 +10994,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.00",
+      "avg_rating": "4.05",
       "pages": "240\n        pp",
       "review": ""
     },
@@ -11046,7 +11062,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.87",
+      "avg_rating": "3.88",
       "pages": "240\n        pp",
       "review": ""
     },
@@ -11420,7 +11436,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.98",
+      "avg_rating": "3.97",
       "pages": "156\n        pp",
       "review": ""
     },
@@ -11454,7 +11470,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.70",
+      "avg_rating": "3.71",
       "pages": "112\n        pp",
       "review": ""
     },
@@ -11590,7 +11606,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.37",
+      "avg_rating": "4.36",
       "pages": "336\n        pp",
       "review": ""
     },
@@ -12002,7 +12018,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 10, 2025",
-      "avg_rating": "4.76",
+      "avg_rating": "4.75",
       "pages": "96\n        pp",
       "review": ""
     },
@@ -12213,7 +12229,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 31, 2024",
-      "avg_rating": "4.26",
+      "avg_rating": "4.24",
       "pages": "256\n        pp",
       "review": ""
     },
@@ -12378,22 +12394,6 @@
       "date_added": "Oct 23, 2024",
       "avg_rating": "4.03",
       "pages": "488\n        pp",
-      "review": ""
-    },
-    {
-      "id": "22628",
-      "title": "The Perks of Being a Wallflower",
-      "url": "https://www.goodreads.com/book/show/22628.The_Perks_of_Being_a_Wallflower",
-      "author": "Stephen Chbosky",
-      "isbn": "",
-      "rating": 0,
-      "shelves": [
-        "to-read"
-      ],
-      "date_read": "not set",
-      "date_added": "Oct 23, 2024",
-      "avg_rating": "4.25",
-      "pages": "213\n        pp",
       "review": ""
     },
     {
@@ -12972,7 +12972,7 @@
       ],
       "date_read": "not set",
       "date_added": "May 04, 2023",
-      "avg_rating": "3.97",
+      "avg_rating": "3.98",
       "pages": "341\n        pp",
       "review": ""
     },
@@ -13212,7 +13212,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 17, 2023",
-      "avg_rating": "4.16",
+      "avg_rating": "4.15",
       "pages": "218\n        pp",
       "review": ""
     },
@@ -13312,7 +13312,7 @@
       ],
       "date_read": "not set",
       "date_added": "Feb 20, 2023",
-      "avg_rating": "4.41",
+      "avg_rating": "4.40",
       "pages": "286\n        pp",
       "review": ""
     },
@@ -13569,7 +13569,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 24, 2023",
-      "avg_rating": "4.06",
+      "avg_rating": "4.05",
       "pages": "336\n        pp",
       "review": ""
     },
@@ -13778,7 +13778,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 07, 2022",
-      "avg_rating": "4.32",
+      "avg_rating": "4.31",
       "pages": "304\n        pp",
       "review": ""
     },
@@ -14264,7 +14264,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 08, 2022",
-      "avg_rating": "4.02",
+      "avg_rating": "4.01",
       "pages": "164\n        pp",
       "review": ""
     },
@@ -14280,7 +14280,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 05, 2022",
-      "avg_rating": "3.96",
+      "avg_rating": "3.97",
       "pages": "352\n        pp",
       "review": ""
     },
@@ -14344,7 +14344,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 05, 2022",
-      "avg_rating": "3.62",
+      "avg_rating": "3.64",
       "pages": "480\n        pp",
       "review": ""
     },
@@ -14408,7 +14408,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 05, 2022",
-      "avg_rating": "4.26",
+      "avg_rating": "4.25",
       "pages": "624\n        pp",
       "review": ""
     },
@@ -15304,7 +15304,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 09, 2021",
-      "avg_rating": "3.76",
+      "avg_rating": "3.77",
       "pages": "192\n        pp",
       "review": ""
     },
