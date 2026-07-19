@@ -1,8 +1,73 @@
 {
   "user_id": "76529348",
-  "scraped_at": "2026-07-12 05:27:07 UTC",
-  "total_books": 977,
+  "scraped_at": "2026-07-19 05:21:02 UTC",
+  "total_books": 979,
   "books": [
+    {
+      "id": "4069",
+      "title": "Man's Search for Meaning",
+      "url": "https://www.goodreads.com/book/show/4069.Man_s_Search_for_Meaning",
+      "author": "Viktor E. Frankl",
+      "isbn": "080701429X",
+      "rating": 4,
+      "shelves": [
+        "read"
+      ],
+      "date_read": "not set",
+      "date_added": "Jul 15, 2026",
+      "avg_rating": "4.38",
+      "pages": "165\n        pp",
+      "review": ""
+    },
+    {
+      "id": "18338487",
+      "title": "Не отпускай меня",
+      "url": "https://www.goodreads.com/book/show/18338487",
+      "author": "Kazuo Ishiguro",
+      "isbn": "",
+      "rating": 5,
+      "shelves": [
+        "read"
+      ],
+      "date_read": "not set",
+      "date_added": "Jul 15, 2026",
+      "avg_rating": "3.97",
+      "pages": "352\n        pp",
+      "review": ""
+    },
+    {
+      "id": "215201521",
+      "title": "Talentless Nana #001 (TALENTLESS NANA CHAPTER SERIALS Book 1)",
+      "url": "https://www.goodreads.com/book/show/215201521-talentless-nana-001",
+      "author": "Looseboy",
+      "isbn": "",
+      "rating": 3,
+      "shelves": [
+        "manga",
+        "read"
+      ],
+      "date_read": "Jul 13, 2026",
+      "date_added": "Jul 13, 2026",
+      "avg_rating": "4.17",
+      "pages": "0\n        pp",
+      "review": ""
+    },
+    {
+      "id": "22628",
+      "title": "The Perks of Being a Wallflower",
+      "url": "https://www.goodreads.com/book/show/22628.The_Perks_of_Being_a_Wallflower",
+      "author": "Stephen Chbosky",
+      "isbn": "",
+      "rating": 4,
+      "shelves": [
+        "read"
+      ],
+      "date_read": "Jul 13, 2026",
+      "date_added": "Jul 13, 2026",
+      "avg_rating": "4.25",
+      "pages": "213\n        pp",
+      "review": ""
+    },
     {
       "id": "288680",
       "title": "The Truth (Discworld, #25; Industrial Revolution, #2)",
@@ -79,7 +144,7 @@
       ],
       "date_read": "May 26, 2026",
       "date_added": "May 26, 2026",
-      "avg_rating": "3.62",
+      "avg_rating": "3.61",
       "pages": "349\n        pp",
       "review": ""
     },
@@ -129,8 +194,8 @@
       ],
       "date_read": "May 10, 2026",
       "date_added": "May 10, 2026",
-      "avg_rating": "4.00",
-      "pages": "160\n        pp",
+      "avg_rating": "3.50",
+      "pages": "148\n        pp",
       "review": ""
     },
     {
@@ -146,7 +211,7 @@
       ],
       "date_read": "May 10, 2026",
       "date_added": "May 10, 2026",
-      "avg_rating": "4.07",
+      "avg_rating": "4.08",
       "pages": "192\n        pp",
       "review": ""
     },
@@ -313,7 +378,7 @@
       ],
       "date_read": "Apr 05, 2026",
       "date_added": "Apr 05, 2026",
-      "avg_rating": "4.42",
+      "avg_rating": "4.41",
       "pages": "192\n        pp",
       "review": ""
     },
@@ -330,7 +395,7 @@
       ],
       "date_read": "Apr 05, 2026",
       "date_added": "Apr 05, 2026",
-      "avg_rating": "4.21",
+      "avg_rating": "4.22",
       "pages": "304\n        pp",
       "review": ""
     },
@@ -430,7 +495,7 @@
       ],
       "date_read": "Jan 26, 2026",
       "date_added": "Jan 26, 2026",
-      "avg_rating": "4.10",
+      "avg_rating": "4.11",
       "pages": "368\n        pp",
       "review": ""
     },
@@ -1102,7 +1167,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 18, 2025",
-      "avg_rating": "4.48",
+      "avg_rating": "4.49",
       "pages": "196\n        pp",
       "review": ""
     },
@@ -1170,7 +1235,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 18, 2025",
-      "avg_rating": "4.40",
+      "avg_rating": "4.39",
       "pages": "196\n        pp",
       "review": ""
     },
@@ -1527,7 +1592,7 @@
       ],
       "date_read": "Apr 20, 2025",
       "date_added": "Apr 20, 2025",
-      "avg_rating": "4.03",
+      "avg_rating": "4.02",
       "pages": "301\n        pp",
       "review": ""
     },
@@ -1758,7 +1823,7 @@
       ],
       "date_read": "Jan 26, 2025",
       "date_added": "Jan 26, 2025",
-      "avg_rating": "4.04",
+      "avg_rating": "4.05",
       "pages": "260\n        pp",
       "review": ""
     },
@@ -1902,7 +1967,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 22, 2025",
-      "avg_rating": "3.67",
+      "avg_rating": "3.66",
       "pages": "11\n        pp",
       "review": ""
     },
@@ -2462,7 +2527,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 20, 2025",
-      "avg_rating": "4.40",
+      "avg_rating": "4.41",
       "pages": "70\n        pp",
       "review": ""
     },
@@ -2494,7 +2559,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 17, 2025",
-      "avg_rating": "3.81",
+      "avg_rating": "3.82",
       "pages": "not set",
       "review": ""
     },
@@ -2592,7 +2657,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 08, 2025",
-      "avg_rating": "3.05",
+      "avg_rating": "3.04",
       "pages": "15\n        pp",
       "review": ""
     },
@@ -2737,7 +2802,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 04, 2025",
-      "avg_rating": "3.84",
+      "avg_rating": "3.83",
       "pages": "4\n        pp",
       "review": ""
     },
@@ -2801,7 +2866,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 03, 2025",
-      "avg_rating": "4.03",
+      "avg_rating": "4.02",
       "pages": "38\n        pp",
       "review": ""
     },
@@ -3149,7 +3214,7 @@
       ],
       "date_read": "Nov 29, 2024",
       "date_added": "Nov 29, 2024",
-      "avg_rating": "4.48",
+      "avg_rating": "4.49",
       "pages": "408\n        pp",
       "review": ""
     },
@@ -4096,7 +4161,7 @@
       ],
       "date_read": "Jul 07, 2024",
       "date_added": "Jul 20, 2024",
-      "avg_rating": "4.52",
+      "avg_rating": "4.51",
       "pages": "536\n        pp",
       "review": ""
     },
@@ -4128,7 +4193,7 @@
       ],
       "date_read": "Jun 30, 2024",
       "date_added": "Jun 30, 2024",
-      "avg_rating": "4.38",
+      "avg_rating": "4.37",
       "pages": "608\n        pp",
       "review": ""
     },
@@ -4226,7 +4291,7 @@
       ],
       "date_read": "Jan 18, 2024",
       "date_added": "Jan 18, 2024",
-      "avg_rating": "3.88",
+      "avg_rating": "3.89",
       "pages": "140\n        pp",
       "review": ""
     },
@@ -4322,7 +4387,7 @@
       ],
       "date_read": "Jan 13, 2024",
       "date_added": "Jan 13, 2024",
-      "avg_rating": "3.11",
+      "avg_rating": "3.12",
       "pages": "7\n        pp",
       "review": ""
     },
@@ -4834,7 +4899,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "3.50",
+      "avg_rating": "3.49",
       "pages": "10\n        pp",
       "review": ""
     },
@@ -4994,7 +5059,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "3.64",
+      "avg_rating": "3.63",
       "pages": "66\n        pp",
       "review": ""
     },
@@ -5219,7 +5284,7 @@
       ],
       "date_read": "Oct 22, 2023",
       "date_added": "Oct 22, 2023",
-      "avg_rating": "3.49",
+      "avg_rating": "3.48",
       "pages": "46\n        pp",
       "review": ""
     },
@@ -5397,7 +5462,7 @@
       ],
       "date_read": "May 26, 2023",
       "date_added": "May 26, 2023",
-      "avg_rating": "4.28",
+      "avg_rating": "4.27",
       "pages": "not set",
       "review": ""
     },
@@ -5725,7 +5790,7 @@
       ],
       "date_read": "Sep 21, 2022",
       "date_added": "Feb 26, 2023",
-      "avg_rating": "3.89",
+      "avg_rating": "3.90",
       "pages": "736\n        pp",
       "review": "A vivid criticism of the Gaussian distribution"
     },
@@ -6237,7 +6302,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 29, 2022",
-      "avg_rating": "4.20",
+      "avg_rating": "4.19",
       "pages": "320\n        pp",
       "review": ""
     },
@@ -6463,7 +6528,7 @@
       ],
       "date_read": "Feb 15, 2022",
       "date_added": "Dec 08, 2022",
-      "avg_rating": "4.04",
+      "avg_rating": "4.03",
       "pages": "225\n        pp",
       "review": ""
     },
@@ -7074,7 +7139,7 @@
       ],
       "date_read": "not set",
       "date_added": "Sep 20, 2021",
-      "avg_rating": "4.25",
+      "avg_rating": "4.24",
       "pages": "200\n        pp",
       "review": ""
     },
@@ -7090,7 +7155,7 @@
       ],
       "date_read": "not set",
       "date_added": "Aug 08, 2021",
-      "avg_rating": "3.63",
+      "avg_rating": "3.64",
       "pages": "416\n        pp",
       "review": ""
     },
@@ -7762,7 +7827,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 09, 2021",
-      "avg_rating": "3.90",
+      "avg_rating": "3.91",
       "pages": "384\n        pp",
       "review": ""
     },
@@ -8082,7 +8147,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 09, 2021",
-      "avg_rating": "4.12",
+      "avg_rating": "4.13",
       "pages": "335\n        pp",
       "review": ""
     },
@@ -8194,7 +8259,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 09, 2021",
-      "avg_rating": "4.15",
+      "avg_rating": "4.14",
       "pages": "258\n        pp",
       "review": ""
     },
@@ -8946,7 +9011,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 15, 2018",
-      "avg_rating": "4.36",
+      "avg_rating": "4.37",
       "pages": "398\n        pp",
       "review": ""
     },
@@ -9143,19 +9208,19 @@
       "review": ""
     },
     {
-      "id": "22628",
-      "title": "The Perks of Being a Wallflower",
-      "url": "https://www.goodreads.com/book/show/22628.The_Perks_of_Being_a_Wallflower",
-      "author": "Stephen Chbosky",
-      "isbn": "",
+      "id": "61535",
+      "title": "The Selfish Gene",
+      "url": "https://www.goodreads.com/book/show/61535.The_Selfish_Gene",
+      "author": "Richard Dawkins",
+      "isbn": "0199291152",
       "rating": 0,
       "shelves": [
         "currently-reading"
       ],
       "date_read": "not set",
-      "date_added": "Jul 08, 2026",
-      "avg_rating": "4.25",
-      "pages": "213\n        pp",
+      "date_added": "Jul 13, 2026",
+      "avg_rating": "4.15",
+      "pages": "360\n        pp",
       "review": ""
     },
     {
@@ -9173,6 +9238,22 @@
       "date_added": "Aug 04, 2024",
       "avg_rating": "4.70",
       "pages": "562\n        pp",
+      "review": ""
+    },
+    {
+      "id": "7437",
+      "title": "Naked Lunch: The Restored Text",
+      "url": "https://www.goodreads.com/book/show/7437.Naked_Lunch",
+      "author": "William S. Burroughs",
+      "isbn": "0802140181",
+      "rating": 0,
+      "shelves": [
+        "to-read"
+      ],
+      "date_read": "not set",
+      "date_added": "Jul 12, 2026",
+      "avg_rating": "3.48",
+      "pages": "289\n        pp",
       "review": ""
     },
     {
@@ -9365,7 +9446,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 21, 2026",
-      "avg_rating": "3.96",
+      "avg_rating": "3.95",
       "pages": "1104\n        pp",
       "review": ""
     },
@@ -9429,7 +9510,7 @@
       ],
       "date_read": "not set",
       "date_added": "Feb 05, 2026",
-      "avg_rating": "3.61",
+      "avg_rating": "3.60",
       "pages": "268\n        pp",
       "review": ""
     },
@@ -9543,7 +9624,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 18, 2025",
-      "avg_rating": "4.05",
+      "avg_rating": "4.04",
       "pages": "413\n        pp",
       "review": ""
     },
@@ -9671,7 +9752,7 @@
       ],
       "date_read": "not set",
       "date_added": "Oct 30, 2025",
-      "avg_rating": "4.27",
+      "avg_rating": "4.26",
       "pages": "340\n        pp",
       "review": ""
     },
@@ -9688,7 +9769,7 @@
       ],
       "date_read": "not set",
       "date_added": "Oct 19, 2025",
-      "avg_rating": "4.61",
+      "avg_rating": "4.62",
       "pages": "298\n        pp",
       "review": ""
     },
@@ -10673,7 +10754,7 @@
       "title": "Beloved",
       "url": "https://www.goodreads.com/book/show/6149.Beloved",
       "author": "Toni Morrison",
-      "isbn": "",
+      "isbn": "1400033411",
       "rating": 0,
       "shelves": [
         "to-read"
@@ -10696,7 +10777,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.29",
+      "avg_rating": "4.30",
       "pages": "295\n        pp",
       "review": ""
     },
@@ -10841,7 +10922,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.30",
+      "avg_rating": "4.32",
       "pages": "543\n        pp",
       "review": ""
     },
@@ -11674,7 +11755,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.05",
+      "avg_rating": "4.06",
       "pages": "208\n        pp",
       "review": ""
     },
@@ -11872,7 +11953,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.01",
+      "avg_rating": "4.00",
       "pages": "288\n        pp",
       "review": ""
     },
@@ -12050,7 +12131,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 20, 2025",
-      "avg_rating": "4.25",
+      "avg_rating": "4.26",
       "pages": "304\n        pp",
       "review": ""
     },
@@ -12164,7 +12245,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 13, 2025",
-      "avg_rating": "3.93",
+      "avg_rating": "3.94",
       "pages": "411\n        pp",
       "review": ""
     },
@@ -12229,7 +12310,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 31, 2024",
-      "avg_rating": "4.24",
+      "avg_rating": "4.27",
       "pages": "256\n        pp",
       "review": ""
     },
@@ -12263,7 +12344,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 31, 2024",
-      "avg_rating": "4.24",
+      "avg_rating": "4.23",
       "pages": "208\n        pp",
       "review": ""
     },
@@ -12295,7 +12376,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 27, 2024",
-      "avg_rating": "4.23",
+      "avg_rating": "4.22",
       "pages": "192\n        pp",
       "review": ""
     },
@@ -12327,7 +12408,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 24, 2024",
-      "avg_rating": "4.31",
+      "avg_rating": "4.32",
       "pages": "103\n        pp",
       "review": ""
     },
@@ -12360,7 +12441,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 07, 2024",
-      "avg_rating": "4.25",
+      "avg_rating": "4.24",
       "pages": "368\n        pp",
       "review": ""
     },
@@ -12538,7 +12619,7 @@
       ],
       "date_read": "not set",
       "date_added": "Aug 28, 2024",
-      "avg_rating": "3.50",
+      "avg_rating": "3.62",
       "pages": "79\n        pp",
       "review": ""
     },
@@ -13228,7 +13309,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 17, 2023",
-      "avg_rating": "4.17",
+      "avg_rating": "4.19",
       "pages": "464\n        pp",
       "review": ""
     },
@@ -13312,7 +13393,7 @@
       ],
       "date_read": "not set",
       "date_added": "Feb 20, 2023",
-      "avg_rating": "4.40",
+      "avg_rating": "4.41",
       "pages": "286\n        pp",
       "review": ""
     },
@@ -13683,22 +13764,6 @@
       "date_added": "Jan 03, 2023",
       "avg_rating": "3.85",
       "pages": "467\n        pp",
-      "review": ""
-    },
-    {
-      "id": "4069",
-      "title": "Man's Search for Meaning",
-      "url": "https://www.goodreads.com/book/show/4069.Man_s_Search_for_Meaning",
-      "author": "Viktor E. Frankl",
-      "isbn": "080701429X",
-      "rating": 0,
-      "shelves": [
-        "to-read"
-      ],
-      "date_read": "not set",
-      "date_added": "Jan 03, 2023",
-      "avg_rating": "4.38",
-      "pages": "165\n        pp",
       "review": ""
     },
     {
@@ -14269,22 +14334,6 @@
       "review": ""
     },
     {
-      "id": "18338487",
-      "title": "Не отпускай меня",
-      "url": "https://www.goodreads.com/book/show/18338487",
-      "author": "Kazuo Ishiguro",
-      "isbn": "",
-      "rating": 0,
-      "shelves": [
-        "to-read"
-      ],
-      "date_read": "not set",
-      "date_added": "Jul 05, 2022",
-      "avg_rating": "3.97",
-      "pages": "352\n        pp",
-      "review": ""
-    },
-    {
       "id": "16111596",
       "title": "Улица тёмных лавок",
       "url": "https://www.goodreads.com/book/show/16111596",
@@ -14584,7 +14633,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 05, 2022",
-      "avg_rating": "4.12",
+      "avg_rating": "4.11",
       "pages": "704\n        pp",
       "review": ""
     },
@@ -14746,22 +14795,6 @@
       "date_added": "Jun 19, 2022",
       "avg_rating": "3.88",
       "pages": "256\n        pp",
-      "review": ""
-    },
-    {
-      "id": "61535",
-      "title": "The Selfish Gene",
-      "url": "https://www.goodreads.com/book/show/61535.The_Selfish_Gene",
-      "author": "Richard Dawkins",
-      "isbn": "0199291152",
-      "rating": 0,
-      "shelves": [
-        "to-read"
-      ],
-      "date_read": "not set",
-      "date_added": "Jun 19, 2022",
-      "avg_rating": "4.15",
-      "pages": "360\n        pp",
       "review": ""
     },
     {
@@ -15208,7 +15241,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 27, 2022",
-      "avg_rating": "4.14",
+      "avg_rating": "4.16",
       "pages": "480\n        pp",
       "review": ""
     },
