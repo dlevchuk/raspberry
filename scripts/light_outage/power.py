@@ -6,20 +6,28 @@ from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 import pytz
 
+LOCATION_NAME = os.environ.get("LOCATION_NAME")
+LOCATION_URL = os.environ.get("LOCATION_URL")
+
+if not LOCATION_NAME or not LOCATION_URL:
+    print("❌ Error: LOCATION_NAME and LOCATION_URL environment variables must be set.")
+    sys.exit(1)
+
 URLS = [
     {
-        "name": "ТУЖАР",
-        "url": "https://chernigiv.energy-ua.info/grafik/ТУЖАР/Молодіжна/23"
+        "name": LOCATION_NAME,
+        "url": LOCATION_URL
     }
 ]
 
 
 BOT_TOKEN = os.environ.get("TG_TOKEN")
 CHAT_ID = os.environ.get("TG_CHAT_ID")
+DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
 SCRAPER_API_KEY = os.environ.get("SCRAPER_API_KEY", "")
 ZENROWS_API_KEY = os.environ.get("ZENROWS_API_KEY", "")
 
-def send(msg):
+def send_telegram(msg):
     if not BOT_TOKEN or not CHAT_ID:
         print("⚠️ Missing Telegram credentials")
         return
@@ -31,9 +39,28 @@ def send(msg):
             timeout=10
         )
         response.raise_for_status()
-        print(f"✓ Message sent")
+        print(f"✓ Telegram message sent")
     except Exception as e:
         print(f"Telegram error: {e}")
+
+def send_discord(msg):
+    if not DISCORD_WEBHOOK_URL:
+        print("⚠️ Discord webhook URL not set, skipping Discord notification")
+        return
+    
+    try:
+        # Convert Telegram HTML tags (<b>) to Discord markdown formatting (**)
+        discord_msg = msg.replace("<b>", "**").replace("</b>", "**")
+        
+        response = requests.post(
+            DISCORD_WEBHOOK_URL,
+            json={"content": discord_msg},
+            timeout=10
+        )
+        response.raise_for_status()
+        print(f"✓ Discord message sent")
+    except Exception as e:
+        print(f"Discord error: {e}")
 
 def fetch_with_zenrows(url):
     if not ZENROWS_API_KEY:
@@ -237,6 +264,7 @@ message = "\n".join(message_parts)
 print(message)
 print(f"{'='*60}\n")
 
-send(message)
+send_telegram(message)
+send_discord(message)
 
 print("✓ Script completed")

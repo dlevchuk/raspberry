@@ -19,6 +19,13 @@ This script monitors power outage schedules from chernigiv.energy-ua.info and se
      #telegram
      TG_TOKEN=
      TG_CHAT_ID=
+
+     #discord (optional)
+     DISCORD_WEBHOOK_URL=
+
+     #location configuration (required)
+     LOCATION_NAME=Name of your location (example: Чернігів)
+     LOCATION_URL=https://chernigiv.energy-ua.info/grafik/
    ```
 
 2. Run the script:

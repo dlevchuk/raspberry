@@ -28,5 +28,8 @@ jobs:
           TG_CHAT_ID: ${{ secrets.TELEGRAM_TO }}
           SCRAPER_API_KEY: ${{ secrets.SCRAPER_API_KEY }}
           ZENROWS_API_KEY: ${{ secrets.ZENROWS_API_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          LOCATION_NAME: ${{ secrets.LOCATION_NAME }}
+          LOCATION_URL: ${{ secrets.LOCATION_URL }}
         run: python scripts/light_outage/power.py      
 
