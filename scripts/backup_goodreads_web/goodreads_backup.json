@@ -1,7 +1,7 @@
 {
   "user_id": "76529348",
-  "scraped_at": "2026-07-19 05:21:02 UTC",
-  "total_books": 979,
+  "scraped_at": "2026-07-26 05:32:41 UTC",
+  "total_books": 981,
   "books": [
     {
       "id": "4069",
@@ -168,7 +168,7 @@
       "id": "57366492",
       "title": "도굴왕 1 [Dogulwang 1] (Tomb Raider King, #1)",
       "url": "https://www.goodreads.com/book/show/57366492-1-dogulwang-1",
-      "author": "Direct Delivery",
+      "author": "SAN.G",
       "isbn": "",
       "rating": 0,
       "shelves": [
@@ -301,7 +301,7 @@
       "id": "61398897",
       "title": "Tomb Raider King, Vol. 1 (Tomb Raider King, #1)",
       "url": "https://www.goodreads.com/book/show/61398897-tomb-raider-king-vol-1",
-      "author": "Yuns",
+      "author": "3B2S",
       "isbn": "",
       "rating": 0,
       "shelves": [
@@ -495,7 +495,7 @@
       ],
       "date_read": "Jan 26, 2026",
       "date_added": "Jan 26, 2026",
-      "avg_rating": "4.11",
+      "avg_rating": "4.10",
       "pages": "368\n        pp",
       "review": ""
     },
@@ -544,7 +544,7 @@
       ],
       "date_read": "Jan 16, 2026",
       "date_added": "Jan 16, 2026",
-      "avg_rating": "4.28",
+      "avg_rating": "4.29",
       "pages": "not set",
       "review": ""
     },
@@ -610,7 +610,7 @@
       ],
       "date_read": "Dec 30, 2025",
       "date_added": "Dec 30, 2025",
-      "avg_rating": "3.60",
+      "avg_rating": "3.59",
       "pages": "192\n        pp",
       "review": ""
     },
@@ -969,7 +969,7 @@
       ],
       "date_read": "Sep 04, 2025",
       "date_added": "Sep 04, 2025",
-      "avg_rating": "4.01",
+      "avg_rating": "4.00",
       "pages": "357\n        pp",
       "review": ""
     },
@@ -1320,7 +1320,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 18, 2025",
-      "avg_rating": "4.42",
+      "avg_rating": "4.43",
       "pages": "188\n        pp",
       "review": ""
     },
@@ -1512,7 +1512,7 @@
       ],
       "date_read": "May 05, 2025",
       "date_added": "May 05, 2025",
-      "avg_rating": "4.20",
+      "avg_rating": "4.19",
       "pages": "159\n        pp",
       "review": ""
     },
@@ -1625,7 +1625,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.58",
+      "avg_rating": "4.59",
       "pages": "959\n        pp",
       "review": ""
     },
@@ -1791,7 +1791,7 @@
       ],
       "date_read": "Feb 04, 2025",
       "date_added": "Feb 04, 2025",
-      "avg_rating": "4.17",
+      "avg_rating": "4.16",
       "pages": "620\n        pp",
       "review": ""
     },
@@ -1839,7 +1839,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 22, 2025",
-      "avg_rating": "3.79",
+      "avg_rating": "3.80",
       "pages": "23\n        pp",
       "review": ""
     },
@@ -2527,7 +2527,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 20, 2025",
-      "avg_rating": "4.41",
+      "avg_rating": "4.40",
       "pages": "70\n        pp",
       "review": ""
     },
@@ -2625,7 +2625,7 @@
       ],
       "date_read": "Jan 11, 2025",
       "date_added": "Jan 11, 2025",
-      "avg_rating": "4.16",
+      "avg_rating": "4.15",
       "pages": "224\n        pp",
       "review": ""
     },
@@ -2834,7 +2834,7 @@
       ],
       "date_read": "Jan 03, 2025",
       "date_added": "Jan 03, 2025",
-      "avg_rating": "4.28",
+      "avg_rating": "4.27",
       "pages": "281\n        pp",
       "review": ""
     },
@@ -2914,7 +2914,7 @@
       ],
       "date_read": "Jan 01, 2025",
       "date_added": "Jan 01, 2025",
-      "avg_rating": "4.11",
+      "avg_rating": "4.10",
       "pages": "46\n        pp",
       "review": ""
     },
@@ -3214,7 +3214,7 @@
       ],
       "date_read": "Nov 29, 2024",
       "date_added": "Nov 29, 2024",
-      "avg_rating": "4.49",
+      "avg_rating": "4.48",
       "pages": "408\n        pp",
       "review": ""
     },
@@ -3555,7 +3555,7 @@
       ],
       "date_read": "not set",
       "date_added": "Oct 23, 2024",
-      "avg_rating": "3.71",
+      "avg_rating": "3.72",
       "pages": "228\n        pp",
       "review": ""
     },
@@ -3717,7 +3717,7 @@
       ],
       "date_read": "Oct 05, 2024",
       "date_added": "Oct 05, 2024",
-      "avg_rating": "3.68",
+      "avg_rating": "3.69",
       "pages": "not set",
       "review": ""
     },
@@ -3911,7 +3911,7 @@
       ],
       "date_read": "Sep 14, 2024",
       "date_added": "Sep 14, 2024",
-      "avg_rating": "4.38",
+      "avg_rating": "4.39",
       "pages": "368\n        pp",
       "review": ""
     },
@@ -3975,7 +3975,7 @@
       ],
       "date_read": "not set",
       "date_added": "Aug 07, 2024",
-      "avg_rating": "4.06",
+      "avg_rating": "4.07",
       "pages": "845\n        pp",
       "review": ""
     },
@@ -4467,7 +4467,7 @@
       ],
       "date_read": "Dec 31, 2023",
       "date_added": "Dec 31, 2023",
-      "avg_rating": "3.92",
+      "avg_rating": "3.93",
       "pages": "76\n        pp",
       "review": ""
     },
@@ -4739,7 +4739,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "3.19",
+      "avg_rating": "3.18",
       "pages": "4\n        pp",
       "review": ""
     },
@@ -4851,7 +4851,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "3.29",
+      "avg_rating": "3.28",
       "pages": "26\n        pp",
       "review": ""
     },
@@ -5429,7 +5429,7 @@
       ],
       "date_read": "Jun 12, 2023",
       "date_added": "Jun 12, 2023",
-      "avg_rating": "3.73",
+      "avg_rating": "3.74",
       "pages": "118\n        pp",
       "review": ""
     },
@@ -5445,7 +5445,7 @@
       ],
       "date_read": "Jun 03, 2023",
       "date_added": "Jun 03, 2023",
-      "avg_rating": "3.91",
+      "avg_rating": "3.90",
       "pages": "240\n        pp",
       "review": ""
     },
@@ -6431,7 +6431,7 @@
       ],
       "date_read": "Jun 16, 2021",
       "date_added": "Dec 08, 2022",
-      "avg_rating": "4.41",
+      "avg_rating": "4.33",
       "pages": "1909\n        pp",
       "review": ""
     },
@@ -6754,7 +6754,7 @@
       ],
       "date_read": "Aug 20, 2022",
       "date_added": "Dec 08, 2022",
-      "avg_rating": "3.82",
+      "avg_rating": "3.83",
       "pages": "256\n        pp",
       "review": "Reading this book is as difficult as leading existence."
     },
@@ -8803,7 +8803,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 15, 2018",
-      "avg_rating": "4.17",
+      "avg_rating": "4.18",
       "pages": "542\n        pp",
       "review": ""
     },
@@ -9241,6 +9241,38 @@
       "review": ""
     },
     {
+      "id": "20257294",
+      "title": "The Fable of the Dragon-Tyrant",
+      "url": "https://www.goodreads.com/book/show/20257294-the-fable-of-the-dragon-tyrant",
+      "author": "Nick Bostrom",
+      "isbn": "",
+      "rating": 0,
+      "shelves": [
+        "to-read"
+      ],
+      "date_read": "not set",
+      "date_added": "Jul 23, 2026",
+      "avg_rating": "4.24",
+      "pages": "18\n        pp",
+      "review": ""
+    },
+    {
+      "id": "583785",
+      "title": "The Systems Bible: The Beginner's Guide to Systems Large and Small",
+      "url": "https://www.goodreads.com/book/show/583785.The_Systems_Bible",
+      "author": "John Gall",
+      "isbn": "0961825170",
+      "rating": 0,
+      "shelves": [
+        "to-read"
+      ],
+      "date_read": "not set",
+      "date_added": "Jul 23, 2026",
+      "avg_rating": "3.93",
+      "pages": "316\n        pp",
+      "review": ""
+    },
+    {
       "id": "7437",
       "title": "Naked Lunch: The Restored Text",
       "url": "https://www.goodreads.com/book/show/7437.Naked_Lunch",
@@ -9365,7 +9397,7 @@
       ],
       "date_read": "not set",
       "date_added": "May 19, 2026",
-      "avg_rating": "3.83",
+      "avg_rating": "3.82",
       "pages": "not set",
       "review": ""
     },
@@ -9446,7 +9478,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 21, 2026",
-      "avg_rating": "3.95",
+      "avg_rating": "3.96",
       "pages": "1104\n        pp",
       "review": ""
     },
@@ -9462,7 +9494,7 @@
       ],
       "date_read": "not set",
       "date_added": "Feb 27, 2026",
-      "avg_rating": "3.70",
+      "avg_rating": "3.69",
       "pages": "176\n        pp",
       "review": ""
     },
@@ -9510,7 +9542,7 @@
       ],
       "date_read": "not set",
       "date_added": "Feb 05, 2026",
-      "avg_rating": "3.60",
+      "avg_rating": "3.61",
       "pages": "268\n        pp",
       "review": ""
     },
@@ -9544,7 +9576,7 @@
       "date_read": "not set",
       "date_added": "Jan 18, 2026",
       "avg_rating": "4.34",
-      "pages": "348\n        pp",
+      "pages": "384\n        pp",
       "review": ""
     },
     {
@@ -9624,7 +9656,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 18, 2025",
-      "avg_rating": "4.04",
+      "avg_rating": "4.05",
       "pages": "413\n        pp",
       "review": ""
     },
@@ -9688,7 +9720,7 @@
       ],
       "date_read": "not set",
       "date_added": "Nov 20, 2025",
-      "avg_rating": "4.25",
+      "avg_rating": "4.26",
       "pages": "783\n        pp",
       "review": ""
     },
@@ -9736,7 +9768,7 @@
       ],
       "date_read": "not set",
       "date_added": "Oct 31, 2025",
-      "avg_rating": "3.77",
+      "avg_rating": "3.76",
       "pages": "160\n        pp",
       "review": ""
     },
@@ -10457,7 +10489,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.26",
+      "avg_rating": "4.27",
       "pages": "249\n        pp",
       "review": ""
     },
@@ -11296,7 +11328,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.03",
+      "avg_rating": "4.02",
       "pages": "not set",
       "review": ""
     },
@@ -11415,7 +11447,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.70",
+      "avg_rating": "3.72",
       "pages": "124\n        pp",
       "review": ""
     },
@@ -11500,7 +11532,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.85",
+      "avg_rating": "3.86",
       "pages": "288\n        pp",
       "review": ""
     },
@@ -11568,7 +11600,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.33",
+      "avg_rating": "4.32",
       "pages": "not set",
       "review": ""
     },
@@ -12099,7 +12131,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 10, 2025",
-      "avg_rating": "4.75",
+      "avg_rating": "4.76",
       "pages": "96\n        pp",
       "review": ""
     },
@@ -12153,7 +12185,7 @@
     },
     {
       "id": "28766",
-      "title": "Fiasco",
+      "title": "Fiasco: A Haunting Science Fiction Novel of First Contact Where Dark Poetry Descends into a Nightmare of Misunderstanding",
       "url": "https://www.goodreads.com/book/show/28766.Fiasco",
       "author": "Stanisław Lem",
       "isbn": "0156306301",
@@ -12310,7 +12342,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 31, 2024",
-      "avg_rating": "4.27",
+      "avg_rating": "4.28",
       "pages": "256\n        pp",
       "review": ""
     },
@@ -12925,7 +12957,7 @@
       ],
       "date_read": "not set",
       "date_added": "May 05, 2023",
-      "avg_rating": "3.74",
+      "avg_rating": "3.75",
       "pages": "36\n        pp",
       "review": ""
     },
@@ -13393,7 +13425,7 @@
       ],
       "date_read": "not set",
       "date_added": "Feb 20, 2023",
-      "avg_rating": "4.41",
+      "avg_rating": "4.40",
       "pages": "286\n        pp",
       "review": ""
     },
@@ -13993,7 +14025,7 @@
       ],
       "date_read": "not set",
       "date_added": "Nov 11, 2022",
-      "avg_rating": "3.74",
+      "avg_rating": "3.75",
       "pages": "224\n        pp",
       "review": ""
     },
@@ -14329,7 +14361,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 08, 2022",
-      "avg_rating": "4.01",
+      "avg_rating": "4.02",
       "pages": "164\n        pp",
       "review": ""
     },
@@ -15161,7 +15193,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 29, 2022",
-      "avg_rating": "4.43",
+      "avg_rating": "4.44",
       "pages": "601\n        pp",
       "review": ""
     },
@@ -15289,7 +15321,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 18, 2022",
-      "avg_rating": "3.65",
+      "avg_rating": "3.67",
       "pages": "320\n        pp",
       "review": ""
     },
