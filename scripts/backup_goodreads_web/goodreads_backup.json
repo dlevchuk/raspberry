@@ -1,22 +1,72 @@
 {
   "user_id": "76529348",
-  "scraped_at": "2026-07-26 05:32:41 UTC",
-  "total_books": 981,
+  "scraped_at": "2026-08-02 05:26:11 UTC",
+  "total_books": 984,
   "books": [
     {
-      "id": "4069",
-      "title": "Man's Search for Meaning",
-      "url": "https://www.goodreads.com/book/show/4069.Man_s_Search_for_Meaning",
-      "author": "Viktor E. Frankl",
-      "isbn": "080701429X",
+      "id": "20257294",
+      "title": "The Fable of the Dragon-Tyrant",
+      "url": "https://www.goodreads.com/book/show/20257294-the-fable-of-the-dragon-tyrant",
+      "author": "Nick Bostrom",
+      "isbn": "",
       "rating": 4,
       "shelves": [
         "read"
       ],
-      "date_read": "not set",
-      "date_added": "Jul 15, 2026",
-      "avg_rating": "4.38",
-      "pages": "165\n        pp",
+      "date_read": "Jul 31, 2026",
+      "date_added": "Jul 31, 2026",
+      "avg_rating": "4.24",
+      "pages": "18\n        pp",
+      "review": ""
+    },
+    {
+      "id": "61389767",
+      "title": "ブルーロック-EPISODE 凪- 1 [Blue Lock: Episode Nagi 1]",
+      "url": "https://www.goodreads.com/book/show/61389767--episode---1-blue-lock",
+      "author": "Kota Sannomiya",
+      "isbn": "4065289815",
+      "rating": 4,
+      "shelves": [
+        "manga",
+        "read"
+      ],
+      "date_read": "Jul 29, 2026",
+      "date_added": "Jul 29, 2026",
+      "avg_rating": "4.46",
+      "pages": "200\n        pp",
+      "review": ""
+    },
+    {
+      "id": "215201521",
+      "title": "Talentless Nana #001 (TALENTLESS NANA CHAPTER SERIALS Book 1)",
+      "url": "https://www.goodreads.com/book/show/215201521-talentless-nana-001",
+      "author": "Looseboy",
+      "isbn": "",
+      "rating": 3,
+      "shelves": [
+        "manga",
+        "read"
+      ],
+      "date_read": "Mar 13, 2026",
+      "date_added": "Jul 29, 2026",
+      "avg_rating": "4.17",
+      "pages": "0\n        pp",
+      "review": ""
+    },
+    {
+      "id": "61535",
+      "title": "The Selfish Gene",
+      "url": "https://www.goodreads.com/book/show/61535.The_Selfish_Gene",
+      "author": "Richard Dawkins",
+      "isbn": "0199291152",
+      "rating": 5,
+      "shelves": [
+        "read"
+      ],
+      "date_read": "Jul 29, 2026",
+      "date_added": "Jul 29, 2026",
+      "avg_rating": "4.15",
+      "pages": "360\n        pp",
       "review": ""
     },
     {
@@ -33,23 +83,6 @@
       "date_added": "Jul 15, 2026",
       "avg_rating": "3.97",
       "pages": "352\n        pp",
-      "review": ""
-    },
-    {
-      "id": "215201521",
-      "title": "Talentless Nana #001 (TALENTLESS NANA CHAPTER SERIALS Book 1)",
-      "url": "https://www.goodreads.com/book/show/215201521-talentless-nana-001",
-      "author": "Looseboy",
-      "isbn": "",
-      "rating": 3,
-      "shelves": [
-        "manga",
-        "read"
-      ],
-      "date_read": "Jul 13, 2026",
-      "date_added": "Jul 13, 2026",
-      "avg_rating": "4.17",
-      "pages": "0\n        pp",
       "review": ""
     },
     {
@@ -144,7 +177,7 @@
       ],
       "date_read": "May 26, 2026",
       "date_added": "May 26, 2026",
-      "avg_rating": "3.61",
+      "avg_rating": "3.60",
       "pages": "349\n        pp",
       "review": ""
     },
@@ -261,7 +294,7 @@
       ],
       "date_read": "May 05, 2026",
       "date_added": "May 05, 2026",
-      "avg_rating": "3.85",
+      "avg_rating": "3.84",
       "pages": "272\n        pp",
       "review": ""
     },
@@ -310,7 +343,7 @@
       ],
       "date_read": "Apr 05, 2026",
       "date_added": "Apr 05, 2026",
-      "avg_rating": "3.87",
+      "avg_rating": "3.86",
       "pages": "272\n        pp",
       "review": ""
     },
@@ -378,7 +411,7 @@
       ],
       "date_read": "Apr 05, 2026",
       "date_added": "Apr 05, 2026",
-      "avg_rating": "4.41",
+      "avg_rating": "4.40",
       "pages": "192\n        pp",
       "review": ""
     },
@@ -395,7 +428,7 @@
       ],
       "date_read": "Apr 05, 2026",
       "date_added": "Apr 05, 2026",
-      "avg_rating": "4.22",
+      "avg_rating": "4.21",
       "pages": "304\n        pp",
       "review": ""
     },
@@ -420,7 +453,7 @@
       "id": "245702598",
       "title": "呪術廻戦≡ 1 [Jujutsu Kaisen Modulo 1]",
       "url": "https://www.goodreads.com/book/show/245702598-1-jujutsu-kaisen-modulo-1",
-      "author": "Gege Akutami",
+      "author": "Yūji Iwasaki",
       "isbn": "4088848322",
       "rating": 3,
       "shelves": [
@@ -429,7 +462,7 @@
       ],
       "date_read": "Apr 03, 2026",
       "date_added": "Apr 03, 2026",
-      "avg_rating": "3.90",
+      "avg_rating": "3.89",
       "pages": "192\n        pp",
       "review": ""
     },
@@ -495,7 +528,7 @@
       ],
       "date_read": "Jan 26, 2026",
       "date_added": "Jan 26, 2026",
-      "avg_rating": "4.10",
+      "avg_rating": "4.09",
       "pages": "368\n        pp",
       "review": ""
     },
@@ -658,7 +691,7 @@
       ],
       "date_read": "Dec 03, 2025",
       "date_added": "Dec 03, 2025",
-      "avg_rating": "3.89",
+      "avg_rating": "3.90",
       "pages": "336\n        pp",
       "review": ""
     },
@@ -953,7 +986,7 @@
       ],
       "date_read": "Sep 04, 2025",
       "date_added": "Sep 04, 2025",
-      "avg_rating": "4.14",
+      "avg_rating": "4.15",
       "pages": "8\n        pp",
       "review": ""
     },
@@ -969,7 +1002,7 @@
       ],
       "date_read": "Sep 04, 2025",
       "date_added": "Sep 04, 2025",
-      "avg_rating": "4.00",
+      "avg_rating": "4.01",
       "pages": "357\n        pp",
       "review": ""
     },
@@ -1001,7 +1034,7 @@
       ],
       "date_read": "Aug 11, 2025",
       "date_added": "Aug 11, 2025",
-      "avg_rating": "4.01",
+      "avg_rating": "4.00",
       "pages": "220\n        pp",
       "review": ""
     },
@@ -1066,7 +1099,7 @@
       ],
       "date_read": "Jul 29, 2025",
       "date_added": "Jul 29, 2025",
-      "avg_rating": "3.95",
+      "avg_rating": "3.96",
       "pages": "140\n        pp",
       "review": ""
     },
@@ -1235,7 +1268,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 18, 2025",
-      "avg_rating": "4.39",
+      "avg_rating": "4.40",
       "pages": "196\n        pp",
       "review": ""
     },
@@ -1400,7 +1433,7 @@
       ],
       "date_read": "Jun 09, 2025",
       "date_added": "Jun 09, 2025",
-      "avg_rating": "4.24",
+      "avg_rating": "4.23",
       "pages": "168\n        pp",
       "review": ""
     },
@@ -1903,7 +1936,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 22, 2025",
-      "avg_rating": "4.33",
+      "avg_rating": "4.32",
       "pages": "512\n        pp",
       "review": ""
     },
@@ -2367,7 +2400,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 22, 2025",
-      "avg_rating": "4.26",
+      "avg_rating": "4.27",
       "pages": "896\n        pp",
       "review": ""
     },
@@ -2559,7 +2592,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 17, 2025",
-      "avg_rating": "3.82",
+      "avg_rating": "3.81",
       "pages": "not set",
       "review": ""
     },
@@ -2575,7 +2608,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 14, 2025",
-      "avg_rating": "4.15",
+      "avg_rating": "4.14",
       "pages": "12\n        pp",
       "review": ""
     },
@@ -2591,7 +2624,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 14, 2025",
-      "avg_rating": "4.21",
+      "avg_rating": "4.20",
       "pages": "46\n        pp",
       "review": ""
     },
@@ -2625,7 +2658,7 @@
       ],
       "date_read": "Jan 11, 2025",
       "date_added": "Jan 11, 2025",
-      "avg_rating": "4.15",
+      "avg_rating": "4.16",
       "pages": "224\n        pp",
       "review": ""
     },
@@ -2657,7 +2690,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 08, 2025",
-      "avg_rating": "3.04",
+      "avg_rating": "3.03",
       "pages": "15\n        pp",
       "review": ""
     },
@@ -2834,7 +2867,7 @@
       ],
       "date_read": "Jan 03, 2025",
       "date_added": "Jan 03, 2025",
-      "avg_rating": "4.27",
+      "avg_rating": "4.28",
       "pages": "281\n        pp",
       "review": ""
     },
@@ -3214,7 +3247,7 @@
       ],
       "date_read": "Nov 29, 2024",
       "date_added": "Nov 29, 2024",
-      "avg_rating": "4.48",
+      "avg_rating": "4.49",
       "pages": "408\n        pp",
       "review": ""
     },
@@ -3588,7 +3621,7 @@
       ],
       "date_read": "Oct 19, 2024",
       "date_added": "Oct 19, 2024",
-      "avg_rating": "4.46",
+      "avg_rating": "4.45",
       "pages": "256\n        pp",
       "review": ""
     },
@@ -3911,7 +3944,7 @@
       ],
       "date_read": "Sep 14, 2024",
       "date_added": "Sep 14, 2024",
-      "avg_rating": "4.39",
+      "avg_rating": "4.38",
       "pages": "368\n        pp",
       "review": ""
     },
@@ -4275,7 +4308,7 @@
       ],
       "date_read": "Jan 21, 2024",
       "date_added": "Jan 21, 2024",
-      "avg_rating": "4.40",
+      "avg_rating": "4.39",
       "pages": "372\n        pp",
       "review": ""
     },
@@ -4291,7 +4324,7 @@
       ],
       "date_read": "Jan 18, 2024",
       "date_added": "Jan 18, 2024",
-      "avg_rating": "3.89",
+      "avg_rating": "3.88",
       "pages": "140\n        pp",
       "review": ""
     },
@@ -4467,7 +4500,7 @@
       ],
       "date_read": "Dec 31, 2023",
       "date_added": "Dec 31, 2023",
-      "avg_rating": "3.93",
+      "avg_rating": "3.92",
       "pages": "76\n        pp",
       "review": ""
     },
@@ -4499,7 +4532,7 @@
       ],
       "date_read": "Dec 25, 2023",
       "date_added": "Dec 25, 2023",
-      "avg_rating": "3.76",
+      "avg_rating": "3.75",
       "pages": "46\n        pp",
       "review": ""
     },
@@ -4739,7 +4772,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "3.18",
+      "avg_rating": "3.19",
       "pages": "4\n        pp",
       "review": ""
     },
@@ -4771,7 +4804,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "3.68",
+      "avg_rating": "3.67",
       "pages": "30\n        pp",
       "review": ""
     },
@@ -4979,7 +5012,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "3.34",
+      "avg_rating": "3.33",
       "pages": "10\n        pp",
       "review": ""
     },
@@ -5462,7 +5495,7 @@
       ],
       "date_read": "May 26, 2023",
       "date_added": "May 26, 2023",
-      "avg_rating": "4.27",
+      "avg_rating": "4.28",
       "pages": "not set",
       "review": ""
     },
@@ -5705,7 +5738,7 @@
       ],
       "date_read": "Jan 29, 2018",
       "date_added": "Feb 26, 2023",
-      "avg_rating": "3.30",
+      "avg_rating": "3.29",
       "pages": "350\n        pp",
       "review": ""
     },
@@ -5977,7 +6010,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 29, 2023",
-      "avg_rating": "3.98",
+      "avg_rating": "3.97",
       "pages": "288\n        pp",
       "review": ""
     },
@@ -7139,7 +7172,7 @@
       ],
       "date_read": "not set",
       "date_added": "Sep 20, 2021",
-      "avg_rating": "4.24",
+      "avg_rating": "4.25",
       "pages": "200\n        pp",
       "review": ""
     },
@@ -8803,7 +8836,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 15, 2018",
-      "avg_rating": "4.18",
+      "avg_rating": "4.17",
       "pages": "542\n        pp",
       "review": ""
     },
@@ -9208,19 +9241,35 @@
       "review": ""
     },
     {
-      "id": "61535",
-      "title": "The Selfish Gene",
-      "url": "https://www.goodreads.com/book/show/61535.The_Selfish_Gene",
-      "author": "Richard Dawkins",
-      "isbn": "0199291152",
+      "id": "13554058",
+      "title": "The Wandering Earth",
+      "url": "https://www.goodreads.com/book/show/13554058-the-wandering-earth",
+      "author": "Liu Cixin",
+      "isbn": "",
       "rating": 0,
       "shelves": [
         "currently-reading"
       ],
       "date_read": "not set",
-      "date_added": "Jul 13, 2026",
-      "avg_rating": "4.15",
-      "pages": "360\n        pp",
+      "date_added": "Aug 01, 2026",
+      "avg_rating": "4.08",
+      "pages": "45\n        pp",
+      "review": ""
+    },
+    {
+      "id": "4069",
+      "title": "Man's Search for Meaning",
+      "url": "https://www.goodreads.com/book/show/4069.Man_s_Search_for_Meaning",
+      "author": "Viktor E. Frankl",
+      "isbn": "080701429X",
+      "rating": 0,
+      "shelves": [
+        "currently-reading"
+      ],
+      "date_read": "Jul 29, 2026",
+      "date_added": "Jul 29, 2026",
+      "avg_rating": "4.38",
+      "pages": "165\n        pp",
       "review": ""
     },
     {
@@ -9241,19 +9290,35 @@
       "review": ""
     },
     {
-      "id": "20257294",
-      "title": "The Fable of the Dragon-Tyrant",
-      "url": "https://www.goodreads.com/book/show/20257294-the-fable-of-the-dragon-tyrant",
-      "author": "Nick Bostrom",
-      "isbn": "",
+      "id": "31170723",
+      "title": "Behave: The Biology of Humans at Our Best and Worst",
+      "url": "https://www.goodreads.com/book/show/31170723-behave",
+      "author": "Robert M. Sapolsky",
+      "isbn": "1594205078",
       "rating": 0,
       "shelves": [
         "to-read"
       ],
       "date_read": "not set",
-      "date_added": "Jul 23, 2026",
-      "avg_rating": "4.24",
-      "pages": "18\n        pp",
+      "date_added": "Aug 01, 2026",
+      "avg_rating": "4.37",
+      "pages": "790\n        pp",
+      "review": ""
+    },
+    {
+      "id": "240019874",
+      "title": "Platform Decay (The Murderbot Diaries, #8)",
+      "url": "https://www.goodreads.com/book/show/240019874-platform-decay",
+      "author": "Martha Wells",
+      "isbn": "1250827000",
+      "rating": 0,
+      "shelves": [
+        "to-read"
+      ],
+      "date_read": "not set",
+      "date_added": "Jul 29, 2026",
+      "avg_rating": "4.17",
+      "pages": "244\n        pp",
       "review": ""
     },
     {
@@ -9397,7 +9462,7 @@
       ],
       "date_read": "not set",
       "date_added": "May 19, 2026",
-      "avg_rating": "3.82",
+      "avg_rating": "3.83",
       "pages": "not set",
       "review": ""
     },
@@ -9478,7 +9543,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 21, 2026",
-      "avg_rating": "3.96",
+      "avg_rating": "3.95",
       "pages": "1104\n        pp",
       "review": ""
     },
@@ -9736,7 +9801,7 @@
       ],
       "date_read": "not set",
       "date_added": "Nov 20, 2025",
-      "avg_rating": "4.25",
+      "avg_rating": "4.26",
       "pages": "592\n        pp",
       "review": ""
     },
@@ -9945,7 +10010,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.07",
+      "avg_rating": "4.06",
       "pages": "152\n        pp",
       "review": ""
     },
@@ -9961,7 +10026,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.21",
+      "avg_rating": "4.20",
       "pages": "267\n        pp",
       "review": ""
     },
@@ -10153,7 +10218,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.72",
+      "avg_rating": "3.71",
       "pages": "1182\n        pp",
       "review": ""
     },
@@ -10489,7 +10554,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.27",
+      "avg_rating": "4.26",
       "pages": "249\n        pp",
       "review": ""
     },
@@ -10657,7 +10722,7 @@
       "id": "19351",
       "title": "The Epic of Gilgamesh",
       "url": "https://www.goodreads.com/book/show/19351.The_Epic_of_Gilgamesh",
-      "author": "Anonymous",
+      "author": "Unknown",
       "isbn": "0141026286",
       "rating": 0,
       "shelves": [
@@ -10786,7 +10851,7 @@
       "title": "Beloved",
       "url": "https://www.goodreads.com/book/show/6149.Beloved",
       "author": "Toni Morrison",
-      "isbn": "1400033411",
+      "isbn": "",
       "rating": 0,
       "shelves": [
         "to-read"
@@ -10971,7 +11036,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.58",
+      "avg_rating": "3.60",
       "pages": "352\n        pp",
       "review": ""
     },
@@ -11226,7 +11291,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.95",
+      "avg_rating": "3.93",
       "pages": "116\n        pp",
       "review": ""
     },
@@ -11328,7 +11393,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.02",
+      "avg_rating": "4.00",
       "pages": "not set",
       "review": ""
     },
@@ -11447,7 +11512,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.72",
+      "avg_rating": "3.70",
       "pages": "124\n        pp",
       "review": ""
     },
@@ -11498,7 +11563,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.73",
+      "avg_rating": "4.72",
       "pages": "256\n        pp",
       "review": ""
     },
@@ -11549,7 +11614,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.97",
+      "avg_rating": "3.98",
       "pages": "156\n        pp",
       "review": ""
     },
@@ -11719,7 +11784,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.36",
+      "avg_rating": "4.37",
       "pages": "336\n        pp",
       "review": ""
     },
@@ -11736,7 +11801,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.18",
+      "avg_rating": "4.19",
       "pages": "150\n        pp",
       "review": ""
     },
@@ -11787,7 +11852,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.06",
+      "avg_rating": "4.05",
       "pages": "208\n        pp",
       "review": ""
     },
@@ -11871,7 +11936,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.03",
+      "avg_rating": "4.04",
       "pages": "352\n        pp",
       "review": ""
     },
@@ -12114,7 +12179,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 10, 2025",
-      "avg_rating": "4.77",
+      "avg_rating": "4.76",
       "pages": "224\n        pp",
       "review": ""
     },
@@ -12261,7 +12326,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 18, 2025",
-      "avg_rating": "4.08",
+      "avg_rating": "4.07",
       "pages": "351\n        pp",
       "review": ""
     },
@@ -12342,7 +12407,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 31, 2024",
-      "avg_rating": "4.28",
+      "avg_rating": "4.27",
       "pages": "256\n        pp",
       "review": ""
     },
@@ -12457,7 +12522,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 12, 2024",
-      "avg_rating": "3.97",
+      "avg_rating": "3.98",
       "pages": "132\n        pp",
       "review": ""
     },
@@ -12673,22 +12738,6 @@
       "review": ""
     },
     {
-      "id": "13554058",
-      "title": "The Wandering Earth",
-      "url": "https://www.goodreads.com/book/show/13554058-the-wandering-earth",
-      "author": "Liu Cixin",
-      "isbn": "",
-      "rating": 0,
-      "shelves": [
-        "to-read"
-      ],
-      "date_read": "not set",
-      "date_added": "Mar 31, 2024",
-      "avg_rating": "4.08",
-      "pages": "45\n        pp",
-      "review": ""
-    },
-    {
       "id": "122576014",
       "title": "Нещасна земля",
       "url": "https://www.goodreads.com/book/show/122576014",
@@ -12700,7 +12749,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 31, 2024",
-      "avg_rating": "4.20",
+      "avg_rating": "4.16",
       "pages": "224\n        pp",
       "review": ""
     },
@@ -13408,7 +13457,7 @@
       ],
       "date_read": "not set",
       "date_added": "Feb 20, 2023",
-      "avg_rating": "4.29",
+      "avg_rating": "4.28",
       "pages": "367\n        pp",
       "review": ""
     },
@@ -13648,7 +13697,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 29, 2023",
-      "avg_rating": "4.80",
+      "avg_rating": "4.81",
       "pages": "616\n        pp",
       "review": ""
     },
@@ -14201,7 +14250,7 @@
       ],
       "date_read": "not set",
       "date_added": "Sep 11, 2022",
-      "avg_rating": "4.28",
+      "avg_rating": "4.27",
       "pages": "459\n        pp",
       "review": ""
     },
@@ -14377,7 +14426,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 05, 2022",
-      "avg_rating": "3.62",
+      "avg_rating": "3.63",
       "pages": "192\n        pp",
       "review": ""
     },
@@ -14585,7 +14634,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 05, 2022",
-      "avg_rating": "3.61",
+      "avg_rating": "3.60",
       "pages": "144\n        pp",
       "review": ""
     },
