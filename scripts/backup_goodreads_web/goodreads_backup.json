@@ -1,8 +1,88 @@
 {
   "user_id": "76529348",
-  "scraped_at": "2026-08-16 02:58:10 UTC",
-  "total_books": 993,
+  "scraped_at": "2026-08-23 03:00:34 UTC",
+  "total_books": 995,
   "books": [
+    {
+      "id": "220817728",
+      "title": "Atmosphere",
+      "url": "https://www.goodreads.com/book/show/220817728-atmosphere",
+      "author": "Taylor Jenkins Reid",
+      "isbn": "",
+      "rating": 4,
+      "shelves": [
+        "read"
+      ],
+      "date_read": "Aug 22, 2026",
+      "date_added": "Aug 22, 2026",
+      "avg_rating": "4.30",
+      "pages": "337\n        pp",
+      "review": ""
+    },
+    {
+      "id": "18160995",
+      "title": "The Wandering Earth: Classic Science Fiction Collection",
+      "url": "https://www.goodreads.com/book/show/18160995-the-wandering-earth",
+      "author": "Liu Cixin",
+      "isbn": "",
+      "rating": 5,
+      "shelves": [
+        "read"
+      ],
+      "date_read": "Aug 16, 2026",
+      "date_added": "Aug 16, 2026",
+      "avg_rating": "4.29",
+      "pages": "477\n        pp",
+      "review": ""
+    },
+    {
+      "id": "55296475",
+      "title": "Cannonball",
+      "url": "https://www.goodreads.com/book/show/55296475-cannonball",
+      "author": "Liu Cixin",
+      "isbn": "",
+      "rating": 4,
+      "shelves": [
+        "read"
+      ],
+      "date_read": "Aug 16, 2026",
+      "date_added": "Aug 16, 2026",
+      "avg_rating": "3.75",
+      "pages": "54\n        pp",
+      "review": ""
+    },
+    {
+      "id": "18160988",
+      "title": "With Her Eyes",
+      "url": "https://www.goodreads.com/book/show/18160988-with-her-eyes",
+      "author": "Liu Cixin",
+      "isbn": "",
+      "rating": 5,
+      "shelves": [
+        "read"
+      ],
+      "date_read": "Aug 16, 2026",
+      "date_added": "Aug 16, 2026",
+      "avg_rating": "4.07",
+      "pages": "20\n        pp",
+      "review": ""
+    },
+    {
+      "id": "15834731",
+      "title": "Taking Care of Gods",
+      "url": "https://www.goodreads.com/book/show/15834731-taking-care-of-gods",
+      "author": "Liu Cixin",
+      "isbn": "",
+      "rating": 5,
+      "shelves": [
+        "read"
+      ],
+      "date_read": "Aug 16, 2026",
+      "date_added": "Aug 16, 2026",
+      "avg_rating": "3.97",
+      "pages": "38\n        pp",
+      "review": ""
+    },
     {
       "id": "14739423",
       "title": "Devourer",
@@ -176,7 +256,7 @@
       ],
       "date_read": "Jul 29, 2026",
       "date_added": "Jul 29, 2026",
-      "avg_rating": "4.45",
+      "avg_rating": "4.46",
       "pages": "200\n        pp",
       "review": ""
     },
@@ -193,7 +273,7 @@
       ],
       "date_read": "Mar 13, 2026",
       "date_added": "Jul 29, 2026",
-      "avg_rating": "4.17",
+      "avg_rating": "4.15",
       "pages": "0\n        pp",
       "review": ""
     },
@@ -487,7 +567,7 @@
       ],
       "date_read": "Apr 05, 2026",
       "date_added": "Apr 05, 2026",
-      "avg_rating": "3.87",
+      "avg_rating": "3.86",
       "pages": "272\n        pp",
       "review": ""
     },
@@ -572,7 +652,7 @@
       ],
       "date_read": "Apr 05, 2026",
       "date_added": "Apr 05, 2026",
-      "avg_rating": "4.21",
+      "avg_rating": "4.22",
       "pages": "304\n        pp",
       "review": ""
     },
@@ -672,7 +752,7 @@
       ],
       "date_read": "Jan 26, 2026",
       "date_added": "Jan 26, 2026",
-      "avg_rating": "4.08",
+      "avg_rating": "4.07",
       "pages": "368\n        pp",
       "review": ""
     },
@@ -1049,7 +1129,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Oct 28, 2025",
-      "avg_rating": "3.40",
+      "avg_rating": "3.39",
       "pages": "32\n        pp",
       "review": ""
     },
@@ -1146,7 +1226,7 @@
       ],
       "date_read": "Sep 04, 2025",
       "date_added": "Sep 04, 2025",
-      "avg_rating": "4.01",
+      "avg_rating": "4.00",
       "pages": "357\n        pp",
       "review": ""
     },
@@ -1673,7 +1753,7 @@
       ],
       "date_read": "May 22, 2025",
       "date_added": "May 22, 2025",
-      "avg_rating": "4.37",
+      "avg_rating": "4.36",
       "pages": "172\n        pp",
       "review": ""
     },
@@ -1853,7 +1933,7 @@
       ],
       "date_read": "Apr 05, 2025",
       "date_added": "Apr 05, 2025",
-      "avg_rating": "3.94",
+      "avg_rating": "3.93",
       "pages": "248\n        pp",
       "review": ""
     },
@@ -1919,7 +1999,7 @@
       ],
       "date_read": "Feb 24, 2025",
       "date_added": "Feb 24, 2025",
-      "avg_rating": "4.43",
+      "avg_rating": "4.50",
       "pages": "440\n        pp",
       "review": ""
     },
@@ -2496,7 +2576,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 22, 2025",
-      "avg_rating": "4.29",
+      "avg_rating": "4.30",
       "pages": "366\n        pp",
       "review": ""
     },
@@ -2672,7 +2752,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 22, 2025",
-      "avg_rating": "4.18",
+      "avg_rating": "4.17",
       "pages": "224\n        pp",
       "review": ""
     },
@@ -2704,7 +2784,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 20, 2025",
-      "avg_rating": "4.41",
+      "avg_rating": "4.40",
       "pages": "70\n        pp",
       "review": ""
     },
@@ -2768,7 +2848,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 14, 2025",
-      "avg_rating": "4.21",
+      "avg_rating": "4.20",
       "pages": "46\n        pp",
       "review": ""
     },
@@ -2834,7 +2914,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 08, 2025",
-      "avg_rating": "3.05",
+      "avg_rating": "3.04",
       "pages": "15\n        pp",
       "review": ""
     },
@@ -2851,7 +2931,7 @@
       ],
       "date_read": "Jan 08, 2025",
       "date_added": "Jan 08, 2025",
-      "avg_rating": "4.26",
+      "avg_rating": "4.27",
       "pages": "200\n        pp",
       "review": ""
     },
@@ -2883,7 +2963,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 05, 2025",
-      "avg_rating": "3.76",
+      "avg_rating": "3.75",
       "pages": "416\n        pp",
       "review": ""
     },
@@ -3208,7 +3288,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 27, 2024",
-      "avg_rating": "4.48",
+      "avg_rating": "4.47",
       "pages": "197\n        pp",
       "review": ""
     },
@@ -3391,7 +3471,7 @@
       ],
       "date_read": "Nov 29, 2024",
       "date_added": "Nov 29, 2024",
-      "avg_rating": "4.48",
+      "avg_rating": "4.49",
       "pages": "408\n        pp",
       "review": ""
     },
@@ -4253,7 +4333,7 @@
       ],
       "date_read": "Aug 04, 2024",
       "date_added": "Aug 04, 2024",
-      "avg_rating": "4.19",
+      "avg_rating": "4.20",
       "pages": "550\n        pp",
       "review": ""
     },
@@ -4403,7 +4483,7 @@
       ],
       "date_read": "Jan 27, 2024",
       "date_added": "Jan 27, 2024",
-      "avg_rating": "4.57",
+      "avg_rating": "4.56",
       "pages": "not set",
       "review": ""
     },
@@ -4564,7 +4644,7 @@
       ],
       "date_read": "Jan 13, 2024",
       "date_added": "Jan 13, 2024",
-      "avg_rating": "3.12",
+      "avg_rating": "3.11",
       "pages": "7\n        pp",
       "review": ""
     },
@@ -4708,7 +4788,7 @@
       ],
       "date_read": "Dec 25, 2023",
       "date_added": "Dec 25, 2023",
-      "avg_rating": "2.83",
+      "avg_rating": "2.82",
       "pages": "28\n        pp",
       "review": ""
     },
@@ -4820,7 +4900,7 @@
       ],
       "date_read": "Nov 17, 2023",
       "date_added": "Nov 17, 2023",
-      "avg_rating": "3.85",
+      "avg_rating": "3.84",
       "pages": "66\n        pp",
       "review": ""
     },
@@ -4996,7 +5076,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "2.89",
+      "avg_rating": "2.88",
       "pages": "not set",
       "review": ""
     },
@@ -5156,7 +5236,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "3.33",
+      "avg_rating": "3.34",
       "pages": "10\n        pp",
       "review": ""
     },
@@ -5172,7 +5252,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "2.30",
+      "avg_rating": "2.32",
       "pages": "9\n        pp",
       "review": ""
     },
@@ -5622,7 +5702,7 @@
       ],
       "date_read": "Jun 03, 2023",
       "date_added": "Jun 03, 2023",
-      "avg_rating": "3.90",
+      "avg_rating": "3.89",
       "pages": "240\n        pp",
       "review": ""
     },
@@ -5688,7 +5768,7 @@
       ],
       "date_read": "Apr 17, 2023",
       "date_added": "Apr 17, 2023",
-      "avg_rating": "4.23",
+      "avg_rating": "4.24",
       "pages": "not set",
       "review": "- прям добре в бік екзистенціалізму<br />- все ще рефлексую над рецензією<br />- але Домонтович доволі непоганий у жанрі<br />- така собі \"Нудота\" Сартра з нарисом епохи 30х років 20c Києва, з яскравими акцентами в сюжеті завдяки мініессе, які вкраплюються в основну історію"
     },
@@ -6883,7 +6963,7 @@
       ],
       "date_read": "Jul 04, 2022",
       "date_added": "Dec 08, 2022",
-      "avg_rating": "4.33",
+      "avg_rating": "4.32",
       "pages": "not set",
       "review": ""
     },
@@ -7444,7 +7524,7 @@
       ],
       "date_read": "Mar 20, 2021",
       "date_added": "Mar 20, 2021",
-      "avg_rating": "3.95",
+      "avg_rating": "3.97",
       "pages": "480\n        pp",
       "review": ""
     },
@@ -8180,7 +8260,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 09, 2021",
-      "avg_rating": "4.61",
+      "avg_rating": "4.62",
       "pages": "545\n        pp",
       "review": ""
     },
@@ -8324,7 +8404,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 09, 2021",
-      "avg_rating": "4.12",
+      "avg_rating": "4.13",
       "pages": "335\n        pp",
       "review": ""
     },
@@ -9385,38 +9465,6 @@
       "review": ""
     },
     {
-      "id": "15834731",
-      "title": "Taking Care of Gods",
-      "url": "https://www.goodreads.com/book/show/15834731-taking-care-of-gods",
-      "author": "Liu Cixin",
-      "isbn": "",
-      "rating": 0,
-      "shelves": [
-        "currently-reading"
-      ],
-      "date_read": "not set",
-      "date_added": "Aug 15, 2026",
-      "avg_rating": "3.97",
-      "pages": "38\n        pp",
-      "review": ""
-    },
-    {
-      "id": "18160995",
-      "title": "The Wandering Earth: Classic Science Fiction Collection",
-      "url": "https://www.goodreads.com/book/show/18160995-the-wandering-earth",
-      "author": "Liu Cixin",
-      "isbn": "",
-      "rating": 5,
-      "shelves": [
-        "currently-reading"
-      ],
-      "date_read": "not set",
-      "date_added": "Aug 02, 2026",
-      "avg_rating": "4.29",
-      "pages": "477\n        pp",
-      "review": ""
-    },
-    {
       "id": "23463279",
       "title": "Designing Data-Intensive Applications",
       "url": "https://www.goodreads.com/book/show/23463279-designing-data-intensive-applications",
@@ -9431,6 +9479,22 @@
       "date_added": "Aug 04, 2024",
       "avg_rating": "4.70",
       "pages": "562\n        pp",
+      "review": ""
+    },
+    {
+      "id": "214974857",
+      "title": "Старість аксолотля",
+      "url": "https://www.goodreads.com/book/show/214974857",
+      "author": "Jacek Dukaj",
+      "isbn": "6176642663",
+      "rating": 0,
+      "shelves": [
+        "to-read"
+      ],
+      "date_read": "not set",
+      "date_added": "Aug 22, 2026",
+      "avg_rating": "3.69",
+      "pages": "208\n        pp",
       "review": ""
     },
     {
@@ -9494,7 +9558,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 23, 2026",
-      "avg_rating": "3.93",
+      "avg_rating": "3.94",
       "pages": "316\n        pp",
       "review": ""
     },
@@ -9531,22 +9595,6 @@
       "review": ""
     },
     {
-      "id": "23600137",
-      "title": "Starość aksolotla",
-      "url": "https://www.goodreads.com/book/show/23600137-staro-aksolotla",
-      "author": "Jacek Dukaj",
-      "isbn": "8394105718",
-      "rating": 0,
-      "shelves": [
-        "to-read"
-      ],
-      "date_read": "not set",
-      "date_added": "Jun 30, 2026",
-      "avg_rating": "3.50",
-      "pages": "295\n        pp",
-      "review": ""
-    },
-    {
       "id": "318116",
       "title": "Anatomy of Criticism",
       "url": "https://www.goodreads.com/book/show/318116.Anatomy_of_Criticism",
@@ -9560,22 +9608,6 @@
       "date_added": "Jun 24, 2026",
       "avg_rating": "4.09",
       "pages": "400\n        pp",
-      "review": ""
-    },
-    {
-      "id": "220817728",
-      "title": "Atmosphere",
-      "url": "https://www.goodreads.com/book/show/220817728-atmosphere",
-      "author": "Taylor Jenkins Reid",
-      "isbn": "",
-      "rating": 0,
-      "shelves": [
-        "to-read"
-      ],
-      "date_read": "not set",
-      "date_added": "Jun 19, 2026",
-      "avg_rating": "4.30",
-      "pages": "337\n        pp",
       "review": ""
     },
     {
@@ -9688,7 +9720,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 21, 2026",
-      "avg_rating": "3.99",
+      "avg_rating": "4.00",
       "pages": "1104\n        pp",
       "review": ""
     },
@@ -9898,7 +9930,7 @@
       ],
       "date_read": "not set",
       "date_added": "Nov 20, 2025",
-      "avg_rating": "3.97",
+      "avg_rating": "3.96",
       "pages": "222\n        pp",
       "review": ""
     },
@@ -10331,7 +10363,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.92",
+      "avg_rating": "3.91",
       "pages": "276\n        pp",
       "review": ""
     },
@@ -10619,7 +10651,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.98",
+      "avg_rating": "3.99",
       "pages": "316\n        pp",
       "review": ""
     },
@@ -11878,7 +11910,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.30",
+      "avg_rating": "4.31",
       "pages": "287\n        pp",
       "review": ""
     },
@@ -11929,7 +11961,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.37",
+      "avg_rating": "4.36",
       "pages": "336\n        pp",
       "review": ""
     },
@@ -11980,7 +12012,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.50",
+      "avg_rating": "4.49",
       "pages": "188\n        pp",
       "review": ""
     },
@@ -12552,7 +12584,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 31, 2024",
-      "avg_rating": "4.31",
+      "avg_rating": "4.27",
       "pages": "256\n        pp",
       "review": ""
     },
@@ -12650,7 +12682,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 24, 2024",
-      "avg_rating": "4.32",
+      "avg_rating": "4.33",
       "pages": "103\n        pp",
       "review": ""
     },
@@ -13086,7 +13118,7 @@
       ],
       "date_read": "not set",
       "date_added": "Aug 04, 2023",
-      "avg_rating": "3.56",
+      "avg_rating": "3.55",
       "pages": "314\n        pp",
       "review": ""
     },
@@ -13535,7 +13567,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 17, 2023",
-      "avg_rating": "4.19",
+      "avg_rating": "4.21",
       "pages": "464\n        pp",
       "review": ""
     },
@@ -13552,7 +13584,7 @@
       "date_read": "not set",
       "date_added": "Mar 17, 2023",
       "avg_rating": "4.26",
-      "pages": "383\n        pp",
+      "pages": "322\n        pp",
       "review": ""
     },
     {
@@ -14052,7 +14084,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 21, 2022",
-      "avg_rating": "4.14",
+      "avg_rating": "4.16",
       "pages": "568\n        pp",
       "review": ""
     },
@@ -14203,7 +14235,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 03, 2022",
-      "avg_rating": "4.19",
+      "avg_rating": "4.20",
       "pages": "261\n        pp",
       "review": ""
     },
@@ -14603,7 +14635,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 05, 2022",
-      "avg_rating": "4.15",
+      "avg_rating": "4.14",
       "pages": "384\n        pp",
       "review": ""
     },
@@ -14667,7 +14699,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 05, 2022",
-      "avg_rating": "3.55",
+      "avg_rating": "3.56",
       "pages": "233\n        pp",
       "review": ""
     },
@@ -14875,7 +14907,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 05, 2022",
-      "avg_rating": "4.23",
+      "avg_rating": "4.22",
       "pages": "320\n        pp",
       "review": ""
     },
@@ -15067,7 +15099,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jun 17, 2022",
-      "avg_rating": "3.90",
+      "avg_rating": "3.91",
       "pages": "356\n        pp",
       "review": ""
     },
