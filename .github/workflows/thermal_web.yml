@@ -1,0 +1,43 @@
+name: sync files thermal web
+
+on:
+  push:
+    paths:
+      - scripts/rasp_zero_cam/thermal_web.py
+      - scripts/rasp_zero_cam/thermal-web.service
+  workflow_dispatch:
+
+jobs:
+  deploy_thermal_web_script:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Tailscale
+        uses: tailscale/github-action@v3
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+
+      - name: rsync deployments
+        uses: burnett01/rsync-deployments@5.2.1
+        with:
+          switches: -avz --chmod=755
+          path: scripts/rasp_zero_cam/
+          remote_path: /home/pi/
+          remote_host: ${{ secrets.THERMAL_REMOTE_HOST }}
+          remote_user: ${{ secrets.REMOTE_USER }}
+          remote_port: ${{ secrets.THERMAL_REMOTE_PORT }}
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: setup service and restart via ssh
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.THERMAL_REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.THERMAL_REMOTE_PORT }}
+          script: |
+            sudo cp /home/pi/thermal-web.service /etc/systemd/system/thermal-web.service
+            sudo systemctl daemon-reload
+            sudo systemctl enable thermal-web.service
+            sudo systemctl restart thermal-web.service
