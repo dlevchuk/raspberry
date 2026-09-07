@@ -1,5 +1,8 @@
+name: sync files feedly backup
+
 # Workflow disabled
-on: []
+on:
+  workflow_dispatch:
 
 jobs:
   deploy_feedly_backup:
