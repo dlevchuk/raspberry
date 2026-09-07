@@ -3,6 +3,7 @@ import os
 import re
 import time
 import json
+import shutil
 import threading
 import subprocess
 from datetime import datetime
@@ -76,6 +77,72 @@ def get_system_uptime():
         return out
     except Exception:
         return format_uptime(time.time() - START_TIME)
+
+
+def get_cpu_temp():
+    try:
+        if os.path.exists("/sys/class/thermal/thermal_zone0/temp"):
+            with open("/sys/class/thermal/thermal_zone0/temp", "r") as f:
+                return round(float(f.read().strip()) / 1000.0, 1)
+    except Exception:
+        pass
+    try:
+        out = subprocess.check_output(["vcgencmd", "measure_temp"], text=True)
+        m = re.search(r"temp=([\d.]+)", out)
+        if m:
+            return float(m.group(1))
+    except Exception:
+        pass
+    return None
+
+
+def get_mem_usage():
+    try:
+        mem = {}
+        with open("/proc/meminfo", "r") as f:
+            for line in f:
+                parts = line.split(":")
+                if len(parts) == 2:
+                    key = parts[0].strip()
+                    val = parts[1].strip().split()[0]
+                    mem[key] = int(val)
+        total = mem.get("MemTotal", 0)
+        free = mem.get("MemAvailable", mem.get("MemFree", 0))
+        used = total - free
+        if total > 0:
+            pct = round((used / total) * 100, 1)
+            return {
+                "used_mb": round(used / 1024, 1),
+                "total_mb": round(total / 1024, 1),
+                "percent": pct
+            }
+    except Exception:
+        pass
+    return None
+
+
+def get_disk_usage(path="/"):
+    try:
+        usage = shutil.disk_usage(path)
+        total_gb = round(usage.total / (1024**3), 1)
+        used_gb = round(usage.used / (1024**3), 1)
+        pct = round((usage.used / usage.total) * 100, 1)
+        return {
+            "used_gb": used_gb,
+            "total_gb": total_gb,
+            "percent": pct
+        }
+    except Exception:
+        pass
+    return None
+
+
+def get_load_avg():
+    try:
+        load = os.getloadavg()
+        return [round(l, 2) for l in load]
+    except Exception:
+        return None
 
 
 def build_vf_chain(mode):
@@ -152,10 +219,21 @@ PAGE = """<!doctype html>
       </div>
 
       <div class="card">
-        <h3>Status</h3>
+        <h3>Camera Status</h3>
         <div id="clock">--:--:--</div>
         <div id="temps">temp: -</div>
         <div id="health">connecting...</div>
+      </div>
+
+      <div class="card">
+        <h3>Host System</h3>
+        <div id="sys-info">
+          <div><strong>CPU Temp:</strong> <span id="sys-cpu-temp">-</span></div>
+          <div><strong>Load Avg:</strong> <span id="sys-load">-</span></div>
+          <div><strong>RAM:</strong> <span id="sys-ram">-</span></div>
+          <div><strong>Disk (/):</strong> <span id="sys-disk">-</span></div>
+          <div><strong>System Uptime:</strong> <span id="sys-uptime">-</span></div>
+        </div>
       </div>
     </div>
 
@@ -250,6 +328,15 @@ async function pollHealth(){
     const unit = t.calibrated ? '°C' : 'Y';
     document.getElementById('temps').textContent =
       `${unit} min: ${t.min ?? '-'} | avg: ${t.avg ?? '-'} | max: ${t.max ?? '-'}`;
+
+    if (h.sys_stats) {
+      const s = h.sys_stats;
+      document.getElementById('sys-cpu-temp').textContent = s.cpu_temp != null ? `${s.cpu_temp} °C` : 'N/A';
+      document.getElementById('sys-load').textContent = s.load ? s.load.join(', ') : 'N/A';
+      document.getElementById('sys-ram').textContent = s.memory ? `${s.memory.used_mb} MB / ${s.memory.total_mb} MB (${s.memory.percent}%)` : 'N/A';
+      document.getElementById('sys-disk').textContent = s.disk ? `${s.disk.used_gb} GB / ${s.disk.total_gb} GB (${s.disk.percent}%)` : 'N/A';
+      document.getElementById('sys-uptime').textContent = s.uptime || '-';
+    }
   }catch(e){
     document.getElementById('health').innerHTML = '<span class="bad">no connection</span>';
   }
@@ -541,6 +628,13 @@ class Handler(BaseHTTPRequestHandler):
             body["recording"] = rec
             body["temp"] = get_temp_stats()
             body["uptime"] = get_system_uptime()
+            body["sys_stats"] = {
+                "cpu_temp": get_cpu_temp(),
+                "memory": get_mem_usage(),
+                "disk": get_disk_usage("/"),
+                "load": get_load_avg(),
+                "uptime": get_system_uptime(),
+            }
             self._json(body)
             return
 
