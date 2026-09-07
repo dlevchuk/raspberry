@@ -113,11 +113,11 @@ PAGE = """<!doctype html>
 <html><head><meta charset="utf-8"><title>Thermal cam</title>
 <style>
   body{margin:0;background:#0d0d0d;font-family:sans-serif;color:#ccc;padding:16px}
-  .grid{display:grid;grid-template-columns:1fr;gap:16px;max-width:1000px;margin:0 auto}
+  .grid{display:grid;grid-template-columns:1fr;gap:16px;max-width:1400px;margin:0 auto}
   @media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
+  .col{display:flex;flex-direction:column;gap:16px}
   .card{background:#1a1a1a;border-radius:10px;padding:14px}
   .card h3{margin:0 0 10px 0;font-size:14px;color:#888;text-transform:uppercase;letter-spacing:.05em}
-  .full{grid-column:1/-1}
   img#stream{width:100%;max-width:800px;height:auto;display:block;margin:0 auto;image-rendering:pixelated;border-radius:6px}
   .bar{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:10px}
   button{padding:8px 16px;font-size:14px;cursor:pointer;border-radius:4px;border:1px solid #333;background:#222;color:#ccc}
@@ -127,47 +127,53 @@ PAGE = """<!doctype html>
   .ok{color:#4caf50}
   .bad{color:#f44336}
   .warn{color:#ffb300}
-  #weather-wrap iframe{width:100%;height:500px;border:0;border-radius:6px}
-  #alerts-wrap iframe{width:100%;height:300px;border:0;border-radius:6px}
+  #weather-wrap iframe{width:100%;height:450px;border:0;border-radius:6px}
+  #alerts-wrap iframe{width:100%;height:350px;border:0;border-radius:6px}
 </style></head>
 <body>
   <div class="grid">
 
-    <div class="card full">
-      <h3>Thermal Stream</h3>
-      <div class="bar">
-        <button onclick="snapshot()">📷 Snapshot</button>
-        <button onclick="toggleFullscreen()">⛶ Fullscreen</button>
-        <button id="recBtn" onclick="toggleRecord()">⏺ Record</button>
+    <!-- Стовпчик 1: Stream + Status -->
+    <div class="col">
+      <div class="card">
+        <h3>Thermal Stream</h3>
+        <div class="bar">
+          <button onclick="snapshot()">📷 Snapshot</button>
+          <button onclick="toggleFullscreen()">⛶ Fullscreen</button>
+          <button id="recBtn" onclick="toggleRecord()">⏺ Record</button>
+        </div>
+        <div class="bar" id="modes">
+          <button data-mode="gray" onclick="setMode('gray')">Gray</button>
+          <button data-mode="blackhot" onclick="setMode('blackhot')">Blackhot</button>
+          <button data-mode="ironbow" onclick="setMode('ironbow')">Ironbow</button>
+          <button data-mode="rainbow" onclick="setMode('rainbow')">Rainbow</button>
+        </div>
+        <img id="stream" src="/stream">
       </div>
-      <div class="bar" id="modes">
-        <button data-mode="gray" onclick="setMode('gray')">Gray</button>
-        <button data-mode="blackhot" onclick="setMode('blackhot')">Blackhot</button>
-        <button data-mode="ironbow" onclick="setMode('ironbow')">Ironbow</button>
-        <button data-mode="rainbow" onclick="setMode('rainbow')">Rainbow</button>
+
+      <div class="card">
+        <h3>Status</h3>
+        <div id="clock">--:--:--</div>
+        <div id="temps">temp: -</div>
+        <div id="health">connecting...</div>
       </div>
-      <img id="stream" src="/stream">
     </div>
 
-    <div class="card">
-      <h3>Status</h3>
-      <div id="clock">--:--:--</div>
-      <div id="temps">temp: -</div>
-      <div id="health">connecting...</div>
-    </div>
+    <!-- Стовпчик 2: Тривога + Погода -->
+    <div class="col">
+      <div class="card" id="alerts-wrap">
+        <h3>Повітряна тривога</h3>
+        <iframe src="https://alerts.in.ua/?embed"
+                title="Мапа повітряних тривог" frameborder="0"
+                loading="lazy"></iframe>
+      </div>
 
-    <div class="card" id="alerts-wrap">
-      <h3>Повітряна тривога</h3>
-      <iframe src="https://alerts.in.ua/?embed"
-              title="Мапа повітряних тривог" frameborder="0"
-              loading="lazy"></iframe>
-    </div>
-
-    <div class="card full">
-      <h3>Авіапогода — Windy (Славутич)</h3>
-      <div id="weather-wrap">
-        <iframe src="https://embed.windy.com/embed2.html?lat=51.520&lon=30.744&detailLat=51.520&detailLon=30.744&width=800&height=500&zoom=8&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&calendar=now&pressure=true&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default&radarRange=-1"
-                loading="lazy" title="Авіапогода Windy"></iframe>
+      <div class="card">
+        <h3>Авіапогода — Windy (Славутич)</h3>
+        <div id="weather-wrap">
+          <iframe src="https://embed.windy.com/embed2.html?lat=51.520&lon=30.744&detailLat=51.520&detailLon=30.744&width=800&height=500&zoom=8&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&calendar=now&pressure=true&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default&radarRange=-1"
+                  loading="lazy" title="Авіапогода Windy"></iframe>
+        </div>
       </div>
     </div>
 
