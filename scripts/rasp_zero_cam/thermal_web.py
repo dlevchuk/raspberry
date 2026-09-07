@@ -37,11 +37,45 @@ COLORMAPS = {
 }
 DEFAULT_MODE = os.environ.get("THERMAL_COLORMAP", "gray")
 
+START_TIME = time.time()
 state_lock = threading.Lock()
 color_mode = DEFAULT_MODE if DEFAULT_MODE in COLORMAPS else "gray"
 current_proc = None
 restart_count = 0
 first_start = True
+
+
+def format_uptime(seconds):
+    sec = int(seconds)
+    days, sec = divmod(sec, 86400)
+    hours, sec = divmod(sec, 3600)
+    minutes, sec = divmod(sec, 60)
+    parts = []
+    if days > 0:
+        parts.append(f"{days}d")
+    if hours > 0 or days > 0:
+        parts.append(f"{hours}h")
+    if minutes > 0 or hours > 0 or days > 0:
+        parts.append(f"{minutes}m")
+    parts.append(f"{sec}s")
+    return " ".join(parts)
+
+
+def get_system_uptime():
+    try:
+        if os.path.exists("/proc/uptime"):
+            with open("/proc/uptime", "r") as f:
+                uptime_sec = float(f.readline().split()[0])
+                return format_uptime(uptime_sec)
+    except Exception:
+        pass
+    try:
+        out = subprocess.check_output(["uptime", "-p"], text=True).strip()
+        if out.startswith("up "):
+            return out[3:]
+        return out
+    except Exception:
+        return format_uptime(time.time() - START_TIME)
 
 
 def build_vf_chain(mode):
@@ -202,6 +236,7 @@ async function pollHealth(){
     let recTxt = h.recording.active
       ? `<span class="warn">⏺ REC ${h.recording.frames}f</span>` : '';
     el.innerHTML = `<span class="${cls}">${h.stalled ? '⚠ STALLED' : '● live'}</span><br>`
+      + `uptime: ${h.uptime || '-'}<br>`
       + `frames: ${h.frame_count} | fps: ${h.fps}<br>`
       + `stream fps: ${h.stream_fps} | last: ${h.age_sec}s ago<br>`
       + `restarts: ${h.restarts} ${recTxt}`;
@@ -499,6 +534,7 @@ class Handler(BaseHTTPRequestHandler):
             body["restarts"] = restarts
             body["recording"] = rec
             body["temp"] = get_temp_stats()
+            body["uptime"] = get_system_uptime()
             self._json(body)
             return
 
