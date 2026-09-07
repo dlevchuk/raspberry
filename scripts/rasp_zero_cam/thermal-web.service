@@ -1,0 +1,20 @@
+[Unit]
+Description=Thermal camera MJPEG web stream
+After=network.target
+
+[Service]
+Environment=THERMAL_CAPTURE_FPS=30
+Environment=THERMAL_MAX_FPS=30
+Environment=THERMAL_MIN_FPS=3
+Environment=THERMAL_QUALITY=6
+Environment=THERMAL_SCALE=320:256
+ExecStart=/usr/bin/python3 /home/pi/thermal_web.py
+Restart=always
+RestartSec=2
+User=pi
+SupplementaryGroups=video
+StandardOutput=null
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -1,11 +1,12 @@
 name: sync files feedly backup
+
+# Workflow disabled
 on:
-  push:
-    paths:
-    - scripts/backup_feedly/feedly_backup.py
+  workflow_dispatch:
 
 jobs:
   deploy_feedly_backup:
+    if: false
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -13,7 +14,9 @@ jobs:
     - name: Tailscale
       uses: tailscale/github-action@v3
       with:
-        authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+        oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+        oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+        tags: tag:ci
 
     - name: rsync deployments
       uses: burnett01/rsync-deployments@5.2.1
