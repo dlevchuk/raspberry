@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 import os
 import re
+import sys
 import time
 import json
 import shutil
+import signal
 import threading
 import subprocess
 from datetime import datetime
@@ -23,12 +25,9 @@ SCALE = os.environ.get("THERMAL_SCALE", "")
 
 STALE_AFTER = float(os.environ.get("THERMAL_STALE_SEC", "3"))
 
-# лінійна калібровка Y->температура: temp = Y*scale + offset. Якщо scale не задано - показуємо сирі Y.
-TEMP_SCALE = os.environ.get("THERMAL_TEMP_SCALE", "")
-TEMP_OFFSET = float(os.environ.get("THERMAL_TEMP_OFFSET", "0"))
-
 REC_DIR = os.environ.get("THERMAL_REC_DIR", os.path.expanduser("~/thermal_recordings"))
 STATS_FIFO = "/tmp/thermal_signalstats.fifo"
+CONFIG_PATH = os.path.join(REC_DIR, "thermal_config.json")
 
 COLORMAPS = {
     "gray": None,
@@ -36,11 +35,49 @@ COLORMAPS = {
     "ironbow": "pseudocolor=preset=turbo",
     "rainbow": "pseudocolor=preset=spectral",
 }
-DEFAULT_MODE = os.environ.get("THERMAL_COLORMAP", "gray")
+
+DEFAULT_CONFIG = {
+    "color_mode": os.environ.get("THERMAL_COLORMAP", "gray"),
+    "temp_scale": os.environ.get("THERMAL_TEMP_SCALE", ""),
+    "temp_offset": float(os.environ.get("THERMAL_TEMP_OFFSET", "0")),
+    "alert_max_temp": float(os.environ.get("THERMAL_ALERT_MAX", "70.0")),
+    "auto_cleanup_disk_pct": float(os.environ.get("THERMAL_CLEANUP_PCT", "85.0")),
+}
+
+config_lock = threading.Lock()
+config = DEFAULT_CONFIG.copy()
+
+
+def load_config():
+    global config
+    with config_lock:
+        if os.path.exists(CONFIG_PATH):
+            try:
+                with open(CONFIG_PATH, "r") as f:
+                    data = json.load(f)
+                    for k, v in data.items():
+                        if k in config:
+                            config[k] = v
+            except Exception as e:
+                print(f"[Config] Failed to load config: {e}")
+
+
+def save_config():
+    with config_lock:
+        try:
+            os.makedirs(REC_DIR, exist_ok=True)
+            with open(CONFIG_PATH, "w") as f:
+                json.dump(config, f, indent=2)
+            print(f"[Config] Saved config to {CONFIG_PATH}")
+        except Exception as e:
+            print(f"[Config] Failed to save config: {e}")
+
+
+load_config()
 
 START_TIME = time.time()
 state_lock = threading.Lock()
-color_mode = DEFAULT_MODE if DEFAULT_MODE in COLORMAPS else "gray"
+color_mode = config["color_mode"] if config["color_mode"] in COLORMAPS else "gray"
 current_proc = None
 restart_count = 0
 first_start = True
@@ -68,7 +105,6 @@ def set_camera_state(enabled: bool):
         with bus.cond:
             bus.cond.notify_all()
     return camera_enabled
-
 
 
 def format_uptime(seconds):
@@ -148,7 +184,8 @@ def get_mem_usage():
 
 def get_disk_usage(path="/"):
     try:
-        usage = shutil.disk_usage(path)
+        target = path if os.path.exists(path) else "/"
+        usage = shutil.disk_usage(target)
         total_gb = round(usage.total / (1024**3), 1)
         used_gb = round(usage.used / (1024**3), 1)
         pct = round((usage.used / usage.total) * 100, 1)
@@ -170,11 +207,48 @@ def get_load_avg():
         return None
 
 
+def cleanup_old_recordings():
+    """Auto-deletes oldest .avi recordings if disk usage exceeds configured threshold."""
+    with config_lock:
+        threshold = config.get("auto_cleanup_disk_pct", 85.0)
+    usage = get_disk_usage(REC_DIR)
+    if not usage or usage["percent"] < threshold:
+        return
+    if not os.path.exists(REC_DIR):
+        return
+    files = []
+    for f in os.listdir(REC_DIR):
+        if f.endswith(".avi"):
+            p = os.path.join(REC_DIR, f)
+            try:
+                files.append((p, os.path.getmtime(p)))
+            except OSError:
+                pass
+    files.sort(key=lambda x: x[1])  # oldest first
+    for filepath, _ in files:
+        try:
+            os.remove(filepath)
+            print(f"[AutoCleanup] Deleted old recording: {filepath}")
+        except OSError:
+            pass
+        usage = get_disk_usage(REC_DIR)
+        if usage and usage["percent"] < threshold:
+            break
+
+
+def auto_cleanup_loop():
+    while True:
+        try:
+            cleanup_old_recordings()
+        except Exception as e:
+            print(f"[AutoCleanup Error] {e}")
+        time.sleep(300)
+
+
 def build_vf_chain(mode):
     chain = [
         f"select=gte(n\\,{DROP_FRAMES})",
         "setpts=N/FRAME_RATE/TB",
-        # signalstats рахує Y-статистику ДО format=gray/colormap - на сирому потоці
         f"signalstats,metadata=mode=print:file={STATS_FIFO}",
         "format=gray",
     ]
@@ -192,7 +266,7 @@ def build_ffmpeg_cmd(mode):
     return [
         "ffmpeg", "-loglevel", "error",
         "-f", "v4l2", "-input_format", "yuyv422",
-        "-video_size", "640x512", "-framerate", "30",  # capture - не чіпаємо V4L2
+        "-video_size", "640x512", "-framerate", "30",
         "-i", DEVICE,
         "-vf", ",".join(build_vf_chain(mode)),
         "-r", str(CAPTURE_FPS),
@@ -215,14 +289,20 @@ PAGE = """<!doctype html>
 
   img#stream{width:100%;max-width:800px;height:auto;display:block;margin:0 auto;image-rendering:pixelated;border-radius:6px;transition:opacity .3s}
   .bar{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:10px}
-  button{padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;border-radius:6px;border:1px solid #333;background:#222;color:#ccc;transition:all .15s}
-  button:hover{background:#2a2a2a;border-color:#444}
+  button,.btn{padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;border-radius:6px;border:1px solid #333;background:#222;color:#ccc;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+  button:hover,.btn:hover{background:#2a2a2a;border-color:#444}
   button.active{outline:2px solid #4caf50;background:#2a3a2b;color:#fff}
   button.rec{background:#c62828;color:#fff;border-color:#c62828}
   button.cam-on{background:#2e7d32;color:#fff;border-color:#2e7d32}
   button.cam-off{background:#d32f2f;color:#fff;border-color:#d32f2f}
+  .btn-danger{background:#b71c1c;color:#fff;border-color:#b71c1c;padding:4px 8px;font-size:11px}
+  .btn-sm{padding:4px 8px;font-size:11px}
 
-  /* Status and Stats layout */
+  /* Alert Banner */
+  .alert-banner{display:none;background:rgba(244,67,54,.2);border:1px solid #f44336;color:#ff8a80;padding:10px 14px;border-radius:8px;margin-bottom:12px;font-weight:600;font-size:13px;align-items:center;justify-content:space-between;animation:pulse 1s infinite alternate}
+  @keyframes pulse{from{box-shadow:0 0 4px rgba(244,67,54,.4)}to{box-shadow:0 0 14px rgba(244,67,54,.9)}}
+
+  /* Status badges */
   .status-badge{font-size:12px;font-weight:600;padding:4px 10px;border-radius:12px;display:inline-flex;align-items:center;gap:5px;letter-spacing:.03em}
   .status-badge.ok{background:rgba(76,175,80,.15);color:#4caf50;border:1px solid rgba(76,175,80,.3)}
   .status-badge.bad{background:rgba(244,67,54,.15);color:#f44336;border:1px solid rgba(244,67,54,.3)}
@@ -247,14 +327,32 @@ PAGE = """<!doctype html>
   .warn-text{color:#ffb300}
   #weather-wrap iframe{width:100%;height:450px;border:0;border-radius:6px}
   #alerts-wrap iframe{width:100%;height:350px;border:0;border-radius:6px}
+
+  /* Form & Table styles */
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .form-group{display:flex;flex-direction:column;gap:4px}
+  .form-group label{font-size:11px;color:#aaa;text-transform:uppercase}
+  .form-group input{background:#222;border:1px solid #333;border-radius:6px;padding:6px 10px;color:#fff;font-size:13px;outline:none}
+  .form-group input:focus{border-color:#4caf50}
+
+  canvas#tempChart{width:100%;height:140px;background:#111;border-radius:6px;border:1px solid #2e2e2e}
+
+  .table-wrap{max-height:240px;overflow-y:auto}
+  table.rec-table{width:100%;border-collapse:collapse;font-size:12px;text-align:left}
+  table.rec-table th, table.rec-table td{padding:8px;border-bottom:1px solid #2a2a2a}
+  table.rec-table th{color:#888;font-weight:600;text-transform:uppercase;font-size:10px;position:sticky;top:0;background:#1a1a1a}
 </style></head>
 <body>
   <div class="grid">
 
-    <!-- Стовпчик 1: Stream + Status -->
+    <!-- Стовпчик 1: Stream + Status + Canvas Chart -->
     <div class="col">
       <div class="card">
         <h3>Thermal Stream</h3>
+        <div id="alertBanner" class="alert-banner">
+          <span>⚠️ ПОПЕРЕДЖЕННЯ: Перевищено поріг температури!</span>
+          <button class="btn-sm" onclick="muteAudioAlert()">🔕 Mute</button>
+        </div>
         <div class="bar">
           <button id="camBtn" class="cam-on" onclick="toggleCamera()">⏸ Stop Camera</button>
           <button onclick="snapshot()">📷 Snapshot</button>
@@ -289,6 +387,11 @@ PAGE = """<!doctype html>
             <span class="stat-label">Max Temp</span>
             <span id="temp-max" class="stat-val temp-max">-</span>
           </div>
+        </div>
+
+        <div style="margin-bottom:12px">
+          <span class="stat-label" style="display:block;margin-bottom:4px">Динаміка температури (60с)</span>
+          <canvas id="tempChart" width="600" height="140"></canvas>
         </div>
 
         <div class="stats-grid">
@@ -346,8 +449,57 @@ PAGE = """<!doctype html>
       </div>
     </div>
 
-    <!-- Стовпчик 2: Тривога + Погода -->
+    <!-- Стовпчик 2: Галерея + Налаштування + Погода/Тривога -->
     <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <h3>Калібрування та Пороги Тривоги</h3>
+          <button class="btn-sm" onclick="saveSettings()">💾 Зберегти</button>
+        </div>
+        <form id="settingsForm" onsubmit="event.preventDefault(); saveSettings();">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Scale (Множник)</label>
+              <input type="text" id="cfg-scale" placeholder="напр. 0.25">
+            </div>
+            <div class="form-group">
+              <label>Offset (Зсув °C)</label>
+              <input type="number" step="0.1" id="cfg-offset" placeholder="0">
+            </div>
+            <div class="form-group">
+              <label>Alert Max Temp (°C/Y)</label>
+              <input type="number" step="0.5" id="cfg-alert-max" placeholder="70">
+            </div>
+            <div class="form-group">
+              <label>Auto-cleanup Disk %</label>
+              <input type="number" step="1" id="cfg-cleanup-pct" placeholder="85">
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Галерея Записів</h3>
+          <button class="btn-sm" onclick="loadRecordings()">🔄 Оновити</button>
+        </div>
+        <div class="table-wrap">
+          <table class="rec-table">
+            <thead>
+              <tr>
+                <th>Файл</th>
+                <th>Розмір</th>
+                <th>Час</th>
+                <th>Дії</th>
+              </tr>
+            </thead>
+            <tbody id="recTableBody">
+              <tr><td colspan="4" style="text-align:center;color:#666">Завантаження...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <div class="card" id="alerts-wrap">
         <h3>Повітряна тривога</h3>
         <iframe src="https://alerts.in.ua/?embed"
@@ -368,6 +520,28 @@ PAGE = """<!doctype html>
 <script>
 let recording = false;
 let cameraEnabled = true;
+let chartHistory = [];
+const MAX_HISTORY = 60;
+let audioMuted = false;
+let audioCtx = null;
+
+function playAlertSound(){
+  if(audioMuted) return;
+  try{
+    if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if(audioCtx.state === 'suspended') audioCtx.resume();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.2);
+  }catch(e){}
+}
+function muteAudioAlert(){ audioMuted = true; }
 
 async function toggleCamera(){
   const endpoint = cameraEnabled ? '/camera/off' : '/camera/on';
@@ -429,6 +603,7 @@ async function toggleRecord(){
     const j = await r.json();
     recording = j.active;
     updateRecBtn();
+    loadRecordings();
   }catch(e){}
 }
 function updateRecBtn(){
@@ -444,6 +619,107 @@ function tickClock(){
 }
 setInterval(tickClock, 1000);
 tickClock();
+
+async function loadSettings(){
+  try{
+    const r = await fetch('/settings');
+    const c = await r.json();
+    document.getElementById('cfg-scale').value = c.temp_scale || '';
+    document.getElementById('cfg-offset').value = c.temp_offset ?? 0;
+    document.getElementById('cfg-alert-max').value = c.alert_max_temp ?? 70;
+    document.getElementById('cfg-cleanup-pct').value = c.auto_cleanup_disk_pct ?? 85;
+  }catch(e){}
+}
+async function saveSettings(){
+  const scale = document.getElementById('cfg-scale').value;
+  const offset = document.getElementById('cfg-offset').value;
+  const alertMax = document.getElementById('cfg-alert-max').value;
+  const cleanupPct = document.getElementById('cfg-cleanup-pct').value;
+  try{
+    const url = `/settings/update?scale=${encodeURIComponent(scale)}&offset=${encodeURIComponent(offset)}&alert_max=${encodeURIComponent(alertMax)}&cleanup_pct=${encodeURIComponent(cleanupPct)}`;
+    const r = await fetch(url);
+    const j = await r.json();
+    if(j.ok) alert('Налаштування збережено!');
+  }catch(e){ alert('Помилка збереження'); }
+}
+
+async function loadRecordings(){
+  try{
+    const r = await fetch('/recordings');
+    const list = await r.json();
+    const tbody = document.getElementById('recTableBody');
+    if(!list || list.length === 0){
+      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#666">Немає записів</td></tr>';
+      return;
+    }
+    tbody.innerHTML = list.map(item => `
+      <tr>
+        <td style="font-family:monospace">${item.name}</td>
+        <td>${item.size_mb} MB</td>
+        <td style="color:#aaa">${item.mtime}</td>
+        <td>
+          <a class="btn btn-sm" href="/recordings/download?name=${encodeURIComponent(item.name)}">⬇</a>
+          <button class="btn-danger btn-sm" onclick="deleteRec('${item.name}')">🗑</button>
+        </td>
+      </tr>
+    `).join('');
+  }catch(e){}
+}
+async function deleteRec(name){
+  if(!confirm(`Видалити ${name}?`)) return;
+  try{
+    await fetch(`/recordings/delete?name=${encodeURIComponent(name)}`);
+    loadRecordings();
+  }catch(e){}
+}
+
+function drawTempChart(){
+  const cvs = document.getElementById('tempChart');
+  const ctx = cvs.getContext('2d');
+  const w = cvs.width, h = cvs.height;
+  ctx.clearRect(0,0,w,h);
+  if(chartHistory.length < 2) return;
+
+  let allVals = [];
+  chartHistory.forEach(d => {
+    if(d.min!=null) allVals.push(d.min);
+    if(d.avg!=null) allVals.push(d.avg);
+    if(d.max!=null) allVals.push(d.max);
+  });
+  if(allVals.length === 0) return;
+  let minV = Math.min(...allVals) - 2;
+  let maxV = Math.max(...allVals) + 2;
+  if(maxV === minV) maxV += 5;
+
+  function getY(val){ return h - ((val - minV)/(maxV - minV))*(h - 20) - 10; }
+  function getX(i){ return (i / (MAX_HISTORY - 1)) * w; }
+
+  // Draw grid
+  ctx.strokeStyle = '#222';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  for(let y=20; y<h; y+=30){ ctx.moveTo(0,y); ctx.lineTo(w,y); }
+  ctx.stroke();
+
+  function drawLine(key, color){
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    let started = false;
+    chartHistory.forEach((d, i)=>{
+      if(d[key] != null){
+        const x = getX(i), y = getY(d[key]);
+        if(!started){ ctx.moveTo(x,y); started=true; }
+        else ctx.lineTo(x,y);
+      }
+    });
+    ctx.stroke();
+  }
+
+  drawLine('min', '#4fc3f7');
+  drawLine('avg', '#ffb74d');
+  drawLine('max', '#ff5252');
+}
 
 async function pollHealth(){
   try{
@@ -482,6 +758,20 @@ async function pollHealth(){
     document.getElementById('temp-min').textContent = t.min != null ? `${t.min}${unit}` : '-';
     document.getElementById('temp-avg').textContent = t.avg != null ? `${t.avg}${unit}` : '-';
     document.getElementById('temp-max').textContent = t.max != null ? `${t.max}${unit}` : '-';
+
+    // Chart update
+    chartHistory.push({min: t.min, avg: t.avg, max: t.max});
+    if(chartHistory.length > MAX_HISTORY) chartHistory.shift();
+    drawTempChart();
+
+    // Thermal alert trigger
+    const alertBanner = document.getElementById('alertBanner');
+    if(h.alert){
+      alertBanner.style.display = 'flex';
+      playAlertSound();
+    }else{
+      alertBanner.style.display = 'none';
+    }
 
     if (h.sys_stats) {
       const s = h.sys_stats;
@@ -523,6 +813,8 @@ async function pollHealth(){
 }
 setInterval(pollHealth, 1000);
 pollHealth();
+loadSettings();
+loadRecordings();
 </script>
 </body></html>"""
 
@@ -574,7 +866,6 @@ class FrameBus:
 bus = FrameBus()
 last_stream_fps = 0.0
 
-# --- Y/temp статистика через FIFO (без запису на диск) ------------------
 temp_lock = threading.Lock()
 temp_data = {"y_min": None, "y_max": None, "y_avg": None, "updated": 0.0}
 
@@ -613,16 +904,21 @@ def stats_fifo_reader():
                             temp_data["updated"] = time.time()
         except OSError:
             time.sleep(0.5)
-        # EOF (писач закрився, напр. ffmpeg рестартнув) - переоткриваємо і чекаємо наступного
 
 
 def get_temp_stats():
     with temp_lock:
         y_min, y_max, y_avg = temp_data["y_min"], temp_data["y_max"], temp_data["y_avg"]
-    if TEMP_SCALE:
-        scale = float(TEMP_SCALE)
-        conv = lambda y: round(y * scale + TEMP_OFFSET, 1) if y is not None else None
-        return {"calibrated": True, "min": conv(y_min), "avg": conv(y_avg), "max": conv(y_max)}
+    with config_lock:
+        scale_str = config.get("temp_scale", "")
+        offset = config.get("temp_offset", 0.0)
+    if scale_str:
+        try:
+            scale = float(scale_str)
+            conv = lambda y: round(y * scale + offset, 1) if y is not None else None
+            return {"calibrated": True, "min": conv(y_min), "avg": conv(y_avg), "max": conv(y_max)}
+        except ValueError:
+            pass
     r = lambda y: round(y, 1) if y is not None else None
     return {"calibrated": False, "min": r(y_min), "avg": r(y_avg), "max": r(y_max)}
 
@@ -643,6 +939,7 @@ def ffmpeg_reader():
         with state_lock:
             current_proc = proc
         buf = b""
+        MAX_BUF_LEN = 2 * 1024 * 1024  # 2 MB limit safeguard
         while True:
             with state_lock:
                 if not camera_enabled:
@@ -651,14 +948,30 @@ def ffmpeg_reader():
             if not chunk:
                 break
             buf += chunk
+
+            # Protection against infinite buffer bloat if stream gets corrupt
+            if len(buf) > MAX_BUF_LEN:
+                buf = buf[-100000:]
+
             while True:
                 start = buf.find(b"\xff\xd8")
-                end = buf.find(b"\xff\xd9")
-                if start == -1 or end == -1 or end < start:
+                if start == -1:
+                    if len(buf) > 8192:
+                        buf = buf[-4:]
                     break
-                jpg = buf[start:end + 2]
+
+                # Shift buffer to start marker
+                if start > 0:
+                    buf = buf[start:]
+
+                end = buf.find(b"\xff\xd9")
+                if end == -1:
+                    break
+
+                jpg = buf[:end + 2]
                 buf = buf[end + 2:]
                 bus.set(jpg)
+
         if proc.poll() is None:
             try:
                 proc.terminate()
@@ -696,7 +1009,6 @@ class AdaptiveRate:
                 self.good_streak = 0
 
 
-# --- Recording -----------------------------------------------------------
 record_lock = threading.Lock()
 record_state = {"active": False, "proc": None, "path": None, "frames": 0, "started": None}
 
@@ -720,6 +1032,7 @@ def record_feeder():
 
 
 def start_recording():
+    cleanup_old_recordings()
     with record_lock:
         if record_state["active"]:
             return record_state.copy()
@@ -775,6 +1088,7 @@ class Handler(BaseHTTPRequestHandler):
         global last_stream_fps, color_mode, current_proc
         parsed = urlparse(self.path)
         path = parsed.path
+        qs = parse_qs(parsed.query)
 
         if path == "/":
             body = PAGE.encode()
@@ -786,7 +1100,6 @@ class Handler(BaseHTTPRequestHandler):
             return
 
         if path == "/mode":
-            qs = parse_qs(parsed.query)
             name = qs.get("name", [""])[0]
             if name not in COLORMAPS:
                 self._json({"error": "unknown mode"}, 400)
@@ -794,9 +1107,89 @@ class Handler(BaseHTTPRequestHandler):
             with state_lock:
                 color_mode = name
                 proc = current_proc
+            config["color_mode"] = name
+            save_config()
             if proc is not None:
                 proc.terminate()
             self._json({"ok": True, "mode": name})
+            return
+
+        if path == "/settings":
+            with config_lock:
+                self._json(config)
+            return
+
+        if path == "/settings/update":
+            with config_lock:
+                if "scale" in qs:
+                    config["temp_scale"] = qs["scale"][0]
+                if "offset" in qs:
+                    try:
+                        config["temp_offset"] = float(qs["offset"][0])
+                    except ValueError:
+                        pass
+                if "alert_max" in qs:
+                    try:
+                        config["alert_max_temp"] = float(qs["alert_max"][0])
+                    except ValueError:
+                        pass
+                if "cleanup_pct" in qs:
+                    try:
+                        config["auto_cleanup_disk_pct"] = float(qs["cleanup_pct"][0])
+                    except ValueError:
+                        pass
+            save_config()
+            self._json({"ok": True, "config": config})
+            return
+
+        if path == "/recordings":
+            items = []
+            if os.path.exists(REC_DIR):
+                for f in sorted(os.listdir(REC_DIR), reverse=True):
+                    if f.endswith(".avi"):
+                        p = os.path.join(REC_DIR, f)
+                        try:
+                            st = os.stat(p)
+                            items.append({
+                                "name": f,
+                                "size_mb": round(st.st_size / (1024 * 1024), 2),
+                                "mtime": datetime.fromtimestamp(st.st_mtime).strftime("%Y-%m-%d %H:%M:%S")
+                            })
+                        except OSError:
+                            pass
+            self._json(items)
+            return
+
+        if path == "/recordings/download":
+            name = os.path.basename(qs.get("name", [""])[0])
+            filepath = os.path.join(REC_DIR, name)
+            if not name or not os.path.exists(filepath):
+                self._json({"error": "file not found"}, 404)
+                return
+            try:
+                size = os.path.getsize(filepath)
+                self.send_response(200)
+                self.send_header("Content-Type", "video/x-msvideo")
+                self.send_header("Content-Disposition", f'attachment; filename="{name}"')
+                self.send_header("Content-Length", str(size))
+                self.end_headers()
+                with open(filepath, "rb") as f:
+                    shutil.copyfileobj(f, self.wfile)
+            except Exception as e:
+                pass
+            return
+
+        if path == "/recordings/delete":
+            name = os.path.basename(qs.get("name", [""])[0])
+            filepath = os.path.join(REC_DIR, name)
+            if not name or not os.path.exists(filepath):
+                self._json({"error": "file not found"}, 404)
+                return
+            try:
+                os.remove(filepath)
+                self._json({"ok": True})
+            except Exception as e:
+                self._json({"error": str(e)}, 500)
             return
 
         if path == "/camera/on":
@@ -838,7 +1231,15 @@ class Handler(BaseHTTPRequestHandler):
             body = bus.stats(last_stream_fps)
             body["restarts"] = restarts
             body["recording"] = rec
-            body["temp"] = get_temp_stats()
+            temp_stats = get_temp_stats()
+            body["temp"] = temp_stats
+
+            # Thermal alert check
+            with config_lock:
+                alert_thresh = config.get("alert_max_temp", 70.0)
+            max_val = temp_stats.get("max")
+            body["alert"] = (max_val is not None) and (max_val >= alert_thresh)
+
             body["uptime"] = get_system_uptime()
             body["sys_stats"] = {
                 "cpu_temp": get_cpu_temp(),
@@ -904,10 +1305,29 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
 
 
+def shutdown_handler(signum, frame):
+    print(f"\n[Shutdown] Received signal {signum}, stopping camera & server...")
+    set_camera_state(False)
+    stop_recording()
+    if os.path.exists(STATS_FIFO):
+        try:
+            os.remove(STATS_FIFO)
+        except OSError:
+            pass
+    sys.exit(0)
+
+
 if __name__ == "__main__":
+    signal.signal(signal.SIGINT, shutdown_handler)
+    signal.signal(signal.SIGTERM, shutdown_handler)
+
     threading.Thread(target=stats_fifo_reader, daemon=True).start()
     threading.Thread(target=ffmpeg_reader, daemon=True).start()
+    threading.Thread(target=auto_cleanup_loop, daemon=True).start()
+
     srv = ThreadingHTTPServer(("0.0.0.0", PORT), Handler)
     print(f"http://0.0.0.0:{PORT}/")
-    srv.serve_forever()
-    
+    try:
+        srv.serve_forever()
+    except KeyboardInterrupt:
+        shutdown_handler(signal.SIGINT, None)
