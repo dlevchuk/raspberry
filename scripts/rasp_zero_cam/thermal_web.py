@@ -335,8 +335,6 @@ PAGE = """<!doctype html>
   .form-group input{background:#222;border:1px solid #333;border-radius:6px;padding:6px 10px;color:#fff;font-size:13px;outline:none}
   .form-group input:focus{border-color:#4caf50}
 
-  canvas#tempChart{width:100%;height:140px;background:#111;border-radius:6px;border:1px solid #2e2e2e}
-
   .table-wrap{max-height:240px;overflow-y:auto}
   table.rec-table{width:100%;border-collapse:collapse;font-size:12px;text-align:left}
   table.rec-table th, table.rec-table td{padding:8px;border-bottom:1px solid #2a2a2a}
@@ -345,7 +343,7 @@ PAGE = """<!doctype html>
 <body>
   <div class="grid">
 
-    <!-- Стовпчик 1: Stream + Status + Canvas Chart -->
+    <!-- Стовпчик 1: Stream + Галерея + Status + Калібрування -->
     <div class="col">
       <div class="card">
         <h3>Thermal Stream</h3>
@@ -370,6 +368,28 @@ PAGE = """<!doctype html>
 
       <div class="card">
         <div class="card-header">
+          <h3>Галерея Записів</h3>
+          <button class="btn-sm" onclick="loadRecordings()">🔄 Оновити</button>
+        </div>
+        <div class="table-wrap">
+          <table class="rec-table">
+            <thead>
+              <tr>
+                <th>Файл</th>
+                <th>Розмір</th>
+                <th>Час</th>
+                <th>Дії</th>
+              </tr>
+            </thead>
+            <tbody id="recTableBody">
+              <tr><td colspan="4" style="text-align:center;color:#666">Завантаження...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
           <h3>Camera Status</h3>
           <div id="status-badge" class="status-badge ok">● live</div>
         </div>
@@ -387,11 +407,6 @@ PAGE = """<!doctype html>
             <span class="stat-label">Max Temp</span>
             <span id="temp-max" class="stat-val temp-max">-</span>
           </div>
-        </div>
-
-        <div style="margin-bottom:12px">
-          <span class="stat-label" style="display:block;margin-bottom:4px">Динаміка температури (60с)</span>
-          <canvas id="tempChart" width="600" height="140"></canvas>
         </div>
 
         <div class="stats-grid">
@@ -415,6 +430,36 @@ PAGE = """<!doctype html>
         <div id="cam-extra" style="margin-top:10px;font-size:12px;color:#aaa;display:flex;gap:12px"></div>
       </div>
 
+      <div class="card">
+        <div class="card-header">
+          <h3>Калібрування та Пороги Тривоги</h3>
+          <button class="btn-sm" onclick="saveSettings()">💾 Зберегти</button>
+        </div>
+        <form id="settingsForm" onsubmit="event.preventDefault(); saveSettings();">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Scale (Множник)</label>
+              <input type="text" id="cfg-scale" placeholder="напр. 0.25">
+            </div>
+            <div class="form-group">
+              <label>Offset (Зсув °C)</label>
+              <input type="number" step="0.1" id="cfg-offset" placeholder="0">
+            </div>
+            <div class="form-group">
+              <label>Alert Max Temp (°C/Y)</label>
+              <input type="number" step="0.5" id="cfg-alert-max" placeholder="70">
+            </div>
+            <div class="form-group">
+              <label>Auto-cleanup Disk %</label>
+              <input type="number" step="1" id="cfg-cleanup-pct" placeholder="85">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Стовпчик 2: Host System + Тривога + Погода -->
+    <div class="col">
       <div class="card">
         <div class="card-header">
           <h3>Host System</h3>
@@ -447,58 +492,6 @@ PAGE = """<!doctype html>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Стовпчик 2: Галерея + Налаштування + Погода/Тривога -->
-    <div class="col">
-      <div class="card">
-        <div class="card-header">
-          <h3>Калібрування та Пороги Тривоги</h3>
-          <button class="btn-sm" onclick="saveSettings()">💾 Зберегти</button>
-        </div>
-        <form id="settingsForm" onsubmit="event.preventDefault(); saveSettings();">
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Scale (Множник)</label>
-              <input type="text" id="cfg-scale" placeholder="напр. 0.25">
-            </div>
-            <div class="form-group">
-              <label>Offset (Зсув °C)</label>
-              <input type="number" step="0.1" id="cfg-offset" placeholder="0">
-            </div>
-            <div class="form-group">
-              <label>Alert Max Temp (°C/Y)</label>
-              <input type="number" step="0.5" id="cfg-alert-max" placeholder="70">
-            </div>
-            <div class="form-group">
-              <label>Auto-cleanup Disk %</label>
-              <input type="number" step="1" id="cfg-cleanup-pct" placeholder="85">
-            </div>
-          </div>
-        </form>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <h3>Галерея Записів</h3>
-          <button class="btn-sm" onclick="loadRecordings()">🔄 Оновити</button>
-        </div>
-        <div class="table-wrap">
-          <table class="rec-table">
-            <thead>
-              <tr>
-                <th>Файл</th>
-                <th>Розмір</th>
-                <th>Час</th>
-                <th>Дії</th>
-              </tr>
-            </thead>
-            <tbody id="recTableBody">
-              <tr><td colspan="4" style="text-align:center;color:#666">Завантаження...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
 
       <div class="card" id="alerts-wrap">
         <h3>Повітряна тривога</h3>
@@ -520,8 +513,6 @@ PAGE = """<!doctype html>
 <script>
 let recording = false;
 let cameraEnabled = true;
-let chartHistory = [];
-const MAX_HISTORY = 60;
 let audioMuted = false;
 let audioCtx = null;
 
@@ -673,54 +664,6 @@ async function deleteRec(name){
   }catch(e){}
 }
 
-function drawTempChart(){
-  const cvs = document.getElementById('tempChart');
-  const ctx = cvs.getContext('2d');
-  const w = cvs.width, h = cvs.height;
-  ctx.clearRect(0,0,w,h);
-  if(chartHistory.length < 2) return;
-
-  let allVals = [];
-  chartHistory.forEach(d => {
-    if(d.min!=null) allVals.push(d.min);
-    if(d.avg!=null) allVals.push(d.avg);
-    if(d.max!=null) allVals.push(d.max);
-  });
-  if(allVals.length === 0) return;
-  let minV = Math.min(...allVals) - 2;
-  let maxV = Math.max(...allVals) + 2;
-  if(maxV === minV) maxV += 5;
-
-  function getY(val){ return h - ((val - minV)/(maxV - minV))*(h - 20) - 10; }
-  function getX(i){ return (i / (MAX_HISTORY - 1)) * w; }
-
-  // Draw grid
-  ctx.strokeStyle = '#222';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  for(let y=20; y<h; y+=30){ ctx.moveTo(0,y); ctx.lineTo(w,y); }
-  ctx.stroke();
-
-  function drawLine(key, color){
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    let started = false;
-    chartHistory.forEach((d, i)=>{
-      if(d[key] != null){
-        const x = getX(i), y = getY(d[key]);
-        if(!started){ ctx.moveTo(x,y); started=true; }
-        else ctx.lineTo(x,y);
-      }
-    });
-    ctx.stroke();
-  }
-
-  drawLine('min', '#4fc3f7');
-  drawLine('avg', '#ffb74d');
-  drawLine('max', '#ff5252');
-}
-
 async function pollHealth(){
   try{
     const r = await fetch('/health');
@@ -758,11 +701,6 @@ async function pollHealth(){
     document.getElementById('temp-min').textContent = t.min != null ? `${t.min}${unit}` : '-';
     document.getElementById('temp-avg').textContent = t.avg != null ? `${t.avg}${unit}` : '-';
     document.getElementById('temp-max').textContent = t.max != null ? `${t.max}${unit}` : '-';
-
-    // Chart update
-    chartHistory.push({min: t.min, avg: t.avg, max: t.max});
-    if(chartHistory.length > MAX_HISTORY) chartHistory.shift();
-    drawTempChart();
 
     // Thermal alert trigger
     const alertBanner = document.getElementById('alertBanner');
