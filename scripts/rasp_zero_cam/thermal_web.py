@@ -44,6 +44,31 @@ color_mode = DEFAULT_MODE if DEFAULT_MODE in COLORMAPS else "gray"
 current_proc = None
 restart_count = 0
 first_start = True
+camera_enabled = True
+camera_event = threading.Event()
+camera_event.set()
+
+
+def set_camera_state(enabled: bool):
+    global camera_enabled, current_proc
+    with state_lock:
+        camera_enabled = enabled
+        if enabled:
+            camera_event.set()
+        else:
+            camera_event.clear()
+            proc = current_proc
+    if not enabled:
+        stop_recording()
+        if proc is not None:
+            try:
+                proc.terminate()
+            except Exception:
+                pass
+        with bus.cond:
+            bus.cond.notify_all()
+    return camera_enabled
+
 
 
 def format_uptime(seconds):
@@ -179,21 +204,47 @@ def build_ffmpeg_cmd(mode):
 PAGE = """<!doctype html>
 <html><head><meta charset="utf-8"><title>Thermal cam</title>
 <style>
-  body{margin:0;background:#0d0d0d;font-family:sans-serif;color:#ccc;padding:16px}
+  body{margin:0;background:#0d0d0d;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#ccc;padding:16px}
   .grid{display:grid;grid-template-columns:1fr;gap:16px;max-width:1400px;margin:0 auto}
   @media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
   .col{display:flex;flex-direction:column;gap:16px}
-  .card{background:#1a1a1a;border-radius:10px;padding:14px}
-  .card h3{margin:0 0 10px 0;font-size:14px;color:#888;text-transform:uppercase;letter-spacing:.05em}
-  img#stream{width:100%;max-width:800px;height:auto;display:block;margin:0 auto;image-rendering:pixelated;border-radius:6px}
+  .card{background:#1a1a1a;border:1px solid #282828;border-radius:10px;padding:14px;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
+  .card h3{margin:0 0 10px 0;font-size:13px;color:#888;text-transform:uppercase;letter-spacing:.05em}
+  .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .card-header h3{margin:0}
+
+  img#stream{width:100%;max-width:800px;height:auto;display:block;margin:0 auto;image-rendering:pixelated;border-radius:6px;transition:opacity .3s}
   .bar{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:10px}
-  button{padding:8px 16px;font-size:14px;cursor:pointer;border-radius:4px;border:1px solid #333;background:#222;color:#ccc}
-  button.active{outline:2px solid #4caf50}
+  button{padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;border-radius:6px;border:1px solid #333;background:#222;color:#ccc;transition:all .15s}
+  button:hover{background:#2a2a2a;border-color:#444}
+  button.active{outline:2px solid #4caf50;background:#2a3a2b;color:#fff}
   button.rec{background:#c62828;color:#fff;border-color:#c62828}
-  #health, #clock, #temps{font-size:13px;line-height:1.6}
-  .ok{color:#4caf50}
-  .bad{color:#f44336}
-  .warn{color:#ffb300}
+  button.cam-on{background:#2e7d32;color:#fff;border-color:#2e7d32}
+  button.cam-off{background:#d32f2f;color:#fff;border-color:#d32f2f}
+
+  /* Status and Stats layout */
+  .status-badge{font-size:12px;font-weight:600;padding:4px 10px;border-radius:12px;display:inline-flex;align-items:center;gap:5px;letter-spacing:.03em}
+  .status-badge.ok{background:rgba(76,175,80,.15);color:#4caf50;border:1px solid rgba(76,175,80,.3)}
+  .status-badge.bad{background:rgba(244,67,54,.15);color:#f44336;border:1px solid rgba(244,67,54,.3)}
+  .status-badge.warn{background:rgba(255,179,0,.15);color:#ffb300;border:1px solid rgba(255,179,0,.3)}
+
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));gap:10px}
+  .stat-box{background:#222;border:1px solid #2e2e2e;border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:3px}
+  .stat-label{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.05em}
+  .stat-val{font-size:14px;font-weight:600;color:#eee;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+  .stat-sub{font-size:11px;color:#aaa}
+
+  .temp-range{display:flex;gap:8px;margin-bottom:12px}
+  .temp-chip{flex:1;background:#222;border:1px solid #2e2e2e;border-radius:8px;padding:8px 10px;text-align:center}
+  .temp-chip .stat-label{display:block;margin-bottom:2px}
+  .temp-min{color:#4fc3f7}
+  .temp-avg{color:#ffb74d}
+  .temp-max{color:#ff5252}
+
+  .progress-bar-bg{background:#333;height:5px;border-radius:3px;overflow:hidden;margin-top:5px}
+  .progress-bar-fill{height:100%;background:#4caf50;transition:width .3s}
+
+  .warn-text{color:#ffb300}
   #weather-wrap iframe{width:100%;height:450px;border:0;border-radius:6px}
   #alerts-wrap iframe{width:100%;height:350px;border:0;border-radius:6px}
 </style></head>
@@ -205,6 +256,7 @@ PAGE = """<!doctype html>
       <div class="card">
         <h3>Thermal Stream</h3>
         <div class="bar">
+          <button id="camBtn" class="cam-on" onclick="toggleCamera()">⏸ Stop Camera</button>
           <button onclick="snapshot()">📷 Snapshot</button>
           <button onclick="toggleFullscreen()">⛶ Fullscreen</button>
           <button id="recBtn" onclick="toggleRecord()">⏺ Record</button>
@@ -219,20 +271,77 @@ PAGE = """<!doctype html>
       </div>
 
       <div class="card">
-        <h3>Camera Status</h3>
-        <div id="clock">--:--:--</div>
-        <div id="temps">temp: -</div>
-        <div id="health">connecting...</div>
+        <div class="card-header">
+          <h3>Camera Status</h3>
+          <div id="status-badge" class="status-badge ok">● live</div>
+        </div>
+
+        <div class="temp-range">
+          <div class="temp-chip">
+            <span class="stat-label">Min Temp</span>
+            <span id="temp-min" class="stat-val temp-min">-</span>
+          </div>
+          <div class="temp-chip">
+            <span class="stat-label">Avg Temp</span>
+            <span id="temp-avg" class="stat-val temp-avg">-</span>
+          </div>
+          <div class="temp-chip">
+            <span class="stat-label">Max Temp</span>
+            <span id="temp-max" class="stat-val temp-max">-</span>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span class="stat-label">Capture FPS</span>
+            <span id="cam-fps" class="stat-val">-</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Stream FPS</span>
+            <span id="cam-stream-fps" class="stat-val">-</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Frames</span>
+            <span id="cam-frames" class="stat-val">-</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Time</span>
+            <span id="clock" class="stat-val" style="font-size:12px">-</span>
+          </div>
+        </div>
+        <div id="cam-extra" style="margin-top:10px;font-size:12px;color:#aaa;display:flex;gap:12px"></div>
       </div>
 
       <div class="card">
-        <h3>Host System</h3>
-        <div id="sys-info">
-          <div><strong>CPU Temp:</strong> <span id="sys-cpu-temp">-</span></div>
-          <div><strong>Load Avg:</strong> <span id="sys-load">-</span></div>
-          <div><strong>RAM:</strong> <span id="sys-ram">-</span></div>
-          <div><strong>Disk (/):</strong> <span id="sys-disk">-</span></div>
-          <div><strong>System Uptime:</strong> <span id="sys-uptime">-</span></div>
+        <div class="card-header">
+          <h3>Host System</h3>
+          <span id="sys-uptime-badge" style="font-size:12px;color:#888;font-family:monospace">up: -</span>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span class="stat-label">CPU Temp</span>
+            <span id="sys-cpu-temp" class="stat-val">-</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Load Avg</span>
+            <span id="sys-load" class="stat-val" style="font-size:12px">-</span>
+          </div>
+          <div class="stat-box" style="grid-column: span 2">
+            <div style="display:flex;justify-content:space-between">
+              <span class="stat-label">RAM</span>
+              <span id="sys-ram-pct" class="stat-sub">-</span>
+            </div>
+            <span id="sys-ram" class="stat-val" style="font-size:13px">-</span>
+            <div class="progress-bar-bg"><div id="sys-ram-bar" class="progress-bar-fill" style="width:0%"></div></div>
+          </div>
+          <div class="stat-box" style="grid-column: span 2">
+            <div style="display:flex;justify-content:space-between">
+              <span class="stat-label">Disk (/)</span>
+              <span id="sys-disk-pct" class="stat-sub">-</span>
+            </div>
+            <span id="sys-disk" class="stat-val" style="font-size:13px">-</span>
+            <div class="progress-bar-bg"><div id="sys-disk-bar" class="progress-bar-fill" style="width:0%"></div></div>
+          </div>
         </div>
       </div>
     </div>
@@ -258,6 +367,35 @@ PAGE = """<!doctype html>
   </div>
 <script>
 let recording = false;
+let cameraEnabled = true;
+
+async function toggleCamera(){
+  const endpoint = cameraEnabled ? '/camera/off' : '/camera/on';
+  try{
+    const r = await fetch(endpoint);
+    const j = await r.json();
+    cameraEnabled = j.camera_enabled;
+    updateCamBtn();
+    const img = document.getElementById('stream');
+    if(cameraEnabled){
+      img.src = '/stream?_=' + Date.now();
+      img.style.opacity = '1';
+    }else{
+      img.style.opacity = '0.3';
+    }
+  }catch(e){}
+}
+function updateCamBtn(){
+  const b = document.getElementById('camBtn');
+  if(!b) return;
+  if(cameraEnabled){
+    b.className = 'cam-on';
+    b.textContent = '⏸ Stop Camera';
+  }else{
+    b.className = 'cam-off';
+    b.textContent = '▶ Start Camera';
+  }
+}
 
 function snapshot(){
   const a=document.createElement('a');
@@ -301,8 +439,7 @@ function updateRecBtn(){
 function pad(n){return n.toString().padStart(2,'0');}
 function tickClock(){
   const d = new Date();
-  const s = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} `
-          + `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  const s = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
   document.getElementById('clock').textContent = s;
 }
 setInterval(tickClock, 1000);
@@ -315,30 +452,73 @@ async function pollHealth(){
     markActive(h.mode);
     recording = h.recording.active;
     updateRecBtn();
-    const el = document.getElementById('health');
-    const cls = h.stalled ? 'bad' : 'ok';
-    let recTxt = h.recording.active
-      ? `<span class="warn">⏺ REC ${h.recording.frames}f</span>` : '';
-    el.innerHTML = `<span class="${cls}">${h.stalled ? '⚠ STALLED' : '● live'}</span><br>`
-      + `uptime: ${h.uptime || '-'}<br>`
-      + `frames: ${h.frame_count} | fps: ${h.fps}<br>`
-      + `stream fps: ${h.stream_fps} | last: ${h.age_sec}s ago<br>`
-      + `restarts: ${h.restarts} ${recTxt}`;
+    if(h.camera_enabled !== undefined){
+      cameraEnabled = h.camera_enabled;
+      updateCamBtn();
+    }
+    const badge = document.getElementById('status-badge');
+    if(!h.camera_enabled){
+      badge.className = 'status-badge warn';
+      badge.textContent = '⏸ PAUSED';
+    }else if(h.stalled){
+      badge.className = 'status-badge bad';
+      badge.textContent = '⚠ STALLED';
+    }else{
+      badge.className = 'status-badge ok';
+      badge.textContent = '● LIVE';
+    }
+
+    document.getElementById('cam-fps').textContent = h.camera_enabled ? h.fps : '0';
+    document.getElementById('cam-stream-fps').textContent = h.camera_enabled ? h.stream_fps : '0';
+    document.getElementById('cam-frames').textContent = h.frame_count;
+
+    let extraTxt = `Restarts: ${h.restarts}`;
+    if(h.age_sec != null && h.camera_enabled) extraTxt += ` • Latency: ${h.age_sec}s`;
+    if(h.recording.active) extraTxt += ` • <span class="warn-text">⏺ REC ${h.recording.frames}f</span>`;
+    document.getElementById('cam-extra').innerHTML = extraTxt;
+
     const t = h.temp;
     const unit = t.calibrated ? '°C' : 'Y';
-    document.getElementById('temps').textContent =
-      `${unit} min: ${t.min ?? '-'} | avg: ${t.avg ?? '-'} | max: ${t.max ?? '-'}`;
+    document.getElementById('temp-min').textContent = t.min != null ? `${t.min}${unit}` : '-';
+    document.getElementById('temp-avg').textContent = t.avg != null ? `${t.avg}${unit}` : '-';
+    document.getElementById('temp-max').textContent = t.max != null ? `${t.max}${unit}` : '-';
 
     if (h.sys_stats) {
       const s = h.sys_stats;
-      document.getElementById('sys-cpu-temp').textContent = s.cpu_temp != null ? `${s.cpu_temp} °C` : 'N/A';
+      const cpuEl = document.getElementById('sys-cpu-temp');
+      if(s.cpu_temp != null){
+        cpuEl.textContent = `${s.cpu_temp} °C`;
+        cpuEl.style.color = s.cpu_temp > 70 ? '#f44336' : (s.cpu_temp > 60 ? '#ffb300' : '#4caf50');
+      } else {
+        cpuEl.textContent = 'N/A';
+      }
+
       document.getElementById('sys-load').textContent = s.load ? s.load.join(', ') : 'N/A';
-      document.getElementById('sys-ram').textContent = s.memory ? `${s.memory.used_mb} MB / ${s.memory.total_mb} MB (${s.memory.percent}%)` : 'N/A';
-      document.getElementById('sys-disk').textContent = s.disk ? `${s.disk.used_gb} GB / ${s.disk.total_gb} GB (${s.disk.percent}%)` : 'N/A';
-      document.getElementById('sys-uptime').textContent = s.uptime || '-';
+
+      if(s.memory){
+        document.getElementById('sys-ram').textContent = `${s.memory.used_mb} / ${s.memory.total_mb} MB`;
+        document.getElementById('sys-ram-pct').textContent = `${s.memory.percent}%`;
+        const ramBar = document.getElementById('sys-ram-bar');
+        ramBar.style.width = `${s.memory.percent}%`;
+        ramBar.style.background = s.memory.percent > 85 ? '#f44336' : '#4caf50';
+      }
+
+      if(s.disk){
+        document.getElementById('sys-disk').textContent = `${s.disk.used_gb} / ${s.disk.total_gb} GB`;
+        document.getElementById('sys-disk-pct').textContent = `${s.disk.percent}%`;
+        const diskBar = document.getElementById('sys-disk-bar');
+        diskBar.style.width = `${s.disk.percent}%`;
+        diskBar.style.background = s.disk.percent > 85 ? '#f44336' : '#4caf50';
+      }
+
+      document.getElementById('sys-uptime-badge').textContent = `up: ${s.uptime || '-'}`;
     }
   }catch(e){
-    document.getElementById('health').innerHTML = '<span class="bad">no connection</span>';
+    const badge = document.getElementById('status-badge');
+    if(badge){
+      badge.className = 'status-badge bad';
+      badge.textContent = 'NO CONNECTION';
+    }
   }
 }
 setInterval(pollHealth, 1000);
@@ -366,9 +546,9 @@ class FrameBus:
             self._fps_window = [t for t in self._fps_window if t >= cutoff]
             self.cond.notify_all()
 
-    def get(self):
+    def get(self, timeout=1.0):
         with self.cond:
-            self.cond.wait()
+            self.cond.wait(timeout=timeout)
             return self.frame
 
     def latest(self):
@@ -382,11 +562,12 @@ class FrameBus:
             fps = round(len(self._fps_window) / 5, 1) if self._fps_window else 0.0
             return {
                 "frame_count": self.frame_count,
-                "fps": fps,
-                "stream_fps": round(stream_fps, 1),
+                "fps": fps if camera_enabled else 0.0,
+                "stream_fps": round(stream_fps, 1) if camera_enabled else 0.0,
                 "age_sec": round(age, 1) if age is not None else None,
-                "stalled": (age is None) or (age > STALE_AFTER),
+                "stalled": (age is None or age > STALE_AFTER) if camera_enabled else False,
                 "mode": color_mode,
+                "camera_enabled": camera_enabled,
             }
 
 
@@ -449,7 +630,10 @@ def get_temp_stats():
 def ffmpeg_reader():
     global current_proc, restart_count, first_start
     while True:
+        camera_event.wait()
         with state_lock:
+            if not camera_enabled:
+                continue
             mode = color_mode
             cmd = build_ffmpeg_cmd(mode)
             if not first_start:
@@ -460,6 +644,9 @@ def ffmpeg_reader():
             current_proc = proc
         buf = b""
         while True:
+            with state_lock:
+                if not camera_enabled:
+                    break
             chunk = proc.stdout.read(4096)
             if not chunk:
                 break
@@ -472,7 +659,15 @@ def ffmpeg_reader():
                 jpg = buf[start:end + 2]
                 buf = buf[end + 2:]
                 bus.set(jpg)
-        proc.wait()
+        if proc.poll() is None:
+            try:
+                proc.terminate()
+                proc.wait(timeout=2)
+            except Exception:
+                try:
+                    proc.kill()
+                except Exception:
+                    pass
         with state_lock:
             if current_proc is proc:
                 current_proc = None
@@ -604,6 +799,23 @@ class Handler(BaseHTTPRequestHandler):
             self._json({"ok": True, "mode": name})
             return
 
+        if path == "/camera/on":
+            enabled = set_camera_state(True)
+            self._json({"ok": True, "camera_enabled": enabled})
+            return
+
+        if path == "/camera/off":
+            enabled = set_camera_state(False)
+            self._json({"ok": True, "camera_enabled": enabled})
+            return
+
+        if path == "/camera/toggle":
+            with state_lock:
+                new_state = not camera_enabled
+            enabled = set_camera_state(new_state)
+            self._json({"ok": True, "camera_enabled": enabled})
+            return
+
         if path == "/record/start":
             st = start_recording()
             self._json({"active": st["active"], "path": st["path"], "frames": st["frames"]})
@@ -639,6 +851,9 @@ class Handler(BaseHTTPRequestHandler):
             return
 
         if path == "/snapshot":
+            if not camera_enabled:
+                self._json({"error": "camera disabled"}, 503)
+                return
             jpg = bus.latest()
             if jpg is None:
                 self.send_response(503)
@@ -663,7 +878,12 @@ class Handler(BaseHTTPRequestHandler):
             last_sent = 0.0
             try:
                 while True:
-                    jpg = bus.get()
+                    if not camera_enabled:
+                        time.sleep(0.5)
+                        continue
+                    jpg = bus.get(timeout=1.0)
+                    if jpg is None:
+                        continue
                     now = time.time()
                     if now - last_sent < rate.interval():
                         continue
