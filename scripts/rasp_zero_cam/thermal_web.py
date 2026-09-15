@@ -907,7 +907,6 @@ def ffmpeg_reader():
         with state_lock:
             current_proc = proc
         buf = b""
-        MAX_BUF_LEN = 2 * 1024 * 1024  # 2 MB limit safeguard
         while True:
             with state_lock:
                 if not camera_enabled:
@@ -917,26 +916,18 @@ def ffmpeg_reader():
                 break
             buf += chunk
 
-            # Protection against infinite buffer bloat if stream gets corrupt
-            if len(buf) > MAX_BUF_LEN:
-                buf = buf[-100000:]
-
             while True:
                 start = buf.find(b"\xff\xd8")
                 if start == -1:
-                    if len(buf) > 8192:
-                        buf = buf[-4:]
+                    if len(buf) > 65536:
+                        buf = buf[-4096:]
                     break
-
-                # Shift buffer to start marker
-                if start > 0:
-                    buf = buf[start:]
-
-                end = buf.find(b"\xff\xd9")
+                end = buf.find(b"\xff\xd9", start)
                 if end == -1:
+                    if len(buf) > 1048576:
+                        buf = buf[start:]
                     break
-
-                jpg = buf[:end + 2]
+                jpg = buf[start:end + 2]
                 buf = buf[end + 2:]
                 bus.set(jpg)
 
