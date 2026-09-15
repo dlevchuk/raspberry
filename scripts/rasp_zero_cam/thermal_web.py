@@ -51,6 +51,10 @@ config_file_lock = threading.Lock()
 config = DEFAULT_CONFIG.copy()
 
 
+MAX_STREAM_CLIENTS = int(os.environ.get("THERMAL_MAX_STREAM_CLIENTS", "10"))
+stream_clients_lock = threading.Lock()
+stream_clients_count = 0
+
 def load_config():
     if not os.path.exists(CONFIG_PATH):
         return
@@ -59,12 +63,23 @@ def load_config():
             data = json.load(f)
         if not isinstance(data, dict):
             raise ValueError("configuration is not an object")
+        if "color_mode" in data and data["color_mode"] not in COLORMAPS:
+            print(f"[Config] Invalid color_mode in file, ignoring: {data['color_mode']!r}")
+            data.pop("color_mode")
         with config_lock:
             for k, v in data.items():
                 if k in config:
                     config[k] = v
     except Exception as e:
         print(f"[Config] Failed to load config: {e}")
+
+REC_NAME_RE = re.compile(r"^thermal_\d{8}_\d{6}\.avi$")
+
+def safe_rec_path(raw_name):
+    """Returns filepath if name matches expected pattern, else None."""
+    if not REC_NAME_RE.match(raw_name or ""):
+        return None
+    return os.path.join(REC_DIR, raw_name)
 
 
 def save_config():
@@ -240,6 +255,7 @@ def get_load_avg():
     except Exception:
         return None
 
+MIN_KEEP_RECORDINGS = int(os.environ.get("THERMAL_MIN_KEEP_RECORDINGS", "3"))
 
 def cleanup_old_recordings():
     """Auto-deletes oldest .avi recordings if disk usage exceeds configured threshold."""
@@ -266,7 +282,8 @@ def cleanup_old_recordings():
             except OSError:
                 pass
     files.sort(key=lambda x: x[1])  # oldest first
-    for filepath, _ in files:
+    deletable = files[:-MIN_KEEP_RECORDINGS] if MIN_KEEP_RECORDINGS > 0 else files
+    for filepath, _ in deletable:
         try:
             os.remove(filepath)
             print(f"[AutoCleanup] Deleted old recording: {filepath}")
@@ -275,7 +292,6 @@ def cleanup_old_recordings():
         usage = get_disk_usage(REC_DIR)
         if usage and usage["percent"] < threshold:
             break
-
 
 def auto_cleanup_loop():
     while True:
@@ -1222,9 +1238,9 @@ class Handler(BaseHTTPRequestHandler):
             return
 
         if path == "/recordings/download":
-            name = os.path.basename(qs.get("name", [""])[0])
-            filepath = os.path.join(REC_DIR, name)
-            if not name or not os.path.exists(filepath):
+            name = qs.get("name", [""])[0]
+            filepath = safe_rec_path(name)
+            if not filepath or not os.path.exists(filepath):
                 self._json({"error": "file not found"}, 404)
                 return
             try:
@@ -1241,9 +1257,9 @@ class Handler(BaseHTTPRequestHandler):
             return
 
         if path == "/recordings/delete":
-            name = os.path.basename(qs.get("name", [""])[0])
-            filepath = os.path.join(REC_DIR, name)
-            if not name or not os.path.exists(filepath):
+            name = qs.get("name", [""])[0]
+            filepath = safe_rec_path(name)
+            if not filepath or not os.path.exists(filepath):
                 self._json({"error": "file not found"}, 404)
                 return
             with record_lock:
@@ -1348,6 +1364,13 @@ class Handler(BaseHTTPRequestHandler):
             return
 
         if path == "/stream":
+        global stream_clients_count
+        with stream_clients_lock:
+            if stream_clients_count >= MAX_STREAM_CLIENTS:
+                self._json({"error": "too many stream clients"}, 503)
+                return
+            stream_clients_count += 1
+        try:         
             self.send_response(200)
             self.send_header("Age", "0")
             self.send_header("Cache-Control", "no-cache, private")
@@ -1379,6 +1402,9 @@ class Handler(BaseHTTPRequestHandler):
                     last_stream_fps = rate.cur_fps
             except (BrokenPipeError, ConnectionResetError):
                 pass
+            finally:
+                with stream_clients_lock:
+                    stream_clients_count -= 1
             return
 
         self.send_response(404)
