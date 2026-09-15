@@ -686,79 +686,90 @@ async function sysShutdown(){
 async function pollHealth(){
   try{
     const r = await fetch('/health');
+    if(!r.ok) throw new Error('HTTP ' + r.status);
     const h = await r.json();
-    markActive(h.mode);
-    recording = h.recording.active;
+    if(h.mode) markActive(h.mode);
+    recording = h.recording ? h.recording.active : false;
     updateRecBtn();
     if(h.camera_enabled !== undefined){
       cameraEnabled = h.camera_enabled;
       updateCamBtn();
     }
     const badge = document.getElementById('status-badge');
-    if(!h.camera_enabled){
-      badge.className = 'status-badge warn';
-      badge.textContent = '⏸ PAUSED';
-    }else if(h.stalled){
-      badge.className = 'status-badge bad';
-      badge.textContent = '⚠ STALLED';
-    }else{
-      badge.className = 'status-badge ok';
-      badge.textContent = '● LIVE';
+    if(badge){
+      if(!h.camera_enabled){
+        badge.className = 'status-badge warn';
+        badge.textContent = '⏸ PAUSED';
+      }else if(h.stalled){
+        badge.className = 'status-badge bad';
+        badge.textContent = '⚠ STALLED';
+      }else{
+        badge.className = 'status-badge ok';
+        badge.textContent = '● LIVE';
+      }
     }
 
-    document.getElementById('cam-fps').textContent = h.camera_enabled ? h.fps : '0';
-    document.getElementById('cam-stream-fps').textContent = h.camera_enabled ? h.stream_fps : '0';
-    document.getElementById('cam-frames').textContent = h.frame_count;
+    if(document.getElementById('cam-fps')) document.getElementById('cam-fps').textContent = h.camera_enabled ? (h.fps ?? '0') : '0';
+    if(document.getElementById('cam-stream-fps')) document.getElementById('cam-stream-fps').textContent = h.camera_enabled ? (h.stream_fps ?? '0') : '0';
+    if(document.getElementById('cam-frames')) document.getElementById('cam-frames').textContent = h.frame_count ?? '0';
 
-    let extraTxt = `Restarts: ${h.restarts}`;
+    let extraTxt = `Restarts: ${h.restarts ?? 0}`;
     if(h.age_sec != null && h.camera_enabled) extraTxt += ` • Latency: ${h.age_sec}s`;
-    if(h.recording.active) extraTxt += ` • <span class="warn-text">⏺ REC ${h.recording.frames}f</span>`;
-    document.getElementById('cam-extra').innerHTML = extraTxt;
+    if(h.recording && h.recording.active) extraTxt += ` • <span class="warn-text">⏺ REC ${h.recording.frames}f</span>`;
+    if(document.getElementById('cam-extra')) document.getElementById('cam-extra').innerHTML = extraTxt;
 
-    const t = h.temp;
+    const t = h.temp || {};
     const unit = t.calibrated ? '°C' : 'Y';
-    document.getElementById('temp-min').textContent = t.min != null ? `${t.min}${unit}` : '-';
-    document.getElementById('temp-avg').textContent = t.avg != null ? `${t.avg}${unit}` : '-';
-    document.getElementById('temp-max').textContent = t.max != null ? `${t.max}${unit}` : '-';
+    if(document.getElementById('temp-min')) document.getElementById('temp-min').textContent = t.min != null ? `${t.min}${unit}` : '-';
+    if(document.getElementById('temp-avg')) document.getElementById('temp-avg').textContent = t.avg != null ? `${t.avg}${unit}` : '-';
+    if(document.getElementById('temp-max')) document.getElementById('temp-max').textContent = t.max != null ? `${t.max}${unit}` : '-';
 
     // Thermal alert trigger
     const alertBanner = document.getElementById('alertBanner');
-    if(h.alert){
-      alertBanner.style.display = 'flex';
-      playAlertSound();
-    }else{
-      alertBanner.style.display = 'none';
+    if(alertBanner){
+      if(h.alert){
+        alertBanner.style.display = 'flex';
+        playAlertSound();
+      }else{
+        alertBanner.style.display = 'none';
+      }
     }
 
     if (h.sys_stats) {
       const s = h.sys_stats;
       const cpuEl = document.getElementById('sys-cpu-temp');
-      if(s.cpu_temp != null){
-        cpuEl.textContent = `${s.cpu_temp} °C`;
-        cpuEl.style.color = s.cpu_temp > 70 ? '#f44336' : (s.cpu_temp > 60 ? '#ffb300' : '#4caf50');
-      } else {
-        cpuEl.textContent = 'N/A';
+      if(cpuEl){
+        if(s.cpu_temp != null){
+          cpuEl.textContent = `${s.cpu_temp} °C`;
+          cpuEl.style.color = s.cpu_temp > 70 ? '#f44336' : (s.cpu_temp > 60 ? '#ffb300' : '#4caf50');
+        } else {
+          cpuEl.textContent = 'N/A';
+        }
       }
 
-      document.getElementById('sys-load').textContent = s.load ? s.load.join(', ') : 'N/A';
+      if(document.getElementById('sys-load')) document.getElementById('sys-load').textContent = s.load ? s.load.join(', ') : 'N/A';
 
       if(s.memory){
-        document.getElementById('sys-ram').textContent = `${s.memory.used_mb} / ${s.memory.total_mb} MB`;
-        document.getElementById('sys-ram-pct').textContent = `${s.memory.percent}%`;
+        if(document.getElementById('sys-ram')) document.getElementById('sys-ram').textContent = `${s.memory.used_mb} / ${s.memory.total_mb} MB`;
+        if(document.getElementById('sys-ram-pct')) document.getElementById('sys-ram-pct').textContent = `${s.memory.percent}%`;
         const ramBar = document.getElementById('sys-ram-bar');
-        ramBar.style.width = `${s.memory.percent}%`;
-        ramBar.style.background = s.memory.percent > 85 ? '#f44336' : '#4caf50';
+        if(ramBar){
+          ramBar.style.width = `${s.memory.percent}%`;
+          ramBar.style.background = s.memory.percent > 85 ? '#f44336' : '#4caf50';
+        }
       }
 
       if(s.disk){
-        document.getElementById('sys-disk').textContent = `${s.disk.used_gb} / ${s.disk.total_gb} GB`;
-        document.getElementById('sys-disk-pct').textContent = `${s.disk.percent}%`;
+        if(document.getElementById('sys-disk')) document.getElementById('sys-disk').textContent = `${s.disk.used_gb} / ${s.disk.total_gb} GB`;
+        if(document.getElementById('sys-disk-pct')) document.getElementById('sys-disk-pct').textContent = `${s.disk.percent}%`;
         const diskBar = document.getElementById('sys-disk-bar');
-        diskBar.style.width = `${s.disk.percent}%`;
-        diskBar.style.background = s.disk.percent > 85 ? '#f44336' : '#4caf50';
+        if(diskBar){
+          diskBar.style.width = `${s.disk.percent}%`;
+          diskBar.style.background = s.disk.percent > 85 ? '#f44336' : '#4caf50';
+        }
       }
 
-      document.getElementById('sys-uptime-badge').textContent = `up: ${s.uptime || '-'}`;
+      if(document.getElementById('sys-uptime-badge')) document.getElementById('sys-uptime-badge').textContent = `up: ${s.uptime || '-'}`;
     }
   }catch(e){
     const badge = document.getElementById('status-badge');
