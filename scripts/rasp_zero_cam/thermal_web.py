@@ -491,6 +491,10 @@ PAGE = """<!doctype html>
             <div class="progress-bar-bg"><div id="sys-disk-bar" class="progress-bar-fill" style="width:0%"></div></div>
           </div>
         </div>
+        <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap">
+          <button class="btn-sm" onclick="sysReboot()">🔄 Перезавантажити</button>
+          <button class="btn-sm btn-danger" onclick="sysShutdown()">⚡ Вимкнути Pi</button>
+        </div>
       </div>
 
       <div class="card" id="alerts-wrap">
@@ -661,6 +665,21 @@ async function deleteRec(name){
   try{
     await fetch(`/recordings/delete?name=${encodeURIComponent(name)}`);
     loadRecordings();
+  }catch(e){}
+}
+
+async function sysReboot(){
+  if(!confirm("Перезавантажити Raspberry Pi?")) return;
+  try{
+    await fetch('/sys/reboot');
+    alert("Raspberry Pi перезавантажується...");
+  }catch(e){}
+}
+async function sysShutdown(){
+  if(!confirm("Вимкнути Raspberry Pi?\n\nУвага: для наступного увімкнення знадобиться фізично перепідключити живлення.")) return;
+  try{
+    await fetch('/sys/shutdown');
+    alert("Raspberry Pi вимикається...");
   }catch(e){}
 }
 
@@ -1128,6 +1147,22 @@ class Handler(BaseHTTPRequestHandler):
                 self._json({"ok": True})
             except Exception as e:
                 self._json({"error": str(e)}, 500)
+            return
+
+        if path == "/sys/reboot":
+            self._json({"ok": True, "message": "Rebooting Raspberry Pi..."})
+            def _do_reboot():
+                time.sleep(1)
+                subprocess.run(["sudo", "shutdown", "-r", "now"])
+            threading.Thread(target=_do_reboot, daemon=True).start()
+            return
+
+        if path == "/sys/shutdown":
+            self._json({"ok": True, "message": "Shutting down Raspberry Pi..."})
+            def _do_shutdown():
+                time.sleep(1)
+                subprocess.run(["sudo", "shutdown", "-h", "now"])
+            threading.Thread(target=_do_shutdown, daemon=True).start()
             return
 
         if path == "/camera/on":
