@@ -50,10 +50,19 @@ config_lock = threading.Lock()
 config_file_lock = threading.Lock()
 config = DEFAULT_CONFIG.copy()
 
-
 MAX_STREAM_CLIENTS = int(os.environ.get("THERMAL_MAX_STREAM_CLIENTS", "10"))
 stream_clients_lock = threading.Lock()
 stream_clients_count = 0
+
+REC_NAME_RE = re.compile(r"^thermal_\d{8}_\d{6}\.avi$")
+
+
+def safe_rec_path(raw_name):
+    """Returns filepath if name matches expected pattern, else None."""
+    if not REC_NAME_RE.match(raw_name or ""):
+        return None
+    return os.path.join(REC_DIR, raw_name)
+
 
 def load_config():
     if not os.path.exists(CONFIG_PATH):
@@ -72,14 +81,6 @@ def load_config():
                     config[k] = v
     except Exception as e:
         print(f"[Config] Failed to load config: {e}")
-
-REC_NAME_RE = re.compile(r"^thermal_\d{8}_\d{6}\.avi$")
-
-def safe_rec_path(raw_name):
-    """Returns filepath if name matches expected pattern, else None."""
-    if not REC_NAME_RE.match(raw_name or ""):
-        return None
-    return os.path.join(REC_DIR, raw_name)
 
 
 def save_config():
@@ -255,7 +256,9 @@ def get_load_avg():
     except Exception:
         return None
 
+
 MIN_KEEP_RECORDINGS = int(os.environ.get("THERMAL_MIN_KEEP_RECORDINGS", "3"))
+
 
 def cleanup_old_recordings():
     """Auto-deletes oldest .avi recordings if disk usage exceeds configured threshold."""
@@ -292,6 +295,7 @@ def cleanup_old_recordings():
         usage = get_disk_usage(REC_DIR)
         if usage and usage["percent"] < threshold:
             break
+
 
 def auto_cleanup_loop():
     while True:
@@ -734,7 +738,8 @@ async function sysReboot(){
   }catch(e){}
 }
 async function sysShutdown(){
-  if(!confirm("Вимкнути Raspberry Pi?\\n\\nУвага: для наступного увімкнення знадобиться фізично перепідключити живлення.")) return;  try{
+  if(!confirm("Вимкнути Raspberry Pi?\\n\\nУвага: для наступного увімкнення знадобиться фізично перепідключити живлення.")) return;
+  try{
     await fetch('/sys/shutdown');
     alert("Raspberry Pi вимикається...");
   }catch(e){}
@@ -1152,7 +1157,7 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_GET(self):
-        global last_stream_fps, color_mode, current_proc
+        global last_stream_fps, color_mode, current_proc, stream_clients_count
         parsed = urlparse(self.path)
         path = parsed.path
         qs = parse_qs(parsed.query)
@@ -1252,7 +1257,7 @@ class Handler(BaseHTTPRequestHandler):
                 self.end_headers()
                 with open(filepath, "rb") as f:
                     shutil.copyfileobj(f, self.wfile)
-            except Exception as e:
+            except Exception:
                 pass
             return
 
@@ -1364,23 +1369,21 @@ class Handler(BaseHTTPRequestHandler):
             return
 
         if path == "/stream":
-        global stream_clients_count
-        with stream_clients_lock:
-            if stream_clients_count >= MAX_STREAM_CLIENTS:
-                self._json({"error": "too many stream clients"}, 503)
-                return
-            stream_clients_count += 1
-        try:         
-            self.send_response(200)
-            self.send_header("Age", "0")
-            self.send_header("Cache-Control", "no-cache, private")
-            self.send_header("Pragma", "no-cache")
-            self.send_header("Content-Type", f"multipart/x-mixed-replace; boundary={BOUNDARY}")
-            self.end_headers()
-            rate = AdaptiveRate(MAX_STREAM_FPS, MIN_STREAM_FPS)
-            last_sent = 0.0
-            sequence = 0
+            with stream_clients_lock:
+                if stream_clients_count >= MAX_STREAM_CLIENTS:
+                    self._json({"error": "too many stream clients"}, 503)
+                    return
+                stream_clients_count += 1
             try:
+                self.send_response(200)
+                self.send_header("Age", "0")
+                self.send_header("Cache-Control", "no-cache, private")
+                self.send_header("Pragma", "no-cache")
+                self.send_header("Content-Type", f"multipart/x-mixed-replace; boundary={BOUNDARY}")
+                self.end_headers()
+                rate = AdaptiveRate(MAX_STREAM_FPS, MIN_STREAM_FPS)
+                last_sent = 0.0
+                sequence = 0
                 while True:
                     if not is_camera_enabled():
                         bus.get_next(sequence, timeout=1.0)
