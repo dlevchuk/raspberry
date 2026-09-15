@@ -247,7 +247,7 @@ def auto_cleanup_loop():
 
 def build_vf_chain(mode):
     chain = [
-        f"select=gte(n\\,{DROP_FRAMES})",
+        f"select='gte(n,{DROP_FRAMES})'",
         "setpts=N/FRAME_RATE/TB",
         f"signalstats,metadata=mode=print:file={STATS_FIFO}",
         "format=gray",
@@ -848,7 +848,10 @@ def stats_fifo_reader():
             os.remove(STATS_FIFO)
         except OSError:
             pass
-    os.mkfifo(STATS_FIFO)
+    try:
+        os.mkfifo(STATS_FIFO)
+    except OSError:
+        pass
     while True:
         try:
             with open(STATS_FIFO, "r") as f:
@@ -870,7 +873,7 @@ def stats_fifo_reader():
                         with temp_lock:
                             temp_data["y_avg"] = float(m.group(1))
                             temp_data["updated"] = time.time()
-        except OSError:
+        except Exception:
             time.sleep(0.5)
 
 
