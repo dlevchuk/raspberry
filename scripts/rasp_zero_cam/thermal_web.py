@@ -718,8 +718,7 @@ async function sysReboot(){
   }catch(e){}
 }
 async function sysShutdown(){
-  if(!confirm("Вимкнути Raspberry Pi?\n\nУвага: для наступного увімкнення знадобиться фізично перепідключити живлення.")) return;
-  try{
+  if(!confirm("Вимкнути Raspberry Pi?\\n\\nУвага: для наступного увімкнення знадобиться фізично перепідключити живлення.")) return;  try{
     await fetch('/sys/shutdown');
     alert("Raspberry Pi вимикається...");
   }catch(e){}
