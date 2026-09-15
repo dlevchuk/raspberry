@@ -4,6 +4,7 @@ import re
 import sys
 import time
 import json
+import math
 import shutil
 import signal
 import threading
@@ -45,32 +46,54 @@ DEFAULT_CONFIG = {
 }
 
 config_lock = threading.Lock()
+# Serializes disk writes only.  Do not use this lock to protect `config`.
+config_file_lock = threading.Lock()
 config = DEFAULT_CONFIG.copy()
 
 
 def load_config():
-    global config
-    with config_lock:
-        if os.path.exists(CONFIG_PATH):
-            try:
-                with open(CONFIG_PATH, "r") as f:
-                    data = json.load(f)
-                    for k, v in data.items():
-                        if k in config:
-                            config[k] = v
-            except Exception as e:
-                print(f"[Config] Failed to load config: {e}")
+    if not os.path.exists(CONFIG_PATH):
+        return
+    try:
+        with open(CONFIG_PATH, "r") as f:
+            data = json.load(f)
+        if not isinstance(data, dict):
+            raise ValueError("configuration is not an object")
+        with config_lock:
+            for k, v in data.items():
+                if k in config:
+                    config[k] = v
+    except Exception as e:
+        print(f"[Config] Failed to load config: {e}")
 
 
 def save_config():
-    with config_lock:
-        try:
-            os.makedirs(REC_DIR, exist_ok=True)
-            with open(CONFIG_PATH, "w") as f:
-                json.dump(config, f, indent=2)
-            print(f"[Config] Saved config to {CONFIG_PATH}")
-        except Exception as e:
-            print(f"[Config] Failed to save config: {e}")
+    """Save a consistent snapshot without holding config_lock during I/O."""
+    try:
+        os.makedirs(REC_DIR, exist_ok=True)
+        # Serialize saves first, then copy: a slower earlier request cannot overwrite a
+        # newer configuration snapshot.  config_lock is released before all disk I/O.
+        with config_file_lock:
+            with config_lock:
+                data = config.copy()
+            tmp_path = f"{CONFIG_PATH}.tmp.{os.getpid()}.{threading.get_ident()}"
+            try:
+                with open(tmp_path, "w") as f:
+                    json.dump(data, f, indent=2)
+                    f.flush()
+                    os.fsync(f.fileno())
+                os.replace(tmp_path, CONFIG_PATH)
+            finally:
+                try:
+                    if os.path.exists(tmp_path):
+                        os.remove(tmp_path)
+                except OSError:
+                    pass
+        print(f"[Config] Saved config to {CONFIG_PATH}")
+        return True
+    except Exception as e:
+        print(f"[Config] Failed to save config: {e}")
+        return False
 
 
 load_config()
@@ -107,6 +130,17 @@ def set_camera_state(enabled: bool):
     return camera_enabled
 
 
+def toggle_camera_state():
+    with state_lock:
+        enabled = not camera_enabled
+    return set_camera_state(enabled)
+
+
+def is_camera_enabled():
+    with state_lock:
+        return camera_enabled
+
+
 def format_uptime(seconds):
     sec = int(seconds)
     days, sec = divmod(sec, 86400)
@@ -132,7 +166,7 @@ def get_system_uptime():
     except Exception:
         pass
     try:
-        out = subprocess.check_output(["uptime", "-p"], text=True).strip()
+        out = subprocess.check_output(["uptime", "-p"], text=True, timeout=1).strip()
         if out.startswith("up "):
             return out[3:]
         return out
@@ -148,7 +182,7 @@ def get_cpu_temp():
     except Exception:
         pass
     try:
-        out = subprocess.check_output(["vcgencmd", "measure_temp"], text=True)
+        out = subprocess.check_output(["vcgencmd", "measure_temp"], text=True, timeout=1)
         m = re.search(r"temp=([\d.]+)", out)
         if m:
             return float(m.group(1))
@@ -210,16 +244,23 @@ def get_load_avg():
 def cleanup_old_recordings():
     """Auto-deletes oldest .avi recordings if disk usage exceeds configured threshold."""
     with config_lock:
-        threshold = config.get("auto_cleanup_disk_pct", 85.0)
+        try:
+            threshold = float(config.get("auto_cleanup_disk_pct", 85.0))
+        except (TypeError, ValueError):
+            threshold = 85.0
     usage = get_disk_usage(REC_DIR)
     if not usage or usage["percent"] < threshold:
         return
     if not os.path.exists(REC_DIR):
         return
+    with record_lock:
+        active_path = record_state["path"] if record_state["active"] else None
     files = []
     for f in os.listdir(REC_DIR):
         if f.endswith(".avi"):
             p = os.path.join(REC_DIR, f)
+            if os.path.abspath(p) == os.path.abspath(active_path or ""):
+                continue
             try:
                 files.append((p, os.path.getmtime(p)))
             except OSError:
@@ -519,6 +560,7 @@ let recording = false;
 let cameraEnabled = true;
 let audioMuted = false;
 let audioCtx = null;
+let healthRequestInFlight = false;
 
 function playAlertSound(){
   if(audioMuted) return;
@@ -684,6 +726,8 @@ async function sysShutdown(){
 }
 
 async function pollHealth(){
+  if(healthRequestInFlight) return;
+  healthRequestInFlight = true;
   try{
     const r = await fetch('/health');
     if(!r.ok) throw new Error('HTTP ' + r.status);
@@ -777,6 +821,8 @@ async function pollHealth(){
       badge.className = 'status-badge bad';
       badge.textContent = 'NO CONNECTION';
     }
+  } finally {
+    healthRequestInFlight = false;
   }
 }
 setInterval(pollHealth, 1000);
@@ -792,6 +838,7 @@ class FrameBus:
         self.frame = None
         self.cond = threading.Condition()
         self.frame_count = 0
+        self.sequence = 0
         self.last_ts = 0.0
         self._fps_window = []
 
@@ -800,16 +847,22 @@ class FrameBus:
             now = time.time()
             self.frame = jpg
             self.frame_count += 1
+            self.sequence += 1
             self.last_ts = now
             self._fps_window.append(now)
             cutoff = now - 5
             self._fps_window = [t for t in self._fps_window if t >= cutoff]
             self.cond.notify_all()
 
-    def get(self, timeout=1.0):
+    def get_next(self, last_sequence, timeout=1.0):
+        """Wait for a frame newer than last_sequence, never replaying a stale one."""
         with self.cond:
-            self.cond.wait(timeout=timeout)
-            return self.frame
+            self.cond.wait_for(lambda: self.sequence != last_sequence, timeout=timeout)
+            return self.frame, self.sequence
+
+    def wake_all(self):
+        with self.cond:
+            self.cond.notify_all()
 
     def latest(self):
         with self.cond:
@@ -822,12 +875,12 @@ class FrameBus:
             fps = round(len(self._fps_window) / 5, 1) if self._fps_window else 0.0
             return {
                 "frame_count": self.frame_count,
-                "fps": fps if camera_enabled else 0.0,
-                "stream_fps": round(stream_fps, 1) if camera_enabled else 0.0,
+                "fps": fps if is_camera_enabled() else 0.0,
+                "stream_fps": round(stream_fps, 1) if is_camera_enabled() else 0.0,
                 "age_sec": round(age, 1) if age is not None else None,
-                "stalled": (age is None or age > STALE_AFTER) if camera_enabled else False,
+                "stalled": (age is None or age > STALE_AFTER) if is_camera_enabled() else False,
                 "mode": color_mode,
-                "camera_enabled": camera_enabled,
+                "camera_enabled": is_camera_enabled(),
             }
 
 
@@ -850,8 +903,11 @@ def stats_fifo_reader():
             pass
     try:
         os.mkfifo(STATS_FIFO)
-    except OSError:
+    except FileExistsError:
         pass
+    except OSError as e:
+        print(f"[Stats] Cannot create FIFO: {e}")
+        return
     while True:
         try:
             with open(STATS_FIFO, "r") as f:
@@ -882,7 +938,10 @@ def get_temp_stats():
         y_min, y_max, y_avg = temp_data["y_min"], temp_data["y_max"], temp_data["y_avg"]
     with config_lock:
         scale_str = config.get("temp_scale", "")
-        offset = config.get("temp_offset", 0.0)
+        try:
+            offset = float(config.get("temp_offset", 0.0))
+        except (TypeError, ValueError):
+            offset = 0.0
     if scale_str:
         try:
             scale = float(scale_str)
@@ -906,9 +965,18 @@ def ffmpeg_reader():
             if not first_start:
                 restart_count += 1
             first_start = False
-        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, bufsize=0)
+        try:
+            proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, bufsize=0)
+        except OSError as e:
+            print(f"[Camera] Cannot start ffmpeg: {e}")
+            time.sleep(1)
+            continue
         with state_lock:
-            current_proc = proc
+            if camera_enabled:
+                current_proc = proc
+            else:
+                proc.terminate()
+                continue
         buf = b""
         while True:
             with state_lock:
@@ -946,7 +1014,7 @@ def ffmpeg_reader():
         with state_lock:
             if current_proc is proc:
                 current_proc = None
-        threading.Event().wait(0.5)
+        time.sleep(0.5)
 
 
 class AdaptiveRate:
@@ -975,47 +1043,65 @@ record_lock = threading.Lock()
 record_state = {"active": False, "proc": None, "path": None, "frames": 0, "started": None}
 
 
+def recording_status():
+    with record_lock:
+        return recording_status_unlocked()
+
+
+def recording_status_unlocked():
+    return {k: v for k, v in record_state.items() if k != "proc"}
+
+
 def record_feeder():
+    sequence = 0
     while True:
         with record_lock:
             if not record_state["active"]:
                 return
             proc = record_state["proc"]
-        jpg = bus.get()
+        jpg, sequence = bus.get_next(sequence, timeout=1.0)
+        if jpg is None:
+            continue
+        # Never hold record_lock while a slow/broken ffmpeg pipe is written.
+        try:
+            proc.stdin.write(jpg)
+        except (BrokenPipeError, OSError, ValueError):
+            with record_lock:
+                if record_state["proc"] is proc:
+                    record_state["active"] = False
+            return
         with record_lock:
             if not record_state["active"] or record_state["proc"] is not proc:
                 return
-            try:
-                proc.stdin.write(jpg)
-                record_state["frames"] += 1
-            except (BrokenPipeError, OSError):
-                record_state["active"] = False
-                return
+            record_state["frames"] += 1
 
 
 def start_recording():
     cleanup_old_recordings()
     with record_lock:
         if record_state["active"]:
-            return record_state.copy()
-        os.makedirs(REC_DIR, exist_ok=True)
-        fname = datetime.now().strftime("thermal_%Y%m%d_%H%M%S.avi")
-        path = os.path.join(REC_DIR, fname)
-        proc = subprocess.Popen(
-            ["ffmpeg", "-y", "-loglevel", "error",
-             "-f", "mjpeg", "-r", str(CAPTURE_FPS), "-i", "pipe:0",
-             "-c", "copy", path],
-            stdin=subprocess.PIPE,
-        )
+            return recording_status_unlocked()
+        try:
+            os.makedirs(REC_DIR, exist_ok=True)
+            fname = datetime.now().strftime("thermal_%Y%m%d_%H%M%S.avi")
+            path = os.path.join(REC_DIR, fname)
+            proc = subprocess.Popen(
+                ["ffmpeg", "-y", "-loglevel", "error",
+                 "-f", "mjpeg", "-r", str(CAPTURE_FPS), "-i", "pipe:0",
+                 "-c", "copy", path],
+                stdin=subprocess.PIPE, stderr=subprocess.DEVNULL,
+            )
+        except OSError as e:
+            return {"active": False, "path": None, "frames": 0, "started": None, "error": str(e)}
         record_state.update(active=True, proc=proc, path=path, frames=0, started=time.time())
     threading.Thread(target=record_feeder, daemon=True).start()
-    return record_state.copy()
+    return recording_status()
 
 
 def stop_recording():
     with record_lock:
         if not record_state["active"]:
-            return record_state.copy()
+            return recording_status_unlocked()
         record_state["active"] = False
         proc = record_state["proc"]
     if proc is not None:
@@ -1027,8 +1113,12 @@ def stop_recording():
             proc.wait(timeout=5)
         except subprocess.TimeoutExpired:
             proc.terminate()
+            try:
+                proc.wait(timeout=2)
+            except subprocess.TimeoutExpired:
+                proc.kill()
     with record_lock:
-        result = record_state.copy()
+        result = recording_status_unlocked()
         record_state["proc"] = None
     return result
 
@@ -1069,16 +1159,18 @@ class Handler(BaseHTTPRequestHandler):
             with state_lock:
                 color_mode = name
                 proc = current_proc
-            config["color_mode"] = name
-            save_config()
+            with config_lock:
+                config["color_mode"] = name
+            saved = save_config()
             if proc is not None:
                 proc.terminate()
-            self._json({"ok": True, "mode": name})
+            self._json({"ok": saved, "mode": name, "saved": saved}, 200 if saved else 500)
             return
 
         if path == "/settings":
             with config_lock:
-                self._json(config)
+                settings = config.copy()
+            self._json(settings)
             return
 
         if path == "/settings/update":
@@ -1087,21 +1179,29 @@ class Handler(BaseHTTPRequestHandler):
                     config["temp_scale"] = qs["scale"][0]
                 if "offset" in qs:
                     try:
-                        config["temp_offset"] = float(qs["offset"][0])
+                        value = float(qs["offset"][0])
+                        if math.isfinite(value):
+                            config["temp_offset"] = value
                     except ValueError:
                         pass
                 if "alert_max" in qs:
                     try:
-                        config["alert_max_temp"] = float(qs["alert_max"][0])
+                        value = float(qs["alert_max"][0])
+                        if math.isfinite(value):
+                            config["alert_max_temp"] = value
                     except ValueError:
                         pass
                 if "cleanup_pct" in qs:
                     try:
-                        config["auto_cleanup_disk_pct"] = float(qs["cleanup_pct"][0])
+                        value = float(qs["cleanup_pct"][0])
+                        if math.isfinite(value):
+                            config["auto_cleanup_disk_pct"] = min(100.0, max(0.0, value))
                     except ValueError:
                         pass
-            save_config()
-            self._json({"ok": True, "config": config})
+                settings = config.copy()
+            # Important: save_config snapshots under its own lock; never call it while held.
+            saved = save_config()
+            self._json({"ok": saved, "config": settings, "saved": saved}, 200 if saved else 500)
             return
 
         if path == "/recordings":
@@ -1147,6 +1247,11 @@ class Handler(BaseHTTPRequestHandler):
             if not name or not os.path.exists(filepath):
                 self._json({"error": "file not found"}, 404)
                 return
+            with record_lock:
+                is_active_file = record_state["active"] and os.path.abspath(record_state["path"] or "") == os.path.abspath(filepath)
+            if is_active_file:
+                self._json({"error": "cannot delete an active recording"}, 409)
+                return
             try:
                 os.remove(filepath)
                 self._json({"ok": True})
@@ -1181,9 +1286,7 @@ class Handler(BaseHTTPRequestHandler):
             return
 
         if path == "/camera/toggle":
-            with state_lock:
-                new_state = not camera_enabled
-            enabled = set_camera_state(new_state)
+            enabled = toggle_camera_state()
             self._json({"ok": True, "camera_enabled": enabled})
             return
 
@@ -1198,12 +1301,7 @@ class Handler(BaseHTTPRequestHandler):
             return
 
         if path == "/health":
-            with record_lock:
-                rec = {
-                    "active": record_state["active"],
-                    "frames": record_state["frames"],
-                    "path": record_state["path"],
-                }
+            rec = recording_status()
             with state_lock:
                 restarts = restart_count
             body = bus.stats(last_stream_fps)
@@ -1214,23 +1312,27 @@ class Handler(BaseHTTPRequestHandler):
 
             # Thermal alert check
             with config_lock:
-                alert_thresh = config.get("alert_max_temp", 70.0)
+                try:
+                    alert_thresh = float(config.get("alert_max_temp", 70.0))
+                except (TypeError, ValueError):
+                    alert_thresh = 70.0
             max_val = temp_stats.get("max")
             body["alert"] = (max_val is not None) and (max_val >= alert_thresh)
 
-            body["uptime"] = get_system_uptime()
+            uptime = get_system_uptime()
+            body["uptime"] = uptime
             body["sys_stats"] = {
                 "cpu_temp": get_cpu_temp(),
                 "memory": get_mem_usage(),
                 "disk": get_disk_usage("/"),
                 "load": get_load_avg(),
-                "uptime": get_system_uptime(),
+                "uptime": uptime,
             }
             self._json(body)
             return
 
         if path == "/snapshot":
-            if not camera_enabled:
+            if not is_camera_enabled():
                 self._json({"error": "camera disabled"}, 503)
                 return
             jpg = bus.latest()
@@ -1255,12 +1357,13 @@ class Handler(BaseHTTPRequestHandler):
             self.end_headers()
             rate = AdaptiveRate(MAX_STREAM_FPS, MIN_STREAM_FPS)
             last_sent = 0.0
+            sequence = 0
             try:
                 while True:
-                    if not camera_enabled:
-                        time.sleep(0.5)
+                    if not is_camera_enabled():
+                        bus.get_next(sequence, timeout=1.0)
                         continue
-                    jpg = bus.get(timeout=1.0)
+                    jpg, sequence = bus.get_next(sequence, timeout=1.0)
                     if jpg is None:
                         continue
                     now = time.time()
@@ -1283,6 +1386,11 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
 
 
+class ThermalHTTPServer(ThreadingHTTPServer):
+    # A stalled download/stream client must not keep the process alive at shutdown.
+    daemon_threads = True
+
+
 def shutdown_handler(signum, frame):
     print(f"\n[Shutdown] Received signal {signum}, stopping camera & server...")
     set_camera_state(False)
@@ -1303,7 +1411,7 @@ if __name__ == "__main__":
     threading.Thread(target=ffmpeg_reader, daemon=True).start()
     threading.Thread(target=auto_cleanup_loop, daemon=True).start()
 
-    srv = ThreadingHTTPServer(("0.0.0.0", PORT), Handler)
+    srv = ThermalHTTPServer(("0.0.0.0", PORT), Handler)
     print(f"http://0.0.0.0:{PORT}/")
     try:
         srv.serve_forever()
