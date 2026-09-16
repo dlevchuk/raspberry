@@ -43,6 +43,8 @@ DEFAULT_CONFIG = {
     "temp_offset": float(os.environ.get("THERMAL_TEMP_OFFSET", "0")),
     "alert_max_temp": float(os.environ.get("THERMAL_ALERT_MAX", "70.0")),
     "auto_cleanup_disk_pct": float(os.environ.get("THERMAL_CLEANUP_PCT", "85.0")),
+    "weather_lat": float(os.environ.get("THERMAL_WEATHER_LAT", "51.520")),
+    "weather_lon": float(os.environ.get("THERMAL_WEATHER_LON", "30.744")),
 }
 
 config_lock = threading.Lock()
@@ -54,12 +56,22 @@ MAX_STREAM_CLIENTS = int(os.environ.get("THERMAL_MAX_STREAM_CLIENTS", "10"))
 stream_clients_lock = threading.Lock()
 stream_clients_count = 0
 
-REC_NAME_RE = re.compile(r"^thermal_\d{8}_\d{6}\.avi$")
+VIDEO_NAME_RE = re.compile(r"^thermal_\d{8}_\d{6}\.avi$")
+PHOTO_NAME_RE = re.compile(r"^thermal_snap_\d{8}_\d{6}\.jpg$")
+
+
+def rec_file_type(name):
+    """Returns 'video', 'photo', or None if the filename doesn't match a known pattern."""
+    if VIDEO_NAME_RE.match(name or ""):
+        return "video"
+    if PHOTO_NAME_RE.match(name or ""):
+        return "photo"
+    return None
 
 
 def safe_rec_path(raw_name):
-    """Returns filepath if name matches expected pattern, else None."""
-    if not REC_NAME_RE.match(raw_name or ""):
+    """Returns filepath if name matches an expected recording/snapshot pattern, else None."""
+    if rec_file_type(raw_name) is None:
         return None
     return os.path.join(REC_DIR, raw_name)
 
@@ -120,9 +132,9 @@ color_mode = config["color_mode"] if config["color_mode"] in COLORMAPS else "gra
 current_proc = None
 restart_count = 0
 first_start = True
-camera_enabled = True
+# Camera starts OFF by default; nothing spins up ffmpeg until /camera/on is called.
+camera_enabled = False
 camera_event = threading.Event()
-camera_event.set()
 
 
 def set_camera_state(enabled: bool):
@@ -261,7 +273,7 @@ MIN_KEEP_RECORDINGS = int(os.environ.get("THERMAL_MIN_KEEP_RECORDINGS", "3"))
 
 
 def cleanup_old_recordings():
-    """Auto-deletes oldest .avi recordings if disk usage exceeds configured threshold."""
+    """Auto-deletes oldest recordings/snapshots if disk usage exceeds configured threshold."""
     with config_lock:
         try:
             threshold = float(config.get("auto_cleanup_disk_pct", 85.0))
@@ -276,7 +288,7 @@ def cleanup_old_recordings():
         active_path = record_state["path"] if record_state["active"] else None
     files = []
     for f in os.listdir(REC_DIR):
-        if f.endswith(".avi"):
+        if rec_file_type(f) is not None:
             p = os.path.join(REC_DIR, f)
             if os.path.abspath(p) == os.path.abspath(active_path or ""):
                 continue
@@ -289,7 +301,7 @@ def cleanup_old_recordings():
     for filepath, _ in deletable:
         try:
             os.remove(filepath)
-            print(f"[AutoCleanup] Deleted old recording: {filepath}")
+            print(f"[AutoCleanup] Deleted old file: {filepath}")
         except OSError:
             pass
         usage = get_disk_usage(REC_DIR)
@@ -348,7 +360,7 @@ PAGE = """<!doctype html>
   .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
   .card-header h3{margin:0}
 
-  img#stream{width:100%;max-width:800px;height:auto;display:block;margin:0 auto;image-rendering:pixelated;border-radius:6px;transition:opacity .3s}
+  img#stream{width:100%;max-width:800px;height:auto;display:block;margin:0 auto;image-rendering:pixelated;border-radius:6px;transition:opacity .3s;background:#000;min-height:200px}
   .bar{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:10px}
   button,.btn{padding:8px 16px;font-size:13px;font-weight:500;cursor:pointer;border-radius:6px;border:1px solid #333;background:#222;color:#ccc;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
   button:hover,.btn:hover{background:#2a2a2a;border-color:#444}
@@ -404,7 +416,7 @@ PAGE = """<!doctype html>
 <body>
   <div class="grid">
 
-    <!-- Стовпчик 1: Stream + Галерея + Status + Калібрування -->
+    <!-- Стовпчик 1: Stream + Галерея + Налаштування -->
     <div class="col">
       <div class="card">
         <h3>Thermal Stream</h3>
@@ -413,7 +425,7 @@ PAGE = """<!doctype html>
           <button class="btn-sm" onclick="muteAudioAlert()">🔕 Mute</button>
         </div>
         <div class="bar">
-          <button id="camBtn" class="cam-on" onclick="toggleCamera()">⏸ Stop Camera</button>
+          <button id="camBtn" class="cam-off" onclick="toggleCamera()">▶ Start Camera</button>
           <button onclick="snapshot()">📷 Snapshot</button>
           <button onclick="toggleFullscreen()">⛶ Fullscreen</button>
           <button id="recBtn" onclick="toggleRecord()">⏺ Record</button>
@@ -424,7 +436,7 @@ PAGE = """<!doctype html>
           <button data-mode="ironbow" onclick="setMode('ironbow')">Ironbow</button>
           <button data-mode="rainbow" onclick="setMode('rainbow')">Rainbow</button>
         </div>
-        <img id="stream" src="/stream">
+        <img id="stream" style="opacity:0.3">
       </div>
 
       <div class="card">
@@ -451,8 +463,79 @@ PAGE = """<!doctype html>
 
       <div class="card">
         <div class="card-header">
+          <h3>Пороги Тривоги та Погода</h3>
+          <button class="btn-sm" onclick="saveSettings()">💾 Зберегти</button>
+        </div>
+        <form id="settingsForm" onsubmit="event.preventDefault(); saveSettings();">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Alert Max Temp (°C/Y)</label>
+              <input type="number" step="0.5" id="cfg-alert-max" placeholder="70">
+            </div>
+            <div class="form-group">
+              <label>Auto-cleanup Disk %</label>
+              <input type="number" step="1" id="cfg-cleanup-pct" placeholder="85">
+            </div>
+            <div class="form-group">
+              <label>Широта (Lat) для Windy</label>
+              <input type="number" step="0.001" id="cfg-weather-lat" placeholder="51.520">
+            </div>
+            <div class="form-group">
+              <label>Довгота (Lon) для Windy</label>
+              <input type="number" step="0.001" id="cfg-weather-lon" placeholder="30.744">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Стовпчик 2: Host System + Camera Status + Тривога + Погода -->
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <h3>Host System</h3>
+          <span id="sys-uptime-badge" style="font-size:12px;color:#888;font-family:monospace">up: -</span>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span class="stat-label">CPU Temp</span>
+            <span id="sys-cpu-temp" class="stat-val">-</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Load Avg</span>
+            <span id="sys-load" class="stat-val" style="font-size:12px">-</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Time</span>
+            <span id="clock" class="stat-val" style="font-size:12px">-</span>
+          </div>
+          <div class="stat-box" style="grid-column: span 2">
+            <div style="display:flex;justify-content:space-between">
+              <span class="stat-label">RAM</span>
+              <span id="sys-ram-pct" class="stat-sub">-</span>
+            </div>
+            <span id="sys-ram" class="stat-val" style="font-size:13px">-</span>
+            <div class="progress-bar-bg"><div id="sys-ram-bar" class="progress-bar-fill" style="width:0%"></div></div>
+          </div>
+          <div class="stat-box" style="grid-column: span 2">
+            <div style="display:flex;justify-content:space-between">
+              <span class="stat-label">Disk (/)</span>
+              <span id="sys-disk-pct" class="stat-sub">-</span>
+            </div>
+            <span id="sys-disk" class="stat-val" style="font-size:13px">-</span>
+            <div class="progress-bar-bg"><div id="sys-disk-bar" class="progress-bar-fill" style="width:0%"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap">
+          <button class="btn-sm" onclick="sysReboot()">🔄 Перезавантажити</button>
+          <button class="btn-sm btn-danger" onclick="sysShutdown()">⚡ Вимкнути Pi</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
           <h3>Camera Status</h3>
-          <div id="status-badge" class="status-badge ok">● live</div>
+          <div id="status-badge" class="status-badge warn">⏸ PAUSED</div>
         </div>
 
         <div class="temp-range">
@@ -483,79 +566,8 @@ PAGE = """<!doctype html>
             <span class="stat-label">Frames</span>
             <span id="cam-frames" class="stat-val">-</span>
           </div>
-          <div class="stat-box">
-            <span class="stat-label">Time</span>
-            <span id="clock" class="stat-val" style="font-size:12px">-</span>
-          </div>
         </div>
         <div id="cam-extra" style="margin-top:10px;font-size:12px;color:#aaa;display:flex;gap:12px"></div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <h3>Калібрування та Пороги Тривоги</h3>
-          <button class="btn-sm" onclick="saveSettings()">💾 Зберегти</button>
-        </div>
-        <form id="settingsForm" onsubmit="event.preventDefault(); saveSettings();">
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Scale (Множник)</label>
-              <input type="text" id="cfg-scale" placeholder="напр. 0.25">
-            </div>
-            <div class="form-group">
-              <label>Offset (Зсув °C)</label>
-              <input type="number" step="0.1" id="cfg-offset" placeholder="0">
-            </div>
-            <div class="form-group">
-              <label>Alert Max Temp (°C/Y)</label>
-              <input type="number" step="0.5" id="cfg-alert-max" placeholder="70">
-            </div>
-            <div class="form-group">
-              <label>Auto-cleanup Disk %</label>
-              <input type="number" step="1" id="cfg-cleanup-pct" placeholder="85">
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Стовпчик 2: Host System + Тривога + Погода -->
-    <div class="col">
-      <div class="card">
-        <div class="card-header">
-          <h3>Host System</h3>
-          <span id="sys-uptime-badge" style="font-size:12px;color:#888;font-family:monospace">up: -</span>
-        </div>
-        <div class="stats-grid">
-          <div class="stat-box">
-            <span class="stat-label">CPU Temp</span>
-            <span id="sys-cpu-temp" class="stat-val">-</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-label">Load Avg</span>
-            <span id="sys-load" class="stat-val" style="font-size:12px">-</span>
-          </div>
-          <div class="stat-box" style="grid-column: span 2">
-            <div style="display:flex;justify-content:space-between">
-              <span class="stat-label">RAM</span>
-              <span id="sys-ram-pct" class="stat-sub">-</span>
-            </div>
-            <span id="sys-ram" class="stat-val" style="font-size:13px">-</span>
-            <div class="progress-bar-bg"><div id="sys-ram-bar" class="progress-bar-fill" style="width:0%"></div></div>
-          </div>
-          <div class="stat-box" style="grid-column: span 2">
-            <div style="display:flex;justify-content:space-between">
-              <span class="stat-label">Disk (/)</span>
-              <span id="sys-disk-pct" class="stat-sub">-</span>
-            </div>
-            <span id="sys-disk" class="stat-val" style="font-size:13px">-</span>
-            <div class="progress-bar-bg"><div id="sys-disk-bar" class="progress-bar-fill" style="width:0%"></div></div>
-          </div>
-        </div>
-        <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap">
-          <button class="btn-sm" onclick="sysReboot()">🔄 Перезавантажити</button>
-          <button class="btn-sm btn-danger" onclick="sysShutdown()">⚡ Вимкнути Pi</button>
-        </div>
       </div>
 
       <div class="card" id="alerts-wrap">
@@ -566,10 +578,9 @@ PAGE = """<!doctype html>
       </div>
 
       <div class="card">
-        <h3>Авіапогода — Windy (Славутич)</h3>
+        <h3>Авіапогода — Windy</h3>
         <div id="weather-wrap">
-          <iframe src="https://embed.windy.com/embed2.html?lat=51.520&lon=30.744&detailLat=51.520&detailLon=30.744&width=800&height=500&zoom=8&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&calendar=now&pressure=true&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default&radarRange=-1"
-                  loading="lazy" title="Авіапогода Windy"></iframe>
+          <iframe id="windyFrame" loading="lazy" title="Авіапогода Windy"></iframe>
         </div>
       </div>
     </div>
@@ -577,7 +588,8 @@ PAGE = """<!doctype html>
   </div>
 <script>
 let recording = false;
-let cameraEnabled = true;
+let cameraEnabled = false;
+let streamActive = false;
 let audioMuted = false;
 let audioCtx = null;
 let healthRequestInFlight = false;
@@ -600,6 +612,22 @@ function playAlertSound(){
 }
 function muteAudioAlert(){ audioMuted = true; }
 
+function syncStreamImg(){
+  const img = document.getElementById('stream');
+  if(!img) return;
+  if(cameraEnabled){
+    if(!streamActive){
+      img.src = '/stream?_=' + Date.now();
+      streamActive = true;
+    }
+    img.style.opacity = '1';
+  }else{
+    img.style.opacity = '0.3';
+    streamActive = false;
+    img.removeAttribute('src');
+  }
+}
+
 async function toggleCamera(){
   const endpoint = cameraEnabled ? '/camera/off' : '/camera/on';
   try{
@@ -607,13 +635,7 @@ async function toggleCamera(){
     const j = await r.json();
     cameraEnabled = j.camera_enabled;
     updateCamBtn();
-    const img = document.getElementById('stream');
-    if(cameraEnabled){
-      img.src = '/stream?_=' + Date.now();
-      img.style.opacity = '1';
-    }else{
-      img.style.opacity = '0.3';
-    }
+    syncStreamImg();
   }catch(e){}
 }
 function updateCamBtn(){
@@ -628,11 +650,19 @@ function updateCamBtn(){
   }
 }
 
-function snapshot(){
-  const a=document.createElement('a');
-  a.href='/snapshot?_=' + Date.now();
-  a.download='thermal_' + Date.now() + '.jpg';
-  document.body.appendChild(a); a.click(); a.remove();
+async function snapshot(){
+  try{
+    const r = await fetch('/snapshot?_=' + Date.now());
+    if(!r.ok) return;
+    const blob = await r.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'thermal_' + Date.now() + '.jpg';
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+    loadRecordings();
+  }catch(e){}
 }
 function toggleFullscreen(){
   const el=document.getElementById('stream');
@@ -649,8 +679,10 @@ async function setMode(mode){
     const r = await fetch('/mode?name=' + mode);
     const j = await r.json();
     markActive(j.mode);
-    const img = document.getElementById('stream');
-    img.src = '/stream?_=' + Date.now();
+    if(cameraEnabled){
+      streamActive = false;
+      syncStreamImg();
+    }
   }catch(e){}
 }
 async function toggleRecord(){
@@ -672,31 +704,44 @@ function pad(n){return n.toString().padStart(2,'0');}
 function tickClock(){
   const d = new Date();
   const s = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
-  document.getElementById('clock').textContent = s;
+  const el = document.getElementById('clock');
+  if(el) el.textContent = s;
 }
 setInterval(tickClock, 1000);
 tickClock();
+
+function windyUrl(lat, lon){
+  return `https://embed.windy.com/embed2.html?lat=${lat}&lon=${lon}&detailLat=${lat}&detailLon=${lon}&width=800&height=500&zoom=8&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&calendar=now&pressure=true&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default&radarRange=-1`;
+}
+function updateWeatherFrame(lat, lon){
+  const el = document.getElementById('windyFrame');
+  if(el) el.src = windyUrl(lat, lon);
+}
 
 async function loadSettings(){
   try{
     const r = await fetch('/settings');
     const c = await r.json();
-    document.getElementById('cfg-scale').value = c.temp_scale || '';
-    document.getElementById('cfg-offset').value = c.temp_offset ?? 0;
     document.getElementById('cfg-alert-max').value = c.alert_max_temp ?? 70;
     document.getElementById('cfg-cleanup-pct').value = c.auto_cleanup_disk_pct ?? 85;
+    document.getElementById('cfg-weather-lat').value = c.weather_lat ?? 51.520;
+    document.getElementById('cfg-weather-lon').value = c.weather_lon ?? 30.744;
+    updateWeatherFrame(c.weather_lat ?? 51.520, c.weather_lon ?? 30.744);
   }catch(e){}
 }
 async function saveSettings(){
-  const scale = document.getElementById('cfg-scale').value;
-  const offset = document.getElementById('cfg-offset').value;
   const alertMax = document.getElementById('cfg-alert-max').value;
   const cleanupPct = document.getElementById('cfg-cleanup-pct').value;
+  const weatherLat = document.getElementById('cfg-weather-lat').value;
+  const weatherLon = document.getElementById('cfg-weather-lon').value;
   try{
-    const url = `/settings/update?scale=${encodeURIComponent(scale)}&offset=${encodeURIComponent(offset)}&alert_max=${encodeURIComponent(alertMax)}&cleanup_pct=${encodeURIComponent(cleanupPct)}`;
+    const url = `/settings/update?alert_max=${encodeURIComponent(alertMax)}&cleanup_pct=${encodeURIComponent(cleanupPct)}&weather_lat=${encodeURIComponent(weatherLat)}&weather_lon=${encodeURIComponent(weatherLon)}`;
     const r = await fetch(url);
     const j = await r.json();
-    if(j.ok) alert('Налаштування збережено!');
+    if(j.ok){
+      alert('Налаштування збережено!');
+      updateWeatherFrame(j.config.weather_lat, j.config.weather_lon);
+    }
   }catch(e){ alert('Помилка збереження'); }
 }
 
@@ -711,7 +756,7 @@ async function loadRecordings(){
     }
     tbody.innerHTML = list.map(item => `
       <tr>
-        <td style="font-family:monospace">${item.name}</td>
+        <td style="font-family:monospace">${item.type === 'photo' ? '📷' : '🎬'} ${item.name}</td>
         <td>${item.size_mb} MB</td>
         <td style="color:#aaa">${item.mtime}</td>
         <td>
@@ -755,9 +800,10 @@ async function pollHealth(){
     if(h.mode) markActive(h.mode);
     recording = h.recording ? h.recording.active : false;
     updateRecBtn();
-    if(h.camera_enabled !== undefined){
+    if(h.camera_enabled !== undefined && h.camera_enabled !== cameraEnabled){
       cameraEnabled = h.camera_enabled;
       updateCamBtn();
+      syncStreamImg();
     }
     const badge = document.getElementById('status-badge');
     if(badge){
@@ -1218,6 +1264,20 @@ class Handler(BaseHTTPRequestHandler):
                             config["auto_cleanup_disk_pct"] = min(100.0, max(0.0, value))
                     except ValueError:
                         pass
+                if "weather_lat" in qs:
+                    try:
+                        value = float(qs["weather_lat"][0])
+                        if math.isfinite(value) and -90.0 <= value <= 90.0:
+                            config["weather_lat"] = value
+                    except ValueError:
+                        pass
+                if "weather_lon" in qs:
+                    try:
+                        value = float(qs["weather_lon"][0])
+                        if math.isfinite(value) and -180.0 <= value <= 180.0:
+                            config["weather_lon"] = value
+                    except ValueError:
+                        pass
                 settings = config.copy()
             # Important: save_config snapshots under its own lock; never call it while held.
             saved = save_config()
@@ -1228,17 +1288,20 @@ class Handler(BaseHTTPRequestHandler):
             items = []
             if os.path.exists(REC_DIR):
                 for f in sorted(os.listdir(REC_DIR), reverse=True):
-                    if f.endswith(".avi"):
-                        p = os.path.join(REC_DIR, f)
-                        try:
-                            st = os.stat(p)
-                            items.append({
-                                "name": f,
-                                "size_mb": round(st.st_size / (1024 * 1024), 2),
-                                "mtime": datetime.fromtimestamp(st.st_mtime).strftime("%Y-%m-%d %H:%M:%S")
-                            })
-                        except OSError:
-                            pass
+                    ftype = rec_file_type(f)
+                    if ftype is None:
+                        continue
+                    p = os.path.join(REC_DIR, f)
+                    try:
+                        st = os.stat(p)
+                        items.append({
+                            "name": f,
+                            "type": ftype,
+                            "size_mb": round(st.st_size / (1024 * 1024), 2),
+                            "mtime": datetime.fromtimestamp(st.st_mtime).strftime("%Y-%m-%d %H:%M:%S")
+                        })
+                    except OSError:
+                        pass
             self._json(items)
             return
 
@@ -1248,10 +1311,11 @@ class Handler(BaseHTTPRequestHandler):
             if not filepath or not os.path.exists(filepath):
                 self._json({"error": "file not found"}, 404)
                 return
+            content_type = "image/jpeg" if name.endswith(".jpg") else "video/x-msvideo"
             try:
                 size = os.path.getsize(filepath)
                 self.send_response(200)
-                self.send_header("Content-Type", "video/x-msvideo")
+                self.send_header("Content-Type", content_type)
                 self.send_header("Content-Disposition", f'attachment; filename="{name}"')
                 self.send_header("Content-Length", str(size))
                 self.end_headers()
@@ -1360,6 +1424,14 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_response(503)
                 self.end_headers()
                 return
+            # Persist a copy into the recordings gallery.
+            try:
+                os.makedirs(REC_DIR, exist_ok=True)
+                fname = datetime.now().strftime("thermal_snap_%Y%m%d_%H%M%S.jpg")
+                with open(os.path.join(REC_DIR, fname), "wb") as f:
+                    f.write(jpg)
+            except OSError as e:
+                print(f"[Snapshot] Failed to save: {e}")
             self.send_response(200)
             self.send_header("Content-Type", "image/jpeg")
             self.send_header("Content-Length", str(len(jpg)))
