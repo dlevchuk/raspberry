@@ -1,8 +1,244 @@
 {
   "user_id": "76529348",
-  "scraped_at": "2026-09-06 06:51:35 UTC",
-  "total_books": 996,
+  "scraped_at": "2026-09-20 07:27:29 UTC",
+  "total_books": 1001,
   "books": [
+    {
+      "id": "51893",
+      "title": "Thus Spoke Zarathustra",
+      "url": "https://www.goodreads.com/book/show/51893.Thus_Spoke_Zarathustra",
+      "author": "Friedrich Nietzsche",
+      "isbn": "",
+      "rating": 4,
+      "shelves": [
+        "philosophy",
+        "read"
+      ],
+      "date_read": "Sep 16, 2026",
+      "date_added": "Sep 16, 2026",
+      "avg_rating": "4.10",
+      "pages": "327\n        pp",
+      "review": ""
+    },
+    {
+      "id": "11289919",
+      "title": "The Death of the Author",
+      "url": "https://www.goodreads.com/book/show/11289919-the-death-of-the-author",
+      "author": "Roland Barthes",
+      "isbn": "",
+      "rating": 5,
+      "shelves": [
+        "philosophy",
+        "read"
+      ],
+      "date_read": "Sep 21, 2024",
+      "date_added": "Sep 11, 2026",
+      "avg_rating": "3.93",
+      "pages": "7\n        pp",
+      "review": ""
+    },
+    {
+      "id": "49552",
+      "title": "The Stranger",
+      "url": "https://www.goodreads.com/book/show/49552.The_Stranger",
+      "author": "Albert Camus",
+      "isbn": "",
+      "rating": 4,
+      "shelves": [
+        "philosophy",
+        "read"
+      ],
+      "date_read": "not set",
+      "date_added": "Sep 11, 2026",
+      "avg_rating": "4.04",
+      "pages": "123\n        pp",
+      "review": ""
+    },
+    {
+      "id": "11989",
+      "title": "The Plague",
+      "url": "https://www.goodreads.com/book/show/11989.The_Plague",
+      "author": "Albert Camus",
+      "isbn": "",
+      "rating": 5,
+      "shelves": [
+        "philosophy",
+        "read"
+      ],
+      "date_read": "not set",
+      "date_added": "Sep 11, 2026",
+      "avg_rating": "4.05",
+      "pages": "308\n        pp",
+      "review": ""
+    },
+    {
+      "id": "61535",
+      "title": "The Selfish Gene",
+      "url": "https://www.goodreads.com/book/show/61535.The_Selfish_Gene",
+      "author": "Richard Dawkins",
+      "isbn": "0199291152",
+      "rating": 5,
+      "shelves": [
+        "selfimprove",
+        "read"
+      ],
+      "date_read": "Jul 29, 2026",
+      "date_added": "Sep 11, 2026",
+      "avg_rating": "4.15",
+      "pages": "360\n        pp",
+      "review": ""
+    },
+    {
+      "id": "7624",
+      "title": "Lord of the Flies",
+      "url": "https://www.goodreads.com/book/show/7624.Lord_of_the_Flies",
+      "author": "William Golding",
+      "isbn": "0140283331",
+      "rating": 5,
+      "shelves": [
+        "read"
+      ],
+      "date_read": "not set",
+      "date_added": "Sep 11, 2026",
+      "avg_rating": "3.71",
+      "pages": "182\n        pp",
+      "review": ""
+    },
+    {
+      "id": "31296835",
+      "title": "Sapiens: Краткая история человечества",
+      "url": "https://www.goodreads.com/book/show/31296835-sapiens",
+      "author": "Yuval Noah Harari",
+      "isbn": "5905891648",
+      "rating": 4,
+      "shelves": [
+        "selfimprove",
+        "read"
+      ],
+      "date_read": "Sep 30, 2024",
+      "date_added": "Sep 11, 2026",
+      "avg_rating": "4.40",
+      "pages": "520\n        pp",
+      "review": ""
+    },
+    {
+      "id": "55812925",
+      "title": "Бот. Ґуаякільський парадокс",
+      "url": "https://www.goodreads.com/book/show/55812925",
+      "author": "Max Kidruk",
+      "isbn": "6171282030",
+      "rating": 4,
+      "shelves": [
+        "ua",
+        "read"
+      ],
+      "date_read": "not set",
+      "date_added": "Sep 11, 2026",
+      "avg_rating": "4.33",
+      "pages": "512\n        pp",
+      "review": ""
+    },
+    {
+      "id": "74064",
+      "title": "Тошнота",
+      "url": "https://www.goodreads.com/book/show/74064._",
+      "author": "Jean-Paul Sartre",
+      "isbn": "5352003787",
+      "rating": 4,
+      "shelves": [
+        "philosophy",
+        "read"
+      ],
+      "date_read": "Aug 20, 2022",
+      "date_added": "Sep 11, 2026",
+      "avg_rating": "3.82",
+      "pages": "256\n        pp",
+      "review": "Reading this book is as difficult as leading existence."
+    },
+    {
+      "id": "37278588",
+      "title": "Гарри Поттер и Методы рационального мышления",
+      "url": "https://www.goodreads.com/book/show/37278588",
+      "author": "Eliezer Yudkowsky",
+      "isbn": "",
+      "rating": 5,
+      "shelves": [
+        "selfimprove",
+        "read"
+      ],
+      "date_read": "Jun 16, 2021",
+      "date_added": "Sep 11, 2026",
+      "avg_rating": "4.33",
+      "pages": "1909\n        pp",
+      "review": ""
+    },
+    {
+      "id": "123933",
+      "title": "No Exit",
+      "url": "https://www.goodreads.com/book/show/123933.No_Exit",
+      "author": "Jean-Paul Sartre",
+      "isbn": "0573613052",
+      "rating": 5,
+      "shelves": [
+        "philosophy",
+        "read"
+      ],
+      "date_read": "May 23, 2025",
+      "date_added": "Sep 10, 2026",
+      "avg_rating": "4.12",
+      "pages": "60\n        pp",
+      "review": ""
+    },
+    {
+      "id": "1062375",
+      "title": "99 francs",
+      "url": "https://www.goodreads.com/book/show/1062375.99_francs",
+      "author": "Frédéric Beigbeder",
+      "isbn": "2070315738",
+      "rating": 3,
+      "shelves": [
+        "read"
+      ],
+      "date_read": "Jan 25, 2026",
+      "date_added": "Sep 10, 2026",
+      "avg_rating": "3.59",
+      "pages": "304\n        pp",
+      "review": ""
+    },
+    {
+      "id": "20257294",
+      "title": "The Fable of the Dragon-Tyrant",
+      "url": "https://www.goodreads.com/book/show/20257294-the-fable-of-the-dragon-tyrant",
+      "author": "Nick Bostrom",
+      "isbn": "",
+      "rating": 4,
+      "shelves": [
+        "philosophy",
+        "read"
+      ],
+      "date_read": "Jul 31, 2026",
+      "date_added": "Sep 10, 2026",
+      "avg_rating": "4.24",
+      "pages": "18\n        pp",
+      "review": ""
+    },
+    {
+      "id": "46674",
+      "title": "Feeling Good: The New Mood Therapy",
+      "url": "https://www.goodreads.com/book/show/46674.Feeling_Good",
+      "author": "David D. Burns",
+      "isbn": "0380810336",
+      "rating": 5,
+      "shelves": [
+        "selfimprove",
+        "read"
+      ],
+      "date_read": "Sep 06, 2026",
+      "date_added": "Sep 06, 2026",
+      "avg_rating": "4.04",
+      "pages": "736\n        pp",
+      "review": ""
+    },
     {
       "id": "220817728",
       "title": "Atmosphere",
@@ -47,7 +283,7 @@
       ],
       "date_read": "Aug 16, 2026",
       "date_added": "Aug 16, 2026",
-      "avg_rating": "3.75",
+      "avg_rating": "3.72",
       "pages": "54\n        pp",
       "review": ""
     },
@@ -111,7 +347,7 @@
       ],
       "date_read": "Aug 15, 2026",
       "date_added": "Aug 15, 2026",
-      "avg_rating": "3.76",
+      "avg_rating": "3.75",
       "pages": "34\n        pp",
       "review": ""
     },
@@ -143,7 +379,7 @@
       ],
       "date_read": "Aug 14, 2026",
       "date_added": "Aug 14, 2026",
-      "avg_rating": "3.82",
+      "avg_rating": "3.81",
       "pages": "126\n        pp",
       "review": ""
     },
@@ -191,7 +427,7 @@
       ],
       "date_read": "Aug 10, 2026",
       "date_added": "Aug 10, 2026",
-      "avg_rating": "3.78",
+      "avg_rating": "3.77",
       "pages": "541\n        pp",
       "review": ""
     },
@@ -229,22 +465,6 @@
       "review": ""
     },
     {
-      "id": "20257294",
-      "title": "The Fable of the Dragon-Tyrant",
-      "url": "https://www.goodreads.com/book/show/20257294-the-fable-of-the-dragon-tyrant",
-      "author": "Nick Bostrom",
-      "isbn": "",
-      "rating": 4,
-      "shelves": [
-        "read"
-      ],
-      "date_read": "Jul 31, 2026",
-      "date_added": "Jul 31, 2026",
-      "avg_rating": "4.24",
-      "pages": "18\n        pp",
-      "review": ""
-    },
-    {
       "id": "61389767",
       "title": "ブルーロック-EPISODE 凪- 1 [Blue Lock: Episode Nagi 1]",
       "url": "https://www.goodreads.com/book/show/61389767--episode---1-blue-lock",
@@ -257,7 +477,7 @@
       ],
       "date_read": "Jul 29, 2026",
       "date_added": "Jul 29, 2026",
-      "avg_rating": "4.46",
+      "avg_rating": "4.47",
       "pages": "200\n        pp",
       "review": ""
     },
@@ -276,22 +496,6 @@
       "date_added": "Jul 29, 2026",
       "avg_rating": "4.21",
       "pages": "0\n        pp",
-      "review": ""
-    },
-    {
-      "id": "61535",
-      "title": "The Selfish Gene",
-      "url": "https://www.goodreads.com/book/show/61535.The_Selfish_Gene",
-      "author": "Richard Dawkins",
-      "isbn": "0199291152",
-      "rating": 5,
-      "shelves": [
-        "read"
-      ],
-      "date_read": "Jul 29, 2026",
-      "date_added": "Jul 29, 2026",
-      "avg_rating": "4.15",
-      "pages": "360\n        pp",
       "review": ""
     },
     {
@@ -323,7 +527,7 @@
       "date_read": "Jul 13, 2026",
       "date_added": "Jul 13, 2026",
       "avg_rating": "4.25",
-      "pages": "213\n        pp",
+      "pages": "240\n        pp",
       "review": ""
     },
     {
@@ -402,7 +606,7 @@
       ],
       "date_read": "May 26, 2026",
       "date_added": "May 26, 2026",
-      "avg_rating": "3.59",
+      "avg_rating": "3.58",
       "pages": "349\n        pp",
       "review": ""
     },
@@ -486,7 +690,7 @@
       ],
       "date_read": "May 10, 2026",
       "date_added": "May 10, 2026",
-      "avg_rating": "4.37",
+      "avg_rating": "4.38",
       "pages": "272\n        pp",
       "review": ""
     },
@@ -653,7 +857,7 @@
       ],
       "date_read": "Apr 05, 2026",
       "date_added": "Apr 05, 2026",
-      "avg_rating": "4.20",
+      "avg_rating": "4.21",
       "pages": "304\n        pp",
       "review": ""
     },
@@ -687,7 +891,7 @@
       ],
       "date_read": "Apr 03, 2026",
       "date_added": "Apr 03, 2026",
-      "avg_rating": "3.90",
+      "avg_rating": "3.91",
       "pages": "192\n        pp",
       "review": ""
     },
@@ -755,22 +959,6 @@
       "date_added": "Jan 26, 2026",
       "avg_rating": "4.06",
       "pages": "368\n        pp",
-      "review": ""
-    },
-    {
-      "id": "1062375",
-      "title": "99 francs",
-      "url": "https://www.goodreads.com/book/show/1062375.99_francs",
-      "author": "Frédéric Beigbeder",
-      "isbn": "2070315738",
-      "rating": 4,
-      "shelves": [
-        "read"
-      ],
-      "date_read": "Jan 25, 2026",
-      "date_added": "Jan 25, 2026",
-      "avg_rating": "3.59",
-      "pages": "304\n        pp",
       "review": ""
     },
     {
@@ -868,7 +1056,7 @@
       ],
       "date_read": "Dec 30, 2025",
       "date_added": "Dec 30, 2025",
-      "avg_rating": "3.59",
+      "avg_rating": "3.58",
       "pages": "192\n        pp",
       "review": ""
     },
@@ -1064,7 +1252,7 @@
       ],
       "date_read": "Oct 30, 2025",
       "date_added": "Oct 30, 2025",
-      "avg_rating": "3.70",
+      "avg_rating": "3.69",
       "pages": "127\n        pp",
       "review": ""
     },
@@ -1146,7 +1334,7 @@
       ],
       "date_read": "Oct 18, 2025",
       "date_added": "Oct 18, 2025",
-      "avg_rating": "3.98",
+      "avg_rating": "3.97",
       "pages": "248\n        pp",
       "review": ""
     },
@@ -1163,7 +1351,7 @@
       ],
       "date_read": "Oct 15, 2025",
       "date_added": "Oct 15, 2025",
-      "avg_rating": "4.16",
+      "avg_rating": "4.17",
       "pages": "127\n        pp",
       "review": ""
     },
@@ -1391,7 +1579,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 18, 2025",
-      "avg_rating": "4.46",
+      "avg_rating": "4.47",
       "pages": "196\n        pp",
       "review": ""
     },
@@ -1493,7 +1681,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 18, 2025",
-      "avg_rating": "4.39",
+      "avg_rating": "4.40",
       "pages": "196\n        pp",
       "review": ""
     },
@@ -1711,22 +1899,6 @@
       "review": ""
     },
     {
-      "id": "123933",
-      "title": "No Exit",
-      "url": "https://www.goodreads.com/book/show/123933.No_Exit",
-      "author": "Jean-Paul Sartre",
-      "isbn": "0573613052",
-      "rating": 5,
-      "shelves": [
-        "read"
-      ],
-      "date_read": "May 23, 2025",
-      "date_added": "May 23, 2025",
-      "avg_rating": "4.12",
-      "pages": "60\n        pp",
-      "review": ""
-    },
-    {
       "id": "57623348",
       "title": "Home: Habitat, Range, Niche, Territory (The Murderbot Diaries, #4.5)",
       "url": "https://www.goodreads.com/book/show/57623348-home",
@@ -1771,7 +1943,7 @@
       "date_read": "May 05, 2025",
       "date_added": "May 05, 2025",
       "avg_rating": "4.19",
-      "pages": "159\n        pp",
+      "pages": "158\n        pp",
       "review": ""
     },
     {
@@ -2071,7 +2243,7 @@
     },
     {
       "id": "35031085",
-      "title": "Frankenstein: The 1818 Text",
+      "title": "Frankenstein",
       "url": "https://www.goodreads.com/book/show/35031085-frankenstein",
       "author": "Mary Wollstonecraft Shelley",
       "isbn": "0143131842",
@@ -2147,22 +2319,6 @@
       "date_added": "Jan 22, 2025",
       "avg_rating": "3.87",
       "pages": "480\n        pp",
-      "review": ""
-    },
-    {
-      "id": "55812925",
-      "title": "Бот. Ґуаякільський парадокс",
-      "url": "https://www.goodreads.com/book/show/55812925",
-      "author": "Max Kidruk",
-      "isbn": "6171282030",
-      "rating": 4,
-      "shelves": [
-        "read"
-      ],
-      "date_read": "not set",
-      "date_added": "Jan 22, 2025",
-      "avg_rating": "4.33",
-      "pages": "512\n        pp",
       "review": ""
     },
     {
@@ -2506,7 +2662,7 @@
       "title": "Harry Potter and the Order of the Phoenix (Harry Potter, #5)",
       "url": "https://www.goodreads.com/book/show/2.Harry_Potter_and_the_Order_of_the_Phoenix",
       "author": "J.K. Rowling",
-      "isbn": "0439686520",
+      "isbn": "",
       "rating": 5,
       "shelves": [
         "read"
@@ -2932,7 +3088,7 @@
       ],
       "date_read": "Jan 08, 2025",
       "date_added": "Jan 08, 2025",
-      "avg_rating": "4.27",
+      "avg_rating": "4.26",
       "pages": "200\n        pp",
       "review": ""
     },
@@ -2996,7 +3152,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 05, 2025",
-      "avg_rating": "3.79",
+      "avg_rating": "3.80",
       "pages": "416\n        pp",
       "review": ""
     },
@@ -3092,7 +3248,7 @@
       ],
       "date_read": "Jan 03, 2025",
       "date_added": "Jan 03, 2025",
-      "avg_rating": "4.28",
+      "avg_rating": "4.27",
       "pages": "281\n        pp",
       "review": ""
     },
@@ -3108,7 +3264,7 @@
       ],
       "date_read": "Jan 03, 2025",
       "date_added": "Jan 03, 2025",
-      "avg_rating": "4.04",
+      "avg_rating": "4.03",
       "pages": "30\n        pp",
       "review": ""
     },
@@ -3156,7 +3312,7 @@
       ],
       "date_read": "Jan 03, 2025",
       "date_added": "Jan 03, 2025",
-      "avg_rating": "4.43",
+      "avg_rating": "4.42",
       "pages": "55\n        pp",
       "review": ""
     },
@@ -3406,7 +3562,7 @@
       ],
       "date_read": "Dec 26, 2024",
       "date_added": "Dec 26, 2024",
-      "avg_rating": "3.85",
+      "avg_rating": "3.86",
       "pages": "256\n        pp",
       "review": ""
     },
@@ -3423,7 +3579,7 @@
       ],
       "date_read": "Dec 23, 2024",
       "date_added": "Dec 23, 2024",
-      "avg_rating": "4.13",
+      "avg_rating": "4.12",
       "pages": "175\n        pp",
       "review": ""
     },
@@ -3472,7 +3628,7 @@
       ],
       "date_read": "Nov 29, 2024",
       "date_added": "Nov 29, 2024",
-      "avg_rating": "4.48",
+      "avg_rating": "4.49",
       "pages": "408\n        pp",
       "review": ""
     },
@@ -4028,22 +4184,6 @@
       "review": ""
     },
     {
-      "id": "31296835",
-      "title": "Sapiens: Краткая история человечества",
-      "url": "https://www.goodreads.com/book/show/31296835-sapiens",
-      "author": "Yuval Noah Harari",
-      "isbn": "5905891648",
-      "rating": 4,
-      "shelves": [
-        "read"
-      ],
-      "date_read": "Sep 30, 2024",
-      "date_added": "Sep 30, 2024",
-      "avg_rating": "4.40",
-      "pages": "520\n        pp",
-      "review": ""
-    },
-    {
       "id": "54736539",
       "title": "Hinterlands",
       "url": "https://www.goodreads.com/book/show/54736539-hinterlands",
@@ -4122,22 +4262,6 @@
       "date_added": "Sep 21, 2024",
       "avg_rating": "4.69",
       "pages": "904\n        pp",
-      "review": ""
-    },
-    {
-      "id": "11289919",
-      "title": "The Death of the Author",
-      "url": "https://www.goodreads.com/book/show/11289919-the-death-of-the-author",
-      "author": "Roland Barthes",
-      "isbn": "",
-      "rating": 5,
-      "shelves": [
-        "read"
-      ],
-      "date_read": "Sep 21, 2024",
-      "date_added": "Sep 21, 2024",
-      "avg_rating": "3.93",
-      "pages": "7\n        pp",
       "review": ""
     },
     {
@@ -4282,7 +4406,7 @@
       ],
       "date_read": "Mar 09, 2024",
       "date_added": "Aug 04, 2024",
-      "avg_rating": "4.21",
+      "avg_rating": "4.20",
       "pages": "352\n        pp",
       "review": ""
     },
@@ -4317,7 +4441,7 @@
       ],
       "date_read": "Aug 03, 2024",
       "date_added": "Aug 04, 2024",
-      "avg_rating": "4.38",
+      "avg_rating": "4.35",
       "pages": "568\n        pp",
       "review": ""
     },
@@ -4484,7 +4608,7 @@
       ],
       "date_read": "Jan 27, 2024",
       "date_added": "Jan 27, 2024",
-      "avg_rating": "4.56",
+      "avg_rating": "4.57",
       "pages": "not set",
       "review": ""
     },
@@ -4613,7 +4737,7 @@
       ],
       "date_read": "Jan 13, 2024",
       "date_added": "Jan 13, 2024",
-      "avg_rating": "3.42",
+      "avg_rating": "3.43",
       "pages": "19\n        pp",
       "review": ""
     },
@@ -4757,7 +4881,7 @@
       ],
       "date_read": "Dec 25, 2023",
       "date_added": "Dec 25, 2023",
-      "avg_rating": "3.75",
+      "avg_rating": "3.76",
       "pages": "46\n        pp",
       "review": ""
     },
@@ -4805,7 +4929,7 @@
       ],
       "date_read": "Dec 25, 2023",
       "date_added": "Dec 25, 2023",
-      "avg_rating": "2.72",
+      "avg_rating": "2.71",
       "pages": "24\n        pp",
       "review": ""
     },
@@ -4997,7 +5121,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "3.18",
+      "avg_rating": "3.19",
       "pages": "4\n        pp",
       "review": ""
     },
@@ -5029,7 +5153,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "3.67",
+      "avg_rating": "3.68",
       "pages": "30\n        pp",
       "review": ""
     },
@@ -5061,7 +5185,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "2.86",
+      "avg_rating": "2.87",
       "pages": "6\n        pp",
       "review": ""
     },
@@ -5077,7 +5201,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "2.88",
+      "avg_rating": "2.89",
       "pages": "not set",
       "review": ""
     },
@@ -5093,7 +5217,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "3.96",
+      "avg_rating": "3.95",
       "pages": "66\n        pp",
       "review": ""
     },
@@ -5285,7 +5409,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "3.61",
+      "avg_rating": "3.62",
       "pages": "12\n        pp",
       "review": ""
     },
@@ -5349,7 +5473,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "3.14",
+      "avg_rating": "3.13",
       "pages": "2\n        pp",
       "review": ""
     },
@@ -5687,7 +5811,7 @@
       ],
       "date_read": "Jun 12, 2023",
       "date_added": "Jun 12, 2023",
-      "avg_rating": "3.73",
+      "avg_rating": "3.72",
       "pages": "118\n        pp",
       "review": ""
     },
@@ -5736,7 +5860,7 @@
       ],
       "date_read": "May 13, 2023",
       "date_added": "May 13, 2023",
-      "avg_rating": "3.83",
+      "avg_rating": "3.82",
       "pages": "320\n        pp",
       "review": ""
     },
@@ -5769,7 +5893,7 @@
       ],
       "date_read": "Apr 17, 2023",
       "date_added": "Apr 17, 2023",
-      "avg_rating": "4.24",
+      "avg_rating": "4.23",
       "pages": "not set",
       "review": "- прям добре в бік екзистенціалізму<br />- все ще рефлексую над рецензією<br />- але Домонтович доволі непоганий у жанрі<br />- така собі \"Нудота\" Сартра з нарисом епохи 30х років 20c Києва, з яскравими акцентами в сюжеті завдяки мініессе, які вкраплюються в основну історію"
     },
@@ -5899,7 +6023,7 @@
       ],
       "date_read": "Dec 08, 2022",
       "date_added": "Feb 26, 2023",
-      "avg_rating": "4.20",
+      "avg_rating": "4.18",
       "pages": "not set",
       "review": ""
     },
@@ -5980,7 +6104,7 @@
       ],
       "date_read": "Jan 29, 2018",
       "date_added": "Feb 26, 2023",
-      "avg_rating": "4.22",
+      "avg_rating": "4.21",
       "pages": "320\n        pp",
       "review": ""
     },
@@ -6133,7 +6257,7 @@
       ],
       "date_read": "Aug 31, 2022",
       "date_added": "Feb 26, 2023",
-      "avg_rating": "4.43",
+      "avg_rating": "4.44",
       "pages": "not set",
       "review": "An excellent low-context book that explains high-context interaction."
     },
@@ -6400,7 +6524,7 @@
       ],
       "date_read": "Jan 24, 2023",
       "date_added": "Jan 24, 2023",
-      "avg_rating": "3.85",
+      "avg_rating": "3.84",
       "pages": "160\n        pp",
       "review": ""
     },
@@ -6464,7 +6588,7 @@
       ],
       "date_read": "Sep 24, 2020",
       "date_added": "Dec 29, 2022",
-      "avg_rating": "4.32",
+      "avg_rating": "4.33",
       "pages": "416\n        pp",
       "review": ""
     },
@@ -6678,22 +6802,6 @@
       "review": ""
     },
     {
-      "id": "37278588",
-      "title": "Гарри Поттер и Методы рационального мышления",
-      "url": "https://www.goodreads.com/book/show/37278588",
-      "author": "Eliezer Yudkowsky",
-      "isbn": "",
-      "rating": 5,
-      "shelves": [
-        "read"
-      ],
-      "date_read": "Jun 16, 2021",
-      "date_added": "Dec 08, 2022",
-      "avg_rating": "4.33",
-      "pages": "1909\n        pp",
-      "review": ""
-    },
-    {
       "id": "21517681",
       "title": "Основание",
       "url": "https://www.goodreads.com/book/show/21517681",
@@ -6786,7 +6894,7 @@
       ],
       "date_read": "Feb 15, 2022",
       "date_added": "Dec 08, 2022",
-      "avg_rating": "4.02",
+      "avg_rating": "4.03",
       "pages": "225\n        pp",
       "review": ""
     },
@@ -6803,7 +6911,7 @@
       ],
       "date_read": "Jul 19, 2022",
       "date_added": "Dec 08, 2022",
-      "avg_rating": "3.54",
+      "avg_rating": "3.53",
       "pages": "336\n        pp",
       "review": ""
     },
@@ -6999,22 +7107,6 @@
       "avg_rating": "4.54",
       "pages": "336\n        pp",
       "review": ""
-    },
-    {
-      "id": "74064",
-      "title": "Тошнота",
-      "url": "https://www.goodreads.com/book/show/74064._",
-      "author": "Jean-Paul Sartre",
-      "isbn": "5352003787",
-      "rating": 4,
-      "shelves": [
-        "read"
-      ],
-      "date_read": "Aug 20, 2022",
-      "date_added": "Dec 08, 2022",
-      "avg_rating": "3.83",
-      "pages": "256\n        pp",
-      "review": "Reading this book is as difficult as leading existence."
     },
     {
       "id": "55859475",
@@ -7461,7 +7553,7 @@
       ],
       "date_read": "Jun 26, 2021",
       "date_added": "Jun 26, 2021",
-      "avg_rating": "4.44",
+      "avg_rating": "4.43",
       "pages": "256\n        pp",
       "review": ""
     },
@@ -7557,7 +7649,7 @@
       ],
       "date_read": "Mar 10, 2021",
       "date_added": "Mar 10, 2021",
-      "avg_rating": "4.11",
+      "avg_rating": "4.08",
       "pages": "576\n        pp",
       "review": ""
     },
@@ -7671,22 +7763,6 @@
       "date_added": "Mar 09, 2021",
       "avg_rating": "4.49",
       "pages": "496\n        pp",
-      "review": ""
-    },
-    {
-      "id": "11989",
-      "title": "The Plague",
-      "url": "https://www.goodreads.com/book/show/11989.The_Plague",
-      "author": "Albert Camus",
-      "isbn": "",
-      "rating": 5,
-      "shelves": [
-        "read"
-      ],
-      "date_read": "not set",
-      "date_added": "Mar 09, 2021",
-      "avg_rating": "4.05",
-      "pages": "308\n        pp",
       "review": ""
     },
     {
@@ -8277,7 +8353,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 09, 2021",
-      "avg_rating": "4.55",
+      "avg_rating": "4.54",
       "pages": "149\n        pp",
       "review": ""
     },
@@ -8650,22 +8726,6 @@
       "review": ""
     },
     {
-      "id": "49552",
-      "title": "The Stranger",
-      "url": "https://www.goodreads.com/book/show/49552.The_Stranger",
-      "author": "Albert Camus",
-      "isbn": "",
-      "rating": 4,
-      "shelves": [
-        "read"
-      ],
-      "date_read": "not set",
-      "date_added": "Mar 09, 2021",
-      "avg_rating": "4.04",
-      "pages": "123\n        pp",
-      "review": ""
-    },
-    {
       "id": "656",
       "title": "War and Peace",
       "url": "https://www.goodreads.com/book/show/656.War_and_Peace",
@@ -8901,7 +8961,7 @@
       ],
       "date_read": "Jan 17, 2021",
       "date_added": "Jan 17, 2021",
-      "avg_rating": "4.04",
+      "avg_rating": "4.03",
       "pages": "45\n        pp",
       "review": ""
     },
@@ -9157,7 +9217,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 15, 2018",
-      "avg_rating": "3.88",
+      "avg_rating": "3.89",
       "pages": "461\n        pp",
       "review": ""
     },
@@ -9322,22 +9382,6 @@
       "review": ""
     },
     {
-      "id": "7624",
-      "title": "Lord of the Flies",
-      "url": "https://www.goodreads.com/book/show/7624.Lord_of_the_Flies",
-      "author": "William Golding",
-      "isbn": "0140283331",
-      "rating": 0,
-      "shelves": [
-        "read"
-      ],
-      "date_read": "not set",
-      "date_added": "Jan 15, 2018",
-      "avg_rating": "3.70",
-      "pages": "182\n        pp",
-      "review": ""
-    },
-    {
       "id": "7613",
       "title": "Animal Farm",
       "url": "https://www.goodreads.com/book/show/7613.Animal_Farm",
@@ -9402,38 +9446,6 @@
       "review": ""
     },
     {
-      "id": "5470",
-      "title": "1984",
-      "url": "https://www.goodreads.com/book/show/5470.1984",
-      "author": "George Orwell",
-      "isbn": "",
-      "rating": 0,
-      "shelves": [
-        "read"
-      ],
-      "date_read": "not set",
-      "date_added": "Jan 15, 2018",
-      "avg_rating": "4.15",
-      "pages": "328\n        pp",
-      "review": ""
-    },
-    {
-      "id": "2657",
-      "title": "To Kill a Mockingbird",
-      "url": "https://www.goodreads.com/book/show/2657.To_Kill_a_Mockingbird",
-      "author": "Harper Lee",
-      "isbn": "0060935464",
-      "rating": 0,
-      "shelves": [
-        "read"
-      ],
-      "date_read": "not set",
-      "date_added": "Jan 15, 2018",
-      "avg_rating": "4.26",
-      "pages": "323\n        pp",
-      "review": ""
-    },
-    {
       "id": "5107",
       "title": "The Catcher in the Rye",
       "url": "https://www.goodreads.com/book/show/5107.The_Catcher_in_the_Rye",
@@ -9466,20 +9478,19 @@
       "review": ""
     },
     {
-      "id": "46674",
-      "title": "Feeling Good: The New Mood Therapy",
-      "url": "https://www.goodreads.com/book/show/46674.Feeling_Good",
-      "author": "David D. Burns",
-      "isbn": "0380810336",
+      "id": "10974",
+      "title": "As I Lay Dying",
+      "url": "https://www.goodreads.com/book/show/10974.As_I_Lay_Dying",
+      "author": "William Faulkner",
+      "isbn": "0375504524",
       "rating": 0,
       "shelves": [
-        "currently-reading",
-        "selfimprove"
+        "currently-reading"
       ],
       "date_read": "not set",
-      "date_added": "Aug 23, 2026",
-      "avg_rating": "4.04",
-      "pages": "736\n        pp",
+      "date_added": "Sep 16, 2026",
+      "avg_rating": "3.72",
+      "pages": "231\n        pp",
       "review": ""
     },
     {
@@ -9500,6 +9511,135 @@
       "review": ""
     },
     {
+      "id": "432990",
+      "title": "The Reconstruction of Nations: Poland, Ukraine, Lithuania, Belarus, 1569 - 1999",
+      "url": "https://www.goodreads.com/book/show/432990.The_Reconstruction_of_Nations",
+      "author": "Timothy Snyder",
+      "isbn": "030010586X",
+      "rating": 0,
+      "shelves": [
+        "to-read",
+        "history"
+      ],
+      "date_read": "not set",
+      "date_added": "Sep 11, 2026",
+      "avg_rating": "4.28",
+      "pages": "367\n        pp",
+      "review": ""
+    },
+    {
+      "id": "35510008",
+      "title": "This is Going to Hurt: Secret Diaries of a Junior Doctor",
+      "url": "https://www.goodreads.com/book/show/35510008-this-is-going-to-hurt",
+      "author": "Adam Kay",
+      "isbn": "",
+      "rating": 0,
+      "shelves": [
+        "to-read"
+      ],
+      "date_read": "not set",
+      "date_added": "Sep 11, 2026",
+      "avg_rating": "4.40",
+      "pages": "285\n        pp",
+      "review": ""
+    },
+    {
+      "id": "54120408",
+      "title": "Klara and the Sun",
+      "url": "https://www.goodreads.com/book/show/54120408-klara-and-the-sun",
+      "author": "Kazuo Ishiguro",
+      "isbn": "059331817X",
+      "rating": 0,
+      "shelves": [
+        "to-read"
+      ],
+      "date_read": "not set",
+      "date_added": "Sep 11, 2026",
+      "avg_rating": "3.70",
+      "pages": "303\n        pp",
+      "review": ""
+    },
+    {
+      "id": "42046112",
+      "title": "Recursion",
+      "url": "https://www.goodreads.com/book/show/42046112-recursion",
+      "author": "Blake Crouch",
+      "isbn": "1524759783",
+      "rating": 0,
+      "shelves": [
+        "to-read"
+      ],
+      "date_read": "not set",
+      "date_added": "Sep 11, 2026",
+      "avg_rating": "4.14",
+      "pages": "329\n        pp",
+      "review": ""
+    },
+    {
+      "id": "9265453",
+      "title": "Embassytown",
+      "url": "https://www.goodreads.com/book/show/9265453-embassytown",
+      "author": "China Miéville",
+      "isbn": "0345524497",
+      "rating": 0,
+      "shelves": [
+        "to-read"
+      ],
+      "date_read": "not set",
+      "date_added": "Sep 08, 2026",
+      "avg_rating": "3.89",
+      "pages": "345\n        pp",
+      "review": ""
+    },
+    {
+      "id": "28763",
+      "title": "His Master's Voice",
+      "url": "https://www.goodreads.com/book/show/28763.His_Master_s_Voice",
+      "author": "Stanisław Lem",
+      "isbn": "0810117312",
+      "rating": 0,
+      "shelves": [
+        "to-read"
+      ],
+      "date_read": "not set",
+      "date_added": "Sep 08, 2026",
+      "avg_rating": "4.10",
+      "pages": "199\n        pp",
+      "review": ""
+    },
+    {
+      "id": "2845024",
+      "title": "Anathem",
+      "url": "https://www.goodreads.com/book/show/2845024-anathem",
+      "author": "Neal Stephenson",
+      "isbn": "0061474096",
+      "rating": 0,
+      "shelves": [
+        "to-read"
+      ],
+      "date_read": "not set",
+      "date_added": "Sep 08, 2026",
+      "avg_rating": "4.16",
+      "pages": "937\n        pp",
+      "review": ""
+    },
+    {
+      "id": "52357",
+      "title": "Beowulf",
+      "url": "https://www.goodreads.com/book/show/52357.Beowulf",
+      "author": "Seamus Heaney",
+      "isbn": "0393320979",
+      "rating": 0,
+      "shelves": [
+        "to-read"
+      ],
+      "date_read": "not set",
+      "date_added": "Sep 06, 2026",
+      "avg_rating": "3.47",
+      "pages": "259\n        pp",
+      "review": ""
+    },
+    {
       "id": "214974857",
       "title": "Старість аксолотля",
       "url": "https://www.goodreads.com/book/show/214974857",
@@ -9511,7 +9651,7 @@
       ],
       "date_read": "not set",
       "date_added": "Aug 22, 2026",
-      "avg_rating": "3.69",
+      "avg_rating": "3.67",
       "pages": "208\n        pp",
       "review": ""
     },
@@ -9528,7 +9668,7 @@
       ],
       "date_read": "not set",
       "date_added": "Aug 12, 2026",
-      "avg_rating": "4.48",
+      "avg_rating": "4.49",
       "pages": "304\n        pp",
       "review": ""
     },
@@ -9544,7 +9684,7 @@
       ],
       "date_read": "not set",
       "date_added": "Aug 01, 2026",
-      "avg_rating": "4.37",
+      "avg_rating": "4.36",
       "pages": "790\n        pp",
       "review": ""
     },
@@ -9690,7 +9830,7 @@
       ],
       "date_read": "not set",
       "date_added": "May 19, 2026",
-      "avg_rating": "4.04",
+      "avg_rating": "4.03",
       "pages": "160\n        pp",
       "review": ""
     },
@@ -9706,7 +9846,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 21, 2026",
-      "avg_rating": "4.06",
+      "avg_rating": "4.07",
       "pages": "835\n        pp",
       "review": ""
     },
@@ -9738,7 +9878,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 21, 2026",
-      "avg_rating": "4.01",
+      "avg_rating": "4.04",
       "pages": "1104\n        pp",
       "review": ""
     },
@@ -9802,7 +9942,7 @@
       ],
       "date_read": "not set",
       "date_added": "Feb 05, 2026",
-      "avg_rating": "3.61",
+      "avg_rating": "3.60",
       "pages": "268\n        pp",
       "review": ""
     },
@@ -9916,13 +10056,13 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 18, 2025",
-      "avg_rating": "4.05",
+      "avg_rating": "4.04",
       "pages": "413\n        pp",
       "review": ""
     },
     {
       "id": "44492286",
-      "title": "Children of Dune (Dune #3)",
+      "title": "Children of Dune (Dune, #3)",
       "url": "https://www.goodreads.com/book/show/44492286-children-of-dune",
       "author": "Frank Herbert",
       "isbn": "0593098242",
@@ -9948,7 +10088,7 @@
       ],
       "date_read": "not set",
       "date_added": "Nov 20, 2025",
-      "avg_rating": "3.97",
+      "avg_rating": "3.96",
       "pages": "222\n        pp",
       "review": ""
     },
@@ -9980,7 +10120,7 @@
       ],
       "date_read": "not set",
       "date_added": "Nov 20, 2025",
-      "avg_rating": "4.26",
+      "avg_rating": "4.24",
       "pages": "783\n        pp",
       "review": ""
     },
@@ -10028,7 +10168,7 @@
       ],
       "date_read": "not set",
       "date_added": "Oct 31, 2025",
-      "avg_rating": "3.71",
+      "avg_rating": "3.72",
       "pages": "160\n        pp",
       "review": ""
     },
@@ -10044,7 +10184,7 @@
       ],
       "date_read": "not set",
       "date_added": "Oct 30, 2025",
-      "avg_rating": "4.25",
+      "avg_rating": "4.24",
       "pages": "340\n        pp",
       "review": ""
     },
@@ -10205,7 +10345,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.05",
+      "avg_rating": "4.03",
       "pages": "152\n        pp",
       "review": ""
     },
@@ -10333,7 +10473,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.81",
+      "avg_rating": "3.82",
       "pages": "336\n        pp",
       "review": ""
     },
@@ -10413,7 +10553,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.72",
+      "avg_rating": "3.71",
       "pages": "1182\n        pp",
       "review": ""
     },
@@ -10749,7 +10889,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.27",
+      "avg_rating": "4.26",
       "pages": "249\n        pp",
       "review": ""
     },
@@ -10989,7 +11129,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.06",
+      "avg_rating": "4.05",
       "pages": "335\n        pp",
       "review": ""
     },
@@ -11069,7 +11209,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.30",
+      "avg_rating": "4.29",
       "pages": "295\n        pp",
       "review": ""
     },
@@ -11265,7 +11405,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.56",
+      "avg_rating": "4.57",
       "pages": "190\n        pp",
       "review": ""
     },
@@ -11367,7 +11507,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.00",
+      "avg_rating": "4.04",
       "pages": "240\n        pp",
       "review": ""
     },
@@ -11503,7 +11643,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.06",
+      "avg_rating": "4.04",
       "pages": "326\n        pp",
       "review": ""
     },
@@ -11622,7 +11762,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.37",
+      "avg_rating": "4.35",
       "pages": "1264\n        pp",
       "review": ""
     },
@@ -11877,7 +12017,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.38",
+      "avg_rating": "4.37",
       "pages": "75\n        pp",
       "review": ""
     },
@@ -12013,7 +12153,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.79",
+      "avg_rating": "3.78",
       "pages": "140\n        pp",
       "review": ""
     },
@@ -12030,7 +12170,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.50",
+      "avg_rating": "4.49",
       "pages": "188\n        pp",
       "review": ""
     },
@@ -12081,7 +12221,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.12",
+      "avg_rating": "4.11",
       "pages": "288\n        pp",
       "review": ""
     },
@@ -12165,7 +12305,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.56",
+      "avg_rating": "4.55",
       "pages": "544\n        pp",
       "review": ""
     },
@@ -12314,22 +12454,6 @@
       "review": ""
     },
     {
-      "id": "10974",
-      "title": "As I Lay Dying",
-      "url": "https://www.goodreads.com/book/show/10974.As_I_Lay_Dying",
-      "author": "William Faulkner",
-      "isbn": "0375504524",
-      "rating": 0,
-      "shelves": [
-        "to-read"
-      ],
-      "date_read": "not set",
-      "date_added": "Apr 19, 2025",
-      "avg_rating": "3.72",
-      "pages": "231\n        pp",
-      "review": ""
-    },
-    {
       "id": "6251566",
       "title": "The Murder of Roger Ackroyd (Hercule Poirot, #4)",
       "url": "https://www.goodreads.com/book/show/6251566-the-murder-of-roger-ackroyd",
@@ -12423,7 +12547,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 20, 2025",
-      "avg_rating": "4.26",
+      "avg_rating": "4.25",
       "pages": "304\n        pp",
       "review": ""
     },
@@ -12636,7 +12760,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 31, 2024",
-      "avg_rating": "4.24",
+      "avg_rating": "4.23",
       "pages": "208\n        pp",
       "review": ""
     },
@@ -12862,7 +12986,7 @@
       ],
       "date_read": "not set",
       "date_added": "Oct 01, 2024",
-      "avg_rating": "4.40",
+      "avg_rating": "4.41",
       "pages": "384\n        pp",
       "review": ""
     },
@@ -13040,7 +13164,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 28, 2024",
-      "avg_rating": "4.15",
+      "avg_rating": "4.14",
       "pages": "223\n        pp",
       "review": ""
     },
@@ -13233,7 +13357,7 @@
       ],
       "date_read": "not set",
       "date_added": "May 05, 2023",
-      "avg_rating": "4.36",
+      "avg_rating": "4.37",
       "pages": "328\n        pp",
       "review": ""
     },
@@ -13585,7 +13709,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 17, 2023",
-      "avg_rating": "4.21",
+      "avg_rating": "4.18",
       "pages": "464\n        pp",
       "review": ""
     },
@@ -13601,7 +13725,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 17, 2023",
-      "avg_rating": "4.26",
+      "avg_rating": "4.25",
       "pages": "322\n        pp",
       "review": ""
     },
@@ -13637,23 +13761,6 @@
       "date_added": "Feb 25, 2023",
       "avg_rating": "4.20",
       "pages": "463\n        pp",
-      "review": ""
-    },
-    {
-      "id": "432990",
-      "title": "The Reconstruction of Nations: Poland, Ukraine, Lithuania, Belarus, 1569 - 1999",
-      "url": "https://www.goodreads.com/book/show/432990.The_Reconstruction_of_Nations",
-      "author": "Timothy Snyder",
-      "isbn": "030010586X",
-      "rating": 0,
-      "shelves": [
-        "to-read",
-        "history"
-      ],
-      "date_read": "not set",
-      "date_added": "Feb 20, 2023",
-      "avg_rating": "4.28",
-      "pages": "367\n        pp",
       "review": ""
     },
     {
@@ -13785,7 +13892,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 29, 2023",
-      "avg_rating": "2.80",
+      "avg_rating": "2.79",
       "pages": "328\n        pp",
       "review": ""
     },
@@ -14269,7 +14376,7 @@
       ],
       "date_read": "not set",
       "date_added": "Nov 11, 2022",
-      "avg_rating": "3.75",
+      "avg_rating": "3.76",
       "pages": "224\n        pp",
       "review": ""
     },
@@ -14349,7 +14456,7 @@
       ],
       "date_read": "not set",
       "date_added": "Oct 09, 2022",
-      "avg_rating": "3.73",
+      "avg_rating": "3.72",
       "pages": "350\n        pp",
       "review": ""
     },
@@ -14365,7 +14472,7 @@
       ],
       "date_read": "not set",
       "date_added": "Sep 28, 2022",
-      "avg_rating": "4.28",
+      "avg_rating": "4.29",
       "pages": "544\n        pp",
       "review": ""
     },
@@ -14429,7 +14536,7 @@
       ],
       "date_read": "not set",
       "date_added": "Sep 11, 2022",
-      "avg_rating": "4.16",
+      "avg_rating": "4.15",
       "pages": "245\n        pp",
       "review": ""
     },
@@ -14557,7 +14664,7 @@
       ],
       "date_read": "not set",
       "date_added": "Aug 08, 2022",
-      "avg_rating": "4.66",
+      "avg_rating": "4.65",
       "pages": "560\n        pp",
       "review": ""
     },
@@ -14909,7 +15016,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 05, 2022",
-      "avg_rating": "4.11",
+      "avg_rating": "4.12",
       "pages": "704\n        pp",
       "review": ""
     },
@@ -15069,7 +15176,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jun 19, 2022",
-      "avg_rating": "3.88",
+      "avg_rating": "3.87",
       "pages": "256\n        pp",
       "review": ""
     },
@@ -15133,7 +15240,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jun 17, 2022",
-      "avg_rating": "3.69",
+      "avg_rating": "3.70",
       "pages": "288\n        pp",
       "review": ""
     },
@@ -15170,22 +15277,6 @@
       "review": ""
     },
     {
-      "id": "51893",
-      "title": "Thus Spoke Zarathustra",
-      "url": "https://www.goodreads.com/book/show/51893.Thus_Spoke_Zarathustra",
-      "author": "Friedrich Nietzsche",
-      "isbn": "",
-      "rating": 0,
-      "shelves": [
-        "to-read"
-      ],
-      "date_read": "not set",
-      "date_added": "Jun 16, 2022",
-      "avg_rating": "4.10",
-      "pages": "327\n        pp",
-      "review": ""
-    },
-    {
       "id": "18288",
       "title": "Critique of Pure Reason",
       "url": "https://www.goodreads.com/book/show/18288.Critique_of_Pure_Reason",
@@ -15213,7 +15304,7 @@
       ],
       "date_read": "not set",
       "date_added": "May 22, 2022",
-      "avg_rating": "4.03",
+      "avg_rating": "4.04",
       "pages": "589\n        pp",
       "review": ""
     },
@@ -15229,7 +15320,7 @@
       ],
       "date_read": "not set",
       "date_added": "May 21, 2022",
-      "avg_rating": "4.37",
+      "avg_rating": "4.30",
       "pages": "not set",
       "review": ""
     },
@@ -15469,7 +15560,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 29, 2022",
-      "avg_rating": "3.79",
+      "avg_rating": "3.76",
       "pages": "161\n        pp",
       "review": ""
     },
@@ -15917,7 +16008,7 @@
       ],
       "date_read": "not set",
       "date_added": "Feb 25, 2021",
-      "avg_rating": "4.56",
+      "avg_rating": "4.55",
       "pages": "960\n        pp",
       "review": ""
     },
