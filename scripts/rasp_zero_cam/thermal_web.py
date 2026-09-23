@@ -419,7 +419,10 @@ PAGE = """<!doctype html>
     <!-- Стовпчик 1: Stream + Camera Status + Галерея + Налаштування -->
     <div class="col">
       <div class="card">
-        <h3>Thermal Stream</h3>
+        <div class="card-header">
+          <h3>Thermal Stream & Camera Status</h3>
+          <div id="status-badge" class="status-badge warn">⏸ PAUSED</div>
+        </div>
         <div id="alertBanner" class="alert-banner">
           <span>⚠️ ПОПЕРЕДЖЕННЯ: Перевищено поріг температури!</span>
           <button class="btn-sm" onclick="muteAudioAlert()">🔕 Mute</button>
@@ -438,15 +441,8 @@ PAGE = """<!doctype html>
           <button data-mode="rainbow" onclick="setMode('rainbow')">Rainbow</button>
         </div>
         <img id="stream" style="opacity:0.3">
-      </div>
 
-      <div class="card">
-        <div class="card-header">
-          <h3>Camera Status</h3>
-          <div id="status-badge" class="status-badge warn">⏸ PAUSED</div>
-        </div>
-
-        <div class="temp-range">
+        <div class="temp-range" style="margin-top:14px">
           <div class="temp-chip">
             <span class="stat-label">Min Temp</span>
             <span id="temp-min" class="stat-val temp-min">-</span>
