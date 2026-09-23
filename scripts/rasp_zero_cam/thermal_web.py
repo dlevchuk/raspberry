@@ -269,6 +269,36 @@ def get_load_avg():
         return None
 
 
+def get_gpio_status():
+    """Reads hardware GPIO states using pinctrl or raspi-gpio."""
+    pins = {}
+    raw_lines = []
+    try:
+        out = subprocess.check_output(["pinctrl", "get"], text=True, timeout=1, stderr=subprocess.DEVNULL)
+        raw_lines = out.strip().splitlines()
+    except Exception:
+        try:
+            out = subprocess.check_output(["raspi-gpio", "get"], text=True, timeout=1, stderr=subprocess.DEVNULL)
+            raw_lines = out.strip().splitlines()
+        except Exception:
+            pass
+
+    for line in raw_lines:
+        line = line.strip()
+        m = re.match(r"^(\d+):\s*([a-zA-Z0-9_-]+)\s+.*\|\s*([a-zA-Z0-9]+)", line)
+        if m:
+            gpio_num = int(m.group(1))
+            mode_code = m.group(2).lower()
+            lvl_code = m.group(3).lower()
+            pins[gpio_num] = {
+                "mode": mode_code,
+                "level": 1 if "hi" in lvl_code or "1" in lvl_code else 0,
+                "raw": line
+            }
+    return pins
+
+
+
 MIN_KEEP_RECORDINGS = int(os.environ.get("THERMAL_MIN_KEEP_RECORDINGS", "3"))
 
 
@@ -412,6 +442,37 @@ PAGE = """<!doctype html>
   table.rec-table{width:100%;border-collapse:collapse;font-size:12px;text-align:left}
   table.rec-table th, table.rec-table td{padding:8px;border-bottom:1px solid #2a2a2a}
   table.rec-table th{color:#888;font-weight:600;text-transform:uppercase;font-size:10px;position:sticky;top:0;background:#1a1a1a}
+  /* Pinout Widget Styles */
+  .pinout-container{background:#4d6a45;border-radius:8px;padding:12px;margin-top:14px;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;box-shadow:inset 0 0 10px rgba(0,0,0,0.5)}
+  .pinout-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.2)}
+  .pinout-logo{display:grid;grid-template-columns:repeat(3, 7px);gap:2px}
+  .pinout-logo span{width:7px;height:7px;border-radius:1px}
+  .pinout-title{font-size:15px;font-weight:700;line-height:1.2;color:#fff}
+  .pinout-subtitle{font-size:10px;color:rgba(255,255,255,0.7);font-weight:400}
+  .pinout-board{display:flex;flex-direction:column;gap:3px}
+  .pin-row{display:grid;grid-template-columns:1fr 24px 24px 1fr;gap:4px;align-items:center}
+  .pin-label{font-size:11px;font-weight:500;padding:2px 6px;border-radius:4px;display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:background .2s}
+  .pin-label.left{justify-content:flex-end;text-align:right}
+  .pin-label.right{justify-content:flex-start;text-align:left}
+  .pin-sub{font-size:9.5px;opacity:0.8;font-weight:normal}
+  .pin-circle{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:bold;color:#fff;cursor:pointer;position:relative;border:1.5px solid rgba(0,0,0,0.4);transition:transform 0.15s, box-shadow 0.15s}
+  .pin-circle:hover{transform:scale(1.3);z-index:10;box-shadow:0 0 8px #fff}
+  .pin-circle .pin-dot{width:6px;height:6px;border-radius:50%;background:#fff}
+  .pin-circle.rect{border-radius:3px}
+  /* Pin Color Categories */
+  .p-pwr5{background:#e53935}
+  .p-pwr3{background:#fb8c00}
+  .p-gnd{background:#212121;border-color:#111}
+  .p-gpio{background:#7cb342}
+  .p-i2c{background:#039be5}
+  .p-uart{background:#5e35b1}
+  .p-spi{background:#d81b60}
+  .p-pcm{background:#00897b}
+  .pin-tag{font-size:8px;padding:1px 4px;border-radius:3px;background:rgba(0,0,0,0.4);margin-left:4px;font-weight:600;letter-spacing:0.02em}
+  .pin-tag.hi{background:#4caf50;color:#fff}
+  .pin-tag.lo{background:#37474f;color:#b0bec5}
+  .pin-tag.active-dev{background:#ffeb3b;color:#000;font-weight:bold;box-shadow:0 0 6px #ffeb3b}
+  #pin-info-bar{margin-top:10px;background:rgba(0,0,0,0.4);border-radius:6px;padding:8px 10px;font-size:11.5px;min-height:22px;display:flex;align-items:center;justify-content:space-between;color:#e0e0e0}
 </style></head>
 <body>
   <div class="grid">
@@ -524,7 +585,7 @@ PAGE = """<!doctype html>
       </div>
     </div>
 
-    <!-- Стовпчик 2: Host System + Тривога + Погода -->
+    <!-- Стовпчик 2: Host System + Interactive Pinout + Тривога + Погода -->
     <div class="col">
       <div class="card">
         <div class="card-header">
@@ -561,6 +622,36 @@ PAGE = """<!doctype html>
             <div class="progress-bar-bg"><div id="sys-disk-bar" class="progress-bar-fill" style="width:0%"></div></div>
           </div>
         </div>
+
+        <!-- 40-pin Interactive Pinout -->
+        <div class="pinout-container">
+          <div class="pinout-header">
+            <div class="pinout-logo">
+              <span style="background:#00e676"></span><span style="background:#00e676"></span><span style="background:#00e676"></span>
+              <span style="background:#d50000"></span><span style="background:#d50000"></span><span style="background:#d50000"></span>
+              <span style="background:#d50000"></span><span style="background:#d50000"></span><span style="background:#d50000"></span>
+            </div>
+            <div>
+              <div class="pinout-title">Raspberry Pi Pinout</div>
+              <div class="pinout-subtitle">40-Pin GPIO Real-Time Status & Devices</div>
+            </div>
+          </div>
+
+          <div class="pinout-board" id="pinout-board">
+            <!-- Rendered by JavaScript -->
+          </div>
+
+          <div id="pin-info-bar">
+            <span id="pin-info-text">💡 Наведіть курсор на пін для перегляду деталей</span>
+            <span id="pin-legend" style="font-size:10px;opacity:0.8;display:flex;gap:6px">
+              <span style="color:#ff8a80">● 5V</span>
+              <span style="color:#ffb74d">● 3.3V</span>
+              <span style="color:#81c784">● GPIO</span>
+              <span style="color:#90caf9">● I2C/UART/PCM</span>
+            </span>
+          </div>
+        </div>
+
         <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap">
           <button class="btn-sm" onclick="sysReboot()">🔄 Перезавантажити</button>
           <button class="btn-sm btn-danger" onclick="sysShutdown()">⚡ Вимкнути Pi</button>
@@ -883,6 +974,10 @@ async function pollHealth(){
       }
 
       if(document.getElementById('sys-uptime-badge')) document.getElementById('sys-uptime-badge').textContent = `up: ${s.uptime || '-'}`;
+
+      if(s.gpio){
+        updatePinoutState(s.gpio);
+      }
     }
   }catch(e){
     const badge = document.getElementById('status-badge');
@@ -894,6 +989,143 @@ async function pollHealth(){
     healthRequestInFlight = false;
   }
 }
+
+/* 40-Pin Interactive Raspberry Pi Pinout Definition */
+const PINOUT_DEFS = [
+  // Pair 1: Pin 1 & Pin 2
+  { pin: 1, name: "3v3 Power", sub: "3.3V DC", type: "pwr3", isPwr: true },
+  { pin: 2, name: "5v Power", sub: "5V DC", type: "pwr5", isPwr: true },
+  // Pair 2: Pin 3 & Pin 4
+  { pin: 3, name: "GPIO 2", sub: "SDA / I2C1", type: "i2c", gpio: 2 },
+  { pin: 4, name: "5v Power", sub: "5V DC", type: "pwr5", isPwr: true },
+  // Pair 3: Pin 5 & Pin 6
+  { pin: 5, name: "GPIO 3", sub: "SCL / I2C1", type: "i2c", gpio: 3 },
+  { pin: 6, name: "Ground", sub: "0V GND", type: "gnd", isGnd: true },
+  // Pair 4: Pin 7 & Pin 8
+  { pin: 7, name: "GPIO 4", sub: "GPCLK0", type: "gpio", gpio: 4 },
+  { pin: 8, name: "GPIO 14", sub: "TXD / UART", type: "uart", gpio: 14 },
+  // Pair 5: Pin 9 & Pin 10
+  { pin: 9, name: "Ground", sub: "0V GND", type: "gnd", isGnd: true },
+  { pin: 10, name: "GPIO 15", sub: "RXD / UART", type: "uart", gpio: 15 },
+  // Pair 6: Pin 11 & Pin 12
+  { pin: 11, name: "GPIO 17", sub: "General IO", type: "gpio", gpio: 17 },
+  { pin: 12, name: "GPIO 18", sub: "Buzzer (PWM0)", type: "pcm", gpio: 18, device: "🔔 Buzzer" },
+  // Pair 7: Pin 13 & Pin 14
+  { pin: 13, name: "GPIO 27", sub: "General IO", type: "gpio", gpio: 27 },
+  { pin: 14, name: "Ground", sub: "0V GND", type: "gnd", isGnd: true },
+  // Pair 8: Pin 15 & Pin 16
+  { pin: 15, name: "GPIO 22", sub: "General IO", type: "gpio", gpio: 22 },
+  { pin: 16, name: "GPIO 23", sub: "General IO", type: "gpio", gpio: 23 },
+  // Pair 9: Pin 17 & Pin 18
+  { pin: 17, name: "3v3 Power", sub: "3.3V DC", type: "pwr3", isPwr: true },
+  { pin: 18, name: "GPIO 24", sub: "General IO", type: "gpio", gpio: 24 },
+  // Pair 10: Pin 19 & Pin 20
+  { pin: 19, name: "GPIO 10", sub: "MOSI / SPI0", type: "spi", gpio: 10 },
+  { pin: 20, name: "Ground", sub: "0V GND", type: "gnd", isGnd: true },
+  // Pair 11: Pin 21 & Pin 22
+  { pin: 21, name: "GPIO 9", sub: "MISO / SPI0", type: "spi", gpio: 9 },
+  { pin: 22, name: "GPIO 25", sub: "General IO", type: "gpio", gpio: 25 },
+  // Pair 12: Pin 23 & Pin 24
+  { pin: 23, name: "GPIO 11", sub: "SCLK / SPI0", type: "spi", gpio: 11 },
+  { pin: 24, name: "GPIO 8", sub: "CE0 / SPI0", type: "spi", gpio: 8 },
+  // Pair 13: Pin 25 & Pin 26
+  { pin: 25, name: "Ground", sub: "0V GND", type: "gnd", isGnd: true },
+  { pin: 26, name: "GPIO 7", sub: "CE1 / SPI0", type: "spi", gpio: 7 },
+  // Pair 14: Pin 27 & Pin 28
+  { pin: 27, name: "GPIO 0", sub: "ID_SD (EEPROM)", type: "i2c", gpio: 0 },
+  { pin: 28, name: "GPIO 1", sub: "ID_SC (EEPROM)", type: "i2c", gpio: 1 },
+  // Pair 15: Pin 29 & Pin 30
+  { pin: 29, name: "GPIO 5", sub: "General IO", type: "gpio", gpio: 5 },
+  { pin: 30, name: "Ground", sub: "0V GND", type: "gnd", isGnd: true },
+  // Pair 16: Pin 31 & Pin 32
+  { pin: 31, name: "GPIO 6", sub: "General IO", type: "gpio", gpio: 6 },
+  { pin: 32, name: "GPIO 12", sub: "PWM0", type: "pcm", gpio: 12 },
+  // Pair 17: Pin 33 & Pin 34
+  { pin: 33, name: "GPIO 13", sub: "PWM1", type: "pcm", gpio: 13 },
+  { pin: 34, name: "Ground", sub: "0V GND", type: "gnd", isGnd: true },
+  // Pair 18: Pin 35 & Pin 36
+  { pin: 35, name: "GPIO 19", sub: "PCM FS / MISO", type: "pcm", gpio: 19 },
+  { pin: 36, name: "GPIO 16", sub: "General IO", type: "gpio", gpio: 16 },
+  // Pair 19: Pin 37 & Pin 38
+  { pin: 37, name: "GPIO 26", sub: "General IO", type: "gpio", gpio: 26 },
+  { pin: 38, name: "GPIO 20", sub: "PCM DIN / MOSI", type: "pcm", gpio: 20 },
+  // Pair 20: Pin 39 & Pin 40
+  { pin: 39, name: "Ground", sub: "0V GND", type: "gnd", isGnd: true },
+  { pin: 40, name: "GPIO 21", sub: "PCM DOUT / SCLK", type: "pcm", gpio: 21 }
+];
+
+function renderPinoutUI(){
+  const board = document.getElementById('pinout-board');
+  if(!board) return;
+  let html = '';
+  for(let i = 0; i < PINOUT_DEFS.length; i += 2){
+    const left = PINOUT_DEFS[i];
+    const right = PINOUT_DEFS[i+1];
+    const leftShape = left.pin === 1 ? 'rect' : '';
+
+    html += `
+      <div class="pin-row">
+        <div class="pin-label left" id="pin-label-${left.pin}">
+          <span class="pin-name">${left.name}</span>
+          <span class="pin-sub">(${left.sub})</span>
+          <span id="pin-tag-${left.pin}"></span>
+        </div>
+        <div class="pin-circle p-${left.type} ${leftShape}" id="pin-c-${left.pin}" onmouseover="showPinInfo(${left.pin})" onclick="showPinInfo(${left.pin})">
+          <div class="pin-dot"></div>
+        </div>
+        <div class="pin-circle p-${right.type}" id="pin-c-${right.pin}" onmouseover="showPinInfo(${right.pin})" onclick="showPinInfo(${right.pin})">
+          <div class="pin-dot"></div>
+        </div>
+        <div class="pin-label right" id="pin-label-${right.pin}">
+          <span id="pin-tag-${right.pin}"></span>
+          <span class="pin-name">${right.name}</span>
+          <span class="pin-sub">(${right.sub})</span>
+        </div>
+      </div>
+    `;
+  }
+  board.innerHTML = html;
+}
+
+function showPinInfo(pinNum){
+  const def = PINOUT_DEFS.find(p => p.pin === pinNum);
+  const infoEl = document.getElementById('pin-info-text');
+  if(!def || !infoEl) return;
+  let txt = `<b>Pin ${def.pin}</b>: ${def.name} (${def.sub})`;
+  if(def.device) txt += ` • <span style="color:#ffeb3b">Підключено: ${def.device}</span>`;
+  if(def.gpio !== undefined && window.lastGpioState && window.lastGpioState[def.gpio]){
+    const g = window.lastGpioState[def.gpio];
+    txt += ` • Mode: <b>${g.mode.toUpperCase()}</b> • Level: <b>${g.level === 1 ? 'HIGH (1)' : 'LOW (0)'}</b>`;
+  } else if(def.isPwr) {
+    txt += ` • Живлення`;
+  } else if(def.isGnd) {
+    txt += ` • Заземлення (GND)`;
+  }
+  infoEl.innerHTML = txt;
+}
+
+function updatePinoutState(gpioMap){
+  window.lastGpioState = gpioMap;
+  PINOUT_DEFS.forEach(def => {
+    const tagEl = document.getElementById(`pin-tag-${def.pin}`);
+    if(!tagEl) return;
+
+    if(def.device){
+      tagEl.className = 'pin-tag active-dev';
+      tagEl.textContent = def.device;
+      return;
+    }
+
+    if(def.gpio !== undefined && gpioMap[def.gpio]){
+      const g = gpioMap[def.gpio];
+      const lvl = g.level === 1 ? 'HI' : 'LO';
+      tagEl.className = `pin-tag ${lvl.toLowerCase()}`;
+      tagEl.textContent = `${g.mode.toUpperCase()}:${lvl}`;
+    }
+  });
+}
+
+renderPinoutUI();
 setInterval(pollHealth, 1000);
 pollHealth();
 loadSettings();
@@ -1438,6 +1670,7 @@ class Handler(BaseHTTPRequestHandler):
                 "disk": get_disk_usage("/"),
                 "load": get_load_avg(),
                 "uptime": uptime,
+                "gpio": get_gpio_status(),
             }
             self._json(body)
             return
