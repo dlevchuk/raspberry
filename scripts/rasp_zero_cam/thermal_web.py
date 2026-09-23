@@ -416,7 +416,7 @@ PAGE = """<!doctype html>
 <body>
   <div class="grid">
 
-    <!-- Стовпчик 1: Stream + Галерея + Налаштування -->
+    <!-- Стовпчик 1: Stream + Camera Status + Галерея + Налаштування -->
     <div class="col">
       <div class="card">
         <h3>Thermal Stream</h3>
@@ -429,6 +429,7 @@ PAGE = """<!doctype html>
           <button onclick="snapshot()">📷 Snapshot</button>
           <button onclick="toggleFullscreen()">⛶ Fullscreen</button>
           <button id="recBtn" onclick="toggleRecord()">⏺ Record</button>
+          <button id="buzzerBtn" onclick="triggerBuzzer()">🔔 Сигнал</button>
         </div>
         <div class="bar" id="modes">
           <button data-mode="gray" onclick="setMode('gray')">Gray</button>
@@ -437,6 +438,44 @@ PAGE = """<!doctype html>
           <button data-mode="rainbow" onclick="setMode('rainbow')">Rainbow</button>
         </div>
         <img id="stream" style="opacity:0.3">
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3>Camera Status</h3>
+          <div id="status-badge" class="status-badge warn">⏸ PAUSED</div>
+        </div>
+
+        <div class="temp-range">
+          <div class="temp-chip">
+            <span class="stat-label">Min Temp</span>
+            <span id="temp-min" class="stat-val temp-min">-</span>
+          </div>
+          <div class="temp-chip">
+            <span class="stat-label">Avg Temp</span>
+            <span id="temp-avg" class="stat-val temp-avg">-</span>
+          </div>
+          <div class="temp-chip">
+            <span class="stat-label">Max Temp</span>
+            <span id="temp-max" class="stat-val temp-max">-</span>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span class="stat-label">Capture FPS</span>
+            <span id="cam-fps" class="stat-val">-</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Stream FPS</span>
+            <span id="cam-stream-fps" class="stat-val">-</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Frames</span>
+            <span id="cam-frames" class="stat-val">-</span>
+          </div>
+        </div>
+        <div id="cam-extra" style="margin-top:10px;font-size:12px;color:#aaa;display:flex;gap:12px"></div>
       </div>
 
       <div class="card">
@@ -489,7 +528,7 @@ PAGE = """<!doctype html>
       </div>
     </div>
 
-    <!-- Стовпчик 2: Host System + Camera Status + Тривога + Погода -->
+    <!-- Стовпчик 2: Host System + Тривога + Погода -->
     <div class="col">
       <div class="card">
         <div class="card-header">
@@ -530,44 +569,6 @@ PAGE = """<!doctype html>
           <button class="btn-sm" onclick="sysReboot()">🔄 Перезавантажити</button>
           <button class="btn-sm btn-danger" onclick="sysShutdown()">⚡ Вимкнути Pi</button>
         </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <h3>Camera Status</h3>
-          <div id="status-badge" class="status-badge warn">⏸ PAUSED</div>
-        </div>
-
-        <div class="temp-range">
-          <div class="temp-chip">
-            <span class="stat-label">Min Temp</span>
-            <span id="temp-min" class="stat-val temp-min">-</span>
-          </div>
-          <div class="temp-chip">
-            <span class="stat-label">Avg Temp</span>
-            <span id="temp-avg" class="stat-val temp-avg">-</span>
-          </div>
-          <div class="temp-chip">
-            <span class="stat-label">Max Temp</span>
-            <span id="temp-max" class="stat-val temp-max">-</span>
-          </div>
-        </div>
-
-        <div class="stats-grid">
-          <div class="stat-box">
-            <span class="stat-label">Capture FPS</span>
-            <span id="cam-fps" class="stat-val">-</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-label">Stream FPS</span>
-            <span id="cam-stream-fps" class="stat-val">-</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-label">Frames</span>
-            <span id="cam-frames" class="stat-val">-</span>
-          </div>
-        </div>
-        <div id="cam-extra" style="margin-top:10px;font-size:12px;color:#aaa;display:flex;gap:12px"></div>
       </div>
 
       <div class="card" id="alerts-wrap">
@@ -611,6 +612,12 @@ function playAlertSound(){
   }catch(e){}
 }
 function muteAudioAlert(){ audioMuted = true; }
+
+async function triggerBuzzer(){
+  try{
+    await fetch('/buzzer/beep');
+  }catch(e){}
+}
 
 function syncStreamImg(){
   const img = document.getElementById('stream');
@@ -1189,6 +1196,25 @@ def stop_recording():
     return result
 
 
+def trigger_beep():
+    def _beep_worker():
+        try:
+            from gpiozero import PWMOutputDevice
+            buzzer = PWMOutputDevice(18, frequency=2000, initial_value=0)
+            try:
+                for _ in range(1):
+                    buzzer.value = 0.5
+                    time.sleep(0.25)
+                    buzzer.value = 0
+                    time.sleep(0.2)
+            finally:
+                buzzer.close()
+        except Exception as e:
+            print(f"[Buzzer] Error triggering beep: {e}")
+
+    threading.Thread(target=_beep_worker, daemon=True).start()
+
+
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, *a):
         pass
@@ -1207,6 +1233,11 @@ class Handler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         path = parsed.path
         qs = parse_qs(parsed.query)
+
+        if path == "/buzzer/beep":
+            trigger_beep()
+            self._json({"ok": True})
+            return
 
         if path == "/":
             body = PAGE.encode()
