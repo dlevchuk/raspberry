@@ -442,6 +442,16 @@ PAGE = """<!doctype html>
   table.rec-table{width:100%;border-collapse:collapse;font-size:12px;text-align:left}
   table.rec-table th, table.rec-table td{padding:8px;border-bottom:1px solid #2a2a2a}
   table.rec-table th{color:#888;font-weight:600;text-transform:uppercase;font-size:10px;position:sticky;top:0;background:#1a1a1a}
+  /* Tabs navigation */
+  .nav-tabs{display:flex;gap:8px;max-width:1400px;margin:0 auto 16px auto;border-bottom:1px solid #282828;padding-bottom:10px}
+  .nav-tab-btn{padding:10px 18px;font-size:14px;font-weight:600;background:#1a1a1a;border:1px solid #333;color:#aaa;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
+  .nav-tab-btn:hover{background:#262626;color:#fff;border-color:#444}
+  .nav-tab-btn.active{background:#2e7d32;border-color:#4caf50;color:#fff;box-shadow:0 0 12px rgba(76,175,80,0.3)}
+  .tab-page{display:none}
+  .tab-page.active{display:block}
+  .weather-grid{display:grid;grid-template-columns:1fr;gap:16px;max-width:1400px;margin:0 auto}
+  @media(min-width:900px){.weather-grid{grid-template-columns:1fr 1.2fr}}
+
   /* Pinout Widget Styles */
   .pinout-container{background:#4d6a45;border-radius:8px;padding:12px;margin-top:14px;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;box-shadow:inset 0 0 10px rgba(0,0,0,0.5)}
   .pinout-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.2)}
@@ -475,204 +485,229 @@ PAGE = """<!doctype html>
   #pin-info-bar{margin-top:10px;background:rgba(0,0,0,0.4);border-radius:6px;padding:8px 10px;font-size:11.5px;min-height:22px;display:flex;align-items:center;justify-content:space-between;color:#e0e0e0}
 </style></head>
 <body>
-  <div class="grid">
+  <!-- Tab Navigation Bar -->
+  <div class="nav-tabs">
+    <button id="tab-btn-main" class="nav-tab-btn active" onclick="switchTab('main')">
+      📹 Головна панель & Камера
+    </button>
+    <button id="tab-btn-weather" class="nav-tab-btn" onclick="switchTab('weather')">
+      🚨 Повітряна тривога & 🌦️ Авіапогода
+    </button>
+  </div>
 
-    <!-- Стовпчик 1: Stream + Camera Status + Галерея + Налаштування -->
-    <div class="col">
-      <div class="card">
-        <div class="card-header">
-          <h3>Thermal Stream & Camera Status</h3>
-          <div id="status-badge" class="status-badge warn">⏸ PAUSED</div>
-        </div>
-        <div id="alertBanner" class="alert-banner">
-          <span>⚠️ ПОПЕРЕДЖЕННЯ: Перевищено поріг температури!</span>
-          <button class="btn-sm" onclick="muteAudioAlert()">🔕 Mute</button>
-        </div>
-        <div class="bar">
-          <button id="camBtn" class="cam-off" onclick="toggleCamera()">▶ Start Camera</button>
-          <button onclick="snapshot()">📷 Snapshot</button>
-          <button onclick="toggleFullscreen()">⛶ Fullscreen</button>
-          <button id="recBtn" onclick="toggleRecord()">⏺ Record</button>
-          <button id="buzzerBtn" onclick="triggerBuzzer()">🔔 Сигнал</button>
-        </div>
-        <div class="bar" id="modes">
-          <button data-mode="gray" onclick="setMode('gray')">Gray</button>
-          <button data-mode="blackhot" onclick="setMode('blackhot')">Blackhot</button>
-          <button data-mode="ironbow" onclick="setMode('ironbow')">Ironbow</button>
-          <button data-mode="rainbow" onclick="setMode('rainbow')">Rainbow</button>
-        </div>
-        <img id="stream" style="opacity:0.3">
+  <!-- Вкладка 1: Головна панель (Камера, Пін-аут, Система, Налаштування) -->
+  <div id="tab-main" class="tab-page active">
+    <div class="grid">
 
-        <div class="temp-range" style="margin-top:14px">
-          <div class="temp-chip">
-            <span class="stat-label">Min Temp</span>
-            <span id="temp-min" class="stat-val temp-min">-</span>
+      <!-- Стовпчик 1: Stream + Camera Status + Галерея + Налаштування -->
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <h3>Thermal Stream & Camera Status</h3>
+            <div id="status-badge" class="status-badge warn">⏸ PAUSED</div>
           </div>
-          <div class="temp-chip">
-            <span class="stat-label">Avg Temp</span>
-            <span id="temp-avg" class="stat-val temp-avg">-</span>
+          <div id="alertBanner" class="alert-banner">
+            <span>⚠️ ПОПЕРЕДЖЕННЯ: Перевищено поріг температури!</span>
+            <button class="btn-sm" onclick="muteAudioAlert()">🔕 Mute</button>
           </div>
-          <div class="temp-chip">
-            <span class="stat-label">Max Temp</span>
-            <span id="temp-max" class="stat-val temp-max">-</span>
+          <div class="bar">
+            <button id="camBtn" class="cam-off" onclick="toggleCamera()">▶ Start Camera</button>
+            <button onclick="snapshot()">📷 Snapshot</button>
+            <button onclick="toggleFullscreen()">⛶ Fullscreen</button>
+            <button id="recBtn" onclick="toggleRecord()">⏺ Record</button>
+            <button id="buzzerBtn" onclick="triggerBuzzer()">🔔 Сигнал</button>
+          </div>
+          <div class="bar" id="modes">
+            <button data-mode="gray" onclick="setMode('gray')">Gray</button>
+            <button data-mode="blackhot" onclick="setMode('blackhot')">Blackhot</button>
+            <button data-mode="ironbow" onclick="setMode('ironbow')">Ironbow</button>
+            <button data-mode="rainbow" onclick="setMode('rainbow')">Rainbow</button>
+          </div>
+          <img id="stream" style="opacity:0.3">
+
+          <div class="temp-range" style="margin-top:14px">
+            <div class="temp-chip">
+              <span class="stat-label">Min Temp</span>
+              <span id="temp-min" class="stat-val temp-min">-</span>
+            </div>
+            <div class="temp-chip">
+              <span class="stat-label">Avg Temp</span>
+              <span id="temp-avg" class="stat-val temp-avg">-</span>
+            </div>
+            <div class="temp-chip">
+              <span class="stat-label">Max Temp</span>
+              <span id="temp-max" class="stat-val temp-max">-</span>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-box">
+              <span class="stat-label">Capture FPS</span>
+              <span id="cam-fps" class="stat-val">-</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Stream FPS</span>
+              <span id="cam-stream-fps" class="stat-val">-</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Frames</span>
+              <span id="cam-frames" class="stat-val">-</span>
+            </div>
+          </div>
+          <div id="cam-extra" style="margin-top:10px;font-size:12px;color:#aaa;display:flex;gap:12px"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Галерея Записів</h3>
+            <button class="btn-sm" onclick="loadRecordings()">🔄 Оновити</button>
+          </div>
+          <div class="table-wrap">
+            <table class="rec-table">
+              <thead>
+                <tr>
+                  <th>Файл</th>
+                  <th>Розмір</th>
+                  <th>Час</th>
+                  <th>Дії</th>
+                </tr>
+              </thead>
+              <tbody id="recTableBody">
+                <tr><td colspan="4" style="text-align:center;color:#666">Завантаження...</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
-        <div class="stats-grid">
-          <div class="stat-box">
-            <span class="stat-label">Capture FPS</span>
-            <span id="cam-fps" class="stat-val">-</span>
+        <div class="card">
+          <div class="card-header">
+            <h3>Пороги Тривоги та Координати</h3>
+            <button class="btn-sm" onclick="saveSettings()">💾 Зберегти</button>
           </div>
-          <div class="stat-box">
-            <span class="stat-label">Stream FPS</span>
-            <span id="cam-stream-fps" class="stat-val">-</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-label">Frames</span>
-            <span id="cam-frames" class="stat-val">-</span>
-          </div>
+          <form id="settingsForm" onsubmit="event.preventDefault(); saveSettings();">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Alert Max Temp (°C/Y)</label>
+                <input type="number" step="0.5" id="cfg-alert-max" placeholder="70">
+              </div>
+              <div class="form-group">
+                <label>Auto-cleanup Disk %</label>
+                <input type="number" step="1" id="cfg-cleanup-pct" placeholder="85">
+              </div>
+              <div class="form-group">
+                <label>Широта (Lat) для Windy</label>
+                <input type="number" step="0.001" id="cfg-weather-lat" placeholder="51.520">
+              </div>
+              <div class="form-group">
+                <label>Довгота (Lon) для Windy</label>
+                <input type="number" step="0.001" id="cfg-weather-lon" placeholder="30.744">
+              </div>
+            </div>
+          </form>
         </div>
-        <div id="cam-extra" style="margin-top:10px;font-size:12px;color:#aaa;display:flex;gap:12px"></div>
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          <h3>Галерея Записів</h3>
-          <button class="btn-sm" onclick="loadRecordings()">🔄 Оновити</button>
-        </div>
-        <div class="table-wrap">
-          <table class="rec-table">
-            <thead>
-              <tr>
-                <th>Файл</th>
-                <th>Розмір</th>
-                <th>Час</th>
-                <th>Дії</th>
-              </tr>
-            </thead>
-            <tbody id="recTableBody">
-              <tr><td colspan="4" style="text-align:center;color:#666">Завантаження...</td></tr>
-            </tbody>
-          </table>
+      <!-- Стовпчик 2: Host System + Interactive Pinout -->
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <h3>Host System</h3>
+            <span id="sys-uptime-badge" style="font-size:12px;color:#888;font-family:monospace">up: -</span>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <span class="stat-label">CPU Temp</span>
+              <span id="sys-cpu-temp" class="stat-val">-</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Load Avg</span>
+              <span id="sys-load" class="stat-val" style="font-size:12px">-</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Time</span>
+              <span id="clock" class="stat-val" style="font-size:12px">-</span>
+            </div>
+            <div class="stat-box" style="grid-column: span 2">
+              <div style="display:flex;justify-content:space-between">
+                <span class="stat-label">RAM</span>
+                <span id="sys-ram-pct" class="stat-sub">-</span>
+              </div>
+              <span id="sys-ram" class="stat-val" style="font-size:13px">-</span>
+              <div class="progress-bar-bg"><div id="sys-ram-bar" class="progress-bar-fill" style="width:0%"></div></div>
+            </div>
+            <div class="stat-box" style="grid-column: span 2">
+              <div style="display:flex;justify-content:space-between">
+                <span class="stat-label">Disk (/)</span>
+                <span id="sys-disk-pct" class="stat-sub">-</span>
+              </div>
+              <span id="sys-disk" class="stat-val" style="font-size:13px">-</span>
+              <div class="progress-bar-bg"><div id="sys-disk-bar" class="progress-bar-fill" style="width:0%"></div></div>
+            </div>
+          </div>
+
+          <!-- 40-pin Interactive Pinout -->
+          <div class="pinout-container">
+            <div class="pinout-header">
+              <div class="pinout-logo">
+                <span style="background:#00e676"></span><span style="background:#00e676"></span><span style="background:#00e676"></span>
+                <span style="background:#d50000"></span><span style="background:#d50000"></span><span style="background:#d50000"></span>
+                <span style="background:#d50000"></span><span style="background:#d50000"></span><span style="background:#d50000"></span>
+              </div>
+              <div>
+                <div class="pinout-title">Raspberry Pi Pinout</div>
+                <div class="pinout-subtitle">40-Pin GPIO Real-Time Status & Devices</div>
+              </div>
+            </div>
+
+            <div class="pinout-board" id="pinout-board">
+              <!-- Rendered by JavaScript -->
+            </div>
+
+            <div id="pin-info-bar">
+              <span id="pin-info-text">💡 Наведіть курсор на пін для перегляду деталей</span>
+              <span id="pin-legend" style="font-size:10px;opacity:0.8;display:flex;gap:6px">
+                <span style="color:#ff8a80">● 5V</span>
+                <span style="color:#ffb74d">● 3.3V</span>
+                <span style="color:#81c784">● GPIO</span>
+                <span style="color:#90caf9">● I2C/UART/PCM</span>
+              </span>
+            </div>
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap">
+            <button class="btn-sm" onclick="sysReboot()">🔄 Перезавантажити</button>
+            <button class="btn-sm btn-danger" onclick="sysShutdown()">⚡ Вимкнути Pi</button>
+          </div>
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          <h3>Пороги Тривоги та Погода</h3>
-          <button class="btn-sm" onclick="saveSettings()">💾 Зберегти</button>
-        </div>
-        <form id="settingsForm" onsubmit="event.preventDefault(); saveSettings();">
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Alert Max Temp (°C/Y)</label>
-              <input type="number" step="0.5" id="cfg-alert-max" placeholder="70">
-            </div>
-            <div class="form-group">
-              <label>Auto-cleanup Disk %</label>
-              <input type="number" step="1" id="cfg-cleanup-pct" placeholder="85">
-            </div>
-            <div class="form-group">
-              <label>Широта (Lat) для Windy</label>
-              <input type="number" step="0.001" id="cfg-weather-lat" placeholder="51.520">
-            </div>
-            <div class="form-group">
-              <label>Довгота (Lon) для Windy</label>
-              <input type="number" step="0.001" id="cfg-weather-lon" placeholder="30.744">
-            </div>
-          </div>
-        </form>
-      </div>
     </div>
+  </div>
 
-    <!-- Стовпчик 2: Host System + Interactive Pinout + Тривога + Погода -->
-    <div class="col">
-      <div class="card">
-        <div class="card-header">
-          <h3>Host System</h3>
-          <span id="sys-uptime-badge" style="font-size:12px;color:#888;font-family:monospace">up: -</span>
-        </div>
-        <div class="stats-grid">
-          <div class="stat-box">
-            <span class="stat-label">CPU Temp</span>
-            <span id="sys-cpu-temp" class="stat-val">-</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-label">Load Avg</span>
-            <span id="sys-load" class="stat-val" style="font-size:12px">-</span>
-          </div>
-          <div class="stat-box">
-            <span class="stat-label">Time</span>
-            <span id="clock" class="stat-val" style="font-size:12px">-</span>
-          </div>
-          <div class="stat-box" style="grid-column: span 2">
-            <div style="display:flex;justify-content:space-between">
-              <span class="stat-label">RAM</span>
-              <span id="sys-ram-pct" class="stat-sub">-</span>
-            </div>
-            <span id="sys-ram" class="stat-val" style="font-size:13px">-</span>
-            <div class="progress-bar-bg"><div id="sys-ram-bar" class="progress-bar-fill" style="width:0%"></div></div>
-          </div>
-          <div class="stat-box" style="grid-column: span 2">
-            <div style="display:flex;justify-content:space-between">
-              <span class="stat-label">Disk (/)</span>
-              <span id="sys-disk-pct" class="stat-sub">-</span>
-            </div>
-            <span id="sys-disk" class="stat-val" style="font-size:13px">-</span>
-            <div class="progress-bar-bg"><div id="sys-disk-bar" class="progress-bar-fill" style="width:0%"></div></div>
-          </div>
-        </div>
-
-        <!-- 40-pin Interactive Pinout -->
-        <div class="pinout-container">
-          <div class="pinout-header">
-            <div class="pinout-logo">
-              <span style="background:#00e676"></span><span style="background:#00e676"></span><span style="background:#00e676"></span>
-              <span style="background:#d50000"></span><span style="background:#d50000"></span><span style="background:#d50000"></span>
-              <span style="background:#d50000"></span><span style="background:#d50000"></span><span style="background:#d50000"></span>
-            </div>
-            <div>
-              <div class="pinout-title">Raspberry Pi Pinout</div>
-              <div class="pinout-subtitle">40-Pin GPIO Real-Time Status & Devices</div>
-            </div>
-          </div>
-
-          <div class="pinout-board" id="pinout-board">
-            <!-- Rendered by JavaScript -->
-          </div>
-
-          <div id="pin-info-bar">
-            <span id="pin-info-text">💡 Наведіть курсор на пін для перегляду деталей</span>
-            <span id="pin-legend" style="font-size:10px;opacity:0.8;display:flex;gap:6px">
-              <span style="color:#ff8a80">● 5V</span>
-              <span style="color:#ffb74d">● 3.3V</span>
-              <span style="color:#81c784">● GPIO</span>
-              <span style="color:#90caf9">● I2C/UART/PCM</span>
-            </span>
-          </div>
-        </div>
-
-        <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap">
-          <button class="btn-sm" onclick="sysReboot()">🔄 Перезавантажити</button>
-          <button class="btn-sm btn-danger" onclick="sysShutdown()">⚡ Вимкнути Pi</button>
-        </div>
-      </div>
-
+  <!-- Вкладка 2: Повітряна тривога та Авіапогода Windy -->
+  <div id="tab-weather" class="tab-page">
+    <div class="weather-grid">
       <div class="card" id="alerts-wrap">
-        <h3>Повітряна тривога</h3>
+        <div class="card-header">
+          <h3>🚨 Карта повітряних тривог України</h3>
+          <span style="font-size:11px;color:#aaa">alerts.in.ua</span>
+        </div>
         <iframe src="https://alerts.in.ua/?embed"
                 title="Мапа повітряних тривог" frameborder="0"
+                style="height:620px"
                 loading="lazy"></iframe>
       </div>
 
       <div class="card">
-        <h3>Авіапогода — Windy</h3>
+        <div class="card-header">
+          <h3>🌦️ Авіапогода та Вітер — Windy</h3>
+          <span style="font-size:11px;color:#aaa">windy.com</span>
+        </div>
         <div id="weather-wrap">
-          <iframe id="windyFrame" loading="lazy" title="Авіапогода Windy"></iframe>
+          <iframe id="windyFrame" style="height:620px" loading="lazy" title="Авіапогода Windy"></iframe>
         </div>
       </div>
     </div>
-
   </div>
 <script>
 let recording = false;
@@ -681,6 +716,25 @@ let streamActive = false;
 let audioMuted = false;
 let audioCtx = null;
 let healthRequestInFlight = false;
+
+function switchTab(tabName){
+  const tabMain = document.getElementById('tab-main');
+  const tabWeather = document.getElementById('tab-weather');
+  const btnMain = document.getElementById('tab-btn-main');
+  const btnWeather = document.getElementById('tab-btn-weather');
+  
+  if(tabName === 'weather'){
+    tabMain.classList.remove('active');
+    tabWeather.classList.add('active');
+    btnMain.classList.remove('active');
+    btnWeather.classList.add('active');
+  } else {
+    tabWeather.classList.remove('active');
+    tabMain.classList.add('active');
+    btnWeather.classList.remove('active');
+    btnMain.classList.add('active');
+  }
+}
 
 function playAlertSound(){
   if(audioMuted) return;
