@@ -1491,7 +1491,9 @@ buzzer_lock = threading.Lock()
 
 def _play_buzzer_tone():
     try:
-        from gpiozero import PWMOutputDevice
+        from gpiozero import PWMOutputDevice, Device
+        factory_name = type(Device.pin_factory).__name__ if Device.pin_factory else "None"
+        print(f"[Buzzer] Pin factory: {factory_name}, UID: {os.getuid()}, frequency=2000")
         buzzer = PWMOutputDevice(18, frequency=2000, initial_value=0)
         try:
             for _ in range(4):
