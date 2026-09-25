@@ -1487,9 +1487,8 @@ _buzzer_worker_lock = threading.Lock()
 def _buzzer_worker_loop():
     buzzer = None
     try:
-        from gpiozero import OutputDevice
-        # MH-FMD module uses a PNP transistor (active-low) with built-in oscillator
-        buzzer = OutputDevice(18, active_high=False, initial_value=False)
+        from gpiozero import PWMOutputDevice
+        buzzer = PWMOutputDevice(18, frequency=2000, initial_value=0)
     except Exception as e:
         print(f"[Buzzer] Initialization failed: {e}")
 
@@ -1498,9 +1497,9 @@ def _buzzer_worker_loop():
             buzzer_queue.get()
             if buzzer is not None:
                 try:
-                    buzzer.on()
+                    buzzer.value = 0.5
                     time.sleep(0.25)
-                    buzzer.off()
+                    buzzer.value = 0
                     time.sleep(0.1)
                 except Exception as e:
                     print(f"[Buzzer] Error playing tone: {e}")
