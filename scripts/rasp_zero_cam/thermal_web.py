@@ -2,6 +2,13 @@
 import os
 import re
 import sys
+
+# Systemd services often run with HOME=/ or invalid home, breaking lgpio pipe creation (//.lgd-nfy0).
+# Ensure a writable directory is set for lgpio / gpiozero so it doesn't fall back to NativePinFactory.
+if not os.environ.get("HOME") or os.environ.get("HOME") == "/":
+    os.environ["HOME"] = "/tmp"
+os.environ.setdefault("LG_WD", "/tmp")
+
 import time
 import json
 import math
