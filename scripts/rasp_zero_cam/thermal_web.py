@@ -8,6 +8,7 @@ import math
 import shutil
 import signal
 import threading
+import queue
 import subprocess
 from datetime import datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -1478,23 +1479,46 @@ def stop_recording():
     return result
 
 
-def trigger_beep():
-    def _beep_worker():
+buzzer_queue = queue.Queue(maxsize=10)
+_buzzer_worker_started = False
+_buzzer_worker_lock = threading.Lock()
+
+
+def _buzzer_worker_loop():
+    buzzer = None
+    try:
+        from gpiozero import PWMOutputDevice
+        buzzer = PWMOutputDevice(18, frequency=2000, initial_value=0)
+    except Exception as e:
+        print(f"[Buzzer] Initialization failed: {e}")
+
+    while True:
         try:
-            from gpiozero import PWMOutputDevice
-            buzzer = PWMOutputDevice(18, frequency=2000, initial_value=0)
-            try:
-                for _ in range(1):
+            buzzer_queue.get()
+            if buzzer is not None:
+                try:
                     buzzer.value = 0.5
                     time.sleep(0.25)
                     buzzer.value = 0
-                    time.sleep(0.2)
-            finally:
-                buzzer.close()
-        except Exception as e:
-            print(f"[Buzzer] Error triggering beep: {e}")
+                    time.sleep(0.1)
+                except Exception as e:
+                    print(f"[Buzzer] Error playing tone: {e}")
+            buzzer_queue.task_done()
+        except Exception:
+            pass
 
-    threading.Thread(target=_beep_worker, daemon=True).start()
+
+def trigger_beep():
+    global _buzzer_worker_started
+    if not _buzzer_worker_started:
+        with _buzzer_worker_lock:
+            if not _buzzer_worker_started:
+                threading.Thread(target=_buzzer_worker_loop, daemon=True).start()
+                _buzzer_worker_started = True
+    try:
+        buzzer_queue.put_nowait(True)
+    except queue.Full:
+        pass
 
 
 class Handler(BaseHTTPRequestHandler):
