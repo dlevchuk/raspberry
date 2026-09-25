@@ -12,7 +12,6 @@ import subprocess
 from datetime import datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse, parse_qs
-from gpiozero import PWMOutputDevice
 
 DEVICE = "/dev/video0"
 PORT = int(os.environ.get("THERMAL_PORT", "8080"))
@@ -60,10 +59,6 @@ stream_clients_count = 0
 VIDEO_NAME_RE = re.compile(r"^thermal_\d{8}_\d{6}\.avi$")
 PHOTO_NAME_RE = re.compile(r"^thermal_snap_\d{8}_\d{6}\.jpg$")
 
-
-buzzer = PWMOutputDevice(18, frequency=2000, initial_value=0)
-buzzer_lock = threading.Lock()
-beep_busy = False
 
 def rec_file_type(name):
     """Returns 'video', 'photo', or None if the filename doesn't match a known pattern."""
@@ -1484,26 +1479,20 @@ def stop_recording():
 
 
 def trigger_beep():
-    global beep_busy
-
-    with buzzer_lock:
-        if beep_busy:
-            return
-        beep_busy = True
-
     def _beep_worker():
-        global beep_busy
         try:
-            buzzer.value = 0.5
-            time.sleep(0.25)
-            buzzer.value = 0
-            time.sleep(0.20)
+            from gpiozero import PWMOutputDevice
+            buzzer = PWMOutputDevice(18, frequency=2000, initial_value=0)
+            try:
+                for _ in range(1):
+                    buzzer.value = 0.5
+                    time.sleep(0.25)
+                    buzzer.value = 0
+                    time.sleep(0.2)
+            finally:
+                buzzer.close()
         except Exception as e:
             print(f"[Buzzer] Error triggering beep: {e}")
-        finally:
-            buzzer.value = 0
-            with buzzer_lock:
-                beep_busy = False
 
     threading.Thread(target=_beep_worker, daemon=True).start()
 
@@ -1825,10 +1814,6 @@ def shutdown_handler(signum, frame):
             os.remove(STATS_FIFO)
         except OSError:
             pass
-        try:
-            buzzer.close()
-        except Exception:
-            pass  
     sys.exit(0)
 
 
