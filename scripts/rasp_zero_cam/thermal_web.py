@@ -1479,46 +1479,34 @@ def stop_recording():
     return result
 
 
-buzzer_queue = queue.Queue(maxsize=10)
-_buzzer_worker_started = False
-_buzzer_worker_lock = threading.Lock()
+buzzer_lock = threading.Lock()
 
 
-def _buzzer_worker_loop():
-    buzzer = None
+def _play_buzzer_tone():
     try:
         from gpiozero import PWMOutputDevice
         buzzer = PWMOutputDevice(18, frequency=2000, initial_value=0)
-    except Exception as e:
-        print(f"[Buzzer] Initialization failed: {e}")
-
-    while True:
         try:
-            buzzer_queue.get()
-            if buzzer is not None:
-                try:
-                    buzzer.value = 0.5
-                    time.sleep(0.25)
-                    buzzer.value = 0
-                    time.sleep(0.1)
-                except Exception as e:
-                    print(f"[Buzzer] Error playing tone: {e}")
-            buzzer_queue.task_done()
-        except Exception:
-            pass
+            buzzer.value = 0.5
+            time.sleep(0.25)
+            buzzer.value = 0
+            time.sleep(0.05)
+        finally:
+            buzzer.close()
+    except Exception as e:
+        print(f"[Buzzer] Error playing tone: {e}")
 
 
 def trigger_beep():
-    global _buzzer_worker_started
-    if not _buzzer_worker_started:
-        with _buzzer_worker_lock:
-            if not _buzzer_worker_started:
-                threading.Thread(target=_buzzer_worker_loop, daemon=True).start()
-                _buzzer_worker_started = True
-    try:
-        buzzer_queue.put_nowait(True)
-    except queue.Full:
-        pass
+    def _worker():
+        if not buzzer_lock.acquire(blocking=False):
+            return  # Якщо звук уже відтворюється, ігноруємо повторні кліки щоб не накладалися
+        try:
+            _play_buzzer_tone()
+        finally:
+            buzzer_lock.release()
+
+    threading.Thread(target=_worker, daemon=True).start()
 
 
 class Handler(BaseHTTPRequestHandler):
