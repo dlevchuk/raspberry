@@ -1483,29 +1483,30 @@ buzzer_lock = threading.Lock()
 
 
 def _play_buzzer_tone():
-    # Запускаємо окремим процесом Python точно таку ж логіку,
-    # щоб GIL та потоки ffmpeg/web-сервера не зривали програмний ШІМ
-    script = (
-        "from gpiozero import PWMOutputDevice; "
-        "import time; "
-        "b = PWMOutputDevice(18, frequency=2000, initial_value=0); "
-        "for _ in range(3): "
-        "    b.value = 0.5; time.sleep(0.2); "
-        "    b.value = 0; time.sleep(0.1); "
-        "b.close()"
-    )
     try:
-        subprocess.run([sys.executable, "-c", script], timeout=2)
+        from gpiozero import PWMOutputDevice
+        buzzer = PWMOutputDevice(18, frequency=2000, initial_value=0)
+        try:
+            for _ in range(4):
+                buzzer.value = 0.5
+                time.sleep(0.2)
+                buzzer.value = 0
+                time.sleep(0.15)
+        finally:
+            buzzer.close()
     except Exception as e:
-        print(f"[Buzzer] Subprocess error: {e}")
+        print(f"[Buzzer] Error playing tone: {e}")
 
 
 def trigger_beep():
     def _worker():
         if not buzzer_lock.acquire(blocking=False):
+            print("[Buzzer] Already playing, skipping duplicate trigger")
             return
         try:
+            print("[Buzzer] Playing tone...")
             _play_buzzer_tone()
+            print("[Buzzer] Tone finished")
         finally:
             buzzer_lock.release()
 
