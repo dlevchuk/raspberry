@@ -1,0 +1,15 @@
+---
+- name: Deploy ping-reboot-check.sh script
+  ansible.builtin.template:
+    src: "ping-reboot-check.sh.j2"
+    dest: "/usr/local/bin/ping-reboot-check.sh"
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Create cron task "ping reboot check"
+  ansible.builtin.cron:
+    name: "ping reboot check"
+    minute: "*/5"
+    user: root
+    job: "/usr/local/bin/ping-reboot-check.sh"

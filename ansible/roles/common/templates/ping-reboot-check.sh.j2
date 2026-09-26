@@ -1,0 +1,5 @@
+#!/bin/bash
+if ! ping -c 3 -W 5 8.8.8.8 > /dev/null 2>&1; then
+    logger -t ping-reboot "no internet, rebooting"
+    reboot
+fi
