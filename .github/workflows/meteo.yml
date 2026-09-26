@@ -1,14 +1,12 @@
 name: weather report
 
+# Workflow disabled
 on:
-  schedule:
-    # Runs daily at 17:00
-    - cron: '0 15 * * *'
-  # Manual trigger
   workflow_dispatch:
 
 jobs:
   send-weather:
+    if: false
     runs-on: ubuntu-latest
     
     steps:
