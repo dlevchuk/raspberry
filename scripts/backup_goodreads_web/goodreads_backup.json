@@ -1,8 +1,24 @@
 {
   "user_id": "76529348",
-  "scraped_at": "2026-09-20 07:27:29 UTC",
-  "total_books": 1001,
+  "scraped_at": "2026-09-27 07:36:23 UTC",
+  "total_books": 1003,
   "books": [
+    {
+      "id": "10974",
+      "title": "As I Lay Dying",
+      "url": "https://www.goodreads.com/book/show/10974.As_I_Lay_Dying",
+      "author": "William Faulkner",
+      "isbn": "0375504524",
+      "rating": 4,
+      "shelves": [
+        "read"
+      ],
+      "date_read": "Sep 26, 2026",
+      "date_added": "Sep 26, 2026",
+      "avg_rating": "3.72",
+      "pages": "231\n        pp",
+      "review": ""
+    },
     {
       "id": "51893",
       "title": "Thus Spoke Zarathustra",
@@ -891,7 +907,7 @@
       ],
       "date_read": "Apr 03, 2026",
       "date_added": "Apr 03, 2026",
-      "avg_rating": "3.91",
+      "avg_rating": "3.90",
       "pages": "192\n        pp",
       "review": ""
     },
@@ -957,7 +973,7 @@
       ],
       "date_read": "Jan 26, 2026",
       "date_added": "Jan 26, 2026",
-      "avg_rating": "4.06",
+      "avg_rating": "4.08",
       "pages": "368\n        pp",
       "review": ""
     },
@@ -1447,7 +1463,7 @@
       ],
       "date_read": "Aug 11, 2025",
       "date_added": "Aug 11, 2025",
-      "avg_rating": "3.99",
+      "avg_rating": "3.98",
       "pages": "220\n        pp",
       "review": ""
     },
@@ -1479,7 +1495,7 @@
       ],
       "date_read": "Aug 07, 2025",
       "date_added": "Aug 07, 2025",
-      "avg_rating": "4.25",
+      "avg_rating": "4.24",
       "pages": "213\n        pp",
       "review": ""
     },
@@ -1545,7 +1561,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 18, 2025",
-      "avg_rating": "4.45",
+      "avg_rating": "4.44",
       "pages": "188\n        pp",
       "review": ""
     },
@@ -1579,7 +1595,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 18, 2025",
-      "avg_rating": "4.47",
+      "avg_rating": "4.46",
       "pages": "196\n        pp",
       "review": ""
     },
@@ -1613,7 +1629,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 18, 2025",
-      "avg_rating": "4.49",
+      "avg_rating": "4.48",
       "pages": "196\n        pp",
       "review": ""
     },
@@ -2006,7 +2022,7 @@
       ],
       "date_read": "Apr 25, 2025",
       "date_added": "Apr 25, 2025",
-      "avg_rating": "4.08",
+      "avg_rating": "4.07",
       "pages": "144\n        pp",
       "review": ""
     },
@@ -2106,7 +2122,7 @@
       ],
       "date_read": "Apr 05, 2025",
       "date_added": "Apr 05, 2025",
-      "avg_rating": "3.93",
+      "avg_rating": "3.94",
       "pages": "248\n        pp",
       "review": ""
     },
@@ -2269,7 +2285,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 22, 2025",
-      "avg_rating": "3.80",
+      "avg_rating": "3.79",
       "pages": "23\n        pp",
       "review": ""
     },
@@ -3104,7 +3120,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 08, 2025",
-      "avg_rating": "3.91",
+      "avg_rating": "3.90",
       "pages": "150\n        pp",
       "review": ""
     },
@@ -3661,7 +3677,7 @@
       ],
       "date_read": "Nov 11, 2024",
       "date_added": "Nov 11, 2024",
-      "avg_rating": "4.24",
+      "avg_rating": "4.25",
       "pages": "207\n        pp",
       "review": ""
     },
@@ -3694,7 +3710,7 @@
       ],
       "date_read": "Nov 04, 2024",
       "date_added": "Nov 04, 2024",
-      "avg_rating": "4.32",
+      "avg_rating": "4.33",
       "pages": "288\n        pp",
       "review": ""
     },
@@ -3902,7 +3918,7 @@
       ],
       "date_read": "not set",
       "date_added": "Oct 23, 2024",
-      "avg_rating": "3.97",
+      "avg_rating": "3.98",
       "pages": "249\n        pp",
       "review": ""
     },
@@ -3935,7 +3951,7 @@
       ],
       "date_read": "Oct 23, 2024",
       "date_added": "Oct 23, 2024",
-      "avg_rating": "3.74",
+      "avg_rating": "3.73",
       "pages": "272\n        pp",
       "review": ""
     },
@@ -4067,7 +4083,7 @@
       ],
       "date_read": "Oct 13, 2024",
       "date_added": "Oct 13, 2024",
-      "avg_rating": "3.87",
+      "avg_rating": "3.86",
       "pages": "141\n        pp",
       "review": ""
     },
@@ -4441,7 +4457,7 @@
       ],
       "date_read": "Aug 03, 2024",
       "date_added": "Aug 04, 2024",
-      "avg_rating": "4.35",
+      "avg_rating": "4.37",
       "pages": "568\n        pp",
       "review": ""
     },
@@ -4591,7 +4607,7 @@
       ],
       "date_read": "Jan 21, 2024",
       "date_added": "Feb 05, 2024",
-      "avg_rating": "3.71",
+      "avg_rating": "3.72",
       "pages": "31\n        pp",
       "review": ""
     },
@@ -5185,7 +5201,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "2.87",
+      "avg_rating": "2.86",
       "pages": "6\n        pp",
       "review": ""
     },
@@ -5201,7 +5217,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "2.89",
+      "avg_rating": "2.88",
       "pages": "not set",
       "review": ""
     },
@@ -5553,7 +5569,7 @@
       ],
       "date_read": "Oct 28, 2023",
       "date_added": "Oct 28, 2023",
-      "avg_rating": "2.97",
+      "avg_rating": "2.98",
       "pages": "24\n        pp",
       "review": ""
     },
@@ -6274,7 +6290,7 @@
       ],
       "date_read": "Oct 13, 2022",
       "date_added": "Feb 26, 2023",
-      "avg_rating": "3.87",
+      "avg_rating": "3.88",
       "pages": "160\n        pp",
       "review": "Борітеся - поборете!"
     },
@@ -7233,7 +7249,7 @@
       ],
       "date_read": "not set",
       "date_added": "Sep 04, 2022",
-      "avg_rating": "4.26",
+      "avg_rating": "4.29",
       "pages": "248\n        pp",
       "review": ""
     },
@@ -7489,7 +7505,7 @@
       ],
       "date_read": "not set",
       "date_added": "Sep 20, 2021",
-      "avg_rating": "4.25",
+      "avg_rating": "4.24",
       "pages": "200\n        pp",
       "review": ""
     },
@@ -9057,7 +9073,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 15, 2018",
-      "avg_rating": "4.06",
+      "avg_rating": "4.07",
       "pages": "228\n        pp",
       "review": ""
     },
@@ -9478,19 +9494,19 @@
       "review": ""
     },
     {
-      "id": "10974",
-      "title": "As I Lay Dying",
-      "url": "https://www.goodreads.com/book/show/10974.As_I_Lay_Dying",
-      "author": "William Faulkner",
-      "isbn": "0375504524",
+      "id": "6681108",
+      "title": "Watchbird",
+      "url": "https://www.goodreads.com/book/show/6681108-watchbird",
+      "author": "Robert Sheckley",
+      "isbn": "",
       "rating": 0,
       "shelves": [
         "currently-reading"
       ],
       "date_read": "not set",
-      "date_added": "Sep 16, 2026",
-      "avg_rating": "3.72",
-      "pages": "231\n        pp",
+      "date_added": "Sep 26, 2026",
+      "avg_rating": "4.01",
+      "pages": "40\n        pp",
       "review": ""
     },
     {
@@ -9508,6 +9524,22 @@
       "date_added": "Aug 04, 2024",
       "avg_rating": "4.70",
       "pages": "562\n        pp",
+      "review": ""
+    },
+    {
+      "id": "668645",
+      "title": "The Status Civilization",
+      "url": "https://www.goodreads.com/book/show/668645.The_Status_Civilization",
+      "author": "Robert Sheckley",
+      "isbn": "1434499995",
+      "rating": 0,
+      "shelves": [
+        "to-read"
+      ],
+      "date_read": "not set",
+      "date_added": "Sep 20, 2026",
+      "avg_rating": "3.99",
+      "pages": "130\n        pp",
       "review": ""
     },
     {
@@ -9651,7 +9683,7 @@
       ],
       "date_read": "not set",
       "date_added": "Aug 22, 2026",
-      "avg_rating": "3.67",
+      "avg_rating": "3.68",
       "pages": "208\n        pp",
       "review": ""
     },
@@ -9813,7 +9845,7 @@
       ],
       "date_read": "not set",
       "date_added": "May 19, 2026",
-      "avg_rating": "3.81",
+      "avg_rating": "3.80",
       "pages": "not set",
       "review": ""
     },
@@ -9926,7 +9958,7 @@
       ],
       "date_read": "not set",
       "date_added": "Feb 13, 2026",
-      "avg_rating": "3.90",
+      "avg_rating": "3.89",
       "pages": "448\n        pp",
       "review": ""
     },
@@ -9958,7 +9990,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 26, 2026",
-      "avg_rating": "3.77",
+      "avg_rating": "3.76",
       "pages": "464\n        pp",
       "review": ""
     },
@@ -10088,7 +10120,7 @@
       ],
       "date_read": "not set",
       "date_added": "Nov 20, 2025",
-      "avg_rating": "3.96",
+      "avg_rating": "3.97",
       "pages": "222\n        pp",
       "review": ""
     },
@@ -10184,7 +10216,7 @@
       ],
       "date_read": "not set",
       "date_added": "Oct 30, 2025",
-      "avg_rating": "4.24",
+      "avg_rating": "4.23",
       "pages": "340\n        pp",
       "review": ""
     },
@@ -10473,7 +10505,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.82",
+      "avg_rating": "3.81",
       "pages": "336\n        pp",
       "review": ""
     },
@@ -10505,7 +10537,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.99",
+      "avg_rating": "4.00",
       "pages": "389\n        pp",
       "review": ""
     },
@@ -10553,7 +10585,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.71",
+      "avg_rating": "3.72",
       "pages": "1182\n        pp",
       "review": ""
     },
@@ -10703,7 +10735,7 @@
     },
     {
       "id": "12172",
-      "title": "Memoirs of Hadrian",
+      "title": "Memoirs of Hadrian: And, Reflections on the Composition of Memoirs of Hadrian (FSG Classics)",
       "url": "https://www.goodreads.com/book/show/12172.Memoirs_of_Hadrian",
       "author": "Marguerite Yourcenar",
       "isbn": "0374529264",
@@ -11209,7 +11241,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.29",
+      "avg_rating": "4.30",
       "pages": "295\n        pp",
       "review": ""
     },
@@ -11473,7 +11505,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.60",
+      "avg_rating": "4.55",
       "pages": "872\n        pp",
       "review": ""
     },
@@ -11660,7 +11692,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.15",
+      "avg_rating": "4.17",
       "pages": "56\n        pp",
       "review": ""
     },
@@ -11762,7 +11794,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.35",
+      "avg_rating": "4.36",
       "pages": "1264\n        pp",
       "review": ""
     },
@@ -11813,7 +11845,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.78",
+      "avg_rating": "4.70",
       "pages": "310\n        pp",
       "review": ""
     },
@@ -11881,7 +11913,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.89",
+      "avg_rating": "3.80",
       "pages": "516\n        pp",
       "review": ""
     },
@@ -11898,7 +11930,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.72",
+      "avg_rating": "4.73",
       "pages": "256\n        pp",
       "review": ""
     },
@@ -11915,7 +11947,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.88",
+      "avg_rating": "3.87",
       "pages": "208\n        pp",
       "review": ""
     },
@@ -11983,7 +12015,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.73",
+      "avg_rating": "3.74",
       "pages": "112\n        pp",
       "review": ""
     },
@@ -12288,7 +12320,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.28",
+      "avg_rating": "4.29",
       "pages": "352\n        pp",
       "review": ""
     },
@@ -12498,7 +12530,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 10, 2025",
-      "avg_rating": "4.76",
+      "avg_rating": "4.75",
       "pages": "224\n        pp",
       "review": ""
     },
@@ -12824,7 +12856,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 24, 2024",
-      "avg_rating": "4.34",
+      "avg_rating": "4.35",
       "pages": "103\n        pp",
       "review": ""
     },
@@ -14824,7 +14856,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 05, 2022",
-      "avg_rating": "3.56",
+      "avg_rating": "3.55",
       "pages": "233\n        pp",
       "review": ""
     },
@@ -14888,13 +14920,13 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 05, 2022",
-      "avg_rating": "4.15",
+      "avg_rating": "4.16",
       "pages": "688\n        pp",
       "review": ""
     },
     {
       "id": "11991",
-      "title": "The Fall (Vintage International)",
+      "title": "The Fall",
       "url": "https://www.goodreads.com/book/show/11991.The_Fall",
       "author": "Albert Camus",
       "isbn": "0679720227",
@@ -15369,7 +15401,7 @@
       "date_read": "not set",
       "date_added": "May 17, 2022",
       "avg_rating": "4.31",
-      "pages": "254\n        pp",
+      "pages": "352\n        pp",
       "review": ""
     },
     {
@@ -15401,7 +15433,7 @@
       "date_read": "not set",
       "date_added": "Apr 29, 2022",
       "avg_rating": "4.19",
-      "pages": "283\n        pp",
+      "pages": "340\n        pp",
       "review": ""
     },
     {
@@ -15838,7 +15870,7 @@
     },
     {
       "id": "216363",
-      "title": "The Man in the High Castle (Vintage)",
+      "title": "The Man in the High Castle",
       "url": "https://www.goodreads.com/book/show/216363.The_Man_in_the_High_Castle",
       "author": "Philip K. Dick",
       "isbn": "0679740678",
@@ -15912,7 +15944,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 09, 2021",
-      "avg_rating": "4.04",
+      "avg_rating": "4.03",
       "pages": "96\n        pp",
       "review": ""
     },
