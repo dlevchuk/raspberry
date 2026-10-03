@@ -1,5 +1,12 @@
 #!/bin/bash
-if ! ping -c 3 -W 5 8.8.8.8 > /dev/null 2>&1; then
-    logger -t ping-reboot "no internet, rebooting"
-    reboot
+# Checks internet connectivity every 5 min (via cron) and reboots if unreachable.
+# Uses absolute paths because cron runs with a minimal PATH.
+
+PING=/usr/bin/ping
+LOGGER=/usr/bin/logger
+REBOOT=/sbin/reboot
+
+if ! $PING -c 3 -W 5 8.8.8.8 > /dev/null 2>&1; then
+    $LOGGER -t ping-reboot "no internet, rebooting"
+    $REBOOT
 fi
