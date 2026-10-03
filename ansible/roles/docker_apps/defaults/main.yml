@@ -1,1 +1,9 @@
-#  <-- default lower priority variables for this role
+---
+# Default variables for docker_apps role
+
+homepage_host: "{{ ansible_host }}"
+
+enable_adguard: false
+enable_duplicati: false
+enable_thunderbird: false
+enable_freshrss: false

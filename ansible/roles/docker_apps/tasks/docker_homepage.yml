@@ -18,6 +18,7 @@
     - services.yaml
     - widgets.yaml
     - bookmarks.yaml
+    - docker.yaml
 
 - name: Setup Homepage container
   docker_container:

@@ -2,56 +2,111 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/services/
 
+{% set app_host = homepage_host | default(ansible_host) %}
+
 - Infrastructure:
     - Portainer:
         icon: portainer
-        href: http://{{ ansible_host }}:9000
+        href: http://{{ app_host }}:9000
         description: Docker container management
+        server: my-docker
         container: portainer
+        showStats: true
+        siteMonitor: http://{{ app_host }}:9000
+
     - Dozzle:
         icon: dozzle
-        href: http://{{ ansible_host }}:8888
+        href: http://{{ app_host }}:8888
         description: Real-time container log viewer
+        server: my-docker
         container: dozzle
+        showStats: true
+        siteMonitor: http://{{ app_host }}:8888
+
     - Watchtower:
         icon: watchtower
-        description: Container updater
+        description: Automated container updater
+        server: my-docker
         container: watchtower
-#    - AdGuard Home:
-#        icon: adguard-home
-#        href: http://{{ ansible_host }}:3000
-#        description: Network-wide ad blocking & DNS
-#        container: adguardhome
+        showStats: true
+
     - Uptime Kuma:
         icon: uptime-kuma
-        href: http://{{ ansible_host }}:3001
+        href: http://{{ app_host }}:3001
         description: Self-hosted uptime monitor
+        server: my-docker
         container: uptime-kuma
+        showStats: true
+        siteMonitor: http://{{ app_host }}:3001
+
+{% if enable_adguard | default(false) %}
+    - AdGuard Home:
+        icon: adguard-home
+        href: http://{{ app_host }}:3000
+        description: Network-wide ad blocking & DNS
+        server: my-docker
+        container: adguardhome
+        showStats: true
+        siteMonitor: http://{{ app_host }}:3000
+{% endif %}
 
 - Applications:
     - Syncthing:
         icon: syncthing
-        href: http://{{ ansible_host }}:8384
+        href: http://{{ app_host }}:8384
         description: Continuous file synchronization
+        server: my-docker
         container: syncthing
-#    - Duplicati:
-#        icon: duplicati
-#        href: http://{{ ansible_host }}:8200
-#        description: Secure backup software
-#        container: duplicati
+        showStats: true
+        siteMonitor: http://{{ app_host }}:8384
+
     - Speedtest:
         icon: speedtest-tracker
-        href: http://{{ ansible_host }}:8765
+        href: http://{{ app_host }}:8765
         description: Network speed monitoring
+        server: my-docker
         container: speedtest
-#    - Thunderbird:
-#        icon: thunderbird
-#        href: http://{{ ansible_host }}:9080
-#        description: Web-based email client
-#        container: thunderbird
+        showStats: true
+        siteMonitor: http://{{ app_host }}:8765
+
     - Glances:
         icon: glances
-        href: http://{{ ansible_host }}:61208
+        href: http://{{ app_host }}:61208
         description: System monitoring tool
+        server: my-docker
         container: glances
+        showStats: true
+        siteMonitor: http://{{ app_host }}:61208
 
+{% if enable_duplicati | default(false) %}
+    - Duplicati:
+        icon: duplicati
+        href: http://{{ app_host }}:8200
+        description: Secure backup software
+        server: my-docker
+        container: duplicati
+        showStats: true
+        siteMonitor: http://{{ app_host }}:8200
+{% endif %}
+
+{% if enable_thunderbird | default(false) %}
+    - Thunderbird:
+        icon: thunderbird
+        href: http://{{ app_host }}:9080
+        description: Web-based email client
+        server: my-docker
+        container: thunderbird
+        showStats: true
+        siteMonitor: http://{{ app_host }}:9080
+{% endif %}
+
+{% if enable_freshrss | default(false) %}
+    - FreshRSS:
+        icon: freshrss
+        href: http://{{ app_host }}:9191
+        description: Self-hosted RSS feed aggregator
+        server: my-docker
+        container: freshrss
+        showStats: true
+        siteMonitor: http://{{ app_host }}:9191
+{% endif %}
