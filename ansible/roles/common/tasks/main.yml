@@ -1,5 +1,20 @@
 ---
-#- include_tasks: install_docker.yml
-#- include_tasks: initial_setup.yml
-- include_tasks: ping_reboot_setup.yml
-#- include_tasks: watchdog_setup.yml
+- name: Initial baseline setup
+  ansible.builtin.include_tasks: initial_setup.yml
+  when: enable_initial_setup | default(true) | bool
+
+- name: Setup ping reboot watchdog
+  ansible.builtin.include_tasks: ping_reboot_setup.yml
+  when: enable_ping_reboot | default(true) | bool
+
+- name: Setup hardware watchdog
+  ansible.builtin.include_tasks: watchdog_setup.yml
+  when: enable_hardware_watchdog | default(false) | bool
+
+- name: Install Docker
+  ansible.builtin.include_tasks: install_docker.yml
+  when: enable_install_docker | default(false) | bool
+
+- name: Raspberry Pi host specific tasks
+  ansible.builtin.include_tasks: raspberry_specific.yml
+  when: "'raspberry' in group_names"

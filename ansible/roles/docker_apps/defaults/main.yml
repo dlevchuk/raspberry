@@ -1,9 +1,27 @@
 ---
 # Default variables for docker_apps role
 
+docker_dir: "/home/pi/docker"
+docker_uid: "1000"
+docker_gid: "1000"
+timezone: "Europe/Kiev"
+
 homepage_host: "{{ ansible_host }}"
 
+# Enabled active services
+enable_homepage: true
+enable_portainer: true
+enable_dozzle: true
+enable_watchtower: true
+enable_uptime_kuma: true
+enable_syncthing: true
+enable_speedtest: true
+enable_glances: true
+
+# Optional / disabled services
 enable_adguard: false
 enable_duplicati: false
 enable_thunderbird: false
 enable_freshrss: false
+enable_cronicle: false
+enable_homebridge: false

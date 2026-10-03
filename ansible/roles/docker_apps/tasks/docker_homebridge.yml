@@ -1,18 +1,17 @@
-- name: homebridge
-  docker_container:
+---
+- name: Setup Homebridge
+  community.docker.docker_container:
     name: homebridge
     image: oznu/homebridge:latest
     volumes:
-      - /home/pi/docker/homebridge:/homebridge
+      - "{{ docker_dir }}/homebridge:/homebridge"
     network_mode: host
     log_driver: json-file
     log_options:
-          max-size: "10mb"
-          max-file: "1"
+      max-size: "10mb"
+      max-file: "1"
     env:
-       UID: "1000" #id username
-       GID: "1000" #id username
-       TZ: Europe/Kiev
+      UID: "{{ docker_uid }}"
+      GID: "{{ docker_gid }}"
+      TZ: "{{ timezone }}"
     restart_policy: always
-    force_kill: yes
-    state: absent

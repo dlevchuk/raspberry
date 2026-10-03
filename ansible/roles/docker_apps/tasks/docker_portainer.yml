@@ -1,10 +1,11 @@
-- name: Setup portainer
-  docker_container:
+---
+- name: Setup Portainer
+  community.docker.docker_container:
     name: portainer
     image: portainer/portainer-ce:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /home/pi/docker/portainer/portainer_data:/data
+      - "{{ docker_dir }}/portainer/portainer_data:/data"
     ports:
       - "9000:9000"
     restart_policy: always

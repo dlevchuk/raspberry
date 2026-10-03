@@ -1,0 +1,37 @@
+---
+- name: Create scripts directory
+  ansible.builtin.file:
+    path: /home/pi/scripts
+    state: directory
+    mode: "0755"
+    owner: pi
+    group: pi
+
+- name: Install Raspberry specific packages
+  ansible.builtin.apt:
+    name:
+      - python3-pip
+      - mc
+      - nano
+      - htop
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Create cron task "backup thunderbird"
+  ansible.builtin.cron:
+    name: "backup thunderbird"
+    weekday: "2"
+    minute: "0"
+    hour: "0"
+    user: root
+    job: "mkdir -p /home/pi/docker/syncthing/sync/backup/thunderbird_backup && tar -zcf /home/pi/docker/syncthing/sync/backup/thunderbird_backup/thunderbird_profile_rasp.tar.gz /home/pi/docker/thunderbird/ > /dev/null 2>&1"
+
+- name: Create cron task "backup docker"
+  ansible.builtin.cron:
+    name: "backup docker"
+    weekday: "2"
+    minute: "0"
+    hour: "1"
+    user: root
+    job: "mkdir -p /home/pi/docker/syncthing/sync/backup_docker && tar -zcf /home/pi/docker/syncthing/sync/backup_docker/docker_apps.tar.gz /home/pi/docker/ > /dev/null 2>&1"

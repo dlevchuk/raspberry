@@ -1,12 +1,50 @@
 #!/bin/bash
-# Checks internet connectivity every 5 min (via cron) and reboots if unreachable.
-# Uses absolute paths because cron runs with a minimal PATH.
+# Checks network connectivity every 5 min (via cron) and reboots only if local network is dead
+# and multiple consecutive checks fail. Prevents boot-loop during WAN/ISP outages.
 
 PING=/usr/bin/ping
 LOGGER=/usr/bin/logger
 REBOOT=/sbin/reboot
+IP=/usr/bin/ip
+FAIL_FILE=/tmp/ping_reboot_fail_count
+MAX_FAILS=3
+MIN_UPTIME_SEC=600
 
-if ! $PING -c 3 -W 5 8.8.8.8 > /dev/null 2>&1; then
-    $LOGGER -t ping-reboot "no internet, rebooting"
+# 1. Prevent boot loops: do not reboot if system started less than 10 minutes ago
+UPTIME_SEC=$(awk '{print int($1)}' /proc/uptime 2>/dev/null || echo 0)
+if [ "$UPTIME_SEC" -lt "$MIN_UPTIME_SEC" ]; then
+    exit 0
+fi
+
+# 2. Check external hosts (Cloudflare & Google DNS)
+check_connectivity() {
+    $PING -c 2 -W 3 1.1.1.1 > /dev/null 2>&1 || $PING -c 2 -W 3 8.8.8.8 > /dev/null 2>&1
+}
+
+if check_connectivity; then
+    # Internet is available - reset fail counter and exit
+    [ -f "$FAIL_FILE" ] && rm -f "$FAIL_FILE"
+    exit 0
+fi
+
+# 3. If external ping failed, check local router / default gateway
+GATEWAY=$($IP route 2>/dev/null | awk '/default/ {print $3}' | head -n 1)
+if [ -n "$GATEWAY" ] && $PING -c 2 -W 3 "$GATEWAY" > /dev/null 2>&1; then
+    # Router is reachable; the problem is WAN/ISP, rebooting the Pi will not help
+    $LOGGER -t ping-reboot "Gateway ($GATEWAY) reachable, but WAN is down. Skipping reboot."
+    exit 0
+fi
+
+# 4. Local network interface or Wi-Fi is unresponsive - increment fail counter
+FAILS=0
+[ -f "$FAIL_FILE" ] && FAILS=$(cat "$FAIL_FILE" 2>/dev/null || echo 0)
+FAILS=$((FAILS + 1))
+echo "$FAILS" > "$FAIL_FILE"
+
+$LOGGER -t ping-reboot "Network unreachable (failure $FAILS of $MAX_FAILS)"
+
+if [ "$FAILS" -ge "$MAX_FAILS" ]; then
+    $LOGGER -t ping-reboot "Max network failures reached ($FAILS). Rebooting system."
+    rm -f "$FAIL_FILE"
     $REBOOT
 fi

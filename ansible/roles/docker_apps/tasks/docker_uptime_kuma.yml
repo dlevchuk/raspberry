@@ -1,9 +1,10 @@
-- name: Setup uptime-kuma
-  docker_container:
+---
+- name: Setup Uptime Kuma
+  community.docker.docker_container:
     name: uptime-kuma
     image: louislam/uptime-kuma:latest
     volumes:
-      - /home/pi/docker/uptime-kuma/_data:/app/data
+      - "{{ docker_dir }}/uptime-kuma/_data:/app/data"
     ports:
       - "3001:3001"
     restart_policy: always

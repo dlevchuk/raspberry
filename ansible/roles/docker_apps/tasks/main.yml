@@ -1,15 +1,56 @@
 ---
-#- include_tasks: docker_cronicle.yml
-#- include_tasks: docker_duplicati.yml
-#- include_tasks: docker_glances.yml
-#- include_tasks: docker_portainer.yml
-#- include_tasks: docker_syncthing.yml
-#- include_tasks: docker_thunderbird.yml
-#- include_tasks: docker_uptime_kuma.yml
-#- include_tasks: docker_adguard.yml
-#- include_tasks: docker_dozzle.yml
-- include_tasks: docker_homepage.yml
-#- include_tasks: docker_homebridge.yml
-#- include_tasks: docker_watchtower.yml
-#- include_tasks: docker_freshRSS.yml
-#- include_tasks: docker_speedtest.yml
+- name: Manage Homepage
+  ansible.builtin.include_tasks: docker_homepage.yml
+  when: enable_homepage | default(true) | bool
+
+- name: Manage Portainer
+  ansible.builtin.include_tasks: docker_portainer.yml
+  when: enable_portainer | default(true) | bool
+
+- name: Manage Dozzle
+  ansible.builtin.include_tasks: docker_dozzle.yml
+  when: enable_dozzle | default(true) | bool
+
+- name: Manage Watchtower
+  ansible.builtin.include_tasks: docker_watchtower.yml
+  when: enable_watchtower | default(true) | bool
+
+- name: Manage Uptime Kuma
+  ansible.builtin.include_tasks: docker_uptime_kuma.yml
+  when: enable_uptime_kuma | default(true) | bool
+
+- name: Manage Syncthing
+  ansible.builtin.include_tasks: docker_syncthing.yml
+  when: enable_syncthing | default(true) | bool
+
+- name: Manage Speedtest
+  ansible.builtin.include_tasks: docker_speedtest.yml
+  when: enable_speedtest | default(true) | bool
+
+- name: Manage Glances
+  ansible.builtin.include_tasks: docker_glances.yml
+  when: enable_glances | default(true) | bool
+
+- name: Manage AdGuard Home
+  ansible.builtin.include_tasks: docker_adguard.yml
+  when: enable_adguard | default(false) | bool
+
+- name: Manage Duplicati
+  ansible.builtin.include_tasks: docker_duplicati.yml
+  when: enable_duplicati | default(false) | bool
+
+- name: Manage Thunderbird
+  ansible.builtin.include_tasks: docker_thunderbird.yml
+  when: enable_thunderbird | default(false) | bool
+
+- name: Manage FreshRSS
+  ansible.builtin.include_tasks: docker_freshRSS.yml
+  when: enable_freshrss | default(false) | bool
+
+- name: Manage Cronicle
+  ansible.builtin.include_tasks: docker_cronicle.yml
+  when: enable_cronicle | default(false) | bool
+
+- name: Manage Homebridge
+  ansible.builtin.include_tasks: docker_homebridge.yml
+  when: enable_homebridge | default(false) | bool

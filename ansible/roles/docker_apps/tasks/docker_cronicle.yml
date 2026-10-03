@@ -1,5 +1,6 @@
-- name: setup Cronicle
-  docker_container:
+---
+- name: Setup Cronicle
+  community.docker.docker_container:
     name: cronicle
     image: bluet/cronicle-docker:latest
     volumes:
@@ -7,4 +8,3 @@
     ports:
       - "3012:3012"
     restart_policy: always
-    state: absent

@@ -1,55 +1,73 @@
 name: Run Ansible Playbook
+
 on:
   push:
+    branches:
+      - main
     paths:
-    - ansible/**
+      - ansible/**
+  workflow_dispatch:
 
 env:
-  SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
   REMOTE_USER: ${{ secrets.REMOTE_USER }}
   REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
   REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+  ANSIBLE_HOST_KEY_CHECKING: "false"
 
 jobs:
   ansible_deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
+      - name: Connect Tailscale
+        uses: tailscale/github-action@v3
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
 
-    - name: Tailscale
-      uses: tailscale/github-action@v3
-      with:
-         oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-         oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
-         tags: tag:ci
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
 
+      - name: Install Ansible & Requirements
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible-core
+          ansible-galaxy collection install community.docker
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
+      - name: Setup SSH & Inventory
+        run: |
+          # Remove local config files that might conflict in CI
+          rm -f ansible/group_vars/all
+          rm -f ansible/hosts
 
-    - name: Install Ansible
-      run: |
-        python -m pip install --upgrade pip
-        pip install ansible
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ansible
+          chmod 600 ~/.ssh/id_ansible
 
-    - name: Create Ansible configuration file
-      run: |
-       rm -f ansible/group_vars/all
-       rm -f ansible/hosts
-       mkdir -p ~/.ssh/
-       echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
-       chmod 600 private_key.pem
-       ssh-keyscan -H "$REMOTE_HOST" >> ~/.ssh/known_hosts
-       chmod 0700 ~/.ssh
-       chmod 0600 ~/.ssh/known_hosts
+          SSH_PORT="${REMOTE_PORT:-7722}"
+          ssh-keyscan -p "$SSH_PORT" -H "$REMOTE_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
+          chmod 600 ~/.ssh/known_hosts
 
-       export ANSIBLE_HOST_KEY_CHECKING=True
+          # Generate dynamic inventory with [raspberry] group
+          printf "[raspberry]\n%s\n" "$REMOTE_HOST" > hosts.ini
 
-      shell: bash
+      - name: Run Ansible playbook
+        run: |
+          SSH_USER="${REMOTE_USER:-pi}"
+          SSH_PORT="${REMOTE_PORT:-7722}"
 
-    - name: Run Ansible playbook
-      run: ansible-playbook ansible/site.yml -i "$REMOTE_HOST", --private-key=private_key.pem --extra-vars "ansible_user=pi ansible_port=7722"
+          ansible-playbook ansible/site.yml \
+            -i hosts.ini \
+            --private-key=~/.ssh/id_ansible \
+            --extra-vars "ansible_user=$SSH_USER ansible_port=$SSH_PORT ansible_host=$REMOTE_HOST"
+
+      - name: Cleanup SSH Key & Inventory
+        if: always()
+        run: rm -f ~/.ssh/id_ansible hosts.ini

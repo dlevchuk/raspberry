@@ -1,18 +1,19 @@
+---
 - name: Ensure Homepage configuration directory exists
   ansible.builtin.file:
-    path: /home/pi/docker/homepage
+    path: "{{ docker_dir }}/homepage"
     state: directory
-    owner: pi
-    group: pi
-    mode: '0755'
+    owner: "{{ docker_user | default('pi') }}"
+    group: "{{ docker_user | default('pi') }}"
+    mode: "0755"
 
 - name: Deploy Homepage configuration files
   ansible.builtin.template:
     src: "homepage/{{ item }}.j2"
-    dest: "/home/pi/docker/homepage/{{ item }}"
-    owner: pi
-    group: pi
-    mode: '0644'
+    dest: "{{ docker_dir }}/homepage/{{ item }}"
+    owner: "{{ docker_user | default('pi') }}"
+    group: "{{ docker_user | default('pi') }}"
+    mode: "0644"
   loop:
     - settings.yaml
     - services.yaml
@@ -20,17 +21,24 @@
     - bookmarks.yaml
     - docker.yaml
 
+- name: Get docker group info
+  ansible.builtin.getent:
+    database: group
+    key: docker
+
 - name: Setup Homepage container
-  docker_container:
+  community.docker.docker_container:
     name: homepage
     image: ghcr.io/gethomepage/homepage:latest
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /home/pi/docker/homepage:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - "{{ docker_dir }}/homepage:/app/config"
+    groups:
+      - "{{ ansible_facts.getent_group.docker[1] }}"
     env:
       HOMEPAGE_ALLOWED_HOSTS: "raspberrypi.tail72e9f.ts.net:3005"
-      PUID: "1000"
-      PGID: "1000"
-    ports:  
+      PUID: "{{ docker_uid }}"
+      PGID: "{{ docker_gid }}"
+    ports:
       - "3005:3000"
     restart_policy: always

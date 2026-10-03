@@ -1,19 +1,19 @@
+---
 - name: Setup FreshRSS
-  docker_container:
+  community.docker.docker_container:
     name: freshrss
     image: freshrss/freshrss:latest
     env:
-       PUID: "1000" #id username
-       PGID: "1000" #id username
-       TZ: "Europe/Kiev"
-       CRON_MIN: "2,32"
-       ADMIN_EMAIL: "admin@example.net"
-       ADMIN_PASSWORD: "freshrss"
-       ADMIN_API_PASSWORD: "freshrss"
+      PUID: "{{ docker_uid }}"
+      PGID: "{{ docker_gid }}"
+      TZ: "{{ timezone }}"
+      CRON_MIN: "2,32"
+      ADMIN_EMAIL: "admin@example.net"
+      ADMIN_PASSWORD: "freshrss"
+      ADMIN_API_PASSWORD: "freshrss"
     volumes:
-      - /home/pi/docker/freshrss/data:/var/www/FreshRSS/data
-      - /home/pi/docker/freshrss/extensions:/var/www/FreshRSS/extensions
+      - "{{ docker_dir }}/freshrss/data:/var/www/FreshRSS/data"
+      - "{{ docker_dir }}/freshrss/extensions:/var/www/FreshRSS/extensions"
     ports:
-      - "9191:80" # Web UI
+      - "9191:80"
     restart_policy: unless-stopped
-    state: absent

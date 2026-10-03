@@ -1,1 +1,13 @@
-#  <-- default lower priority variables for this role
+---
+# Default variables for common role
+
+enable_initial_setup: true
+enable_ping_reboot: true
+enable_hardware_watchdog: false
+enable_install_docker: false
+
+docker_version: "latest"
+docker_install_recommends: false
+docker_install_compose: true
+docker_users:
+  - 'pi'

@@ -1,5 +1,6 @@
-- name: Setup glances
-  docker_container:
+---
+- name: Setup Glances
+  community.docker.docker_container:
     name: glances
     image: nicolargo/glances:latest-full
     volumes:

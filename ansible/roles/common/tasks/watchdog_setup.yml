@@ -1,17 +1,15 @@
-- name: Enable watchdog in /boot/config.txt
+---
+- name: Check which boot config path exists
+  ansible.builtin.stat:
+    path: /boot/firmware/config.txt
+  register: rpi_firmware_config
+
+- name: Enable watchdog in boot config
   ansible.builtin.lineinfile:
-    path: /boot/config.txt
+    path: "{{ '/boot/firmware/config.txt' if rpi_firmware_config.stat.exists else '/boot/config.txt' }}"
     line: 'dtparam=watchdog=on'
     insertafter: EOF
   notify: Reboot Pi
-
-- name: Reboot Pi
-  ansible.builtin.reboot:
-    connect_timeout: 30
-    reboot_timeout: 300
-  when: ansible_system == 'Linux' and ansible_distribution == 'Raspbian'
-  async: 0
-  poll: 0
 
 - name: Ensure watchdog software is installed
   ansible.builtin.apt:
@@ -31,5 +29,5 @@
   ansible.builtin.service:
     name: watchdog
     state: started
-    enabled: yes
+    enabled: true
   notify: Check watchdog status
