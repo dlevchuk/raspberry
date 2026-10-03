@@ -8,6 +8,9 @@ timezone: "Europe/Kiev"
 
 homepage_host: "{{ ansible_host }}"
 
+# Portainer initial admin credentials (min 12 characters)
+portainer_admin_password: "RaspberryAdmin123!"
+
 # Enabled active services
 enable_homepage: true
 enable_portainer: true

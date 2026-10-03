@@ -1,11 +1,31 @@
 ---
+- name: Ensure Portainer directory exists
+  ansible.builtin.file:
+    path: "{{ docker_dir }}/portainer"
+    state: directory
+    owner: "{{ docker_user | default('pi') }}"
+    group: "{{ docker_user | default('pi') }}"
+    mode: "0755"
+
+- name: Create Portainer admin password file
+  ansible.builtin.copy:
+    content: "{{ portainer_admin_password }}"
+    dest: "{{ docker_dir }}/portainer/admin_password"
+    owner: "{{ docker_user | default('pi') }}"
+    group: "{{ docker_user | default('pi') }}"
+    mode: "0600"
+
 - name: Setup Portainer
   community.docker.docker_container:
     name: portainer
     image: portainer/portainer-ce:latest
+    command:
+      - "--no-setup-token"
+      - "--admin-password-file=/tmp/portainer_password"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - "{{ docker_dir }}/portainer/portainer_data:/data"
+      - "{{ docker_dir }}/portainer/admin_password:/tmp/portainer_password:ro"
     ports:
       - "9000:9000"
     restart_policy: always

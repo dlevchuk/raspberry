@@ -21,11 +21,6 @@
     - bookmarks.yaml
     - docker.yaml
 
-- name: Get docker group info
-  ansible.builtin.getent:
-    database: group
-    key: docker
-
 - name: Setup Homepage container
   community.docker.docker_container:
     name: homepage
@@ -33,12 +28,8 @@
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - "{{ docker_dir }}/homepage:/app/config"
-    groups:
-      - "{{ ansible_facts.getent_group.docker[1] }}"
     env:
       HOMEPAGE_ALLOWED_HOSTS: "raspberrypi.tail72e9f.ts.net:3005"
-      PUID: "{{ docker_uid }}"
-      PGID: "{{ docker_gid }}"
     ports:
       - "3005:3000"
     restart_policy: always
