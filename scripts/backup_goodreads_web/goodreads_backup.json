@@ -1,8 +1,56 @@
 {
   "user_id": "76529348",
-  "scraped_at": "2026-09-27 07:36:23 UTC",
-  "total_books": 1003,
+  "scraped_at": "2026-10-04 07:46:43 UTC",
+  "total_books": 1004,
   "books": [
+    {
+      "id": "668645",
+      "title": "The Status Civilization",
+      "url": "https://www.goodreads.com/book/show/668645.The_Status_Civilization",
+      "author": "Robert Sheckley",
+      "isbn": "1434499995",
+      "rating": 5,
+      "shelves": [
+        "read"
+      ],
+      "date_read": "Oct 03, 2026",
+      "date_added": "Oct 03, 2026",
+      "avg_rating": "3.99",
+      "pages": "130\n        pp",
+      "review": ""
+    },
+    {
+      "id": "35183325",
+      "title": "الخيميائي",
+      "url": "https://www.goodreads.com/book/show/35183325",
+      "author": "H.P. Lovecraft",
+      "isbn": "",
+      "rating": 3,
+      "shelves": [
+        "read"
+      ],
+      "date_read": "Jan 14, 2024",
+      "date_added": "Sep 30, 2026",
+      "avg_rating": "3.37",
+      "pages": "27\n        pp",
+      "review": ""
+    },
+    {
+      "id": "6681108",
+      "title": "Watchbird",
+      "url": "https://www.goodreads.com/book/show/6681108-watchbird",
+      "author": "Robert Sheckley",
+      "isbn": "",
+      "rating": 5,
+      "shelves": [
+        "read"
+      ],
+      "date_read": "Sep 27, 2026",
+      "date_added": "Sep 27, 2026",
+      "avg_rating": "4.02",
+      "pages": "40\n        pp",
+      "review": ""
+    },
     {
       "id": "10974",
       "title": "As I Lay Dying",
@@ -167,7 +215,7 @@
       ],
       "date_read": "Aug 20, 2022",
       "date_added": "Sep 11, 2026",
-      "avg_rating": "3.82",
+      "avg_rating": "3.83",
       "pages": "256\n        pp",
       "review": "Reading this book is as difficult as leading existence."
     },
@@ -395,7 +443,7 @@
       ],
       "date_read": "Aug 14, 2026",
       "date_added": "Aug 14, 2026",
-      "avg_rating": "3.81",
+      "avg_rating": "3.83",
       "pages": "126\n        pp",
       "review": ""
     },
@@ -706,7 +754,7 @@
       ],
       "date_read": "May 10, 2026",
       "date_added": "May 10, 2026",
-      "avg_rating": "4.38",
+      "avg_rating": "4.37",
       "pages": "272\n        pp",
       "review": ""
     },
@@ -873,7 +921,7 @@
       ],
       "date_read": "Apr 05, 2026",
       "date_added": "Apr 05, 2026",
-      "avg_rating": "4.21",
+      "avg_rating": "4.20",
       "pages": "304\n        pp",
       "review": ""
     },
@@ -1334,7 +1382,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Oct 28, 2025",
-      "avg_rating": "3.39",
+      "avg_rating": "3.38",
       "pages": "32\n        pp",
       "review": ""
     },
@@ -2038,7 +2086,7 @@
       ],
       "date_read": "Apr 20, 2025",
       "date_added": "Apr 20, 2025",
-      "avg_rating": "4.02",
+      "avg_rating": "4.03",
       "pages": "301\n        pp",
       "review": ""
     },
@@ -2122,7 +2170,7 @@
       ],
       "date_read": "Apr 05, 2025",
       "date_added": "Apr 05, 2025",
-      "avg_rating": "3.94",
+      "avg_rating": "3.93",
       "pages": "248\n        pp",
       "review": ""
     },
@@ -3038,7 +3086,7 @@
       ],
       "date_read": "Jan 13, 2025",
       "date_added": "Jan 13, 2025",
-      "avg_rating": "4.44",
+      "avg_rating": "4.45",
       "pages": "not set",
       "review": ""
     },
@@ -3055,7 +3103,7 @@
       ],
       "date_read": "Jan 11, 2025",
       "date_added": "Jan 11, 2025",
-      "avg_rating": "4.16",
+      "avg_rating": "4.15",
       "pages": "224\n        pp",
       "review": ""
     },
@@ -3120,7 +3168,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 08, 2025",
-      "avg_rating": "3.90",
+      "avg_rating": "3.91",
       "pages": "150\n        pp",
       "review": ""
     },
@@ -3710,7 +3758,7 @@
       ],
       "date_read": "Nov 04, 2024",
       "date_added": "Nov 04, 2024",
-      "avg_rating": "4.33",
+      "avg_rating": "4.32",
       "pages": "288\n        pp",
       "review": ""
     },
@@ -4508,7 +4556,7 @@
       ],
       "date_read": "Jul 22, 2024",
       "date_added": "Jul 22, 2024",
-      "avg_rating": "4.10",
+      "avg_rating": "4.11",
       "pages": "480\n        pp",
       "review": ""
     },
@@ -4689,24 +4737,8 @@
       ],
       "date_read": "Jan 18, 2024",
       "date_added": "Jan 18, 2024",
-      "avg_rating": "3.89",
+      "avg_rating": "3.88",
       "pages": "140\n        pp",
-      "review": ""
-    },
-    {
-      "id": "11554621",
-      "title": "The Alchemist",
-      "url": "https://www.goodreads.com/book/show/11554621-the-alchemist",
-      "author": "H.P. Lovecraft",
-      "isbn": "",
-      "rating": 3,
-      "shelves": [
-        "read"
-      ],
-      "date_read": "Jan 14, 2024",
-      "date_added": "Jan 14, 2024",
-      "avg_rating": "3.35",
-      "pages": "10\n        pp",
       "review": ""
     },
     {
@@ -4897,7 +4929,7 @@
       ],
       "date_read": "Dec 25, 2023",
       "date_added": "Dec 25, 2023",
-      "avg_rating": "3.76",
+      "avg_rating": "3.75",
       "pages": "46\n        pp",
       "review": ""
     },
@@ -5009,7 +5041,7 @@
       ],
       "date_read": "Nov 19, 2023",
       "date_added": "Nov 19, 2023",
-      "avg_rating": "3.54",
+      "avg_rating": "3.53",
       "pages": "30\n        pp",
       "review": ""
     },
@@ -5730,7 +5762,7 @@
       ],
       "date_read": "Aug 03, 2023",
       "date_added": "Sep 28, 2023",
-      "avg_rating": "3.96",
+      "avg_rating": "3.95",
       "pages": "112\n        pp",
       "review": ""
     },
@@ -5827,7 +5859,7 @@
       ],
       "date_read": "Jun 12, 2023",
       "date_added": "Jun 12, 2023",
-      "avg_rating": "3.72",
+      "avg_rating": "3.74",
       "pages": "118\n        pp",
       "review": ""
     },
@@ -5941,7 +5973,7 @@
       ],
       "date_read": "Mar 29, 2023",
       "date_added": "Mar 29, 2023",
-      "avg_rating": "4.33",
+      "avg_rating": "4.34",
       "pages": "424\n        pp",
       "review": ""
     },
@@ -6087,7 +6119,7 @@
       ],
       "date_read": "Jan 17, 2021",
       "date_added": "Feb 26, 2023",
-      "avg_rating": "3.84",
+      "avg_rating": "3.83",
       "pages": "15\n        pp",
       "review": ""
     },
@@ -6103,7 +6135,7 @@
       ],
       "date_read": "Jan 29, 2018",
       "date_added": "Feb 26, 2023",
-      "avg_rating": "3.28",
+      "avg_rating": "3.29",
       "pages": "350\n        pp",
       "review": ""
     },
@@ -6171,7 +6203,7 @@
       ],
       "date_read": "May 15, 2022",
       "date_added": "Feb 26, 2023",
-      "avg_rating": "3.94",
+      "avg_rating": "3.95",
       "pages": "503\n        pp",
       "review": ""
     },
@@ -6910,7 +6942,7 @@
       ],
       "date_read": "Feb 15, 2022",
       "date_added": "Dec 08, 2022",
-      "avg_rating": "4.03",
+      "avg_rating": "4.04",
       "pages": "225\n        pp",
       "review": ""
     },
@@ -7104,7 +7136,7 @@
       ],
       "date_read": "Jul 08, 2022",
       "date_added": "Dec 08, 2022",
-      "avg_rating": "3.87",
+      "avg_rating": "3.88",
       "pages": "448\n        pp",
       "review": ""
     },
@@ -7153,7 +7185,7 @@
       ],
       "date_read": "Nov 29, 2022",
       "date_added": "Nov 29, 2022",
-      "avg_rating": "4.37",
+      "avg_rating": "4.38",
       "pages": "448\n        pp",
       "review": ""
     },
@@ -7457,7 +7489,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 29, 2022",
-      "avg_rating": "3.71",
+      "avg_rating": "3.70",
       "pages": "765\n        pp",
       "review": ""
     },
@@ -8337,7 +8369,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 09, 2021",
-      "avg_rating": "4.22",
+      "avg_rating": "4.23",
       "pages": "704\n        pp",
       "review": ""
     },
@@ -8465,7 +8497,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 09, 2021",
-      "avg_rating": "4.10",
+      "avg_rating": "4.14",
       "pages": "190\n        pp",
       "review": ""
     },
@@ -8561,7 +8593,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 09, 2021",
-      "avg_rating": "3.86",
+      "avg_rating": "3.87",
       "pages": "256\n        pp",
       "review": ""
     },
@@ -8817,7 +8849,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 02, 2021",
-      "avg_rating": "4.19",
+      "avg_rating": "4.18",
       "pages": "312\n        pp",
       "review": ""
     },
@@ -9297,7 +9329,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 15, 2018",
-      "avg_rating": "4.05",
+      "avg_rating": "4.04",
       "pages": "96\n        pp",
       "review": ""
     },
@@ -9494,19 +9526,20 @@
       "review": ""
     },
     {
-      "id": "6681108",
-      "title": "Watchbird",
-      "url": "https://www.goodreads.com/book/show/6681108-watchbird",
-      "author": "Robert Sheckley",
-      "isbn": "",
+      "id": "54785515",
+      "title": "Four Thousand Weeks: Time Management for Mortals",
+      "url": "https://www.goodreads.com/book/show/54785515-four-thousand-weeks",
+      "author": "Oliver Burkeman",
+      "isbn": "0374159122",
       "rating": 0,
       "shelves": [
-        "currently-reading"
+        "currently-reading",
+        "selfimprove"
       ],
       "date_read": "not set",
-      "date_added": "Sep 26, 2026",
-      "avg_rating": "4.01",
-      "pages": "40\n        pp",
+      "date_added": "Sep 28, 2026",
+      "avg_rating": "4.15",
+      "pages": "245\n        pp",
       "review": ""
     },
     {
@@ -9527,19 +9560,20 @@
       "review": ""
     },
     {
-      "id": "668645",
-      "title": "The Status Civilization",
-      "url": "https://www.goodreads.com/book/show/668645.The_Status_Civilization",
-      "author": "Robert Sheckley",
-      "isbn": "1434499995",
+      "id": "567610",
+      "title": "How to Read a Book: The Classic Guide to Intelligent Reading",
+      "url": "https://www.goodreads.com/book/show/567610.How_to_Read_a_Book",
+      "author": "Mortimer J. Adler",
+      "isbn": "",
       "rating": 0,
       "shelves": [
-        "to-read"
+        "to-read",
+        "selfimprove"
       ],
       "date_read": "not set",
-      "date_added": "Sep 20, 2026",
-      "avg_rating": "3.99",
-      "pages": "130\n        pp",
+      "date_added": "Sep 28, 2026",
+      "avg_rating": "3.97",
+      "pages": "442\n        pp",
       "review": ""
     },
     {
@@ -9845,7 +9879,7 @@
       ],
       "date_read": "not set",
       "date_added": "May 19, 2026",
-      "avg_rating": "3.80",
+      "avg_rating": "3.81",
       "pages": "not set",
       "review": ""
     },
@@ -9910,7 +9944,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 21, 2026",
-      "avg_rating": "4.04",
+      "avg_rating": "4.05",
       "pages": "1104\n        pp",
       "review": ""
     },
@@ -9974,7 +10008,7 @@
       ],
       "date_read": "not set",
       "date_added": "Feb 05, 2026",
-      "avg_rating": "3.60",
+      "avg_rating": "3.61",
       "pages": "268\n        pp",
       "review": ""
     },
@@ -10039,7 +10073,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 10, 2026",
-      "avg_rating": "3.78",
+      "avg_rating": "3.77",
       "pages": "136\n        pp",
       "review": ""
     },
@@ -10745,7 +10779,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.27",
+      "avg_rating": "4.26",
       "pages": "347\n        pp",
       "review": ""
     },
@@ -11241,7 +11275,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.30",
+      "avg_rating": "4.29",
       "pages": "295\n        pp",
       "review": ""
     },
@@ -11273,7 +11307,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.12",
+      "avg_rating": "4.13",
       "pages": "468\n        pp",
       "review": ""
     },
@@ -11522,7 +11556,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.55",
+      "avg_rating": "3.52",
       "pages": "not set",
       "review": ""
     },
@@ -12071,11 +12105,11 @@
       "review": ""
     },
     {
-      "id": "20740457",
-      "title": "Сад божествених пісень. Афоризми",
-      "url": "https://www.goodreads.com/book/show/20740457",
+      "id": "60892544",
+      "title": "Сад божественних пісень",
+      "url": "https://www.goodreads.com/book/show/60892544",
       "author": "Gregory Skovoroda",
-      "isbn": "",
+      "isbn": "9663395907",
       "rating": 0,
       "shelves": [
         "to-read",
@@ -12083,8 +12117,8 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.19",
-      "pages": "150\n        pp",
+      "avg_rating": "4.21",
+      "pages": "336\n        pp",
       "review": ""
     },
     {
@@ -12134,7 +12168,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.73",
+      "avg_rating": "4.74",
       "pages": "475\n        pp",
       "review": ""
     },
@@ -12320,7 +12354,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.29",
+      "avg_rating": "4.28",
       "pages": "352\n        pp",
       "review": ""
     },
@@ -12953,7 +12987,7 @@
       ],
       "date_read": "not set",
       "date_added": "Oct 23, 2024",
-      "avg_rating": "4.38",
+      "avg_rating": "4.39",
       "pages": "64\n        pp",
       "review": ""
     },
@@ -13260,7 +13294,7 @@
       ],
       "date_read": "not set",
       "date_added": "Sep 14, 2023",
-      "avg_rating": "4.34",
+      "avg_rating": "4.33",
       "pages": "304\n        pp",
       "review": ""
     },
@@ -14161,7 +14195,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 03, 2023",
-      "avg_rating": "4.28",
+      "avg_rating": "4.27",
       "pages": "293\n        pp",
       "review": ""
     },
@@ -14292,7 +14326,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 07, 2022",
-      "avg_rating": "4.11",
+      "avg_rating": "4.10",
       "pages": "1088\n        pp",
       "review": ""
     },
@@ -14554,22 +14588,6 @@
       "date_added": "Sep 11, 2022",
       "avg_rating": "3.86",
       "pages": "224\n        pp",
-      "review": ""
-    },
-    {
-      "id": "54785515",
-      "title": "Four Thousand Weeks: Time Management for Mortals",
-      "url": "https://www.goodreads.com/book/show/54785515-four-thousand-weeks",
-      "author": "Oliver Burkeman",
-      "isbn": "0374159122",
-      "rating": 0,
-      "shelves": [
-        "to-read"
-      ],
-      "date_read": "not set",
-      "date_added": "Sep 11, 2022",
-      "avg_rating": "4.15",
-      "pages": "245\n        pp",
       "review": ""
     },
     {
@@ -15048,7 +15066,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 05, 2022",
-      "avg_rating": "4.12",
+      "avg_rating": "4.11",
       "pages": "704\n        pp",
       "review": ""
     },
@@ -15224,7 +15242,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jun 19, 2022",
-      "avg_rating": "3.89",
+      "avg_rating": "3.88",
       "pages": "374\n        pp",
       "review": ""
     },
@@ -15432,7 +15450,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 29, 2022",
-      "avg_rating": "4.19",
+      "avg_rating": "4.20",
       "pages": "340\n        pp",
       "review": ""
     },
@@ -15496,7 +15514,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 29, 2022",
-      "avg_rating": "4.17",
+      "avg_rating": "4.18",
       "pages": "449\n        pp",
       "review": ""
     },
@@ -15640,7 +15658,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 27, 2022",
-      "avg_rating": "4.15",
+      "avg_rating": "4.16",
       "pages": "480\n        pp",
       "review": ""
     },
