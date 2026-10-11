@@ -1,8 +1,25 @@
 {
   "user_id": "76529348",
-  "scraped_at": "2026-10-04 07:46:43 UTC",
+  "scraped_at": "2026-10-11 08:18:06 UTC",
   "total_books": 1004,
   "books": [
+    {
+      "id": "54785515",
+      "title": "Four Thousand Weeks: Time Management for Mortals",
+      "url": "https://www.goodreads.com/book/show/54785515-four-thousand-weeks",
+      "author": "Oliver Burkeman",
+      "isbn": "0374159122",
+      "rating": 4,
+      "shelves": [
+        "selfimprove",
+        "read"
+      ],
+      "date_read": "Oct 06, 2026",
+      "date_added": "Oct 06, 2026",
+      "avg_rating": "4.15",
+      "pages": "245\n        pp",
+      "review": ""
+    },
     {
       "id": "668645",
       "title": "The Status Civilization",
@@ -31,7 +48,7 @@
       ],
       "date_read": "Jan 14, 2024",
       "date_added": "Sep 30, 2026",
-      "avg_rating": "3.37",
+      "avg_rating": "3.38",
       "pages": "27\n        pp",
       "review": ""
     },
@@ -215,7 +232,7 @@
       ],
       "date_read": "Aug 20, 2022",
       "date_added": "Sep 11, 2026",
-      "avg_rating": "3.83",
+      "avg_rating": "3.82",
       "pages": "256\n        pp",
       "review": "Reading this book is as difficult as leading existence."
     },
@@ -363,7 +380,7 @@
       ],
       "date_read": "Aug 16, 2026",
       "date_added": "Aug 16, 2026",
-      "avg_rating": "4.07",
+      "avg_rating": "4.06",
       "pages": "20\n        pp",
       "review": ""
     },
@@ -443,7 +460,7 @@
       ],
       "date_read": "Aug 14, 2026",
       "date_added": "Aug 14, 2026",
-      "avg_rating": "3.83",
+      "avg_rating": "3.82",
       "pages": "126\n        pp",
       "review": ""
     },
@@ -921,7 +938,7 @@
       ],
       "date_read": "Apr 05, 2026",
       "date_added": "Apr 05, 2026",
-      "avg_rating": "4.20",
+      "avg_rating": "4.21",
       "pages": "304\n        pp",
       "review": ""
     },
@@ -1021,7 +1038,7 @@
       ],
       "date_read": "Jan 26, 2026",
       "date_added": "Jan 26, 2026",
-      "avg_rating": "4.08",
+      "avg_rating": "4.06",
       "pages": "368\n        pp",
       "review": ""
     },
@@ -1158,7 +1175,7 @@
     },
     {
       "id": "44492285",
-      "title": "Dune Messiah (Dune #2)",
+      "title": "Dune Messiah (Dune, #2)",
       "url": "https://www.goodreads.com/book/show/44492285-dune-messiah",
       "author": "Frank Herbert",
       "isbn": "0593098234",
@@ -1248,7 +1265,7 @@
       ],
       "date_read": "Nov 06, 2025",
       "date_added": "Nov 06, 2025",
-      "avg_rating": "4.38",
+      "avg_rating": "4.37",
       "pages": "389\n        pp",
       "review": ""
     },
@@ -1265,7 +1282,7 @@
       ],
       "date_read": "Nov 01, 2025",
       "date_added": "Nov 01, 2025",
-      "avg_rating": "4.03",
+      "avg_rating": "4.04",
       "pages": "not set",
       "review": ""
     },
@@ -1316,7 +1333,7 @@
       ],
       "date_read": "Oct 30, 2025",
       "date_added": "Oct 30, 2025",
-      "avg_rating": "3.69",
+      "avg_rating": "3.71",
       "pages": "127\n        pp",
       "review": ""
     },
@@ -1415,7 +1432,7 @@
       ],
       "date_read": "Oct 15, 2025",
       "date_added": "Oct 15, 2025",
-      "avg_rating": "4.17",
+      "avg_rating": "4.18",
       "pages": "127\n        pp",
       "review": ""
     },
@@ -1463,7 +1480,7 @@
       ],
       "date_read": "Sep 04, 2025",
       "date_added": "Sep 04, 2025",
-      "avg_rating": "4.15",
+      "avg_rating": "4.14",
       "pages": "8\n        pp",
       "review": ""
     },
@@ -1711,7 +1728,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 18, 2025",
-      "avg_rating": "4.44",
+      "avg_rating": "4.45",
       "pages": "188\n        pp",
       "review": ""
     },
@@ -2086,7 +2103,7 @@
       ],
       "date_read": "Apr 20, 2025",
       "date_added": "Apr 20, 2025",
-      "avg_rating": "4.03",
+      "avg_rating": "4.02",
       "pages": "301\n        pp",
       "review": ""
     },
@@ -3103,7 +3120,7 @@
       ],
       "date_read": "Jan 11, 2025",
       "date_added": "Jan 11, 2025",
-      "avg_rating": "4.15",
+      "avg_rating": "4.16",
       "pages": "224\n        pp",
       "review": ""
     },
@@ -3168,7 +3185,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 08, 2025",
-      "avg_rating": "3.91",
+      "avg_rating": "3.90",
       "pages": "150\n        pp",
       "review": ""
     },
@@ -3216,7 +3233,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 05, 2025",
-      "avg_rating": "3.80",
+      "avg_rating": "3.79",
       "pages": "416\n        pp",
       "review": ""
     },
@@ -3232,7 +3249,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 05, 2025",
-      "avg_rating": "3.87",
+      "avg_rating": "3.86",
       "pages": "432\n        pp",
       "review": ""
     },
@@ -3264,7 +3281,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 05, 2025",
-      "avg_rating": "3.74",
+      "avg_rating": "3.73",
       "pages": "416\n        pp",
       "review": ""
     },
@@ -3659,7 +3676,7 @@
       ],
       "date_read": "Dec 21, 2024",
       "date_added": "Dec 21, 2024",
-      "avg_rating": "4.17",
+      "avg_rating": "4.16",
       "pages": "816\n        pp",
       "review": ""
     },
@@ -3676,7 +3693,7 @@
       ],
       "date_read": "Dec 12, 2024",
       "date_added": "Dec 12, 2024",
-      "avg_rating": "4.48",
+      "avg_rating": "4.47",
       "pages": "220\n        pp",
       "review": ""
     },
@@ -3692,7 +3709,7 @@
       ],
       "date_read": "Nov 29, 2024",
       "date_added": "Nov 29, 2024",
-      "avg_rating": "4.49",
+      "avg_rating": "4.48",
       "pages": "408\n        pp",
       "review": ""
     },
@@ -3725,7 +3742,7 @@
       ],
       "date_read": "Nov 11, 2024",
       "date_added": "Nov 11, 2024",
-      "avg_rating": "4.25",
+      "avg_rating": "4.24",
       "pages": "207\n        pp",
       "review": ""
     },
@@ -4539,7 +4556,7 @@
       ],
       "date_read": "Jul 23, 2024",
       "date_added": "Jul 23, 2024",
-      "avg_rating": "3.54",
+      "avg_rating": "3.53",
       "pages": "320\n        pp",
       "review": ""
     },
@@ -4556,7 +4573,7 @@
       ],
       "date_read": "Jul 22, 2024",
       "date_added": "Jul 22, 2024",
-      "avg_rating": "4.11",
+      "avg_rating": "4.10",
       "pages": "480\n        pp",
       "review": ""
     },
@@ -4672,7 +4689,7 @@
       ],
       "date_read": "Jan 27, 2024",
       "date_added": "Jan 27, 2024",
-      "avg_rating": "4.57",
+      "avg_rating": "4.56",
       "pages": "not set",
       "review": ""
     },
@@ -4737,7 +4754,7 @@
       ],
       "date_read": "Jan 18, 2024",
       "date_added": "Jan 18, 2024",
-      "avg_rating": "3.88",
+      "avg_rating": "3.89",
       "pages": "140\n        pp",
       "review": ""
     },
@@ -4753,7 +4770,7 @@
       ],
       "date_read": "Jan 13, 2024",
       "date_added": "Jan 13, 2024",
-      "avg_rating": "3.21",
+      "avg_rating": "3.20",
       "pages": "34\n        pp",
       "review": ""
     },
@@ -4801,7 +4818,7 @@
       ],
       "date_read": "Jan 13, 2024",
       "date_added": "Jan 13, 2024",
-      "avg_rating": "3.01",
+      "avg_rating": "3.00",
       "pages": "88\n        pp",
       "review": ""
     },
@@ -4913,7 +4930,7 @@
       ],
       "date_read": "Dec 25, 2023",
       "date_added": "Dec 25, 2023",
-      "avg_rating": "2.71",
+      "avg_rating": "2.70",
       "pages": "24\n        pp",
       "review": ""
     },
@@ -4929,7 +4946,7 @@
       ],
       "date_read": "Dec 25, 2023",
       "date_added": "Dec 25, 2023",
-      "avg_rating": "3.75",
+      "avg_rating": "3.76",
       "pages": "46\n        pp",
       "review": ""
     },
@@ -5025,7 +5042,7 @@
       ],
       "date_read": "Dec 07, 2023",
       "date_added": "Dec 07, 2023",
-      "avg_rating": "3.94",
+      "avg_rating": "3.93",
       "pages": "144\n        pp",
       "review": ""
     },
@@ -5121,7 +5138,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "2.95",
+      "avg_rating": "2.94",
       "pages": "48\n        pp",
       "review": ""
     },
@@ -5169,7 +5186,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "3.19",
+      "avg_rating": "3.18",
       "pages": "4\n        pp",
       "review": ""
     },
@@ -5233,7 +5250,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "2.86",
+      "avg_rating": "2.87",
       "pages": "6\n        pp",
       "review": ""
     },
@@ -5425,7 +5442,7 @@
       ],
       "date_read": "Nov 14, 2023",
       "date_added": "Nov 14, 2023",
-      "avg_rating": "2.32",
+      "avg_rating": "2.29",
       "pages": "9\n        pp",
       "review": ""
     },
@@ -5601,7 +5618,7 @@
       ],
       "date_read": "Oct 28, 2023",
       "date_added": "Oct 28, 2023",
-      "avg_rating": "2.98",
+      "avg_rating": "2.97",
       "pages": "24\n        pp",
       "review": ""
     },
@@ -5649,7 +5666,7 @@
       ],
       "date_read": "Oct 24, 2023",
       "date_added": "Oct 24, 2023",
-      "avg_rating": "3.00",
+      "avg_rating": "2.98",
       "pages": "7\n        pp",
       "review": ""
     },
@@ -5892,7 +5909,7 @@
       ],
       "date_read": "May 26, 2023",
       "date_added": "May 26, 2023",
-      "avg_rating": "4.27",
+      "avg_rating": "4.28",
       "pages": "not set",
       "review": ""
     },
@@ -5941,7 +5958,7 @@
       ],
       "date_read": "Apr 17, 2023",
       "date_added": "Apr 17, 2023",
-      "avg_rating": "4.23",
+      "avg_rating": "4.22",
       "pages": "not set",
       "review": "- прям добре в бік екзистенціалізму<br />- все ще рефлексую над рецензією<br />- але Домонтович доволі непоганий у жанрі<br />- така собі \"Нудота\" Сартра з нарисом епохи 30х років 20c Києва, з яскравими акцентами в сюжеті завдяки мініессе, які вкраплюються в основну історію"
     },
@@ -6022,7 +6039,7 @@
       ],
       "date_read": "Mar 12, 2023",
       "date_added": "Mar 12, 2023",
-      "avg_rating": "3.55",
+      "avg_rating": "3.67",
       "pages": "not set",
       "review": ""
     },
@@ -6135,7 +6152,7 @@
       ],
       "date_read": "Jan 29, 2018",
       "date_added": "Feb 26, 2023",
-      "avg_rating": "3.29",
+      "avg_rating": "3.28",
       "pages": "350\n        pp",
       "review": ""
     },
@@ -6322,7 +6339,7 @@
       ],
       "date_read": "Oct 13, 2022",
       "date_added": "Feb 26, 2023",
-      "avg_rating": "3.88",
+      "avg_rating": "3.86",
       "pages": "160\n        pp",
       "review": "Борітеся - поборете!"
     },
@@ -6620,7 +6637,7 @@
       ],
       "date_read": "May 29, 2022",
       "date_added": "Dec 29, 2022",
-      "avg_rating": "4.39",
+      "avg_rating": "4.38",
       "pages": "416\n        pp",
       "review": ""
     },
@@ -6684,7 +6701,7 @@
       ],
       "date_read": "not set",
       "date_added": "Dec 29, 2022",
-      "avg_rating": "4.37",
+      "avg_rating": "4.36",
       "pages": "480\n        pp",
       "review": ""
     },
@@ -6813,7 +6830,7 @@
       ],
       "date_read": "Dec 29, 2022",
       "date_added": "Dec 29, 2022",
-      "avg_rating": "4.24",
+      "avg_rating": "4.22",
       "pages": "384\n        pp",
       "review": "Допомагає гарно розставити все по полицях."
     },
@@ -7008,7 +7025,7 @@
       ],
       "date_read": "Feb 16, 2022",
       "date_added": "Dec 08, 2022",
-      "avg_rating": "4.12",
+      "avg_rating": "4.11",
       "pages": "339\n        pp",
       "review": ""
     },
@@ -7072,7 +7089,7 @@
       ],
       "date_read": "Apr 25, 2022",
       "date_added": "Dec 08, 2022",
-      "avg_rating": "4.00",
+      "avg_rating": "3.94",
       "pages": "352\n        pp",
       "review": ""
     },
@@ -7201,7 +7218,7 @@
       ],
       "date_read": "Nov 21, 2022",
       "date_added": "Nov 21, 2022",
-      "avg_rating": "4.34",
+      "avg_rating": "4.33",
       "pages": "800\n        pp",
       "review": "Чудовий потенціал до невдалої екранізації посереднього роману."
     },
@@ -7217,7 +7234,7 @@
       ],
       "date_read": "Nov 06, 2022",
       "date_added": "Nov 06, 2022",
-      "avg_rating": "4.26",
+      "avg_rating": "4.27",
       "pages": "128\n        pp",
       "review": ""
     },
@@ -7233,7 +7250,7 @@
       ],
       "date_read": "Oct 09, 2022",
       "date_added": "Oct 09, 2022",
-      "avg_rating": "4.11",
+      "avg_rating": "4.10",
       "pages": "186\n        pp",
       "review": "Антиутопічна сатира яка виявилась пророчою."
     },
@@ -7281,7 +7298,7 @@
       ],
       "date_read": "not set",
       "date_added": "Sep 04, 2022",
-      "avg_rating": "4.29",
+      "avg_rating": "4.25",
       "pages": "248\n        pp",
       "review": ""
     },
@@ -7425,7 +7442,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 29, 2022",
-      "avg_rating": "4.67",
+      "avg_rating": "4.75",
       "pages": "370\n        pp",
       "review": ""
     },
@@ -7553,7 +7570,7 @@
       ],
       "date_read": "not set",
       "date_added": "Aug 08, 2021",
-      "avg_rating": "3.64",
+      "avg_rating": "3.63",
       "pages": "416\n        pp",
       "review": ""
     },
@@ -7569,7 +7586,7 @@
       ],
       "date_read": "Jul 10, 2021",
       "date_added": "Jul 10, 2021",
-      "avg_rating": "4.33",
+      "avg_rating": "4.31",
       "pages": "320\n        pp",
       "review": ""
     },
@@ -8337,7 +8354,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 09, 2021",
-      "avg_rating": "4.05",
+      "avg_rating": "4.06",
       "pages": "368\n        pp",
       "review": ""
     },
@@ -8401,7 +8418,7 @@
       ],
       "date_read": "not set",
       "date_added": "Mar 09, 2021",
-      "avg_rating": "4.54",
+      "avg_rating": "4.55",
       "pages": "149\n        pp",
       "review": ""
     },
@@ -9526,20 +9543,19 @@
       "review": ""
     },
     {
-      "id": "54785515",
-      "title": "Four Thousand Weeks: Time Management for Mortals",
-      "url": "https://www.goodreads.com/book/show/54785515-four-thousand-weeks",
-      "author": "Oliver Burkeman",
-      "isbn": "0374159122",
+      "id": "17245",
+      "title": "Dracula",
+      "url": "https://www.goodreads.com/book/show/17245.Dracula",
+      "author": "Bram Stoker",
+      "isbn": "0393970124",
       "rating": 0,
       "shelves": [
-        "currently-reading",
-        "selfimprove"
+        "currently-reading"
       ],
       "date_read": "not set",
-      "date_added": "Sep 28, 2026",
-      "avg_rating": "4.15",
-      "pages": "245\n        pp",
+      "date_added": "Oct 06, 2026",
+      "avg_rating": "4.03",
+      "pages": "488\n        pp",
       "review": ""
     },
     {
@@ -9557,6 +9573,23 @@
       "date_added": "Aug 04, 2024",
       "avg_rating": "4.70",
       "pages": "562\n        pp",
+      "review": ""
+    },
+    {
+      "id": "60892544",
+      "title": "Сад божественних пісень",
+      "url": "https://www.goodreads.com/book/show/60892544",
+      "author": "Gregory Skovoroda",
+      "isbn": "9663395907",
+      "rating": 0,
+      "shelves": [
+        "to-read",
+        "ua"
+      ],
+      "date_read": "not set",
+      "date_added": "Oct 07, 2026",
+      "avg_rating": "4.19",
+      "pages": "336\n        pp",
       "review": ""
     },
     {
@@ -9717,7 +9750,7 @@
       ],
       "date_read": "not set",
       "date_added": "Aug 22, 2026",
-      "avg_rating": "3.68",
+      "avg_rating": "3.66",
       "pages": "208\n        pp",
       "review": ""
     },
@@ -9766,7 +9799,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 29, 2026",
-      "avg_rating": "4.15",
+      "avg_rating": "4.14",
       "pages": "244\n        pp",
       "review": ""
     },
@@ -9879,7 +9912,7 @@
       ],
       "date_read": "not set",
       "date_added": "May 19, 2026",
-      "avg_rating": "3.81",
+      "avg_rating": "3.80",
       "pages": "not set",
       "review": ""
     },
@@ -9944,7 +9977,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 21, 2026",
-      "avg_rating": "4.05",
+      "avg_rating": "4.06",
       "pages": "1104\n        pp",
       "review": ""
     },
@@ -10057,7 +10090,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 17, 2026",
-      "avg_rating": "4.25",
+      "avg_rating": "4.24",
       "pages": "309\n        pp",
       "review": ""
     },
@@ -10186,7 +10219,7 @@
       ],
       "date_read": "not set",
       "date_added": "Nov 20, 2025",
-      "avg_rating": "4.24",
+      "avg_rating": "4.25",
       "pages": "783\n        pp",
       "review": ""
     },
@@ -10234,7 +10267,7 @@
       ],
       "date_read": "not set",
       "date_added": "Oct 31, 2025",
-      "avg_rating": "3.72",
+      "avg_rating": "3.71",
       "pages": "160\n        pp",
       "review": ""
     },
@@ -10539,7 +10572,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.81",
+      "avg_rating": "3.82",
       "pages": "336\n        pp",
       "review": ""
     },
@@ -10955,7 +10988,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.26",
+      "avg_rating": "4.27",
       "pages": "249\n        pp",
       "review": ""
     },
@@ -11845,7 +11878,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.82",
+      "avg_rating": "4.83",
       "pages": "535\n        pp",
       "review": ""
     },
@@ -11981,7 +12014,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.87",
+      "avg_rating": "3.88",
       "pages": "208\n        pp",
       "review": ""
     },
@@ -12100,25 +12133,8 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.28",
+      "avg_rating": "4.29",
       "pages": "560\n        pp",
-      "review": ""
-    },
-    {
-      "id": "60892544",
-      "title": "Сад божественних пісень",
-      "url": "https://www.goodreads.com/book/show/60892544",
-      "author": "Gregory Skovoroda",
-      "isbn": "9663395907",
-      "rating": 0,
-      "shelves": [
-        "to-read",
-        "ua"
-      ],
-      "date_read": "not set",
-      "date_added": "Apr 19, 2025",
-      "avg_rating": "4.21",
-      "pages": "336\n        pp",
       "review": ""
     },
     {
@@ -12320,7 +12336,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "4.35",
+      "avg_rating": "4.36",
       "pages": "379\n        pp",
       "review": ""
     },
@@ -12444,7 +12460,7 @@
       "title": "The Bell Jar",
       "url": "https://www.goodreads.com/book/show/56616095-the-bell-jar",
       "author": "Sylvia Plath",
-      "isbn": "0060837020",
+      "isbn": "",
       "rating": 0,
       "shelves": [
         "to-read"
@@ -12499,7 +12515,7 @@
       ],
       "date_read": "not set",
       "date_added": "Apr 19, 2025",
-      "avg_rating": "3.80",
+      "avg_rating": "3.79",
       "pages": "430\n        pp",
       "review": ""
     },
@@ -12743,7 +12759,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 12, 2025",
-      "avg_rating": "4.08",
+      "avg_rating": "4.14",
       "pages": "352\n        pp",
       "review": ""
     },
@@ -12941,22 +12957,6 @@
       "date_added": "Oct 23, 2024",
       "avg_rating": "3.95",
       "pages": "252\n        pp",
-      "review": ""
-    },
-    {
-      "id": "17245",
-      "title": "Dracula",
-      "url": "https://www.goodreads.com/book/show/17245.Dracula",
-      "author": "Bram Stoker",
-      "isbn": "0393970124",
-      "rating": 0,
-      "shelves": [
-        "to-read"
-      ],
-      "date_read": "not set",
-      "date_added": "Oct 23, 2024",
-      "avg_rating": "4.03",
-      "pages": "488\n        pp",
       "review": ""
     },
     {
@@ -13246,7 +13246,7 @@
       ],
       "date_read": "not set",
       "date_added": "Nov 05, 2023",
-      "avg_rating": "4.60",
+      "avg_rating": "4.59",
       "pages": "224\n        pp",
       "review": ""
     },
@@ -13294,7 +13294,7 @@
       ],
       "date_read": "not set",
       "date_added": "Sep 14, 2023",
-      "avg_rating": "4.33",
+      "avg_rating": "4.34",
       "pages": "304\n        pp",
       "review": ""
     },
@@ -13310,7 +13310,7 @@
       ],
       "date_read": "not set",
       "date_added": "Aug 04, 2023",
-      "avg_rating": "4.36",
+      "avg_rating": "4.35",
       "pages": "138\n        pp",
       "review": ""
     },
@@ -13711,7 +13711,7 @@
       ],
       "date_read": "not set",
       "date_added": "May 04, 2023",
-      "avg_rating": "3.96",
+      "avg_rating": "3.95",
       "pages": "288\n        pp",
       "review": ""
     },
@@ -13976,7 +13976,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jan 29, 2023",
-      "avg_rating": "4.20",
+      "avg_rating": "4.19",
       "pages": "522\n        pp",
       "review": ""
     },
@@ -14458,7 +14458,7 @@
       ],
       "date_read": "not set",
       "date_added": "Nov 11, 2022",
-      "avg_rating": "4.01",
+      "avg_rating": "4.00",
       "pages": "117\n        pp",
       "review": ""
     },
@@ -14730,7 +14730,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 10, 2022",
-      "avg_rating": "4.37",
+      "avg_rating": "4.36",
       "pages": "432\n        pp",
       "review": ""
     },
@@ -14922,7 +14922,7 @@
       ],
       "date_read": "not set",
       "date_added": "Jul 05, 2022",
-      "avg_rating": "3.97",
+      "avg_rating": "3.96",
       "pages": "280\n        pp",
       "review": ""
     },
@@ -15354,7 +15354,7 @@
       ],
       "date_read": "not set",
       "date_added": "May 22, 2022",
-      "avg_rating": "4.04",
+      "avg_rating": "4.03",
       "pages": "589\n        pp",
       "review": ""
     },
@@ -16058,7 +16058,7 @@
       ],
       "date_read": "not set",
       "date_added": "Feb 25, 2021",
-      "avg_rating": "4.55",
+      "avg_rating": "4.56",
       "pages": "960\n        pp",
       "review": ""
     },
@@ -16074,7 +16074,7 @@
       ],
       "date_read": "not set",
       "date_added": "Feb 25, 2021",
-      "avg_rating": "4.21",
+      "avg_rating": "4.22",
       "pages": "672\n        pp",
       "review": ""
     },
@@ -16202,7 +16202,7 @@
       ],
       "date_read": "not set",
       "date_added": "Feb 25, 2021",
-      "avg_rating": "4.23",
+      "avg_rating": "4.24",
       "pages": "576\n        pp",
       "review": ""
     },
