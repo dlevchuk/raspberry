@@ -17,8 +17,6 @@ import signal
 import threading
 import queue
 import subprocess
-import html
-import urllib.request
 from datetime import datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse, parse_qs
@@ -60,14 +58,6 @@ DEFAULT_CONFIG = {
 config_lock = threading.Lock()
 # Serializes disk writes only.  Do not use this lock to protect `config`.
 config_file_lock = threading.Lock()
-
-# War Monitor proxy cache & settings
-warmonitor_cache = {}
-warmonitor_cache_lock = threading.Lock()
-WARMONITOR_UA = (
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-)
 config = DEFAULT_CONFIG.copy()
 
 MAX_STREAM_CLIENTS = int(os.environ.get("THERMAL_MAX_STREAM_CLIENTS", "10"))
@@ -470,6 +460,21 @@ PAGE = """<!doctype html>
   .weather-grid{display:grid;grid-template-columns:1fr;gap:16px;max-width:1400px;margin:0 auto}
   @media(min-width:900px){.weather-grid{grid-template-columns:1fr 1.2fr}}
 
+  /* Useful links grid */
+  .links-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:12px;margin-top:4px}
+  .service-link-card{display:flex;align-items:flex-start;gap:12px;padding:12px;background:#1a1a1a;border:1px solid #2e2e2e;border-radius:8px;text-decoration:none;color:#e0e0e0;transition:all .2s ease}
+  .service-link-card:hover{background:#252525;border-color:#4caf50;transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.4)}
+  .service-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+  .service-info{flex:1;min-width:0}
+  .service-title-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px}
+  .service-title{font-weight:600;font-size:13.5px;color:#fff}
+  .service-badge{font-size:9.5px;padding:1px 6px;border-radius:4px;font-weight:600;background:#333;color:#bbb;text-transform:uppercase}
+  .service-badge.warn{background:#c62828;color:#fff}
+  .service-badge.ok{background:#2e7d32;color:#fff}
+  .service-badge.info{background:#0277bd;color:#fff}
+  .service-desc{font-size:11.5px;color:#999;line-height:1.35;margin-bottom:6px}
+  .service-url{font-size:10.5px;color:#64b5f6;font-family:monospace}
+
   /* Pinout Widget Styles */
   .pinout-container{background:#4d6a45;border-radius:8px;padding:12px;margin-top:14px;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;box-shadow:inset 0 0 10px rgba(0,0,0,0.5)}
   .pinout-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.2)}
@@ -509,7 +514,7 @@ PAGE = """<!doctype html>
       📹 Головна панель & Камера
     </button>
     <button id="tab-btn-weather" class="nav-tab-btn" onclick="switchTab('weather')">
-      🚨 Повітряні загрози & 🌦️ Авіапогода
+      🚨 Повітряна тривога & 🌦️ Авіапогода
     </button>
   </div>
 
@@ -702,32 +707,65 @@ PAGE = """<!doctype html>
     </div>
   </div>
 
-  <!-- Вкладка 2: Повітряні загрози War Monitor, тривоги та Авіапогода Windy -->
+  <!-- Вкладка 2: Корисні сайти, Повітряна тривога та Авіапогода Windy -->
   <div id="tab-weather" class="tab-page">
     <div class="weather-grid">
-      <!-- Віджет War Monitor -->
-      <div class="card" id="warmonitor-wrap" style="grid-column: 1 / -1;">
+      <!-- Блок із корисними сайтами та моніторингом -->
+      <div class="card" id="useful-links-card" style="grid-column: 1 / -1;">
         <div class="card-header">
           <div style="display:flex;align-items:center;gap:8px">
-            <h3>🎯 Мапа повітряних загроз — War Monitor</h3>
-            <span style="font-size:10px;background:#c62828;color:#fff;padding:2px 7px;border-radius:4px;font-weight:700;letter-spacing:0.5px">LIVE</span>
+            <h3>🔗 Корисні сервіси та оперативний моніторинг</h3>
           </div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <span style="font-size:11px;color:#aaa">map.war-monitor.org</span>
-            <button class="btn-sm" onclick="reloadWarMonitor()" title="Перезавантажити мапу">🔄 Оновити</button>
-            <a href="https://map.war-monitor.org/" target="_blank" rel="noopener noreferrer" class="btn-sm" style="text-decoration:none;display:inline-flex;align-items:center;gap:4px">
-              ↗ Відкрити на сайті
-            </a>
-          </div>
+          <span style="font-size:11px;color:#aaa">Швидкі посилання</span>
         </div>
-        <div style="position:relative;width:100%;height:650px;background:#0a0c0b;border-radius:6px;overflow:hidden">
-          <iframe id="warMonitorFrame"
-                  src="/warmonitor"
-                  title="Мапа повітряних загроз War Monitor"
-                  frameborder="0"
-                  allow="fullscreen"
-                  style="width:100%;height:100%;border:none;display:block"
-                  loading="lazy"></iframe>
+        <div class="links-grid">
+          <a href="https://map.war-monitor.org/" target="_blank" rel="noopener noreferrer" class="service-link-card">
+            <div class="service-icon" style="background:rgba(229,57,53,0.15);color:#ef5350">🎯</div>
+            <div class="service-info">
+              <div class="service-title-row">
+                <span class="service-title">War Monitor</span>
+                <span class="service-badge warn">Загрози LIVE</span>
+              </div>
+              <div class="service-desc">Мапа руху БпЛА, крилатих та балістичних ракет у реальному часі</div>
+              <div class="service-url">map.war-monitor.org ↗</div>
+            </div>
+          </a>
+
+          <a href="https://alerts.in.ua/" target="_blank" rel="noopener noreferrer" class="service-link-card">
+            <div class="service-icon" style="background:rgba(255,152,0,0.15);color:#ffa726">🚨</div>
+            <div class="service-info">
+              <div class="service-title-row">
+                <span class="service-title">alerts.in.ua</span>
+                <span class="service-badge">Тривоги</span>
+              </div>
+              <div class="service-desc">Офіційна мапа повітряних тривог по областях та районах України</div>
+              <div class="service-url">alerts.in.ua ↗</div>
+            </div>
+          </a>
+
+          <a href="https://deepstatemap.live/" target="_blank" rel="noopener noreferrer" class="service-link-card">
+            <div class="service-icon" style="background:rgba(76,175,80,0.15);color:#66bb6a">🗺️</div>
+            <div class="service-info">
+              <div class="service-title-row">
+                <span class="service-title">DeepStateMap</span>
+                <span class="service-badge ok">Фронт</span>
+              </div>
+              <div class="service-desc">Інтерактивна мапа бойових дій, лінії зіткнення та підрозділів</div>
+              <div class="service-url">deepstatemap.live ↗</div>
+            </div>
+          </a>
+
+          <a href="https://www.windy.com/" target="_blank" rel="noopener noreferrer" class="service-link-card">
+            <div class="service-icon" style="background:rgba(3,169,244,0.15);color:#29b6f6">🌦️</div>
+            <div class="service-info">
+              <div class="service-title-row">
+                <span class="service-title">Windy</span>
+                <span class="service-badge info">Метео</span>
+              </div>
+              <div class="service-desc">Прогноз та радар вітру, висоти хмар, опадів та тиску</div>
+              <div class="service-url">windy.com ↗</div>
+            </div>
+          </a>
         </div>
       </div>
 
@@ -760,13 +798,6 @@ let streamActive = false;
 let audioMuted = false;
 let audioCtx = null;
 let healthRequestInFlight = false;
-
-function reloadWarMonitor(){
-  const frame = document.getElementById('warMonitorFrame');
-  if(frame){
-    frame.src = '/warmonitor?t=' + Date.now();
-  }
-}
 
 function switchTab(tabName){
   const tabMain = document.getElementById('tab-main');
@@ -1587,81 +1618,6 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/buzzer/beep":
             trigger_beep()
             self._json({"ok": True})
-            return
-
-        if path in ("/warmonitor", "/warmonitor/"):
-            try:
-                req = urllib.request.Request(
-                    "https://map.war-monitor.org/",
-                    headers={"User-Agent": WARMONITOR_UA},
-                )
-                with urllib.request.urlopen(req, timeout=10) as resp:
-                    content = resp.read().decode("utf-8")
-                    content = re.sub(
-                        r'<meta\s+http-equiv=["\']Content-Security-Policy["\'][^>]*>',
-                        '',
-                        content,
-                        flags=re.I,
-                    )
-                    content = content.replace('src="/assets/', 'src="/warmonitor/assets/')
-                    content = content.replace('href="/assets/', 'href="/warmonitor/assets/')
-                    content = content.replace('src="/vendor/', 'src="/warmonitor/vendor/')
-                    content = content.replace('href="/favicon', 'href="https://map.war-monitor.org/favicon')
-                    content = content.replace('href="/site.webmanifest', 'href="https://map.war-monitor.org/site.webmanifest')
-                    data = content.encode("utf-8")
-                    self.send_response(200)
-                    self.send_header("Content-Type", "text/html; charset=utf-8")
-                    self.send_header("Content-Length", str(len(data)))
-                    self.send_header("Cache-Control", "no-cache")
-                    self.end_headers()
-                    self.wfile.write(data)
-            except Exception as e:
-                self.send_response(502)
-                self.send_header("Content-Type", "text/html; charset=utf-8")
-                self.end_headers()
-                err_msg = html.escape(str(e))
-                err_page = f"""<!DOCTYPE html><html><body style="background:#111;color:#eee;font-family:sans-serif;padding:24px;text-align:center">
-                <h3>Не вдалося завантажити мапу war-monitor.org</h3>
-                <p style="color:#aaa">{err_msg}</p>
-                <p><a href="https://map.war-monitor.org/" target="_blank" rel="noopener noreferrer" style="color:#64b5f6">Відкрити напряму на map.war-monitor.org</a></p>
-                <button onclick="location.reload()" style="padding:8px 16px;background:#2e7d32;color:#fff;border:none;border-radius:6px;cursor:pointer">Спробувати знову</button>
-                </body></html>"""
-                self.wfile.write(err_page.encode("utf-8"))
-            return
-
-        if path.startswith("/warmonitor/"):
-            remote_path = path[len("/warmonitor"):]
-            with warmonitor_cache_lock:
-                cached = warmonitor_cache.get(remote_path)
-            if cached is not None:
-                ct, body = cached
-            else:
-                url = f"https://map.war-monitor.org{remote_path}"
-                req = urllib.request.Request(url, headers={"User-Agent": WARMONITOR_UA})
-                try:
-                    with urllib.request.urlopen(req, timeout=15) as resp:
-                        body = resp.read()
-                        ct = resp.headers.get("Content-Type", "application/octet-stream")
-                        if "javascript" in ct:
-                            js_text = body.decode("utf-8", errors="ignore")
-                            js_text = js_text.replace('"assets/', '"/warmonitor/assets/')
-                            js_text = js_text.replace('"/assets/', '"/warmonitor/assets/')
-                            body = js_text.encode("utf-8")
-                        with warmonitor_cache_lock:
-                            if len(warmonitor_cache) < 100:
-                                warmonitor_cache[remote_path] = (ct, body)
-                except Exception as e:
-                    self.send_response(502)
-                    self.end_headers()
-                    self.wfile.write(str(e).encode("utf-8"))
-                    return
-
-            self.send_response(200)
-            self.send_header("Content-Type", ct)
-            self.send_header("Content-Length", str(len(body)))
-            self.send_header("Cache-Control", "public, max-age=86400")
-            self.end_headers()
-            self.wfile.write(body)
             return
 
         if path == "/":
