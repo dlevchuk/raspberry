@@ -17,8 +17,10 @@ import signal
 import threading
 import queue
 import subprocess
-from datetime import datetime
+from datetime import datetime, timedelta
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+import urllib.request
+import urllib.parse
 from urllib.parse import urlparse, parse_qs
 
 DEVICE = "/dev/video0"
@@ -53,6 +55,7 @@ DEFAULT_CONFIG = {
     "auto_cleanup_disk_pct": float(os.environ.get("THERMAL_CLEANUP_PCT", "85.0")),
     "weather_lat": float(os.environ.get("THERMAL_WEATHER_LAT", "51.520")),
     "weather_lon": float(os.environ.get("THERMAL_WEATHER_LON", "30.744")),
+    "outage_target": os.environ.get("LOCATION_URL", os.environ.get("LOCATION_NAME", "")),
 }
 
 config_lock = threading.Lock()
@@ -386,6 +389,276 @@ def build_ffmpeg_cmd(mode):
     ]
 
 
+# --- Outage Schedule & Reverse Geocoding (based on scripts/light_outage) ---
+OUTAGE_CACHE = {
+    "timestamp": 0,
+    "key": "",
+    "data": None,
+}
+OUTAGE_CACHE_LOCK = threading.Lock()
+GEOCODE_CACHE = {}
+GEOCODE_CACHE_LOCK = threading.Lock()
+
+
+def get_kyiv_now():
+    try:
+        from zoneinfo import ZoneInfo
+        return datetime.now(ZoneInfo("Europe/Kyiv"))
+    except Exception:
+        try:
+            import pytz
+            return datetime.now(pytz.timezone("Europe/Kyiv"))
+        except Exception:
+            from datetime import timezone, timedelta
+            return datetime.now(timezone(timedelta(hours=3)))
+
+
+def reverse_geocode_location(lat, lon):
+    key = (round(lat, 3), round(lon, 3))
+    with GEOCODE_CACHE_LOCK:
+        if key in GEOCODE_CACHE:
+            return GEOCODE_CACHE[key]
+
+    loc_name = ""
+    display_name = ""
+    state_name = ""
+    road_name = ""
+    house_num = ""
+    try:
+        geo_url = f"https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=json&accept-language=uk"
+        req = urllib.request.Request(geo_url, headers={"User-Agent": "RaspberryPi-ThermalDashboard/1.0"})
+        with urllib.request.urlopen(req, timeout=5) as resp:
+            data = json.loads(resp.read().decode("utf-8", errors="ignore"))
+            addr = data.get("address", {})
+            loc_name = (
+                addr.get("village")
+                or addr.get("town")
+                or addr.get("city")
+                or addr.get("hamlet")
+                or addr.get("municipality")
+                or ""
+            )
+            state_name = addr.get("state", "")
+            road_name = addr.get("road", "")
+            house_num = addr.get("house_number", "")
+            display_name = data.get("display_name", "")
+    except Exception as e:
+        print(f"[Outage] Geocode error for {lat},{lon}: {e}")
+
+    result = {
+        "loc_name": loc_name or "Чернігів",
+        "state_name": state_name,
+        "road_name": road_name,
+        "house_num": house_num,
+        "display_name": display_name or f"{lat:.3f}, {lon:.3f}"
+    }
+    with GEOCODE_CACHE_LOCK:
+        GEOCODE_CACHE[key] = result
+    return result
+
+
+def determine_outage_url(lat, lon, custom_target=""):
+    if custom_target:
+        ct = custom_target.strip()
+        if ct.startswith("http://") or ct.startswith("https://"):
+            return ct, ct
+        sub = "chernigiv"
+        if "/" in ct and ct.split("/")[0].lower() in ("chernigiv", "kyiv", "dnipro", "lviv", "sumy", "zhytomyr", "kharkiv"):
+            parts = ct.split("/", 1)
+            sub = parts[0]
+            ct = parts[1]
+        url = f"https://{sub}.energy-ua.info/grafik/" + urllib.parse.quote(ct)
+        return url, ct
+
+    geo = reverse_geocode_location(lat, lon)
+    loc_name = geo["loc_name"]
+    state = geo["state_name"]
+
+    region = "chernigiv"
+    if "Київ" in state and loc_name != "Славутич":
+        region = "kyiv"
+    elif "Дніпр" in state:
+        region = "dnipro"
+    elif "Львів" in state:
+        region = "lviv"
+    elif "Сум" in state:
+        region = "sumy"
+    elif "Житомир" in state:
+        region = "zhytomyr"
+    elif "Харків" in state:
+        region = "kharkiv"
+
+    url_path = urllib.parse.quote(loc_name)
+    if geo.get("road_name") and geo.get("house_num"):
+        url_path += "/" + urllib.parse.quote(geo["road_name"]) + "/" + urllib.parse.quote(geo["house_num"])
+
+    url = f"https://{region}.energy-ua.info/grafik/{url_path}"
+    return url, loc_name
+
+
+def fetch_energy_html(url):
+    scraper_key = os.environ.get("SCRAPER_API_KEY", "")
+    zenrows_key = os.environ.get("ZENROWS_API_KEY", "")
+
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "uk,en;q=0.9",
+    }
+    try:
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            html = resp.read().decode("utf-8", errors="ignore")
+            if "periods_items" in html or "графік" in html.lower() or "відключ" in html.lower():
+                return html
+    except Exception as e:
+        print(f"[Outage] Direct fetch failed for {url}: {e}")
+
+    if scraper_key:
+        try:
+            proxy_url = f"http://api.scraperapi.com?api_key={scraper_key}&url={urllib.parse.quote(url)}&country_code=ua"
+            req = urllib.request.Request(proxy_url, headers=headers)
+            with urllib.request.urlopen(req, timeout=35) as resp:
+                return resp.read().decode("utf-8", errors="ignore")
+        except Exception as e:
+            print(f"[Outage] ScraperAPI error: {e}")
+
+    if zenrows_key:
+        try:
+            proxy_url = f"https://api.zenrows.com/v1/?apikey={zenrows_key}&url={urllib.parse.quote(url)}&js_render=true&wait_for=.periods_items"
+            req = urllib.request.Request(proxy_url, headers=headers)
+            with urllib.request.urlopen(req, timeout=45) as resp:
+                return resp.read().decode("utf-8", errors="ignore")
+        except Exception as e:
+            print(f"[Outage] ZenRows error: {e}")
+
+    return ""
+
+
+def fetch_outage_data(lat, lon, custom_target="", force_refresh=False):
+    cache_key = f"{round(lat,3)}_{round(lon,3)}_{custom_target}"
+    now_ts = time.time()
+
+    with OUTAGE_CACHE_LOCK:
+        if (not force_refresh) and OUTAGE_CACHE["data"] and OUTAGE_CACHE["key"] == cache_key:
+            if now_ts - OUTAGE_CACHE["timestamp"] < 300:
+                data = dict(OUTAGE_CACHE["data"])
+                now = get_kyiv_now()
+                now_naive = now.replace(tzinfo=None)
+                periods = []
+                for p in data["periods"]:
+                    start_naive = datetime.combine(now.date(), datetime.strptime(p["start_time"], "%H:%M").time())
+                    end_naive = datetime.combine(now.date(), datetime.strptime(p["end_time"], "%H:%M").time())
+                    if end_naive <= start_naive:
+                        end_naive += timedelta(days=1)
+                    status = "upcoming"
+                    delta_min = round((start_naive - now_naive).total_seconds() / 60)
+                    if start_naive <= now_naive <= end_naive:
+                        status = "active"
+                        delta_min = round((end_naive - now_naive).total_seconds() / 60)
+                    elif end_naive < now_naive:
+                        status = "passed"
+                        delta_min = 0
+
+                    p_copy = dict(p)
+                    p_copy["status"] = status
+                    p_copy["delta_min"] = max(0, delta_min)
+                    periods.append(p_copy)
+
+                data["periods"] = periods
+                data["is_outage_now"] = any(p["status"] == "active" for p in periods)
+                data["active_period"] = next((p for p in periods if p["status"] == "active"), None)
+                data["next_outage"] = next((p for p in periods if p["status"] == "upcoming"), None)
+                data["now_time"] = now.strftime("%H:%M")
+                data["now_hour_fraction"] = round(now.hour + now.minute / 60.0 + now.second / 3600.0, 2)
+                return data
+
+    now = get_kyiv_now()
+    now_naive = now.replace(tzinfo=None)
+    url, loc_name = determine_outage_url(lat, lon, custom_target)
+    geo = reverse_geocode_location(lat, lon)
+    display_name = geo.get("display_name", "")
+
+    html = fetch_energy_html(url)
+    if not html and "/" in url.replace("https://", ""):
+        parts = url.split("/grafik/")
+        if len(parts) == 2 and "/" in parts[1]:
+            simple_url = parts[0] + "/grafik/" + parts[1].split("/")[0]
+            html = fetch_energy_html(simple_url)
+            if html:
+                url = simple_url
+
+    outages = []
+    span_matches = re.findall(r"<span>\s*(?:<i></i>)?\s*З\s*<b>(\d{1,2}:\d{2})</b>\s*до\s*<b>(\d{1,2}:\d{2})</b>", html)
+
+    slots = [False] * 48
+    total_minutes = 0
+
+    for start_time, end_time in span_matches:
+        start_naive = datetime.combine(now.date(), datetime.strptime(start_time, "%H:%M").time())
+        end_naive = datetime.combine(now.date(), datetime.strptime(end_time, "%H:%M").time())
+        if end_naive <= start_naive:
+            end_naive += timedelta(days=1)
+
+        dur_min = int((end_naive - start_naive).total_seconds() / 60)
+        total_minutes += dur_min
+
+        status = "upcoming"
+        delta_min = round((start_naive - now_naive).total_seconds() / 60)
+        if start_naive <= now_naive <= end_naive:
+            status = "active"
+            delta_min = round((end_naive - now_naive).total_seconds() / 60)
+        elif end_naive < now_naive:
+            status = "passed"
+            delta_min = 0
+
+        s_h, s_m = int(start_time.split(":")[0]), int(start_time.split(":")[1])
+        e_h, e_m = int(end_time.split(":")[0]), int(end_time.split(":")[1])
+        s_idx = s_h * 2 + (1 if s_m >= 30 else 0)
+        e_idx = e_h * 2 + (1 if e_m >= 30 else 0)
+        if e_idx <= s_idx:
+            e_idx = 48
+        for i in range(s_idx, min(e_idx, 48)):
+            slots[i] = True
+
+        outages.append({
+            "start_time": start_time,
+            "end_time": end_time,
+            "duration_min": dur_min,
+            "delta_min": max(0, delta_min),
+            "status": status,
+        })
+
+    is_outage_now = any(p["status"] == "active" for p in outages)
+    active_period = next((p for p in outages if p["status"] == "active"), None)
+    next_outage = next((p for p in outages if p["status"] == "upcoming"), None)
+
+    result = {
+        "ok": True,
+        "location": loc_name,
+        "display_name": display_name,
+        "coords": {"lat": lat, "lon": lon},
+        "url": url,
+        "is_outage_now": is_outage_now,
+        "active_period": active_period,
+        "next_outage": next_outage,
+        "periods": outages,
+        "slots": slots,
+        "total_outage_minutes": total_minutes,
+        "now_time": now.strftime("%H:%M"),
+        "now_hour_fraction": round(now.hour + now.minute / 60.0 + now.second / 3600.0, 2),
+        "updated_at": now.strftime("%H:%M:%S")
+    }
+
+    with OUTAGE_CACHE_LOCK:
+        OUTAGE_CACHE["timestamp"] = now_ts
+        OUTAGE_CACHE["key"] = cache_key
+        OUTAGE_CACHE["data"] = result
+
+    return result
+
+
+
 PAGE = """<!doctype html>
 <html><head><meta charset="utf-8"><title>Thermal cam</title>
 <style>
@@ -436,8 +709,40 @@ PAGE = """<!doctype html>
   .progress-bar-fill{height:100%;background:#4caf50;transition:width .3s}
 
   .warn-text{color:#ffb300}
-  #weather-wrap iframe{width:100%;height:450px;border:0;border-radius:6px}
-  #alerts-wrap iframe{width:100%;height:350px;border:0;border-radius:6px}
+
+  /* Outage widget styles */
+  .outage-hero{display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:8px;margin-bottom:14px;transition:all .3s ease;border:1px solid transparent}
+  .outage-hero.ok{background:rgba(46,125,50,0.18);border-color:#2e7d32}
+  .outage-hero.warn{background:rgba(211,47,47,0.18);border-color:#d32f2f;animation:outagePulse 2.5s infinite}
+  @keyframes outagePulse{0%,100%{box-shadow:0 0 6px rgba(211,47,47,0.3)}50%{box-shadow:0 0 16px rgba(211,47,47,0.6)}}
+  .outage-hero-icon{font-size:28px;line-height:1}
+  .outage-hero-title{font-size:15px;font-weight:700;letter-spacing:0.04em}
+  .outage-hero.ok .outage-hero-title{color:#81c784}
+  .outage-hero.warn .outage-hero-title{color:#ff5252}
+  .outage-hero-desc{font-size:12px;color:#ccc;margin-top:2px}
+  .outage-metrics{display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:10px;margin-bottom:16px}
+  .outage-metric-card{background:#161616;border:1px solid #282828;border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:3px}
+  .outage-timeline-section{background:#161616;border:1px solid #282828;border-radius:8px;padding:12px 14px;margin-bottom:14px}
+  .outage-timeline-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+  .outage-legend{display:flex;align-items:center;gap:12px;font-size:11px;color:#aaa}
+  .outage-legend-item{display:inline-flex;align-items:center;gap:5px}
+  .legend-dot{width:8px;height:8px;border-radius:50%}
+  .legend-dot.on{background:#2e7d32}
+  .legend-dot.off{background:#d32f2f}
+  .legend-dot.now{background:#ffeb3b;box-shadow:0 0 4px #ffeb3b}
+  .timeline-container{position:relative;width:100%;height:28px;background:#1a1a1a;border-radius:4px;overflow:visible;margin-bottom:4px}
+  .timeline-bar{display:flex;width:100%;height:100%;border-radius:4px;overflow:hidden}
+  .timeline-slot{flex:1;height:100%;transition:background .2s}
+  .timeline-slot.on{background:#2e7d32;border-right:1px solid rgba(0,0,0,0.2)}
+  .timeline-slot.off{background:#d32f2f;border-right:1px solid rgba(0,0,0,0.2)}
+  .timeline-slot:hover{filter:brightness(1.3);cursor:help}
+  .timeline-needle{position:absolute;top:-4px;bottom:-4px;width:2px;background:#ffeb3b;z-index:2;box-shadow:0 0 6px #ffeb3b;pointer-events:none}
+  .needle-tip{position:absolute;top:-5px;left:-4px;width:10px;height:6px;background:#ffeb3b;clip-path:polygon(0 0, 100% 0, 50% 100%)}
+  .timeline-ticks{display:flex;justify-content:space-between;font-size:9.5px;color:#666;font-family:monospace;margin-top:6px}
+  .outage-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10.5px;font-weight:600}
+  .outage-badge.active{background:rgba(211,47,47,0.3);color:#ff5252;border:1px solid rgba(211,47,47,0.6)}
+  .outage-badge.upcoming{background:rgba(255,152,0,0.2);color:#ffa726;border:1px solid rgba(255,152,0,0.4)}
+  .outage-badge.passed{background:rgba(120,120,120,0.2);color:#888;border:1px solid rgba(120,120,120,0.3)}
 
   /* Form & Table styles */
   .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -457,8 +762,7 @@ PAGE = """<!doctype html>
   .nav-tab-btn.active{background:#2e7d32;border-color:#4caf50;color:#fff;box-shadow:0 0 12px rgba(76,175,80,0.3)}
   .tab-page{display:none}
   .tab-page.active{display:block}
-  .weather-grid{display:grid;grid-template-columns:1fr;gap:16px;max-width:1400px;margin:0 auto}
-  @media(min-width:900px){.weather-grid{grid-template-columns:1fr 1.2fr}}
+  .weather-grid{display:flex;flex-direction:column;gap:16px;max-width:1400px;margin:0 auto}
 
   /* Useful links grid */
   .links-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:12px;margin-top:4px}
@@ -514,7 +818,7 @@ PAGE = """<!doctype html>
       📹 Головна панель & Камера
     </button>
     <button id="tab-btn-weather" class="nav-tab-btn" onclick="switchTab('weather')">
-      🚨 Повітряна тривога & 🌦️ Авіапогода
+      ⚡ Відключення світла & Сервіси
     </button>
   </div>
 
@@ -618,12 +922,16 @@ PAGE = """<!doctype html>
                 <input type="number" step="1" id="cfg-cleanup-pct" placeholder="85">
               </div>
               <div class="form-group">
-                <label>Широта (Lat) для Windy</label>
+                <label>Широта (Lat) локації</label>
                 <input type="number" step="0.001" id="cfg-weather-lat" placeholder="51.520">
               </div>
               <div class="form-group">
-                <label>Довгота (Lon) для Windy</label>
+                <label>Довгота (Lon) локації</label>
                 <input type="number" step="0.001" id="cfg-weather-lon" placeholder="30.744">
+              </div>
+              <div class="form-group" style="grid-column: span 2">
+                <label>Адреса / URL відключень (опційно, інакше авто за координатами)</label>
+                <input type="text" id="cfg-outage-target" placeholder="Автоматично за координатами або адреса">
               </div>
             </div>
           </form>
@@ -707,11 +1015,108 @@ PAGE = """<!doctype html>
     </div>
   </div>
 
-  <!-- Вкладка 2: Корисні сайти, Повітряна тривога та Авіапогода Windy -->
+  <!-- Вкладка 2: Відключення світла та Корисні сервіси -->
   <div id="tab-weather" class="tab-page">
     <div class="weather-grid">
+      <!-- Віджет відключень електроенергії -->
+      <div class="card" id="outage-card">
+        <div class="card-header">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-size:18px">⚡</span>
+            <div>
+              <h3 style="margin:0;font-size:15px">Графік відключень світла</h3>
+              <div id="outage-location-sub" style="font-size:11px;color:#888;margin-top:2px">Завантаження адреси за координатами...</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span id="outage-updated-badge" style="font-size:11px;color:#777">Оновлення...</span>
+            <button class="btn-sm" onclick="loadOutage(true)" id="btn-refresh-outage">🔄 Оновити</button>
+          </div>
+        </div>
+
+        <div id="outage-content" style="margin-top:10px">
+          <!-- Hero Status Banner -->
+          <div id="outage-hero-banner" class="outage-hero ok">
+            <div class="outage-hero-icon" id="outage-hero-icon">🟢</div>
+            <div class="outage-hero-text">
+              <div class="outage-hero-title" id="outage-hero-title">СВІТЛО Є</div>
+              <div class="outage-hero-desc" id="outage-hero-desc">Електропостачання активне за графіком</div>
+            </div>
+          </div>
+
+          <!-- Quick Metrics Grid -->
+          <div class="outage-metrics">
+            <div class="outage-metric-card">
+              <span class="stat-label">Наступне відключення</span>
+              <span class="stat-val" id="outage-metric-next" style="font-size:13px;color:#ffa726">-</span>
+              <span class="stat-sub" id="outage-metric-next-sub">-</span>
+            </div>
+            <div class="outage-metric-card">
+              <span class="stat-label">Загалом без світла сьогодні</span>
+              <span class="stat-val" id="outage-metric-total" style="font-size:13px;color:#4fc3f7">-</span>
+              <span class="stat-sub" id="outage-metric-total-sub">-</span>
+            </div>
+            <div class="outage-metric-card">
+              <span class="stat-label">Джерело даних</span>
+              <span class="stat-val" id="outage-metric-source" style="font-size:13px"><a id="outage-source-link" href="#" target="_blank" rel="noopener noreferrer" style="color:#81c784;text-decoration:none">energy-ua.info ↗</a></span>
+              <span class="stat-sub" id="outage-metric-coords" style="font-size:10.5px;color:#888">-</span>
+            </div>
+          </div>
+
+          <!-- Visual 24-Hour Timeline Bar -->
+          <div class="outage-timeline-section">
+            <div class="outage-timeline-header">
+              <span style="font-size:12px;font-weight:600;color:#bbb">Добова шкала (24 год):</span>
+              <div class="outage-legend">
+                <span class="outage-legend-item"><span class="legend-dot on"></span> Світло є</span>
+                <span class="outage-legend-item"><span class="legend-dot off"></span> Відключення</span>
+                <span class="outage-legend-item"><span class="legend-dot now"></span> Зараз (<span id="outage-now-time">--:--</span>)</span>
+              </div>
+            </div>
+            <div class="timeline-container">
+              <div class="timeline-bar" id="outage-timeline-bar">
+                <!-- 48 30-min segments generated via JS -->
+              </div>
+              <div class="timeline-needle" id="outage-timeline-needle" style="left: 0%">
+                <span class="needle-tip"></span>
+              </div>
+            </div>
+            <div class="timeline-ticks">
+              <span>00:00</span>
+              <span>03:00</span>
+              <span>06:00</span>
+              <span>09:00</span>
+              <span>12:00</span>
+              <span>15:00</span>
+              <span>18:00</span>
+              <span>21:00</span>
+              <span>24:00</span>
+            </div>
+          </div>
+
+          <!-- Detailed Periods Table -->
+          <div style="margin-top:16px">
+            <div style="font-size:12px;font-weight:600;color:#bbb;margin-bottom:8px">Заплановані періоди відключень:</div>
+            <div class="table-wrap">
+              <table class="rec-table" id="outage-table">
+                <thead>
+                  <tr>
+                    <th>Час</th>
+                    <th>Тривалість</th>
+                    <th>Статус</th>
+                  </tr>
+                </thead>
+                <tbody id="outageTableBody">
+                  <tr><td colspan="3" style="text-align:center;color:#666">Завантаження розкладу...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Блок із корисними сайтами та моніторингом -->
-      <div class="card" id="useful-links-card" style="grid-column: 1 / -1;">
+      <div class="card" id="useful-links-card">
         <div class="card-header">
           <div style="display:flex;align-items:center;gap:8px">
             <h3>🔗 Корисні сервіси та оперативний моніторинг</h3>
@@ -768,27 +1173,6 @@ PAGE = """<!doctype html>
           </a>
         </div>
       </div>
-
-      <div class="card" id="alerts-wrap">
-        <div class="card-header">
-          <h3>🚨 Карта повітряних тривог України</h3>
-          <span style="font-size:11px;color:#aaa">alerts.in.ua</span>
-        </div>
-        <iframe src="https://alerts.in.ua/?embed"
-                title="Мапа повітряних тривог" frameborder="0"
-                style="height:620px"
-                loading="lazy"></iframe>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <h3>🌦️ Авіапогода та Вітер — Windy</h3>
-          <span style="font-size:11px;color:#aaa">windy.com</span>
-        </div>
-        <div id="weather-wrap">
-          <iframe id="windyFrame" style="height:620px" loading="lazy" title="Авіапогода Windy"></iframe>
-        </div>
-      </div>
     </div>
   </div>
 <script>
@@ -805,11 +1189,12 @@ function switchTab(tabName){
   const btnMain = document.getElementById('tab-btn-main');
   const btnWeather = document.getElementById('tab-btn-weather');
   
-  if(tabName === 'weather'){
+  if(tabName === 'weather' || tabName === 'outage'){
     tabMain.classList.remove('active');
     tabWeather.classList.add('active');
     btnMain.classList.remove('active');
     btnWeather.classList.add('active');
+    loadOutage();
   } else {
     tabWeather.classList.remove('active');
     tabMain.classList.add('active');
@@ -940,12 +1325,135 @@ function tickClock(){
 setInterval(tickClock, 1000);
 tickClock();
 
-function windyUrl(lat, lon){
-  return `https://embed.windy.com/embed2.html?lat=${lat}&lon=${lon}&detailLat=${lat}&detailLon=${lon}&width=800&height=500&zoom=8&level=surface&overlay=wind&product=ecmwf&menu=&message=true&marker=true&calendar=now&pressure=true&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default&radarRange=-1`;
+let outageLoading = false;
+
+function formatDelta(minutes){
+  if (minutes < 60) return `${Math.round(minutes)} хв`;
+  const h = (minutes / 60).toFixed(1);
+  return `${h} год`;
 }
-function updateWeatherFrame(lat, lon){
-  const el = document.getElementById('windyFrame');
-  if(el) el.src = windyUrl(lat, lon);
+
+async function loadOutage(force=false){
+  if(outageLoading) return;
+  outageLoading = true;
+  const btn = document.getElementById('btn-refresh-outage');
+  if(btn) btn.disabled = true;
+  const badge = document.getElementById('outage-updated-badge');
+  if(badge && force) badge.textContent = 'Оновлюється...';
+
+  try{
+    const res = await fetch(`/outage${force ? '?force=1' : ''}`);
+    const data = await res.json();
+    if(!data.ok){
+      const locSub = document.getElementById('outage-location-sub');
+      if(locSub) locSub.textContent = data.error || 'Помилка отримання даних';
+      return;
+    }
+    
+    const locSub = document.getElementById('outage-location-sub');
+    if(locSub){
+      locSub.innerHTML = `📍 <b>${data.location}</b> (${data.display_name || 'визначено за координатами'})`;
+    }
+    if(badge){
+      badge.textContent = `Оновлено: ${data.updated_at || data.now_time}`;
+    }
+    const nowTimeEl = document.getElementById('outage-now-time');
+    if(nowTimeEl) nowTimeEl.textContent = data.now_time;
+
+    const heroBanner = document.getElementById('outage-hero-banner');
+    const heroIcon = document.getElementById('outage-hero-icon');
+    const heroTitle = document.getElementById('outage-hero-title');
+    const heroDesc = document.getElementById('outage-hero-desc');
+
+    if(data.is_outage_now){
+      heroBanner.className = 'outage-hero warn';
+      heroIcon.textContent = '🔴';
+      heroTitle.textContent = 'ЗАРАЗ ВІДКЛЮЧЕННЯ СВІТЛА';
+      const act = data.active_period;
+      heroDesc.textContent = act ? `Період з ${act.start_time} до ${act.end_time} (${formatDelta(act.duration_min)})` : 'Діє погодинне відключення';
+    } else {
+      heroBanner.className = 'outage-hero ok';
+      heroIcon.textContent = '🟢';
+      heroTitle.textContent = 'СВІТЛО Є';
+      if(data.next_outage){
+        heroDesc.textContent = `Наступне відключення очікується о ${data.next_outage.start_time} (через ${formatDelta(data.next_outage.delta_min)})`;
+      } else {
+        heroDesc.textContent = 'Відключень на найближчий час не заплановано';
+      }
+    }
+
+    const metricNext = document.getElementById('outage-metric-next');
+    const metricNextSub = document.getElementById('outage-metric-next-sub');
+    if(data.next_outage){
+      metricNext.textContent = `через ${formatDelta(data.next_outage.delta_min)}`;
+      metricNextSub.textContent = `${data.next_outage.start_time} – ${data.next_outage.end_time}`;
+    } else {
+      metricNext.textContent = 'Немає';
+      metricNextSub.textContent = 'Більше відключень немає';
+    }
+
+    const metricTotal = document.getElementById('outage-metric-total');
+    const metricTotalSub = document.getElementById('outage-metric-total-sub');
+    metricTotal.textContent = `${(data.total_outage_minutes / 60).toFixed(1)} год`;
+    metricTotalSub.textContent = `${data.periods.length} періоди(-ів) за добу`;
+
+    const sourceLink = document.getElementById('outage-source-link');
+    if(sourceLink && data.url){
+      sourceLink.href = data.url;
+      sourceLink.textContent = `${data.location} ↗`;
+    }
+    const metricCoords = document.getElementById('outage-metric-coords');
+    if(metricCoords && data.coords){
+      metricCoords.textContent = `${data.coords.lat}, ${data.coords.lon}`;
+    }
+
+    const timelineBar = document.getElementById('outage-timeline-bar');
+    if(timelineBar && data.slots){
+      timelineBar.innerHTML = data.slots.map((isOff, idx) => {
+        const hour = Math.floor(idx / 2);
+        const mins = (idx % 2) * 30;
+        const timeStr = `${String(hour).padStart(2,'0')}:${String(mins).padStart(2,'0')}`;
+        const title = `${timeStr}: ${isOff ? 'Відключення світла' : 'Світло є'}`;
+        return `<div class="timeline-slot ${isOff ? 'off' : 'on'}" title="${title}"></div>`;
+      }).join('');
+    }
+
+    const needle = document.getElementById('outage-timeline-needle');
+    if(needle && data.now_hour_fraction !== undefined){
+      const pct = Math.max(0, Math.min(100, (data.now_hour_fraction / 24) * 100));
+      needle.style.left = `${pct}%`;
+    }
+
+    const tbody = document.getElementById('outageTableBody');
+    if(tbody){
+      if(!data.periods || data.periods.length === 0){
+        tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:#4caf50;padding:16px">✅ Відключень світла за графіком не заплановано</td></tr>';
+      } else {
+        tbody.innerHTML = data.periods.map(p => {
+          let badgeHtml = '';
+          if(p.status === 'active'){
+            badgeHtml = '<span class="outage-badge active">🔴 Зараз</span>';
+          } else if(p.status === 'upcoming'){
+            badgeHtml = `<span class="outage-badge upcoming">⏳ Через ${formatDelta(p.delta_min)}</span>`;
+          } else {
+            badgeHtml = '<span class="outage-badge passed">✓ Минуло</span>';
+          }
+          return `
+            <tr>
+              <td style="font-family:monospace;font-weight:600;font-size:13px">${p.start_time} – ${p.end_time}</td>
+              <td style="color:#aaa">${formatDelta(p.duration_min)}</td>
+              <td>${badgeHtml}</td>
+            </tr>
+          `;
+        }).join('');
+      }
+    }
+  }catch(e){
+    console.error('Outage load error:', e);
+  }finally{
+    outageLoading = false;
+    if(btn) btn.disabled = false;
+  }
 }
 
 async function loadSettings(){
@@ -956,7 +1464,8 @@ async function loadSettings(){
     document.getElementById('cfg-cleanup-pct').value = c.auto_cleanup_disk_pct ?? 85;
     document.getElementById('cfg-weather-lat').value = c.weather_lat ?? 51.520;
     document.getElementById('cfg-weather-lon').value = c.weather_lon ?? 30.744;
-    updateWeatherFrame(c.weather_lat ?? 51.520, c.weather_lon ?? 30.744);
+    const tgt = document.getElementById('cfg-outage-target');
+    if(tgt) tgt.value = c.outage_target ?? '';
   }catch(e){}
 }
 async function saveSettings(){
@@ -964,13 +1473,14 @@ async function saveSettings(){
   const cleanupPct = document.getElementById('cfg-cleanup-pct').value;
   const weatherLat = document.getElementById('cfg-weather-lat').value;
   const weatherLon = document.getElementById('cfg-weather-lon').value;
+  const outageTarget = document.getElementById('cfg-outage-target') ? document.getElementById('cfg-outage-target').value : '';
   try{
-    const url = `/settings/update?alert_max=${encodeURIComponent(alertMax)}&cleanup_pct=${encodeURIComponent(cleanupPct)}&weather_lat=${encodeURIComponent(weatherLat)}&weather_lon=${encodeURIComponent(weatherLon)}`;
+    const url = `/settings/update?alert_max=${encodeURIComponent(alertMax)}&cleanup_pct=${encodeURIComponent(cleanupPct)}&weather_lat=${encodeURIComponent(weatherLat)}&weather_lon=${encodeURIComponent(weatherLon)}&outage_target=${encodeURIComponent(outageTarget)}`;
     const r = await fetch(url);
     const j = await r.json();
     if(j.ok){
       alert('Налаштування збережено!');
-      updateWeatherFrame(j.config.weather_lat, j.config.weather_lon);
+      loadOutage(true);
     }
   }catch(e){ alert('Помилка збереження'); }
 }
@@ -1265,6 +1775,8 @@ renderPinoutUI();
 setInterval(pollHealth, 1000);
 pollHealth();
 loadSettings();
+loadOutage();
+setInterval(loadOutage, 60000);
 loadRecordings();
 </script>
 </body></html>"""
@@ -1690,10 +2202,24 @@ class Handler(BaseHTTPRequestHandler):
                             config["weather_lon"] = value
                     except ValueError:
                         pass
+                if "outage_target" in qs:
+                    config["outage_target"] = qs["outage_target"][0].strip()
                 settings = config.copy()
+            with OUTAGE_CACHE_LOCK:
+                OUTAGE_CACHE["timestamp"] = 0
             # Important: save_config snapshots under its own lock; never call it while held.
             saved = save_config()
             self._json({"ok": saved, "config": settings, "saved": saved}, 200 if saved else 500)
+            return
+
+        if path == "/outage":
+            with config_lock:
+                lat = config.get("weather_lat", 51.520)
+                lon = config.get("weather_lon", 30.744)
+                target = config.get("outage_target", "")
+            force = qs.get("force", ["0"])[0] in ("1", "true")
+            data = fetch_outage_data(lat, lon, target, force_refresh=force)
+            self._json(data)
             return
 
         if path == "/recordings":
