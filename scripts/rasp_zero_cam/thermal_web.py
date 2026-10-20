@@ -390,14 +390,69 @@ def build_ffmpeg_cmd(mode):
 
 
 # --- Outage Schedule & Reverse Geocoding (based on scripts/light_outage) ---
+#
+# Paid-API policy: the schedule is fetched ONCE per Kyiv calendar day per
+# (lat, lon, target) key and persisted to disk, so page reloads and service
+# restarts never trigger a fetch. A new fetch happens only when:
+#   - the date changed (first request after midnight),
+#   - lat/lon/target changed (different cache key),
+#   - the user pressed "Оновити" (force=1),
+#   - the previous fetch FAILED and OUTAGE_FAIL_RETRY_SEC has passed.
 OUTAGE_CACHE = {
     "timestamp": 0,
     "key": "",
+    "date": "",
+    "failed": False,
     "data": None,
 }
 OUTAGE_CACHE_LOCK = threading.Lock()
+# Serializes real fetches so two tabs/requests can't both hit the paid proxies.
+OUTAGE_FETCH_LOCK = threading.Lock()
+OUTAGE_CACHE_PATH = os.path.join(REC_DIR, "outage_cache.json")
+OUTAGE_FAIL_RETRY_SEC = int(os.environ.get("THERMAL_OUTAGE_FAIL_RETRY", "900"))
 GEOCODE_CACHE = {}
 GEOCODE_CACHE_LOCK = threading.Lock()
+
+
+def load_outage_cache():
+    try:
+        with open(OUTAGE_CACHE_PATH, "r") as f:
+            d = json.load(f)
+        if isinstance(d, dict) and d.get("data"):
+            with OUTAGE_CACHE_LOCK:
+                for k in OUTAGE_CACHE:
+                    if k in d:
+                        OUTAGE_CACHE[k] = d[k]
+            print(f"[Outage] Loaded cache from disk (date={d.get('date')})")
+    except FileNotFoundError:
+        pass
+    except Exception as e:
+        print(f"[Outage] Failed to load cache: {e}")
+
+
+def save_outage_cache():
+    try:
+        os.makedirs(REC_DIR, exist_ok=True)
+        with OUTAGE_CACHE_LOCK:
+            snap = dict(OUTAGE_CACHE)
+        tmp_path = f"{OUTAGE_CACHE_PATH}.tmp.{os.getpid()}.{threading.get_ident()}"
+        try:
+            with open(tmp_path, "w") as f:
+                json.dump(snap, f)
+                f.flush()
+                os.fsync(f.fileno())
+            os.replace(tmp_path, OUTAGE_CACHE_PATH)
+        finally:
+            try:
+                if os.path.exists(tmp_path):
+                    os.remove(tmp_path)
+            except OSError:
+                pass
+    except Exception as e:
+        print(f"[Outage] Failed to save cache: {e}")
+
+
+load_outage_cache()
 
 
 def get_kyiv_now():
@@ -535,74 +590,27 @@ def fetch_energy_html(url):
     return ""
 
 
-def fetch_outage_data(lat, lon, custom_target="", force_refresh=False):
-    cache_key = f"{round(lat,3)}_{round(lon,3)}_{custom_target}"
-    now_ts = time.time()
+def _outage_cache_valid(cache_key, today, now_ts):
+    """Caller must hold OUTAGE_CACHE_LOCK."""
+    if not OUTAGE_CACHE["data"] or OUTAGE_CACHE["key"] != cache_key:
+        return False
+    if OUTAGE_CACHE.get("date") != today:
+        return False
+    if OUTAGE_CACHE.get("failed") and now_ts - OUTAGE_CACHE["timestamp"] >= OUTAGE_FAIL_RETRY_SEC:
+        return False
+    return True
 
-    with OUTAGE_CACHE_LOCK:
-        if (not force_refresh) and OUTAGE_CACHE["data"] and OUTAGE_CACHE["key"] == cache_key:
-            if now_ts - OUTAGE_CACHE["timestamp"] < 300:
-                data = dict(OUTAGE_CACHE["data"])
-                now = get_kyiv_now()
-                now_naive = now.replace(tzinfo=None)
-                periods = []
-                for p in data["periods"]:
-                    start_naive = datetime.combine(now.date(), datetime.strptime(p["start_time"], "%H:%M").time())
-                    end_naive = datetime.combine(now.date(), datetime.strptime(p["end_time"], "%H:%M").time())
-                    if end_naive <= start_naive:
-                        end_naive += timedelta(days=1)
-                    status = "upcoming"
-                    delta_min = round((start_naive - now_naive).total_seconds() / 60)
-                    if start_naive <= now_naive <= end_naive:
-                        status = "active"
-                        delta_min = round((end_naive - now_naive).total_seconds() / 60)
-                    elif end_naive < now_naive:
-                        status = "passed"
-                        delta_min = 0
 
-                    p_copy = dict(p)
-                    p_copy["status"] = status
-                    p_copy["delta_min"] = max(0, delta_min)
-                    periods.append(p_copy)
-
-                data["periods"] = periods
-                data["is_outage_now"] = any(p["status"] == "active" for p in periods)
-                data["active_period"] = next((p for p in periods if p["status"] == "active"), None)
-                data["next_outage"] = next((p for p in periods if p["status"] == "upcoming"), None)
-                data["now_time"] = now.strftime("%H:%M")
-                data["now_hour_fraction"] = round(now.hour + now.minute / 60.0 + now.second / 3600.0, 2)
-                return data
-
-    now = get_kyiv_now()
+def _recompute_outage_status(cached, now):
+    """Re-derive active/upcoming/passed from cached periods. No network."""
+    data = dict(cached)
     now_naive = now.replace(tzinfo=None)
-    url, loc_name = determine_outage_url(lat, lon, custom_target)
-    geo = reverse_geocode_location(lat, lon)
-    display_name = geo.get("display_name", "")
-
-    html = fetch_energy_html(url)
-    if not html and "/" in url.replace("https://", ""):
-        parts = url.split("/grafik/")
-        if len(parts) == 2 and "/" in parts[1]:
-            simple_url = parts[0] + "/grafik/" + parts[1].split("/")[0]
-            html = fetch_energy_html(simple_url)
-            if html:
-                url = simple_url
-
-    outages = []
-    span_matches = re.findall(r"<span>\s*(?:<i></i>)?\s*З\s*<b>(\d{1,2}:\d{2})</b>\s*до\s*<b>(\d{1,2}:\d{2})</b>", html)
-
-    slots = [False] * 48
-    total_minutes = 0
-
-    for start_time, end_time in span_matches:
-        start_naive = datetime.combine(now.date(), datetime.strptime(start_time, "%H:%M").time())
-        end_naive = datetime.combine(now.date(), datetime.strptime(end_time, "%H:%M").time())
+    periods = []
+    for p in data["periods"]:
+        start_naive = datetime.combine(now.date(), datetime.strptime(p["start_time"], "%H:%M").time())
+        end_naive = datetime.combine(now.date(), datetime.strptime(p["end_time"], "%H:%M").time())
         if end_naive <= start_naive:
             end_naive += timedelta(days=1)
-
-        dur_min = int((end_naive - start_naive).total_seconds() / 60)
-        total_minutes += dur_min
-
         status = "upcoming"
         delta_min = round((start_naive - now_naive).total_seconds() / 60)
         if start_naive <= now_naive <= end_naive:
@@ -612,50 +620,134 @@ def fetch_outage_data(lat, lon, custom_target="", force_refresh=False):
             status = "passed"
             delta_min = 0
 
-        s_h, s_m = int(start_time.split(":")[0]), int(start_time.split(":")[1])
-        e_h, e_m = int(end_time.split(":")[0]), int(end_time.split(":")[1])
-        s_idx = s_h * 2 + (1 if s_m >= 30 else 0)
-        e_idx = e_h * 2 + (1 if e_m >= 30 else 0)
-        if e_idx <= s_idx:
-            e_idx = 48
-        for i in range(s_idx, min(e_idx, 48)):
-            slots[i] = True
+        p_copy = dict(p)
+        p_copy["status"] = status
+        p_copy["delta_min"] = max(0, delta_min)
+        periods.append(p_copy)
 
-        outages.append({
-            "start_time": start_time,
-            "end_time": end_time,
-            "duration_min": dur_min,
-            "delta_min": max(0, delta_min),
-            "status": status,
-        })
+    data["periods"] = periods
+    data["is_outage_now"] = any(p["status"] == "active" for p in periods)
+    data["active_period"] = next((p for p in periods if p["status"] == "active"), None)
+    data["next_outage"] = next((p for p in periods if p["status"] == "upcoming"), None)
+    data["now_time"] = now.strftime("%H:%M")
+    data["now_hour_fraction"] = round(now.hour + now.minute / 60.0 + now.second / 3600.0, 2)
+    return data
 
-    is_outage_now = any(p["status"] == "active" for p in outages)
-    active_period = next((p for p in outages if p["status"] == "active"), None)
-    next_outage = next((p for p in outages if p["status"] == "upcoming"), None)
 
-    result = {
-        "ok": True,
-        "location": loc_name,
-        "display_name": display_name,
-        "coords": {"lat": lat, "lon": lon},
-        "url": url,
-        "is_outage_now": is_outage_now,
-        "active_period": active_period,
-        "next_outage": next_outage,
-        "periods": outages,
-        "slots": slots,
-        "total_outage_minutes": total_minutes,
-        "now_time": now.strftime("%H:%M"),
-        "now_hour_fraction": round(now.hour + now.minute / 60.0 + now.second / 3600.0, 2),
-        "updated_at": now.strftime("%H:%M:%S")
-    }
+def fetch_outage_data(lat, lon, custom_target="", force_refresh=False):
+    cache_key = f"{round(lat,3)}_{round(lon,3)}_{custom_target}"
+    now_ts = time.time()
+    now = get_kyiv_now()
+    today = now.date().isoformat()
 
+    # Fast path: no fetch lock needed for a cache hit.
     with OUTAGE_CACHE_LOCK:
-        OUTAGE_CACHE["timestamp"] = now_ts
-        OUTAGE_CACHE["key"] = cache_key
-        OUTAGE_CACHE["data"] = result
+        if (not force_refresh) and _outage_cache_valid(cache_key, today, now_ts):
+            return _recompute_outage_status(OUTAGE_CACHE["data"], now)
 
-    return result
+    with OUTAGE_FETCH_LOCK:
+        # Re-check: another request may have just fetched while we waited.
+        with OUTAGE_CACHE_LOCK:
+            if (not force_refresh) and _outage_cache_valid(cache_key, today, now_ts):
+                return _recompute_outage_status(OUTAGE_CACHE["data"], now)
+            # Last good result for the same key/day, to fall back to if the fetch fails.
+            prev_good = None
+            if (OUTAGE_CACHE["data"] and OUTAGE_CACHE["key"] == cache_key
+                    and OUTAGE_CACHE.get("date") == today and not OUTAGE_CACHE.get("failed")):
+                prev_good = OUTAGE_CACHE["data"]
+
+        now_naive = now.replace(tzinfo=None)
+        url, loc_name = determine_outage_url(lat, lon, custom_target)
+        geo = reverse_geocode_location(lat, lon)
+        display_name = geo.get("display_name", "")
+
+        html = fetch_energy_html(url)
+        if not html and "/" in url.replace("https://", ""):
+            parts = url.split("/grafik/")
+            if len(parts) == 2 and "/" in parts[1]:
+                simple_url = parts[0] + "/grafik/" + parts[1].split("/")[0]
+                html = fetch_energy_html(simple_url)
+                if html:
+                    url = simple_url
+
+        if not html and prev_good:
+            # Forced refresh failed: keep today's good data, don't overwrite with empty.
+            print("[Outage] Fetch failed, keeping previous good cache")
+            return _recompute_outage_status(prev_good, now)
+
+        outages = []
+        span_matches = re.findall(r"<span>\s*(?:<i></i>)?\s*З\s*<b>(\d{1,2}:\d{2})</b>\s*до\s*<b>(\d{1,2}:\d{2})</b>", html)
+
+        slots = [False] * 48
+        total_minutes = 0
+
+        for start_time, end_time in span_matches:
+            start_naive = datetime.combine(now.date(), datetime.strptime(start_time, "%H:%M").time())
+            end_naive = datetime.combine(now.date(), datetime.strptime(end_time, "%H:%M").time())
+            if end_naive <= start_naive:
+                end_naive += timedelta(days=1)
+
+            dur_min = int((end_naive - start_naive).total_seconds() / 60)
+            total_minutes += dur_min
+
+            status = "upcoming"
+            delta_min = round((start_naive - now_naive).total_seconds() / 60)
+            if start_naive <= now_naive <= end_naive:
+                status = "active"
+                delta_min = round((end_naive - now_naive).total_seconds() / 60)
+            elif end_naive < now_naive:
+                status = "passed"
+                delta_min = 0
+
+            s_h, s_m = int(start_time.split(":")[0]), int(start_time.split(":")[1])
+            e_h, e_m = int(end_time.split(":")[0]), int(end_time.split(":")[1])
+            s_idx = s_h * 2 + (1 if s_m >= 30 else 0)
+            e_idx = e_h * 2 + (1 if e_m >= 30 else 0)
+            if e_idx <= s_idx:
+                e_idx = 48
+            for i in range(s_idx, min(e_idx, 48)):
+                slots[i] = True
+
+            outages.append({
+                "start_time": start_time,
+                "end_time": end_time,
+                "duration_min": dur_min,
+                "delta_min": max(0, delta_min),
+                "status": status,
+            })
+
+        is_outage_now = any(p["status"] == "active" for p in outages)
+        active_period = next((p for p in outages if p["status"] == "active"), None)
+        next_outage = next((p for p in outages if p["status"] == "upcoming"), None)
+
+        result = {
+            "ok": True,
+            "location": loc_name,
+            "display_name": display_name,
+            "coords": {"lat": lat, "lon": lon},
+            "url": url,
+            "is_outage_now": is_outage_now,
+            "active_period": active_period,
+            "next_outage": next_outage,
+            "periods": outages,
+            "slots": slots,
+            "total_outage_minutes": total_minutes,
+            "now_time": now.strftime("%H:%M"),
+            "now_hour_fraction": round(now.hour + now.minute / 60.0 + now.second / 3600.0, 2),
+            "updated_at": now.strftime("%H:%M:%S")
+        }
+
+        with OUTAGE_CACHE_LOCK:
+            OUTAGE_CACHE.update(
+                timestamp=now_ts,
+                key=cache_key,
+                date=today,
+                failed=not html,  # failed fetch is retried only after OUTAGE_FAIL_RETRY_SEC
+                data=result,
+            )
+        save_outage_cache()
+
+        return result
 
 
 
@@ -2205,8 +2297,8 @@ class Handler(BaseHTTPRequestHandler):
                 if "outage_target" in qs:
                     config["outage_target"] = qs["outage_target"][0].strip()
                 settings = config.copy()
-            with OUTAGE_CACHE_LOCK:
-                OUTAGE_CACHE["timestamp"] = 0
+            # NOTE: outage cache is NOT invalidated here on purpose. Its key already
+            # includes lat/lon/target, so it only misses if those actually changed.
             # Important: save_config snapshots under its own lock; never call it while held.
             saved = save_config()
             self._json({"ok": saved, "config": settings, "saved": saved}, 200 if saved else 500)
