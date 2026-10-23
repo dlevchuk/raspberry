@@ -56,6 +56,7 @@ DEFAULT_CONFIG = {
     "weather_lat": float(os.environ.get("THERMAL_WEATHER_LAT", "51.520")),
     "weather_lon": float(os.environ.get("THERMAL_WEATHER_LON", "30.744")),
     "outage_target": os.environ.get("LOCATION_URL", os.environ.get("LOCATION_NAME", "")),
+    "service_start": "",   # YYYY-MM-DD
 }
 
 config_lock = threading.Lock()
@@ -902,6 +903,30 @@ PAGE = """<!doctype html>
   .pin-tag.lo{background:#37474f;color:#b0bec5}
   .pin-tag.active-dev{background:#ffeb3b;color:#000;font-weight:bold;box-shadow:0 0 6px #ffeb3b}
   #pin-info-bar{margin-top:10px;background:rgba(0,0,0,0.4);border-radius:6px;padding:8px 10px;font-size:11.5px;min-height:22px;display:flex;align-items:center;justify-content:space-between;color:#e0e0e0}
+
+  .info-grid{display:grid;grid-template-columns:1fr;gap:16px;max-width:1000px;margin:0 auto}
+  @media(min-width:800px){.info-grid{grid-template-columns:1fr 1fr}}
+  .info-card{text-align:center;padding:20px}
+  .info-card.war{--accent:#ffd600}
+  .info-card.srv{--accent:#4caf50}
+  .ring-wrap{position:relative;width:220px;height:220px;margin:10px auto 16px}
+  .ring{width:100%;height:100%;transform:rotate(-90deg)}
+  .ring circle{fill:none;stroke-width:8;stroke-linecap:round}
+  .ring-bg{stroke:#2a2a2a}
+  .ring-fg{stroke:var(--accent);stroke-dasharray:339.29;stroke-dashoffset:339.29;transition:stroke-dashoffset 1s ease;filter:drop-shadow(0 0 4px var(--accent))}
+  .ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .ring-num{font-size:46px;font-weight:800;color:var(--accent);font-family:ui-monospace,Consolas,monospace;line-height:1}
+  .ring-unit{font-size:13px;color:#888;text-transform:uppercase;letter-spacing:.1em;margin-top:4px}
+  .ymd{display:flex;gap:10px;justify-content:center}
+  .ymd div{flex:1;max-width:100px;background:#222;border:1px solid #2e2e2e;border-radius:8px;padding:8px}
+  .ymd b{display:block;font-size:22px;color:#fff;font-family:monospace}
+  .ymd span{font-size:10px;color:#888;text-transform:uppercase}
+  .info-sub{margin-top:12px;font-size:12px;color:#888}
+  .info-card h3{margin:0 0 8px;color:#eee;font-size:18px}
+  .info-card.war{background:linear-gradient(145deg,#242116,#181818 60%);border-color:rgba(255,214,0,.24)}
+  .info-card.srv{background:linear-gradient(145deg,#142219,#181818 60%);border-color:rgba(76,175,80,.24)}
+  @media(max-width:600px){.nav-tabs{overflow-x:auto}.nav-tab-btn{white-space:nowrap;padding:9px 12px}.ring-wrap{width:180px;height:180px}.ring-num{font-size:38px}}
+
 </style></head>
 <body>
   <!-- Tab Navigation Bar -->
@@ -911,6 +936,9 @@ PAGE = """<!doctype html>
     </button>
     <button id="tab-btn-weather" class="nav-tab-btn" onclick="switchTab('weather')">
       ⚡ Відключення світла & Сервіси
+    </button>
+    <button id="tab-btn-days" class="nav-tab-btn" onclick="switchTab('days')">
+      📅 Дні війни та служби
     </button>
   </div>
 
@@ -1024,6 +1052,10 @@ PAGE = """<!doctype html>
               <div class="form-group" style="grid-column: span 2">
                 <label>Адреса / URL відключень (опційно, інакше авто за координатами)</label>
                 <input type="text" id="cfg-outage-target" placeholder="Автоматично за координатами або адреса">
+              </div>
+              <div class="form-group" style="grid-column: span 2">
+                <label>Дата початку служби</label>
+                <input type="date" id="cfg-service-start">
               </div>
             </div>
           </form>
@@ -1263,10 +1295,67 @@ PAGE = """<!doctype html>
               <div class="service-url">windy.com ↗</div>
             </div>
           </a>
+          
+          <a href="https://chernigiv.energy-ua.info/" target="_blank" rel="noopener noreferrer" class="service-link-card">
+            <div class="service-icon" style="background:rgba(255,235,59,0.15);color:#ffee58">💡</div>
+            <div class="service-info">
+              <div class="service-title-row">
+                <span class="service-title">energy-ua Чернігів</span>
+                <span class="service-badge warn">Світло</span>
+              </div>
+              <div class="service-desc">Графіки відключень електроенергії по Чернігівській області</div>
+              <div class="service-url">chernigiv.energy-ua.info ↗</div>
+            </div>
+          </a>
         </div>
       </div>
     </div>
   </div>
+
+  <div id="tab-days" class="tab-page">
+    <div class="info-grid">
+      <div class="card info-card war">
+        <h3>🇺🇦 Повномасштабна війна</h3>
+        <div class="ring-wrap">
+          <svg viewBox="0 0 120 120" class="ring">
+            <circle class="ring-bg" cx="60" cy="60" r="54"/>
+            <circle class="ring-fg" id="war-ring" cx="60" cy="60" r="54"/>
+          </svg>
+          <div class="ring-center">
+            <div class="ring-num" id="war-days">-</div>
+            <div class="ring-unit">днів</div>
+          </div>
+        </div>
+        <div class="ymd">
+          <div><b id="war-y">-</b><span>років</span></div>
+          <div><b id="war-m">-</b><span>місяців</span></div>
+          <div><b id="war-d">-</b><span>днів</span></div>
+        </div>
+        <div class="info-sub" id="war-sub">-</div>
+      </div>
+
+      <div class="card info-card srv">
+        <h3>🪖 Моя служба</h3>
+        <div class="ring-wrap">
+          <svg viewBox="0 0 120 120" class="ring">
+            <circle class="ring-bg" cx="60" cy="60" r="54"/>
+            <circle class="ring-fg" id="srv-ring" cx="60" cy="60" r="54"/>
+          </svg>
+          <div class="ring-center">
+            <div class="ring-num" id="srv-days">-</div>
+            <div class="ring-unit">днів</div>
+          </div>
+        </div>
+        <div class="ymd">
+          <div><b id="srv-y">-</b><span>років</span></div>
+          <div><b id="srv-m">-</b><span>місяців</span></div>
+          <div><b id="srv-d">-</b><span>днів</span></div>
+        </div>
+        <div class="info-sub" id="srv-sub">-</div>
+      </div>
+    </div>
+  </div>
+
 <script>
 let recording = false;
 let cameraEnabled = false;
@@ -1278,21 +1367,64 @@ let healthRequestInFlight = false;
 function switchTab(tabName){
   const tabMain = document.getElementById('tab-main');
   const tabWeather = document.getElementById('tab-weather');
+  const tabDays = document.getElementById('tab-days');
   const btnMain = document.getElementById('tab-btn-main');
   const btnWeather = document.getElementById('tab-btn-weather');
-  
+  const btnDays = document.getElementById('tab-btn-days');
+  [tabMain, tabWeather, tabDays].forEach(el => el.classList.remove('active'));
+  [btnMain, btnWeather, btnDays].forEach(el => el.classList.remove('active'));
   if(tabName === 'weather' || tabName === 'outage'){
-    tabMain.classList.remove('active');
     tabWeather.classList.add('active');
-    btnMain.classList.remove('active');
     btnWeather.classList.add('active');
     loadOutage();
+  } else if(tabName === 'days'){
+    tabDays.classList.add('active');
+    btnDays.classList.add('active');
+    updateDayCounters();
   } else {
-    tabWeather.classList.remove('active');
     tabMain.classList.add('active');
-    btnWeather.classList.remove('active');
     btnMain.classList.add('active');
   }
+}
+
+function calendarDuration(start, end){
+  let years = end.getUTCFullYear() - start.getUTCFullYear();
+  let months = end.getUTCMonth() - start.getUTCMonth();
+  let days = end.getUTCDate() - start.getUTCDate();
+  if(days < 0){
+    months--;
+    days += new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), 0)).getUTCDate();
+  }
+  if(months < 0){ years--; months += 12; }
+  return {years, months, days};
+}
+
+function updateDayWidget(prefix, startDate){
+  const start = new Date(`${startDate}T00:00:00Z`);
+  const now = new Date();
+  const today = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+  if(!startDate || Number.isNaN(start.getTime()) || start > today){
+    document.getElementById(`${prefix}-days`).textContent = '—';
+    document.getElementById(`${prefix}-y`).textContent = '—';
+    document.getElementById(`${prefix}-m`).textContent = '—';
+    document.getElementById(`${prefix}-d`).textContent = '—';
+    document.getElementById(`${prefix}-sub`).textContent = startDate ? 'Дата початку ще не настала' : 'Вкажіть дату початку служби в налаштуваннях';
+    document.getElementById(`${prefix}-ring`).style.strokeDashoffset = '339.29';
+    return;
+  }
+  const days = Math.floor((today - start) / 86400000);
+  const duration = calendarDuration(start, today);
+  document.getElementById(`${prefix}-days`).textContent = days.toLocaleString('uk-UA');
+  document.getElementById(`${prefix}-y`).textContent = duration.years;
+  document.getElementById(`${prefix}-m`).textContent = duration.months;
+  document.getElementById(`${prefix}-d`).textContent = duration.days;
+  document.getElementById(`${prefix}-sub`).textContent = `Від ${start.toLocaleDateString('uk-UA', {timeZone:'UTC'})}`;
+  document.getElementById(`${prefix}-ring`).style.strokeDashoffset = String(339.29 * (1 - (days % 365.2425) / 365.2425));
+}
+
+function updateDayCounters(){
+  updateDayWidget('war', '2022-02-24');
+  updateDayWidget('srv', document.getElementById('cfg-service-start')?.value || '');
 }
 
 function playAlertSound(){
@@ -1558,6 +1690,9 @@ async function loadSettings(){
     document.getElementById('cfg-weather-lon').value = c.weather_lon ?? 30.744;
     const tgt = document.getElementById('cfg-outage-target');
     if(tgt) tgt.value = c.outage_target ?? '';
+    const serviceStart = document.getElementById('cfg-service-start');
+    if(serviceStart) serviceStart.value = c.service_start ?? '';
+    updateDayCounters();
   }catch(e){}
 }
 async function saveSettings(){
@@ -1566,12 +1701,14 @@ async function saveSettings(){
   const weatherLat = document.getElementById('cfg-weather-lat').value;
   const weatherLon = document.getElementById('cfg-weather-lon').value;
   const outageTarget = document.getElementById('cfg-outage-target') ? document.getElementById('cfg-outage-target').value : '';
+  const serviceStart = document.getElementById('cfg-service-start') ? document.getElementById('cfg-service-start').value : '';
   try{
-    const url = `/settings/update?alert_max=${encodeURIComponent(alertMax)}&cleanup_pct=${encodeURIComponent(cleanupPct)}&weather_lat=${encodeURIComponent(weatherLat)}&weather_lon=${encodeURIComponent(weatherLon)}&outage_target=${encodeURIComponent(outageTarget)}`;
+    const url = `/settings/update?alert_max=${encodeURIComponent(alertMax)}&cleanup_pct=${encodeURIComponent(cleanupPct)}&weather_lat=${encodeURIComponent(weatherLat)}&weather_lon=${encodeURIComponent(weatherLon)}&outage_target=${encodeURIComponent(outageTarget)}&service_start=${encodeURIComponent(serviceStart)}`;
     const r = await fetch(url);
     const j = await r.json();
     if(j.ok){
       alert('Налаштування збережено!');
+      updateDayCounters();
       loadOutage(true);
     }
   }catch(e){ alert('Помилка збереження'); }
@@ -1869,6 +2006,7 @@ pollHealth();
 loadSettings();
 loadOutage();
 setInterval(loadOutage, 60000);
+setInterval(updateDayCounters, 60000);
 loadRecordings();
 </script>
 </body></html>"""
@@ -2296,6 +2434,16 @@ class Handler(BaseHTTPRequestHandler):
                         pass
                 if "outage_target" in qs:
                     config["outage_target"] = qs["outage_target"][0].strip()
+                if "service_start" in qs:
+                    raw = qs["service_start"][0].strip()
+                    if raw == "":
+                        config["service_start"] = ""
+                    else:
+                        try:
+                            datetime.strptime(raw, "%Y-%m-%d")
+                            config["service_start"] = raw
+                        except ValueError:
+                            pass
                 settings = config.copy()
             # NOTE: outage cache is NOT invalidated here on purpose. Its key already
             # includes lat/lon/target, so it only misses if those actually changed.
