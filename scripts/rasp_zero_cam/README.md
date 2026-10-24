@@ -56,7 +56,7 @@ The BME280 is used in **SPI mode**. The built-in reader uses `python3-spidev` di
 | BME280 | `SDA` | 19 | GPIO10 / SPI0 MOSI |
 | BME280 | `SDO` | 21 | GPIO9 / SPI0 MISO |
 | BME280 | `CSB` | 24 | GPIO8 / SPI0 CE0 |
-| MH-FMD buzzer | `VCC` | 1 | 3.3 V |
+| MH-FMD buzzer | `VCC` | 4 | 5 V |
 | MH-FMD buzzer | `GND` | 6 | Ground |
 | MH-FMD buzzer | `SIG` / `I/O` | 12 | GPIO18 / PWM0 |
 

@@ -2052,11 +2052,11 @@ async function pollHealth(){
 /* 40-Pin Interactive Raspberry Pi Pinout Definition */
 const PINOUT_DEFS = [
   // Pair 1: Pin 1 & Pin 2
-  { pin: 1, name: "3v3 Power", sub: "3.3V DC • Buzzer VCC", type: "pwr3", isPwr: true, device: "🔔 Buzzer VCC" },
+  { pin: 1, name: "3v3 Power", sub: "3.3V DC", type: "pwr3", isPwr: true },
   { pin: 2, name: "5v Power", sub: "5V DC", type: "pwr5", isPwr: true },
   // Pair 2: Pin 3 & Pin 4
   { pin: 3, name: "GPIO 2", sub: "SDA / I2C1", type: "i2c", gpio: 2 },
-  { pin: 4, name: "5v Power", sub: "5V DC", type: "pwr5", isPwr: true },
+  { pin: 4, name: "5v Power", sub: "5V DC • Buzzer VCC", type: "pwr5", isPwr: true, device: "🔔 Buzzer VCC" },
   // Pair 3: Pin 5 & Pin 6
   { pin: 5, name: "GPIO 3", sub: "SCL / I2C1", type: "i2c", gpio: 3 },
   { pin: 6, name: "Ground", sub: "0V GND • Buzzer GND", type: "gnd", isGnd: true, device: "🔔 Buzzer GND" },
