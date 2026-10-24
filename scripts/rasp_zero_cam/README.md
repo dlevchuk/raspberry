@@ -8,6 +8,8 @@
 - **Color Palettes**: Supports `gray`, `blackhot`, `ironbow`, and `rainbow` colormaps.
 - **Video Recording**: Start/stop recording MJPEG stream to `.avi` video files (`/record/start`, `/record/stop`).
 - **Temperature & Health Monitoring**: `/health` JSON endpoint providing frame counters, streaming FPS, temperature/Y-stats, and restart tracking.
+- **BME280 Environmental Monitoring**: Temperature, humidity, and pressure are read over SPI0/CE0 and shown above the Host System card.
+- **Buzzer Control**: The dashboard's Signal button plays a PWM tone on GPIO18.
 - **Built-in Web Dashboard**: Served directly from `/` with interactive controls, snapshots, full-screen mode, air raid alerts map, and weather radar widget.
 - **Systemd Integration**: Runs automatically as a background service via `thermal-web.service`.
 - **Automated CI/CD**: Automatic deployment and service reload via GitHub Actions over Tailscale.
@@ -21,6 +23,44 @@
 - **System Dependencies**:
   - `ffmpeg` (compiled with `v4l2` support)
   - V4L2 thermal camera device at `/dev/video0`
+  - `python3-spidev` for the BME280 SPI reader
+  - `python3-gpiozero` and `python3-lgpio` for PWM buzzer control
+  - SPI enabled in Raspberry Pi OS
+
+Install the required packages and enable SPI:
+
+```bash
+sudo apt update
+sudo apt install -y ffmpeg python3-spidev python3-gpiozero python3-lgpio
+sudo raspi-config nonint do_spi 0
+sudo reboot
+```
+
+For manual execution, the current user needs access to the hardware groups:
+
+```bash
+sudo usermod -aG spi,gpio,video "$USER"
+```
+
+Log out and back in after changing group membership. The supplied systemd service already declares these groups.
+
+### Raspberry Pi Pinout
+
+The BME280 is used in **SPI mode**. The built-in reader uses `python3-spidev` directly; it does not require Blinka, a Python virtual environment, or any `pip` packages.
+
+| Device | Device pin | Raspberry Pi physical pin | Function |
+| :--- | :--- | :---: | :--- |
+| BME280 | `VCC` | 17 | 3.3 V |
+| BME280 | `GND` | 9 | Ground |
+| BME280 | `SCL` | 23 | GPIO11 / SPI0 SCLK |
+| BME280 | `SDA` | 19 | GPIO10 / SPI0 MOSI |
+| BME280 | `SDO` | 21 | GPIO9 / SPI0 MISO |
+| BME280 | `CSB` | 24 | GPIO8 / SPI0 CE0 |
+| MH-FMD buzzer | `VCC` | 1 | 3.3 V |
+| MH-FMD buzzer | `GND` | 6 | Ground |
+| MH-FMD buzzer | `SIG` / `I/O` | 12 | GPIO18 / PWM0 |
+
+Do not connect BME280 to 5 V. `i2cdetect` cannot see this BME280 configuration because the module is connected through SPI, not I²C. A working sensor identifies itself with SPI chip ID `0x60`.
 
 ---
 

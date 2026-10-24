@@ -2,6 +2,7 @@
 import os
 import re
 import sys
+import struct
 
 # Systemd services often run with HOME=/ or invalid home, breaking lgpio pipe creation (//.lgd-nfy0).
 # Ensure a writable directory is set for lgpio / gpiozero so it doesn't fall back to NativePinFactory.
@@ -35,6 +36,13 @@ QUALITY = os.environ.get("THERMAL_QUALITY", "3")
 SCALE = os.environ.get("THERMAL_SCALE", "")
 
 STALE_AFTER = float(os.environ.get("THERMAL_STALE_SEC", "3"))
+
+# BME280 uses SPI0/CE0: physical pins 19, 21, 23, and 24.
+# Read it directly through python3-spidev to avoid a Blinka/CE0 ownership conflict.
+BME_SPI_BUS = int(os.environ.get("BME_SPI_BUS", "0"))
+BME_SPI_DEVICE = int(os.environ.get("BME_SPI_DEVICE", "0"))
+BME_SPI_SPEED_HZ = int(os.environ.get("BME_SPI_SPEED_HZ", "500000"))
+BME_READ_INTERVAL = float(os.environ.get("BME_READ_INTERVAL", "2"))
 
 REC_DIR = os.environ.get("THERMAL_REC_DIR", os.path.expanduser("~/thermal_recordings"))
 STATS_FIFO = "/tmp/thermal_signalstats.fifo"
@@ -308,6 +316,140 @@ def get_gpio_status():
                 "raw": line
             }
     return pins
+
+
+def _u16(data, offset):
+    return struct.unpack_from("<H", bytes(data), offset)[0]
+
+
+def _s16(data, offset):
+    return struct.unpack_from("<h", bytes(data), offset)[0]
+
+
+def _s12(value):
+    return value - 4096 if value & 0x800 else value
+
+
+class BME280SpiReader:
+    """Small, dependency-free BME280 reader for SPI0/CE0."""
+
+    def __init__(self, bus=BME_SPI_BUS, device=BME_SPI_DEVICE, speed_hz=BME_SPI_SPEED_HZ):
+        import spidev
+
+        self.spi = spidev.SpiDev()
+        self.spi.open(bus, device)
+        self.spi.max_speed_hz = speed_hz
+        self.spi.mode = 0
+        self._load_calibration()
+        # Humidity oversampling must be configured before ctrl_meas.
+        self._write(0xF2, 0x01)
+        self._write(0xF4, 0x27)  # temperature/pressure x1, normal mode
+        self._write(0xF5, 0xB0)  # 1000 ms standby, IIR filter x16
+        time.sleep(0.2)
+
+    def close(self):
+        self.spi.close()
+
+    def _read(self, register, length):
+        return self.spi.xfer2([register | 0x80] + [0] * length)[1:]
+
+    def _write(self, register, value):
+        self.spi.xfer2([register & 0x7F, value])
+
+    def _load_calibration(self):
+        chip_id = self._read(0xD0, 1)[0]
+        if chip_id != 0x60:
+            raise RuntimeError(f"BME280 chip ID mismatch: 0x{chip_id:02X}")
+
+        cal1 = self._read(0x88, 26)
+        cal2 = self._read(0xE1, 7)
+        self.t1, self.t2, self.t3 = _u16(cal1, 0), _s16(cal1, 2), _s16(cal1, 4)
+        self.p1 = _u16(cal1, 6)
+        self.p2, self.p3, self.p4 = _s16(cal1, 8), _s16(cal1, 10), _s16(cal1, 12)
+        self.p5, self.p6, self.p7 = _s16(cal1, 14), _s16(cal1, 16), _s16(cal1, 18)
+        self.p8, self.p9 = _s16(cal1, 20), _s16(cal1, 22)
+        self.h1 = cal1[25]
+        self.h2, self.h3 = _s16(cal2, 0), cal2[2]
+        self.h4 = _s12((cal2[3] << 4) | (cal2[4] & 0x0F))
+        self.h5 = _s12((cal2[5] << 4) | (cal2[4] >> 4))
+        self.h6 = cal2[6] - 256 if cal2[6] > 127 else cal2[6]
+
+    def read(self):
+        data = self._read(0xF7, 8)
+        raw_pressure = (data[0] << 12) | (data[1] << 4) | (data[2] >> 4)
+        raw_temperature = (data[3] << 12) | (data[4] << 4) | (data[5] >> 4)
+        raw_humidity = (data[6] << 8) | data[7]
+
+        var1 = (raw_temperature / 16384.0 - self.t1 / 1024.0) * self.t2
+        var2 = ((raw_temperature / 131072.0 - self.t1 / 8192.0) ** 2) * self.t3
+        t_fine = var1 + var2
+        temperature = t_fine / 5120.0
+
+        var1 = t_fine / 2.0 - 64000.0
+        var2 = var1 * var1 * self.p6 / 32768.0
+        var2 = var2 + var1 * self.p5 * 2.0
+        var2 = var2 / 4.0 + self.p4 * 65536.0
+        var1 = (self.p3 * var1 * var1 / 524288.0 + self.p2 * var1) / 524288.0
+        var1 = (1.0 + var1 / 32768.0) * self.p1
+        if var1 == 0:
+            raise RuntimeError("BME280 pressure calibration is invalid")
+        pressure = (1048576.0 - raw_pressure - var2 / 4096.0) * 6250.0 / var1
+        var1 = self.p9 * pressure * pressure / 2147483648.0
+        var2 = pressure * self.p8 / 32768.0
+        pressure = (pressure + (var1 + var2 + self.p7) / 16.0) / 100.0
+
+        humidity = t_fine - 76800.0
+        humidity = (
+            (raw_humidity - (self.h4 * 64.0 + self.h5 / 16384.0 * humidity))
+            * (self.h2 / 65536.0 * (1.0 + self.h6 / 67108864.0 * humidity
+               * (1.0 + self.h3 / 67108864.0 * humidity)))
+        )
+        humidity *= 1.0 - self.h1 * humidity / 524288.0
+
+        return {
+            "available": True,
+            "temperature": round(temperature, 1),
+            "humidity": round(max(0.0, min(100.0, humidity)), 1),
+            "pressure": round(pressure, 1),
+            "error": None,
+        }
+
+
+bme_lock = threading.Lock()
+bme_reader = None
+bme_last_read = 0.0
+bme_last_result = {"available": False, "temperature": None, "humidity": None, "pressure": None,
+                   "error": "BME280 has not been read yet"}
+
+
+def get_bme280_reading():
+    """Return a cached BME280 reading, retrying sensor setup after an error."""
+    global bme_reader, bme_last_read, bme_last_result
+    with bme_lock:
+        now = time.monotonic()
+        if now - bme_last_read < BME_READ_INTERVAL:
+            return dict(bme_last_result)
+        try:
+            if bme_reader is None:
+                bme_reader = BME280SpiReader()
+            bme_last_result = bme_reader.read()
+        except Exception as e:
+            if bme_reader is not None:
+                try:
+                    bme_reader.close()
+                except Exception:
+                    pass
+            bme_reader = None
+            bme_last_result = {
+                "available": False,
+                "temperature": None,
+                "humidity": None,
+                "pressure": None,
+                "error": str(e),
+            }
+            print(f"[BME280] Read failed: {e}")
+        bme_last_read = now
+        return dict(bme_last_result)
 
 
 
@@ -1066,6 +1208,28 @@ PAGE = """<!doctype html>
       <div class="col">
         <div class="card">
           <div class="card-header">
+            <h3>BME280 • Датчик довкілля</h3>
+            <span id="bme-status" class="status-badge warn">⌛ Очікування</span>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <span class="stat-label">Температура</span>
+              <span id="bme-temperature" class="stat-val">-</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Вологість</span>
+              <span id="bme-humidity" class="stat-val">-</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Тиск</span>
+              <span id="bme-pressure" class="stat-val">-</span>
+            </div>
+          </div>
+          <div id="bme-summary" class="stat-sub" style="margin-top:10px">Температура: - °C | Вологість: - % | Тиск: - hPa</div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
             <h3>Host System</h3>
             <span id="sys-uptime-badge" style="font-size:12px;color:#888;font-family:monospace">up: -</span>
           </div>
@@ -1814,6 +1978,26 @@ async function pollHealth(){
       }
     }
 
+    const bme = h.bme280 || {};
+    const bmeStatus = document.getElementById('bme-status');
+    const bmeTemp = document.getElementById('bme-temperature');
+    const bmeHumidity = document.getElementById('bme-humidity');
+    const bmePressure = document.getElementById('bme-pressure');
+    const bmeSummary = document.getElementById('bme-summary');
+    if(bme.available){
+      if(bmeStatus){ bmeStatus.className = 'status-badge ok'; bmeStatus.textContent = '● SPI0 / CE0'; }
+      if(bmeTemp) bmeTemp.textContent = `${bme.temperature} °C`;
+      if(bmeHumidity) bmeHumidity.textContent = `${bme.humidity} %`;
+      if(bmePressure) bmePressure.textContent = `${bme.pressure} hPa`;
+      if(bmeSummary) bmeSummary.textContent = `Температура: ${bme.temperature} °C | Вологість: ${bme.humidity} % | Тиск: ${bme.pressure} hPa`;
+    }else{
+      if(bmeStatus){ bmeStatus.className = 'status-badge bad'; bmeStatus.textContent = '⚠ Недоступний'; }
+      if(bmeTemp) bmeTemp.textContent = '-';
+      if(bmeHumidity) bmeHumidity.textContent = '-';
+      if(bmePressure) bmePressure.textContent = '-';
+      if(bmeSummary) bmeSummary.textContent = bme.error ? `Помилка BME280: ${bme.error}` : 'BME280 недоступний';
+    }
+
     if (h.sys_stats) {
       const s = h.sys_stats;
       const cpuEl = document.getElementById('sys-cpu-temp');
@@ -1868,19 +2052,19 @@ async function pollHealth(){
 /* 40-Pin Interactive Raspberry Pi Pinout Definition */
 const PINOUT_DEFS = [
   // Pair 1: Pin 1 & Pin 2
-  { pin: 1, name: "3v3 Power", sub: "3.3V DC", type: "pwr3", isPwr: true },
+  { pin: 1, name: "3v3 Power", sub: "3.3V DC • Buzzer VCC", type: "pwr3", isPwr: true, device: "🔔 Buzzer VCC" },
   { pin: 2, name: "5v Power", sub: "5V DC", type: "pwr5", isPwr: true },
   // Pair 2: Pin 3 & Pin 4
   { pin: 3, name: "GPIO 2", sub: "SDA / I2C1", type: "i2c", gpio: 2 },
   { pin: 4, name: "5v Power", sub: "5V DC", type: "pwr5", isPwr: true },
   // Pair 3: Pin 5 & Pin 6
   { pin: 5, name: "GPIO 3", sub: "SCL / I2C1", type: "i2c", gpio: 3 },
-  { pin: 6, name: "Ground", sub: "0V GND", type: "gnd", isGnd: true },
+  { pin: 6, name: "Ground", sub: "0V GND • Buzzer GND", type: "gnd", isGnd: true, device: "🔔 Buzzer GND" },
   // Pair 4: Pin 7 & Pin 8
   { pin: 7, name: "GPIO 4", sub: "GPCLK0", type: "gpio", gpio: 4 },
   { pin: 8, name: "GPIO 14", sub: "TXD / UART", type: "uart", gpio: 14 },
   // Pair 5: Pin 9 & Pin 10
-  { pin: 9, name: "Ground", sub: "0V GND", type: "gnd", isGnd: true },
+  { pin: 9, name: "Ground", sub: "0V GND • BME280 GND", type: "gnd", isGnd: true, device: "🌡️ BME280 GND" },
   { pin: 10, name: "GPIO 15", sub: "RXD / UART", type: "uart", gpio: 15 },
   // Pair 6: Pin 11 & Pin 12
   { pin: 11, name: "GPIO 17", sub: "General IO", type: "gpio", gpio: 17 },
@@ -1892,17 +2076,17 @@ const PINOUT_DEFS = [
   { pin: 15, name: "GPIO 22", sub: "General IO", type: "gpio", gpio: 22 },
   { pin: 16, name: "GPIO 23", sub: "General IO", type: "gpio", gpio: 23 },
   // Pair 9: Pin 17 & Pin 18
-  { pin: 17, name: "3v3 Power", sub: "3.3V DC", type: "pwr3", isPwr: true },
+  { pin: 17, name: "3v3 Power", sub: "3.3V DC • BME280 VCC", type: "pwr3", isPwr: true, device: "🌡️ BME280 VCC" },
   { pin: 18, name: "GPIO 24", sub: "General IO", type: "gpio", gpio: 24 },
   // Pair 10: Pin 19 & Pin 20
-  { pin: 19, name: "GPIO 10", sub: "MOSI / SPI0", type: "spi", gpio: 10 },
+  { pin: 19, name: "GPIO 10", sub: "MOSI / SPI0 • BME280 SDA", type: "spi", gpio: 10, device: "🌡️ BME280 SDA" },
   { pin: 20, name: "Ground", sub: "0V GND", type: "gnd", isGnd: true },
   // Pair 11: Pin 21 & Pin 22
-  { pin: 21, name: "GPIO 9", sub: "MISO / SPI0", type: "spi", gpio: 9 },
+  { pin: 21, name: "GPIO 9", sub: "MISO / SPI0 • BME280 SDO", type: "spi", gpio: 9, device: "🌡️ BME280 SDO" },
   { pin: 22, name: "GPIO 25", sub: "General IO", type: "gpio", gpio: 25 },
   // Pair 12: Pin 23 & Pin 24
-  { pin: 23, name: "GPIO 11", sub: "SCLK / SPI0", type: "spi", gpio: 11 },
-  { pin: 24, name: "GPIO 8", sub: "CE0 / SPI0", type: "spi", gpio: 8 },
+  { pin: 23, name: "GPIO 11", sub: "SCLK / SPI0 • BME280 SCL", type: "spi", gpio: 11, device: "🌡️ BME280 SCL" },
+  { pin: 24, name: "GPIO 8", sub: "CE0 / SPI0 • BME280 CSB", type: "spi", gpio: 8, device: "🌡️ BME280 CSB" },
   // Pair 13: Pin 25 & Pin 26
   { pin: 25, name: "Ground", sub: "0V GND", type: "gnd", isGnd: true },
   { pin: 26, name: "GPIO 7", sub: "CE1 / SPI0", type: "spi", gpio: 7 },
@@ -2571,6 +2755,7 @@ class Handler(BaseHTTPRequestHandler):
             body["recording"] = rec
             temp_stats = get_temp_stats()
             body["temp"] = temp_stats
+            body["bme280"] = get_bme280_reading()
 
             # Thermal alert check
             with config_lock:

@@ -12,7 +12,7 @@ ExecStart=/usr/bin/python3 /home/pi/thermal_web.py
 Restart=always
 RestartSec=2
 User=pi
-SupplementaryGroups=video
+SupplementaryGroups=video gpio spi
 StandardOutput=null
 StandardError=journal
 
